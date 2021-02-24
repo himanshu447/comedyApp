@@ -1,21 +1,27 @@
+import 'package:comedy/utils/route/route_generator.dart';
 import 'package:flutter/material.dart';
+import 'package:comedy/injector.dart' as injector;
 
-void main() {
+import 'feacture/landing/presentation/page/landing.dart';
+
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await injector.init();
   runApp(ComedyApp());
 }
 
 class ComedyApp extends StatelessWidget {
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: MyHomePage(),
+      onGenerateRoute: RouteGenerator.generateRoute,
+      home: LandingView(),
     );
   }
 }
