@@ -47,6 +47,7 @@ class AppColor {
   static const Color black = Color(0xFF010113);
   static const Color gry = Color(0xFFA1A4B2);
   static const Color light_black = Color(0xFF3F414E);
+  static const Color white = Color(0xFFFFFFFF);
 
   static const Color bottomBarTextColor = Color(0xFFA69FAD);
 

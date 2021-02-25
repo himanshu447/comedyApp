@@ -1,3 +1,4 @@
+import 'package:comedy/feacture/home/presentation/page/home.dart';
 import 'package:comedy/feacture/landing/presentation/bloc/landing_bloc.dart';
 import 'package:comedy/injector.dart';
 import 'package:comedy/utils/component/bottom_nav_component.dart';
@@ -58,11 +59,7 @@ class _LandingViewState extends State<LandingView> {
       body: IndexedStack(
         index: selectedTab.index,
         children: [
-          Center(
-            child: TextComponent(
-              title: 'TAB 1',
-            ),
-          ),
+          HomeView(),
           Center(
             child: TextComponent(
               title: 'TAB 2',

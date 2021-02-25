@@ -7,4 +7,15 @@ class AppString {
   static const String submit_prompt = 'Submit s prompt';
   static const String about = 'About';
 
+  ///Home screen
+  static const String laugh_draft = 'LaughDraft';
+  static const String answer_writing_prompts = 'Answer writing prompts';
+  static const String answer_writing_prompts_desc = 'Answer a randomly-selected comedy writing prompt in five minutes or less.';
+  static const String write_without_prompts = 'Write without prompts';
+  static const String write_without_prompts_desc = 'Write a humorous observation, comedy bit or story, or anything else that comes to your mind.';
+  static const String event_and_shows = 'Events and shows';
+  static const String event_and_shows_desc = 'Advertise or check out events and shows in the humor-verse.';
+
+
+
 }
