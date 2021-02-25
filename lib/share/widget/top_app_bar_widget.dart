@@ -6,10 +6,12 @@ class TopAppBarWidget extends StatelessWidget {
   final String title;
   final String subTitle;
 
-  const TopAppBarWidget({
-    this.title,
+  TopAppBarWidget({
+    @required this.title,
     this.subTitle,
-  });
+  }) {
+    assert(title != null);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -35,12 +37,12 @@ class TopAppBarWidget extends StatelessWidget {
           Visibility(
             visible: subTitle != null,
             child: TextComponent(
-              title: subTitle != null ? subTitle :'',
+              title: subTitle != null ? subTitle : '',
               fontSize: 17,
               fontWeight: FontWeight.w600,
               color: AppColor.white,
               textAlign: TextAlign.center,
-              margin: EdgeInsets.only(top: 60),
+              margin: EdgeInsets.only(top: 60,right: 20,left: 20),
             ),
           )
         ],

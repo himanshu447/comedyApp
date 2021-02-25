@@ -1,5 +1,6 @@
 import 'package:comedy/feacture/home/presentation/page/home.dart';
 import 'package:comedy/feacture/landing/presentation/bloc/landing_bloc.dart';
+import 'package:comedy/feacture/submit_prompt/presentation/page/submit_prompt.dart';
 import 'package:comedy/injector.dart';
 import 'package:comedy/utils/component/bottom_nav_component.dart';
 import 'package:comedy/utils/component/text_component.dart';
@@ -65,11 +66,7 @@ class _LandingViewState extends State<LandingView> {
               title: 'TAB 2',
             ),
           ),
-          Center(
-            child: TextComponent(
-              title: 'TAB 3',
-            ),
-          ),
+          SubmitPromptWidget(),
           Center(
             child: TextComponent(
               title: 'TAB 4',
