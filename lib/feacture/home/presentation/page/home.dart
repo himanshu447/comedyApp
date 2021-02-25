@@ -1,3 +1,4 @@
+import 'package:comedy/feacture/events_shows/presentation/page/events_shows.dart';
 import 'package:comedy/feacture/home/presentation/widget/home_answer_writing_prompt_card.dart';
 import 'package:comedy/feacture/home/presentation/widget/home_event_card_widget.dart';
 import 'package:comedy/feacture/home/presentation/widget/home_write_without_prompt_card_widget.dart';
@@ -33,7 +34,12 @@ class HomeView extends StatelessWidget {
                     cardClickCallback: () {},
                   ),
                   HomeEventCardWidget(
-                    cardClickCallback: () {},
+                    cardClickCallback: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => EventsShows()));
+                    },
                   ),
                 ],
               ),

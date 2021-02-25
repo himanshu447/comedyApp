@@ -1,8 +1,7 @@
 import 'package:flutter/cupertino.dart';
 
 class AppColor {
-
-  static const Map<int, Color> primary_blue = const<int, Color>{
+  static const Map<int, Color> primary_blue = const <int, Color>{
     50: const Color(0xFFF0F0FE),
     100: const Color(0xFFE0E1FD),
     200: const Color(0xFFD1D2FC),
@@ -11,7 +10,7 @@ class AppColor {
     500: const Color(0xFF6468F4),
   };
 
-  static const Map<int, Color> primary_green = const<int, Color>{
+  static const Map<int, Color> primary_green = const <int, Color>{
     50: const Color(0xFFEAFAF7),
     100: const Color(0xFFD5F5EF),
     200: const Color(0xFFC0F0E7),
@@ -20,7 +19,7 @@ class AppColor {
     500: const Color(0xFF2CCCAE),
   };
 
-  static const Map<int, Color> primary_pink = const<int, Color>{
+  static const Map<int, Color> primary_pink = const <int, Color>{
     50: const Color(0xFFFFF1F1),
     100: const Color(0xFFFEE3E3),
     200: const Color(0xFFFED5D5),
@@ -29,7 +28,7 @@ class AppColor {
     500: const Color(0xFFFA7274),
   };
 
-  static const Map<int, Color> primary_orange = const<int, Color>{
+  static const Map<int, Color> primary_orange = const <int, Color>{
     50: const Color(0xFFFFF7F0),
     100: const Color(0xFFFFF0E0),
     200: const Color(0xFFFFE8D1),
@@ -37,7 +36,6 @@ class AppColor {
     400: const Color(0xFFFFD9B2),
     500: const Color(0xFFFFB264),
   };
-
 
   static const Color error = Color(0xFFDA1E28);
   static const Color success = Color(0xFF03AD53);
@@ -52,6 +50,4 @@ class AppColor {
   static const Color bottomBarTextColor = Color(0xFFA69FAD);
 
   static const Color textFieldBgColor = Color(0xFFF2F3F7);
-
-
 }

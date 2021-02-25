@@ -14,6 +14,7 @@ class TextComponent extends StatelessWidget {
   final Key key;
   final double height;
   final TextDecoration textDecoration;
+  final TextStyle textStyle;
 
   TextComponent({
     @required this.title,
@@ -28,6 +29,7 @@ class TextComponent extends StatelessWidget {
     this.fontStyle,
     this.key,
     this.height,
+    this.textStyle,
     this.textDecoration,
   }) {
     assert(title != null);
@@ -42,15 +44,16 @@ class TextComponent extends StatelessWidget {
         key: key,
         semanticsLabel: this.title,
         textAlign: textAlign,
-        style: TextStyle(
-          decoration: textDecoration,
-          fontFamily: fontFamily,
-          color: this.color,
-          fontWeight: this.fontWeight,
-          fontSize: this.fontSize,
-          fontStyle: fontStyle,
-          height: height,
-        ),
+        style: textStyle ??
+            TextStyle(
+              decoration: textDecoration,
+              fontFamily: fontFamily,
+              color: this.color,
+              fontWeight: this.fontWeight,
+              fontSize: this.fontSize,
+              fontStyle: fontStyle,
+              height: height,
+            ),
         overflow: textOverflow,
       ),
     );

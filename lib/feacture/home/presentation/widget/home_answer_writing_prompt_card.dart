@@ -13,14 +13,12 @@ class HomeAnswerWritingPromptCardWidget extends StatelessWidget {
     return GestureDetector(
       onTap: cardClickCallback,
       child: Container(
-        height: 135,
         width: double.infinity,
         margin: EdgeInsets.symmetric(
           horizontal: 20,
           vertical: 20,
         ),
-        padding:
-        EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
         decoration: BoxDecoration(
           color: AppColor.primary_green[500],
           borderRadius: BorderRadius.circular(15),

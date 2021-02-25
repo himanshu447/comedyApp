@@ -13,7 +13,6 @@ class HomeWriteWithoutPromptCardWidget extends StatelessWidget {
     return GestureDetector(
       onTap: cardClickCallback,
       child: Container(
-        height: 135,
         margin: EdgeInsets.symmetric(
           horizontal: 20,
           vertical: 12,
