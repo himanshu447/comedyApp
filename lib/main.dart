@@ -1,6 +1,6 @@
+import 'package:comedy/injector.dart' as injector;
 import 'package:comedy/utils/route/route_generator.dart';
 import 'package:flutter/material.dart';
-import 'package:comedy/injector.dart' as injector;
 
 import 'feacture/landing/presentation/page/landing.dart';
 
@@ -23,17 +23,5 @@ class ComedyApp extends StatelessWidget {
       onGenerateRoute: RouteGenerator.generateRoute,
       home: LandingView(),
     );
-  }
-}
-
-class MyHomePage extends StatefulWidget {
-  @override
-  _MyHomePageState createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold();
   }
 }
