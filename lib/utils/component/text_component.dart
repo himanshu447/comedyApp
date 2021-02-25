@@ -24,7 +24,7 @@ class TextComponent extends StatelessWidget {
     this.margin: EdgeInsets.zero,
     this.alignment: Alignment.centerLeft,
     this.textOverflow: TextOverflow.fade,
-    this.fontFamily,
+    this.fontFamily = 'SF Pro Display',
     this.fontStyle,
     this.key,
     this.height,

@@ -2,6 +2,7 @@ import 'package:comedy/injector.dart' as injector;
 import 'package:comedy/utils/route/route_generator.dart';
 import 'package:flutter/material.dart';
 
+import 'config/apptheme.dart';
 import 'feacture/landing/presentation/page/landing.dart';
 
 void main() async {
@@ -16,10 +17,7 @@ class ComedyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-        visualDensity: VisualDensity.adaptivePlatformDensity,
-      ),
+      theme: AppTheme.themeColors(context),
       onGenerateRoute: RouteGenerator.generateRoute,
       home: LandingView(),
     );
