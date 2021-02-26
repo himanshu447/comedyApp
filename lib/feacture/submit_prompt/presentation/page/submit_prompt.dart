@@ -23,10 +23,6 @@ class _SubmitPromptWidgetState extends State<SubmitPromptWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: AppColor.primary_blue[500],
-        elevation: 0.0,
-      ),
       body: loadBody,
     );
   }
@@ -42,7 +38,14 @@ class _SubmitPromptWidgetState extends State<SubmitPromptWidget> {
           children: [
             TopAppBarWidget(
               title: AppString.laugh_draft,
-              subTitle: AppString.submit_prompt_top_desc,
+              subTitle: TextComponent(
+                title: AppString.submit_prompt_top_desc,
+                fontSize: 17,
+                fontWeight: FontWeight.w600,
+                color: AppColor.white,
+                textAlign: TextAlign.center,
+                margin: EdgeInsets.only(top: 60,right: 20,left: 20),
+              ),
             ),
             Padding(
               padding: const EdgeInsets.symmetric(

@@ -1,14 +1,15 @@
 import 'package:comedy/utils/color_util.dart';
 import 'package:comedy/utils/component/text_component.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class TopAppBarWidget extends StatelessWidget {
   final String title;
-  final String subTitle;
+  final Widget subTitle;
 
-  TopAppBarWidget({
+   TopAppBarWidget({
     @required this.title,
-    this.subTitle,
+    this.subTitle = const SizedBox(),
   }) {
     assert(title != null);
   }
@@ -20,7 +21,8 @@ class TopAppBarWidget extends StatelessWidget {
 
     return Container(
       width: double.infinity,
-      height: MediaQuery.of(context).size.height / 4,
+      height: MediaQuery.of(context).size.width /1.5,
+      padding: EdgeInsets.only(top: height+20),
       decoration: BoxDecoration(
         color: AppColor.primary_blue[500],
         borderRadius: BorderRadius.only(
@@ -37,17 +39,7 @@ class TopAppBarWidget extends StatelessWidget {
             color: AppColor.white,
             textAlign: TextAlign.center,
           ),
-          Visibility(
-            visible: subTitle != null,
-            child: TextComponent(
-              title: subTitle != null ? subTitle : '',
-              fontSize: 17,
-              fontWeight: FontWeight.w600,
-              color: AppColor.white,
-              textAlign: TextAlign.center,
-              margin: EdgeInsets.only(top: 60,right: 20,left: 20),
-            ),
-          )
+          subTitle,
         ],
       ),
     );
