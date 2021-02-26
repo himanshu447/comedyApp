@@ -1,3 +1,4 @@
+import 'package:comedy/feacture/events_shows/presentation/page/events_shows.dart';
 import 'package:comedy/utils/route/route_name.dart';
 import 'package:flutter/material.dart';
 
@@ -7,7 +8,7 @@ class RouteGenerator {
 
     switch (routeSettings.name) {
       case RouteName.event_show:
-        return MaterialPageRoute(builder: (_) => Container());
+        return MaterialPageRoute(builder: (_) => EventsShows());
 
       default:
         return null;

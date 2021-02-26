@@ -1,11 +1,9 @@
 class AppString {
-
   ///Common
   static const String app_name = 'ComedyApp';
   static const String submit = 'Submit';
   static const String ok = 'Ok';
   static const String search = 'Search...';
-
 
   ///Landing Screen
   static const String home = 'Home';
@@ -36,9 +34,10 @@ class AppString {
   static const String error_required_email = 'Please enter a email address.';
   static const String error_required_website = 'Please enter website.';
   static const String error_required_prompt_text = 'Please enter prompt text.';
-  static const String submit_prompt_success_msg = 'Thank you for your submission. We will review and get back to you.';
+  static const String submit_prompt_success_msg =
+      'Thank you for your submission. We will review and get back to you.';
 
-
-///Events And shows
-
+  ///Events And shows
+  static const String no_events_or_shows = 'No events or shows yet!';
+  static const String Submit_event_or_show = 'Submit event or show';
 }

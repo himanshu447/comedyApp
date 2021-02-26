@@ -23,4 +23,29 @@ class StyleUtil {
     fontWeight: FontWeight.w400,
     fontFamily: 'SF Pro Display',
   );
+  static TextStyle calenderBodyTextStyle = const TextStyle(
+    fontSize: 17,
+    color: AppColor.white,
+    fontWeight: FontWeight.w400,
+    fontFamily: 'SF Pro Display',
+  );
+  static TextStyle calenderTextStyle = const TextStyle(
+    fontSize: 17,
+    color: AppColor.gry,
+    fontWeight: FontWeight.w400,
+    fontFamily: 'SF Pro Display',
+  );
+  static TextStyle calenderHeaderTextStyle = const TextStyle(
+    fontSize: 17,
+    color: AppColor.black,
+    fontWeight: FontWeight.w600,
+    fontFamily: 'SF Pro Display',
+  );
+
+  static TextStyle titleHeaderTextStyle = const TextStyle(
+    fontSize: 20,
+    color: AppColor.black,
+    fontWeight: FontWeight.w600,
+    fontFamily: 'SF Pro Display',
+  );
 }
