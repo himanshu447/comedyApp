@@ -4,6 +4,7 @@ class AppString {
   static const String app_name = 'ComedyApp';
   static const String submit = 'Submit';
   static const String ok = 'Ok';
+  static const String search = 'Search...';
 
 
   ///Landing Screen

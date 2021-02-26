@@ -1,5 +1,6 @@
 import 'package:comedy/feacture/home/presentation/page/home.dart';
 import 'package:comedy/feacture/landing/presentation/bloc/landing_bloc.dart';
+import 'package:comedy/feacture/my_saved/presentation/page/my_saved.dart';
 import 'package:comedy/feacture/submit_prompt/presentation/page/submit_prompt.dart';
 import 'package:comedy/injector.dart';
 import 'package:comedy/utils/component/bottom_nav_component.dart';
@@ -61,11 +62,7 @@ class _LandingViewState extends State<LandingView> {
         index: selectedTab.index,
         children: [
           HomeView(),
-          Center(
-            child: TextComponent(
-              title: 'TAB 2',
-            ),
-          ),
+          MySavedView(),
           SubmitPromptWidget(),
           Center(
             child: TextComponent(
