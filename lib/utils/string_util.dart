@@ -1,7 +1,10 @@
 class AppString {
+
   ///Common
   static const String app_name = 'ComedyApp';
   static const String submit = 'Submit';
+  static const String ok = 'Ok';
+
 
   ///Landing Screen
   static const String home = 'Home';
@@ -24,7 +27,17 @@ class AppString {
   ///submit prompt
   static const String submit_prompt_top_desc =
       'We are always looking for new  prompts to help with comedy writing. We’ll attribute all prompts.';
+  static const String hint_your_name = 'Your name';
+  static const String hint_your_email = 'Your email';
+  static const String hint_your_website = 'Your website';
+  static const String hint_prompt_text = 'Prompt text';
+  static const String error_required_name = 'Please enter your name.';
+  static const String error_required_email = 'Please enter a email address.';
+  static const String error_required_website = 'Please enter website.';
+  static const String error_required_prompt_text = 'Please enter prompt text.';
+  static const String submit_prompt_success_msg = 'Thank you for your submission. We will review and get back to you.';
 
-  ///Events And shows
+
+///Events And shows
 
 }

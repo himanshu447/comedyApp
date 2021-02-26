@@ -1,5 +1,6 @@
 import 'package:comedy/utils/color_util.dart';
 import 'package:comedy/utils/component/text_component.dart';
+import 'package:comedy/utils/icons_utils.dart';
 import 'package:comedy/utils/string_util.dart';
 import 'package:flutter/material.dart';
 
@@ -49,12 +50,13 @@ class HomeAnswerWritingPromptCardWidget extends StatelessWidget {
                     fontSize: 15,
                     fontWeight: FontWeight.w400,
                     color: Colors.black38,
+                    margin: EdgeInsets.only(bottom: 12),
                   ),
                 ],
               ),
             ),
             Image.asset(
-              'assets/images/icons/home/answer_writing_prompts.png',
+              AppIcons.ic_home_answer_writing,
               height: 74,
             ),
           ],

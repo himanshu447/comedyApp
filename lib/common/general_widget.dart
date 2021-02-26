@@ -13,6 +13,11 @@ Widget verticalColorBar() => Container(
 
 Widget imageAsset({String img, double width, double height, Color color}) =>
     Container(
-      child: Image.asset(img,
-          width: width, height: height, color: color, fit: BoxFit.cover),
+      child: Image.asset(
+        img,
+        width: width,
+        height: height,
+        color: color,
+        fit: BoxFit.cover,
+      ),
     );

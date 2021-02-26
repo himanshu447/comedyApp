@@ -15,6 +15,9 @@ class TopAppBarWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    final height = AppBar().preferredSize.height;
+
     return Container(
       width: double.infinity,
       height: MediaQuery.of(context).size.height / 4,

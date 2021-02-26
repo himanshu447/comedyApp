@@ -1,5 +1,6 @@
 import 'package:comedy/utils/color_util.dart';
 import 'package:comedy/utils/component/text_component.dart';
+import 'package:comedy/utils/icons_utils.dart';
 import 'package:comedy/utils/string_util.dart';
 import 'package:flutter/material.dart';
 
@@ -13,7 +14,6 @@ class HomeEventCardWidget extends StatelessWidget {
     return GestureDetector(
       onTap: cardClickCallback,
       child: Container(
-        height: 135,
         margin: EdgeInsets.symmetric(
           horizontal: 20,
           vertical: 20,
@@ -52,12 +52,13 @@ class HomeEventCardWidget extends StatelessWidget {
                     fontSize: 16,
                     fontWeight: FontWeight.w400,
                     color: Colors.black38,
+                    margin: EdgeInsets.only(bottom: 20),
                   ),
                 ],
               ),
             ),
             Image.asset(
-              'assets/images/icons/home/events_and_shows.png',
+              AppIcons.ic_home_event,
               height: 74,
             ),
           ],

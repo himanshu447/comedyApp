@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:comedy/utils/color_util.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class AppTheme extends StatelessWidget {
@@ -8,73 +9,79 @@ class AppTheme extends StatelessWidget {
 
   final Widget child;
 
-
   static ThemeData themeColors(BuildContext context) => ThemeData(
-    platform: Theme.of(context).platform,
-    fontFamily: 'Poppins',
-    /*  primarySwatch: AppColor.primary_blue[500],
+        platform: Theme.of(context).platform,
+        fontFamily: 'Poppins',
+        /*  primarySwatch: AppColor.primary_blue[500],
     accentIconTheme: Theme.of(context).accentIconTheme.copyWith(color: accentColor),
     accentColor: accentColor,*/
-    canvasColor: Colors.transparent,
-    backgroundColor: Colors.white,
-    scaffoldBackgroundColor: Colors.white,
-    appBarTheme: Theme.of(context).appBarTheme.copyWith(
-      elevation: 0,
-    ),
-    inputDecorationTheme: InputDecorationTheme(
-      fillColor: AppColor.gry,
-      labelStyle: const TextStyle(color: Colors.black),
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(15),
-        borderSide: const BorderSide(
-          color: Colors.transparent,
-          width: 0,
-        ),
-      ),
-      floatingLabelBehavior: FloatingLabelBehavior.auto,
-      errorStyle: const TextStyle(color: Colors.red),
-      errorBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(50),
-        borderSide: const BorderSide(
-          color: Colors.red,
-        ),
-      ),
-      /* focusColor: Colors.white,
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(50),
-            borderSide: const BorderSide(
-              color: const Color(_primaryValue),
+        canvasColor: Colors.transparent,
+        backgroundColor: Colors.white,
+        scaffoldBackgroundColor: Colors.white,
+        appBarTheme: Theme.of(context).appBarTheme.copyWith(
+              elevation: 0,
             ),
-          ),*/
-      disabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(50),
-        borderSide: BorderSide(
-          color: Colors.grey.shade400,
+        inputDecorationTheme: InputDecorationTheme(
+          fillColor: AppColor.textFieldBgColor,
+          filled: true,
+          labelStyle: const TextStyle(color: Colors.black),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(15),
+            borderSide: const BorderSide(
+              color: AppColor.textFieldBgColor,
+              width: 0,
+            ),
+          ),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(15),
+            borderSide: const BorderSide(
+              color: Colors.transparent,
+              width: 0,
+            ),
+          ),
+          hintStyle: TextStyle(
+            fontSize: 17,
+            fontFamily: 'SF Pro Display',
+            fontWeight: FontWeight.w400,
+            color: AppColor.gry,
+          ),
+          floatingLabelBehavior: FloatingLabelBehavior.auto,
+          errorStyle: const TextStyle(
+            fontSize: 16,
+            fontFamily: 'SF Pro Display',
+            fontWeight: FontWeight.w400,
+            color: AppColor.error,
+          ),
+          errorBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(15),
+            borderSide: const BorderSide(
+              color: AppColor.error,
+            ),
+          ),
+          disabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(15),
+            borderSide: BorderSide(
+              color: Colors.grey.shade400,
+            ),
+          ),
         ),
-      ),
-    ),
-    textTheme: Theme.of(context).textTheme.copyWith(
-      caption: const TextStyle(
-        color: Colors.black,
-      ),
-    ),
-    /*floatingActionButtonTheme:
+
+        textTheme: Theme.of(context).textTheme.copyWith(
+              caption: const TextStyle(
+                color: Colors.black,
+                fontSize: 20
+              ),
+            ),
+        /*floatingActionButtonTheme:
     Theme.of(context).floatingActionButtonTheme.copyWith(
       backgroundColor: accent,
     ),*/
-    /*buttonTheme: Theme.of(context).buttonTheme.copyWith(
-      textTheme: ButtonTextTheme.normal,
-      colorScheme: ColorScheme.fromSwatch(
-        accentColor: accentColor,
-        primarySwatch: primary,
-        brightness: Brightness.light,
-        errorColor: Colors.red,
-        backgroundColor: accentColor,
-      ),
-      buttonColor: const Color(_accentValue),
-      shape: const StadiumBorder(),
-    ),*/
-  );
+        buttonTheme: Theme.of(context).buttonTheme.copyWith(
+              textTheme: ButtonTextTheme.normal,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15)),
+            ),
+      );
 
   @override
   Widget build(BuildContext context) {

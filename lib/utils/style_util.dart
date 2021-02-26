@@ -16,4 +16,11 @@ class StyleUtil {
     fontWeight: FontWeight.w600,
     fontFamily: 'SF Pro Display',
   );
+
+  static TextStyle formFieldTextStyle = const TextStyle(
+    fontSize: 17,
+    color: AppColor.black,
+    fontWeight: FontWeight.w400,
+    fontFamily: 'SF Pro Display',
+  );
 }

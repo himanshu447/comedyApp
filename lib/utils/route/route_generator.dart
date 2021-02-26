@@ -6,7 +6,7 @@ class RouteGenerator {
     final args = routeSettings.arguments;
 
     switch (routeSettings.name) {
-      case RouteName.EXAMPLE:
+      case RouteName.event_show:
         return MaterialPageRoute(builder: (_) => Container());
 
       default:

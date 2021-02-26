@@ -1,5 +1,6 @@
 import 'package:comedy/utils/color_util.dart';
 import 'package:comedy/utils/component/text_component.dart';
+import 'package:comedy/utils/icons_utils.dart';
 import 'package:comedy/utils/string_util.dart';
 import 'package:flutter/material.dart';
 
@@ -51,12 +52,13 @@ class HomeWriteWithoutPromptCardWidget extends StatelessWidget {
                     fontSize: 16,
                     fontWeight: FontWeight.w400,
                     color: Colors.black38,
+                    margin: EdgeInsets.only(bottom: 12),
                   ),
                 ],
               ),
             ),
             Image.asset(
-              'assets/images/icons/home/wire_without_prompts.png',
+              AppIcons.ic_home_wire_without_prompt,
               height: 74,
             ),
           ],
