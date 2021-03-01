@@ -67,9 +67,11 @@ class _ShortAndFilterBottomSheetWidgetState
                             .indexWhere((element) => element.isChecked);
 
                         if (data >= 0) {
-                          widget.filterList[data] = widget.filterList[data].copyWith(isChecked: false);
+                          widget.filterList[data] = widget.filterList[data]
+                              .copyWith(isChecked: false);
                         }
-                        widget.filterList.first = widget.filterList.first.copyWith(isChecked: true);
+                        widget.filterList.first =
+                            widget.filterList.first.copyWith(isChecked: true);
                       });
                     },
                     child: TextComponent(

@@ -1,4 +1,5 @@
 import 'package:comedy/common/common_appbar.dart';
+import 'package:comedy/feacture/events_shows/presentation/widget/event_list_tile_widget.dart';
 import 'package:comedy/feacture/events_shows/presentation/widget/event_widget.dart';
 import 'package:comedy/utils/calender/table_calendar.dart';
 import 'package:comedy/utils/color_util.dart';
@@ -39,7 +40,25 @@ class _EventsShowsState extends State<EventsShows> {
               print(date);
             },
           ),
-          emptyEvent(),
+          Visibility(
+            visible: true,
+            child: Positioned(
+              left: 0.0,
+              right: 0.0,
+              bottom: 0.0,
+              child: ListView.builder(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 20,
+                ).copyWith(),
+                shrinkWrap: true,
+                itemCount: 10,
+                itemBuilder: (_, index) {
+                  return MyEventListTile();
+                },
+              ),
+            ),
+          ),
+          Visibility(visible: false, child: emptyEvent()),
         ],
       ),
     );

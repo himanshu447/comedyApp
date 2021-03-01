@@ -36,12 +36,13 @@ class MySavedItem extends StatelessWidget {
                   fontWeight: FontWeight.w400,
                   fontSize: 17,
                   color: AppColor.gry,
-                  margin: EdgeInsets.symmetric(horizontal: 10,vertical: 14),
+                  margin: EdgeInsets.symmetric(horizontal: 10, vertical: 14),
                 ),
               ],
             ),
             TextComponent(
-              title: 'Now led tedious shy lasting females off. Dashwood marianne in of enterance be...',
+              title:
+                  'Now led tedious shy lasting females off. Dashwood marianne in of enterance be.. yutyu.',
               fontSize: 17,
               fontWeight: FontWeight.w400,
               textOverflow: TextOverflow.ellipsis,
