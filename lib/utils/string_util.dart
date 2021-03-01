@@ -1,5 +1,4 @@
 class AppString {
-
   ///Common
   static const String app_name = 'ComedyApp';
   static const String submit = 'Submit';
@@ -10,7 +9,6 @@ class AppString {
   static const String reset = 'Reset';
   static const String apply = 'Apply';
   static const String done = 'Done';
-
 
 
   ///Landing Screen
@@ -59,6 +57,7 @@ class AppString {
   static const String add_tag = 'Add Tags';
   static const String all_tag = 'All Tags';
 
-///Events And shows
-
+  ///Events And shows
+  static const String no_events_or_shows = 'No events or shows yet!';
+  static const String Submit_event_or_show = 'Submit event or show';
 }

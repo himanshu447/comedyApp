@@ -12,7 +12,10 @@ class AppIcons {
   static const String ic_home_wire_without_prompt = 'assets/images/icons/home/wire_without_prompts.png';
 
   ///My Saved
-  static const String ic_my_save_empty = 'assets/images/icons/my_saved/empty_my_save.png';
+  static const String ic_my_save_empty =
+      'assets/images/icons/my_saved/empty_my_save.png';
   static const String ic_my_save_no_result = 'assets/images/icons/my_saved/no_result_my_saved.png';
 
+  ///Events_shows
+  static const String empty_event = 'assets/images/icons/empty_event.png';
 }
