@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 class StyleUtil {
   static TextStyle bottomTabTextStyle = const TextStyle(
-    fontSize: 13,
+    fontSize: 10,
     color: AppColor.bottomBarTextColor,
     fontWeight: FontWeight.w500,
     fontFamily: 'SF Pro Display',
