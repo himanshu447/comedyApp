@@ -1,6 +1,7 @@
 import 'package:comedy/feacture/home/presentation/widget/home_answer_writing_prompt_card.dart';
 import 'package:comedy/feacture/home/presentation/widget/home_event_card_widget.dart';
 import 'package:comedy/feacture/home/presentation/widget/home_write_without_prompt_card_widget.dart';
+import 'package:comedy/share/widget/add_widget.dart';
 import 'package:comedy/share/widget/top_app_bar_widget.dart';
 import 'package:comedy/utils/route/route_name.dart';
 import 'package:comedy/utils/string_util.dart';
@@ -37,6 +38,8 @@ class HomeView extends StatelessWidget {
               ),
             ),
           ),
+          Container(),
+          ShowAddWidget()
         ],
       ),
     );

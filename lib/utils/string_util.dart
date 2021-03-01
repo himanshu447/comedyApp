@@ -5,6 +5,12 @@ class AppString {
   static const String submit = 'Submit';
   static const String ok = 'Ok';
   static const String search = 'Search...';
+  static const String short_filter = 'Short and Filter';
+  static const String sort = 'SORT';
+  static const String reset = 'Reset';
+  static const String apply = 'Apply';
+  static const String done = 'Done';
+
 
 
   ///Landing Screen
@@ -38,6 +44,20 @@ class AppString {
   static const String error_required_prompt_text = 'Please enter prompt text.';
   static const String submit_prompt_success_msg = 'Thank you for your submission. We will review and get back to you.';
 
+  ///My saved Short And Filter
+  static const String title_a_to_z = 'Title: A to Z';
+  static const String title_z_to_a = 'Title: Z to A';
+  static const String date_update_newest_to_older = 'Date updated: Newest to oldest';
+  static const String date_update_older_to_newest = 'Date updated: Oldest to newest';
+  static const String level_of_completeness_highest_to_lowest = 'Level of completeness: Highest to lowest';
+  static const String level_of_completeness_lowest_to_highest = 'Level of completeness: Lowest to highest';
+  static const String degree_of_not_sucking_highest_to_lowest = 'Degree of not sucking: Highest to lowest';
+  static const String degree_of_not_sucking_lowest_to_highest = 'Degree of not sucking: Lowest to highest';
+
+  static const String filter_by_tag = 'FILTER BY TAGS';
+  static const String search_tag = 'Search tags';
+  static const String add_tag = 'Add Tags';
+  static const String all_tag = 'All Tags';
 
 ///Events And shows
 

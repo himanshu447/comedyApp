@@ -64,6 +64,7 @@ flutter:
   - assets/images/
   - assets/images/icons/
   - assets/images/icons/home/
+  - assets/images/icons/my_saved/
   - assets/images/icons/bottom_bar/
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -14,6 +14,7 @@ class HomeEventCardWidget extends StatelessWidget {
     return GestureDetector(
       onTap: cardClickCallback,
       child: Container(
+        height: MediaQuery.of(context).size.width/3,
         margin: EdgeInsets.symmetric(
           horizontal: 20,
           vertical: 20,
@@ -47,18 +48,22 @@ class HomeEventCardWidget extends StatelessWidget {
                     color: AppColor.black,
                     margin: EdgeInsets.symmetric(vertical: 10),
                   ),
-                  TextComponent(
-                    title: AppString.event_and_shows_desc,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w400,
-                    color: Colors.black38,
-                    margin: EdgeInsets.only(bottom: 20),
+                  Expanded(
+                    child: TextComponent(
+                      title: AppString.event_and_shows_desc,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.black38,
+                      maxLine: 3,
+                      textOverflow: TextOverflow.ellipsis,
+                    ),
                   ),
                 ],
               ),
             ),
             Image.asset(
               AppIcons.ic_home_event,
+              alignment: Alignment.centerRight,
               height: 74,
             ),
           ],

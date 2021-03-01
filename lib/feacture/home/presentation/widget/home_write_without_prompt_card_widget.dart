@@ -14,6 +14,7 @@ class HomeWriteWithoutPromptCardWidget extends StatelessWidget {
     return GestureDetector(
       onTap: cardClickCallback,
       child: Container(
+        height: MediaQuery.of(context).size.width/3,
         margin: EdgeInsets.symmetric(
           horizontal: 20,
           vertical: 12,
@@ -49,10 +50,11 @@ class HomeWriteWithoutPromptCardWidget extends StatelessWidget {
                   ),
                   TextComponent(
                     title: AppString.write_without_prompts_desc,
-                    fontSize: 16,
+                    fontSize: 15,
                     fontWeight: FontWeight.w400,
                     color: Colors.black38,
-                    margin: EdgeInsets.only(bottom: 12),
+                    maxLine: 3,
+                    textOverflow: TextOverflow.ellipsis,
                   ),
                 ],
               ),

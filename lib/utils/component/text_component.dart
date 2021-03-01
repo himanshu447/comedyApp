@@ -1,3 +1,4 @@
+import 'package:comedy/utils/color_util.dart';
 import 'package:flutter/material.dart';
 
 class TextComponent extends StatelessWidget {
@@ -14,11 +15,12 @@ class TextComponent extends StatelessWidget {
   final Key key;
   final double height;
   final TextDecoration textDecoration;
+  final int maxLine;
   final TextStyle textStyle;
 
   TextComponent({
     @required this.title,
-    this.color = Colors.black,
+    this.color = AppColor.black,
     this.fontSize = 18,
     this.fontWeight = FontWeight.bold,
     this.textAlign: TextAlign.left,
@@ -31,6 +33,7 @@ class TextComponent extends StatelessWidget {
     this.height,
     this.textStyle,
     this.textDecoration,
+    this.maxLine,
   }) {
     assert(title != null);
   }
@@ -42,6 +45,7 @@ class TextComponent extends StatelessWidget {
       child: Text(
         this.title,
         key: key,
+        maxLines: maxLine,
         semanticsLabel: this.title,
         textAlign: textAlign,
         style: textStyle ??
