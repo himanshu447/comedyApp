@@ -5,6 +5,7 @@ import 'package:comedy/utils/calender/table_calendar.dart';
 import 'package:comedy/utils/color_util.dart';
 import 'package:comedy/utils/component/text_component.dart';
 import 'package:comedy/utils/icons_utils.dart';
+import 'package:comedy/utils/route/route_name.dart';
 import 'package:comedy/utils/string_util.dart';
 import 'package:comedy/utils/style_util.dart';
 import 'package:flutter/material.dart';
@@ -27,6 +28,11 @@ class _EventsShowsState extends State<EventsShows> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomSheet: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        child: submitButton(
+            title: AppString.Submit_event_or_show, onPress: _submitData),
+      ),
       appBar: customAppbar(
         context: context,
         title: AppString.event_and_shows,
@@ -42,20 +48,22 @@ class _EventsShowsState extends State<EventsShows> {
           ),
           Visibility(
             visible: true,
-            child: Positioned(
-              left: 0.0,
-              right: 0.0,
-              bottom: 0.0,
-              child: ListView.builder(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 20,
-                ).copyWith(),
-                shrinkWrap: true,
-                itemCount: 10,
-                itemBuilder: (_, index) {
-                  return MyEventListTile();
-                },
-              ),
+            child: ListView.builder(
+              padding: EdgeInsets.symmetric(
+                horizontal: 20,
+              ).copyWith(),
+              shrinkWrap: true,
+              itemCount: 2,
+              itemBuilder: (context, index) {
+                return MyEventListTile(
+                  onTap: () {
+                    Navigator.pushNamed(context, RouteName.event_detail);
+                  },
+                  eventTitle: 'Halloween (Throughout the USA)',
+                  eventTime: 'Feb 3 8:30 PM ESt',
+                  eventOPrice: '180\$',
+                );
+              },
             ),
           ),
           Visibility(visible: false, child: emptyEvent()),

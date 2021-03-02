@@ -10,10 +10,10 @@ class CustomRoundCornerImage extends StatelessWidget {
   final String image;
   final File fileImage;
   final String placeholder;
-  final double topRightCorner,
-      topLeftCorner,
-      bottomLeftCorner,
-      bottomRightCorner;
+  double topRightCorner = 0.0,
+      topLeftCorner = 0.0,
+      bottomLeftCorner = 0.0,
+      bottomRightCorner = 0.0;
 
   CustomRoundCornerImage(
       {this.height,
