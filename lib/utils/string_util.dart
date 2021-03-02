@@ -61,6 +61,7 @@ class AppString {
   ///Events And shows
   static const String no_events_or_shows = 'No events or shows yet!';
   static const String Submit_event_or_show = 'Submit event or show';
+  static const String details = 'Details:';
 
 
   ///Write without prompt
@@ -71,6 +72,8 @@ class AppString {
   static const String hint_prompt_has_tag = '#type_hastag_here';
   static const String error_required_prompt_title = 'Please enter a Title.';
   static const String error_required_prompt = 'Please enter a Prompt.';
+  static const String add_Photo = 'Add Photo';
+  static const String time_zone= 'Time zone';
 
 
 }

@@ -50,7 +50,7 @@ class _EventsShowsState extends State<EventsShows> {
             visible: true,
             child: ListView.builder(
               padding: EdgeInsets.symmetric(
-                horizontal: 20,
+                horizontal: 15,
               ).copyWith(),
               shrinkWrap: true,
               itemCount: 2,
@@ -59,7 +59,7 @@ class _EventsShowsState extends State<EventsShows> {
                   onTap: () {
                     Navigator.pushNamed(context, RouteName.event_detail);
                   },
-                  eventTitle: 'Halloween (Throughout the USA)',
+                  eventTitle: 'Halloween (Throughout)',
                   eventTime: 'Feb 3 8:30 PM ESt',
                   eventOPrice: '180\$',
                 );
@@ -98,6 +98,8 @@ class _EventsShowsState extends State<EventsShows> {
   }
 
   _submitData() {
+    Navigator.pushNamed(context, RouteName.submit_event);
+
     print('Submit Event');
   }
 }

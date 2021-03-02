@@ -1,8 +1,10 @@
 import 'package:comedy/common/custom_round_image.dart';
 import 'package:comedy/common/general_widget.dart';
+import 'package:comedy/feacture/events_shows/presentation/widget/event_detail_widget.dart';
 import 'package:comedy/utils/color_util.dart';
 import 'package:comedy/utils/component/text_component.dart';
 import 'package:comedy/utils/icons_utils.dart';
+import 'package:comedy/utils/string_util.dart';
 import 'package:flutter/material.dart';
 
 class EventDetail extends StatefulWidget {
@@ -18,50 +20,72 @@ class _EventDetailState extends State<EventDetail> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Stack(
-              children: [
-                CustomRoundCornerImage(
-                  bottomLeftCorner: 0.0,
-                  bottomRightCorner: 0.0,
-                  topRightCorner: 0.0,
-                  topLeftCorner: 0.0,
-                  placeholder: 'images/trip.jpeg',
-                  image: ' ',
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height / 3,
-                ),
-                Positioned(
-                  left: 0,
-                  top: 50  ,
-                  child: IconButton(
-                      onPressed: () {},
-                      color: AppColor.white ,
-                      padding: EdgeInsets.all(4),
-                      icon: imageAsset(
-                          img: AppIcons.ic_back, width: 25.0, height: 25.0)),
-                )
-              ],
-            ),
-            TextComponent(
-              title: 'Feb 7 AT 8:30 AM EST - Feb 7 AT 8:30 AM EST',
-              fontSize: 16,
-              margin: EdgeInsets.symmetric(vertical: 10),
-              fontWeight: FontWeight.w400,
-              color: AppColor.primary_pink[500],
-            ),
+            eventTopWidget(context: context, imageUrl: ' '),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 15),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  eventScheduleDate(
+                      'Feb 7 AT 8:30 AM EST - Feb 7 AT 8:30 AM EST'),
+                  eventTitle('Mardi Gras (New Orleans, Louisiana)'),
+                  verticalSpace(20),
+                  descriptionTile(title: '\$151', iconName: AppIcons.ic_ticket),
+                  verticalSpace(20),
+                  descriptionTile(
+                      title: 'www.facebook.com', iconName: AppIcons.ic_web),
+                  verticalSpace(20),
+                  Divider(
+                    color: AppColor.verticalDividerColor,
+                    height: 2,
+                  ),
+                  verticalSpace(20),
 
-            TextComponent(
-              title: 'Mardi Gras (New Orleans, Louisiana)',
-              fontSize: 22,
-              margin: EdgeInsets.symmetric(vertical: 10),
-              fontWeight: FontWeight.w600,
-              color: AppColor.black,
+                  TextComponent(
+                    title: AppString.details,
+                    fontSize: 17,
+                    fontWeight: FontWeight.w600,
+                  ),
+                  verticalSpace(15),
+                  TextComponent(
+                    title:
+                        'Mardi Gras is a wonderful carnival that takes place in New Orleans each year. The festival can be traced back to medieval Europe. It was brought to America by the French-Canadian explorer Jean Baptiste Le Moyne Sieur de Bienville.',
+                    fontSize: 17,
+                    fontWeight: FontWeight.w400,
+                  ),
+                ],
+              ),
             ),
-
-
           ],
         ),
       ),
+    );
+  }
+
+  Widget descriptionTile({String title, iconName}) {
+    return Row(
+      children: [
+        Container(
+          decoration: BoxDecoration(
+              color: AppColor.textFieldBgColor, shape: BoxShape.circle),
+          padding: EdgeInsets.all(12),
+          child: imageAsset(
+            img: iconName,
+            width: 20.0,
+            height: 20.0,
+          ),
+        ),
+        Expanded(
+          child: Padding(
+            padding: const EdgeInsets.only(left: 15.0),
+            child: TextComponent(
+              title: title,
+              fontWeight: FontWeight.w600,
+              fontSize: 17,
+            ),
+          ),
+        ),
+      ],
     );
   }
 }

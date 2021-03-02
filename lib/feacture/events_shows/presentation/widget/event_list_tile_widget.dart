@@ -29,15 +29,18 @@ class MyEventListTile extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              CustomRoundCornerImage(
-                bottomLeftCorner: 10.0,
-                bottomRightCorner: 0.0,
-                topRightCorner: 0.0,
-                topLeftCorner: 10.0,
-                placeholder: 'images/trip.jpeg',
-                image: ' ',
-                width: 150,
-                height: 120,
+              Expanded(
+                flex: 1,
+                child: CustomRoundCornerImage(
+                  bottomLeftCorner: 10.0,
+                  bottomRightCorner: 0.0,
+                  topRightCorner: 0.0,
+                  topLeftCorner: 10.0,
+                  placeholder: 'images/trip.jpeg',
+                  image: ' ',
+                  height: 120,
+                  width: 150,
+                ),
               ),
               /*       Image.asset(
                 'assets/images/trip.jpeg',
@@ -45,6 +48,7 @@ class MyEventListTile extends StatelessWidget {
                 fit: BoxFit.cover,
               ),*/
               Expanded(
+                flex: 2,
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 10),
                   child: Column(

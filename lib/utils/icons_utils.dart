@@ -18,4 +18,7 @@ class AppIcons {
 
   ///Events_shows
   static const String empty_event = 'assets/images/icons/empty_event.png';
+  static const String ic_ticket = 'assets/images/icons/events_shows/ic_ticket.png';
+  static const String ic_web = 'assets/images/icons/events_shows/ic_web.png';
+  static const String ic_add_image_place_holder = 'assets/images/icons/events_shows/ic_add_image_placeholder.png';
 }
