@@ -42,7 +42,7 @@ class MySavedItem extends StatelessWidget {
             ),
             TextComponent(
               title:
-                  'Now led tedious shy lasting females off. Dashwood marianne in of enterance be.. yutyu.',
+                  'Now led tedious shy lasting females off. Dashwood marianne in of enterance be...',
               fontSize: 17,
               fontWeight: FontWeight.w400,
               textOverflow: TextOverflow.ellipsis,

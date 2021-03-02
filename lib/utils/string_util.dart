@@ -9,6 +9,7 @@ class AppString {
   static const String reset = 'Reset';
   static const String apply = 'Apply';
   static const String done = 'Done';
+  static var date = 'Date';
 
 
   ///Landing Screen
@@ -60,4 +61,16 @@ class AppString {
   ///Events And shows
   static const String no_events_or_shows = 'No events or shows yet!';
   static const String Submit_event_or_show = 'Submit event or show';
+
+
+  ///Write without prompt
+  static const String free_write = 'Free Write';
+  static const String auto_filled = '(autofilled)';
+  static const String hint_prompt_title = 'Type your prompt title here...';
+  static const String hint_prompt_here = 'Write prompt here...';
+  static const String hint_prompt_has_tag = '#type_hastag_here';
+  static const String error_required_prompt_title = 'Please enter a Title.';
+  static const String error_required_prompt = 'Please enter a Prompt.';
+
+
 }
