@@ -27,12 +27,16 @@ class HomeView extends StatelessWidget {
                     cardClickCallback: () {},
                   ),
                   HomeWriteWithoutPromptCardWidget(
-                    cardClickCallback: () {},
+                    cardClickCallback: () => Navigator.pushNamed(
+                      context,
+                      RouteName.write_without_prompt,
+                    ),
                   ),
                   HomeEventCardWidget(
-                    cardClickCallback: () {
-                      Navigator.pushNamed(context, RouteName.event_show);
-                    },
+                    cardClickCallback: () => Navigator.pushNamed(
+                      context,
+                      RouteName.event_show,
+                    ),
                   ),
                 ],
               ),

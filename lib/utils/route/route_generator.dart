@@ -1,5 +1,6 @@
 import 'package:comedy/feacture/events_shows/presentation/page/event_detail.dart';
 import 'package:comedy/feacture/events_shows/presentation/page/events_shows.dart';
+import 'package:comedy/feacture/write_whthout_prompt/presentation/page/write_without_prompt.dart';
 import 'package:comedy/utils/route/route_name.dart';
 import 'package:flutter/material.dart';
 
@@ -9,6 +10,16 @@ class RouteGenerator {
 
     switch (routeSettings.name) {
       case RouteName.event_show:
+        return MaterialPageRoute(
+          builder: (_) => EventsShows(),
+        );
+      case RouteName.event_detail:
+        return MaterialPageRoute(builder: (_) => EventDetail());
+
+      case RouteName.write_without_prompt:
+        return MaterialPageRoute(
+          builder: (_) => WriteWithoutPromptView(),
+        );
         return MaterialPageRoute(builder: (_) => EventsShows());
       case RouteName.event_detail:
         return MaterialPageRoute(builder: (_) => EventDetail());

@@ -59,9 +59,10 @@ class AppTheme extends StatelessWidget {
             ),
           ),
           disabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(15),
+            borderRadius: BorderRadius.circular(0),
             borderSide: BorderSide(
-              color: Colors.grey.shade400,
+              color: Colors.transparent,
+              width: 0
             ),
           ),
         ),
