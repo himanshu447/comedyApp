@@ -40,7 +40,6 @@ class _EventDetailState extends State<EventDetail> {
                     height: 2,
                   ),
                   verticalSpace(20),
-
                   TextComponent(
                     title: AppString.details,
                     fontSize: 17,
@@ -53,6 +52,7 @@ class _EventDetailState extends State<EventDetail> {
                     fontSize: 17,
                     fontWeight: FontWeight.w400,
                   ),
+                  verticalSpace(15),
                 ],
               ),
             ),

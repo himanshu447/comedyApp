@@ -52,4 +52,5 @@ class AppColor {
   static const Color textFieldBgColor = Color(0xFFF2F3F7);
 
   static const Color verticalDividerColor = Color(0xffE5E5E5);
+  static const Color datePickerBackColor = Color(0xffF7F7FA);
 }

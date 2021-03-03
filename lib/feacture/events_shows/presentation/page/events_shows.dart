@@ -28,11 +28,18 @@ class _EventsShowsState extends State<EventsShows> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      persistentFooterButtons: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+          child: submitButton(title: AppString.Submit_event_or_show, onPress: _submitData),
+        ),
+      ],
+/*
       bottomSheet: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         child: submitButton(
             title: AppString.Submit_event_or_show, onPress: _submitData),
-      ),
+      ),*/
       appBar: customAppbar(
         context: context,
         title: AppString.event_and_shows,

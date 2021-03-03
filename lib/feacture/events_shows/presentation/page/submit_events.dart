@@ -6,6 +6,7 @@ import 'package:comedy/utils/color_util.dart';
 import 'package:comedy/utils/component/text_component.dart';
 import 'package:comedy/utils/icons_utils.dart';
 import 'package:comedy/utils/string_util.dart';
+import 'package:comedy/utils/style_util.dart';
 import 'package:flutter/material.dart';
 
 class SubmitEvents extends StatefulWidget {
@@ -14,17 +15,27 @@ class SubmitEvents extends StatefulWidget {
 }
 
 class _SubmitEventsState extends State<SubmitEvents> {
-  TextEditingController controller = TextEditingController();
+  TextEditingController eventNameController = TextEditingController();
+  TextEditingController aboutEventController = TextEditingController();
+  TextEditingController eventLinkController = TextEditingController();
+  TextEditingController eventCostController = TextEditingController();
+  TextEditingController startTimeController = TextEditingController();
+  TextEditingController endTimeController = TextEditingController();
+  TextEditingController startDateController = TextEditingController();
+  TextEditingController endDateController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       extendBody: false,
-      bottomSheet: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        child: submitButton(title: AppString.submit, onPress: _submitData),
-      ),
+      resizeToAvoidBottomPadding: false,
+      persistentFooterButtons: [
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
+          child: submitButton(title: AppString.submit, onPress: _submitData),
+        ),
+      ],
       appBar: customAppbar(
         context: context,
         title: AppString.event_and_shows,
@@ -40,40 +51,98 @@ class _SubmitEventsState extends State<SubmitEvents> {
               child: Column(
                 children: [
                   customTextField(
-                      controller: controller, hintText: 'Event Name'),
+                      controller: eventNameController,
+                      hintText: AppString.event_name),
                   verticalSpace(20.0),
                   customTextField(
-                      controller: controller,
-                      hintText: 'Event Name',
+                      controller: aboutEventController,
+                      hintText: AppString.about_event,
                       maxLine: 4),
-                  verticalSpace(20.0),
-                  customTextField(
-                      controller: controller, hintText: 'Event Name'),
                   verticalSpace(20.0),
                   Row(
                     children: [
                       Expanded(
-                        child: customTextField(
-                            controller: controller, hintText: 'Event Name'),
-                      ),
+                          child: timePicker(
+                        hintName: AppString.start_date,
+                        controller: startTimeController,
+                        onTap: () {
+                          selectDate(context).then((date) {
+                            print(date);
+                            if (date != null)
+                              setState(() {
+                                startTimeController.text = date;
+                              });
+                          });
+                        },
+                      )),
                       horizontalSpace(10),
                       Expanded(
-                        child: customTextField(
-                            controller: controller, hintText: 'Event Name'),
-                      ),
+                          child: timePicker(
+                        hintName: AppString.start_time,
+                        controller: startDateController,
+                        onTap: () {
+                          selectTime(context).then((date) {
+                            print(date);
+                            if (date != null)
+                              setState(() {
+                                startDateController.text = date;
+                              });
+                          });
+                        },
+                      )),
+                    ],
+                  ),
+                  verticalSpace(20.0),
+                  Row(
+                    children: [
+                      Expanded(
+                          child: timePicker(
+                        hintName: AppString.end_date,
+                        controller: endDateController,
+                        onTap: () {
+                          selectDate(context).then((date) {
+                            print(date);
+                            if (date != null)
+                              setState(() {
+                                endDateController.text = date;
+                              });
+                          });
+                        },
+                      )),
+                      horizontalSpace(10),
+                      Expanded(
+                          child: timePicker(
+                        hintName: AppString.end_date,
+                        controller: endTimeController,
+                        onTap: () {
+                          selectTime(context).then((date) {
+                            print(date);
+                            if (date != null)
+                              setState(() {
+                                endTimeController.text = date;
+                              });
+                          });
+                        },
+                      )),
                     ],
                   ),
                   verticalSpace(20.0),
                   timezoneRow(),
                   verticalSpace(20.0),
                   customTextField(
-                    controller: controller,
-                    hintText: 'Event Name',
+                    controller: eventLinkController,
+                    hintText: AppString.event_link,
                   ),
                   verticalSpace(20.0),
                   customTextField(
-                      controller: controller, hintText: 'Event Name'),
+                    controller: eventCostController,
+                    hintText: AppString.cost,
+                  ),
                   verticalSpace(20.0),
+
+                  /*    customTextField(
+                      controller: controller, hintText: 'Event Name'),
+                  verticalSpace(20.0),*/
                 ],
               ),
             ),
@@ -81,6 +150,15 @@ class _SubmitEventsState extends State<SubmitEvents> {
         ),
       ),
     );
+  }
+
+  Widget timePicker(
+      {Function onTap, TextEditingController controller, String hintName}) {
+    return customTextField(
+        controller: controller,
+        hintText: hintName,
+        isReadOnly: true,
+        onTap: onTap);
   }
 
   _submitData() {
@@ -92,7 +170,7 @@ class _SubmitEventsState extends State<SubmitEvents> {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Expanded(
-          child : TextComponent(
+          child: TextComponent(
             title: AppString.time_zone,
             fontWeight: FontWeight.w600,
             fontSize: 17,
@@ -110,7 +188,6 @@ class _SubmitEventsState extends State<SubmitEvents> {
             size: 16,
           ),
         )
-
       ],
     );
   }

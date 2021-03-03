@@ -12,7 +12,6 @@ class AppString {
   static var date = 'Date';
   static var next = 'Next';
 
-
   ///Landing Screen
   static const String home = 'Home';
   static const String my_saved = 'My saved';
@@ -42,17 +41,24 @@ class AppString {
   static const String error_required_email = 'Please enter a email address.';
   static const String error_required_website = 'Please enter website.';
   static const String error_required_prompt_text = 'Please enter prompt text.';
-  static const String submit_prompt_success_msg = 'Thank you for your submission. We will review and get back to you.';
+  static const String submit_prompt_success_msg =
+      'Thank you for your submission. We will review and get back to you.';
 
   ///My saved Short And Filter
   static const String title_a_to_z = 'Title: A to Z';
   static const String title_z_to_a = 'Title: Z to A';
-  static const String date_update_newest_to_older = 'Date updated: Newest to oldest';
-  static const String date_update_older_to_newest = 'Date updated: Oldest to newest';
-  static const String level_of_completeness_highest_to_lowest = 'Level of completeness: Highest to lowest';
-  static const String level_of_completeness_lowest_to_highest = 'Level of completeness: Lowest to highest';
-  static const String degree_of_not_sucking_highest_to_lowest = 'Degree of not sucking: Highest to lowest';
-  static const String degree_of_not_sucking_lowest_to_highest = 'Degree of not sucking: Lowest to highest';
+  static const String date_update_newest_to_older =
+      'Date updated: Newest to oldest';
+  static const String date_update_older_to_newest =
+      'Date updated: Oldest to newest';
+  static const String level_of_completeness_highest_to_lowest =
+      'Level of completeness: Highest to lowest';
+  static const String level_of_completeness_lowest_to_highest =
+      'Level of completeness: Lowest to highest';
+  static const String degree_of_not_sucking_highest_to_lowest =
+      'Degree of not sucking: Highest to lowest';
+  static const String degree_of_not_sucking_lowest_to_highest =
+      'Degree of not sucking: Lowest to highest';
 
   static const String filter_by_tag = 'FILTER BY TAGS';
   static const String search_tag = 'Search tags';
@@ -63,7 +69,14 @@ class AppString {
   static const String no_events_or_shows = 'No events or shows yet!';
   static const String Submit_event_or_show = 'Submit event or show';
   static const String details = 'Details:';
-
+  static const String event_name = 'Event name';
+  static const String about_event = 'About event';
+  static const String event_link = 'Event link';
+  static const String cost = 'Cost';
+  static const String end_date = 'End date';
+  static const String start_date = 'Start date';
+  static const String end_time = 'End time';
+  static const String start_time = 'Start time';
 
   ///Write without prompt
   static const String free_write = 'Free Write';
@@ -74,7 +87,5 @@ class AppString {
   static const String error_required_prompt_title = 'Please enter a Title.';
   static const String error_required_prompt = 'Please enter a Prompt.';
   static const String add_Photo = 'Add Photo';
-  static const String time_zone= 'Time zone';
-
-
+  static const String time_zone = 'Time zone';
 }
