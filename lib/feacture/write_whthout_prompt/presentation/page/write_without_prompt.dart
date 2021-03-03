@@ -10,7 +10,6 @@ import 'package:comedy/utils/style_util.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:numberpicker/numberpicker.dart';
 
 class WriteWithoutPromptView extends StatefulWidget {
   @override
