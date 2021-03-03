@@ -48,4 +48,18 @@ class StyleUtil {
     fontWeight: FontWeight.w600,
     fontFamily: 'SF Pro Display',
   );
+
+  static TextStyle activeNumberTextStyle = TextStyle(
+    fontSize: 37,
+    fontWeight: FontWeight.w600,
+    fontFamily: 'SF Pro Display',
+    color: AppColor.primary_orange[500],
+  );
+
+  static TextStyle inActiveNumberTextStyle = const TextStyle(
+    fontSize: 25,
+    fontWeight: FontWeight.w600,
+    fontFamily: 'SF Pro Display',
+    color: AppColor.gry,
+  );
 }

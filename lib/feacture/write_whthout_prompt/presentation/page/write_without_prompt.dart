@@ -1,6 +1,8 @@
 import 'package:comedy/common/general_widget.dart';
 import 'package:comedy/utils/color_util.dart';
 import 'package:comedy/utils/component/input-chip.component.dart';
+import 'package:comedy/utils/component/number_selection_swiper.dart';
+import 'package:comedy/utils/component/number_slider_component.dart';
 import 'package:comedy/utils/component/text_component.dart';
 import 'package:comedy/utils/icons_utils.dart';
 import 'package:comedy/utils/string_util.dart';
@@ -8,6 +10,7 @@ import 'package:comedy/utils/style_util.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:numberpicker/numberpicker.dart';
 
 class WriteWithoutPromptView extends StatefulWidget {
   @override
@@ -180,30 +183,37 @@ class _WriteWithoutPromptViewState extends State<WriteWithoutPromptView> {
                       ),
                     ),
                   ),
-            isPromptTitleAndDescSubmitted ?
-            InputChipComponent(
-              list: secondList,
-              hintText: AppString.hint_prompt_has_tag,
-              chipColor: AppColor.primary_orange[100],
-              chipTextColor: AppColor.primary_orange[500],
-              keyboardType: TextInputType.text,
-              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10).copyWith(top: 14),
-              onAddCallBack: (val) {
-                setState(() {
-                  secondList.add(val.trim());
-                });
-              },
-             /* onRemoveCallBack: (val) {
-                setState(() {
-                  secondList.remove(val);
-                });
-              },*/
-            ) : Container(),
+            isPromptTitleAndDescSubmitted
+                ? InputChipComponent(
+                    list: secondList,
+                    hintText: AppString.hint_prompt_has_tag,
+                    chipColor: AppColor.primary_orange[100],
+                    chipTextColor: AppColor.primary_orange[500],
+                    keyboardType: TextInputType.text,
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 20, vertical: 10)
+                            .copyWith(top: 14),
+                    onAddCallBack: (val) {
+                      setState(() {
+                        secondList.add(val.trim());
+                      });
+                    },
+                  )
+                : Container(),
+
+            HorizantalPicker(
+              minValue: 1,
+              maxValue: 10,
+              onChanged: (val) {},
+              activeItemBgColor: AppColor.primary_orange[100],
+              activeTextStyle: StyleUtil.activeNumberTextStyle,
+              deActiveTextStyle: StyleUtil.inActiveNumberTextStyle,
+            ),
             RawMaterialButton(
               onPressed: _submitPromptTitleAndDesc,
               fillColor: AppColor.primary_orange[500],
               child: TextComponent(
-                title: AppString.submit,
+                title: AppString.next,
               ),
             )
           ],

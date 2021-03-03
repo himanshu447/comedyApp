@@ -14,7 +14,7 @@ class HomeAnswerWritingPromptCardWidget extends StatelessWidget {
     return GestureDetector(
       onTap: cardClickCallback,
       child: Container(
-        height: MediaQuery.of(context).size.width/3,
+        height: 135,
         width: double.infinity,
         margin: EdgeInsets.symmetric(
           horizontal: 20,
@@ -46,13 +46,15 @@ class HomeAnswerWritingPromptCardWidget extends StatelessWidget {
                     color: AppColor.black,
                     margin: EdgeInsets.symmetric(vertical: 10),
                   ),
-                  TextComponent(
-                    title: AppString.answer_writing_prompts_desc,
-                    fontSize: 15,
-                    fontWeight: FontWeight.w400,
-                    color: Colors.black38,
-                    maxLine: 3,
-                    textOverflow: TextOverflow.ellipsis,
+                  Expanded(
+                    child: TextComponent(
+                      title: AppString.answer_writing_prompts_desc,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.black38,
+                      maxLine: MediaQuery.of(context).devicePixelRatio >= 2 ? 3 : 2,
+                      textOverflow: TextOverflow.ellipsis,
+                    ),
                   ),
                 ],
               ),
