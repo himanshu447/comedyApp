@@ -10,6 +10,7 @@ class AppString {
   static const String apply = 'Apply';
   static const String done = 'Done';
   static var date = 'Date';
+  static var next = 'Next';
 
 
   ///Landing Screen
