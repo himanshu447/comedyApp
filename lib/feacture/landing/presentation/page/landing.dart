@@ -1,3 +1,4 @@
+import 'package:comedy/feacture/about/presentation/page/about.dart';
 import 'package:comedy/feacture/home/presentation/page/home.dart';
 import 'package:comedy/feacture/landing/presentation/bloc/landing_bloc.dart';
 import 'package:comedy/feacture/my_saved/presentation/page/my_saved.dart';
@@ -64,11 +65,7 @@ class _LandingViewState extends State<LandingView> {
           HomeView(),
           MySavedView(),
           SubmitPromptWidget(),
-          Center(
-            child: TextComponent(
-              title: 'TAB 4',
-            ),
-          ),
+          AboutView(),
         ],
       ),
       bottomNavigationBar: BottomNav(

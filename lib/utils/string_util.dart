@@ -91,4 +91,13 @@ class AppString {
   static const String level_of_completeness = 'Level of completeness';
   static const String degree_of_not_sucking = 'Degree of not sucking';
   static const String saving_your_writing = 'Saving your writing..';
+
+  ///about
+
+  static const String submit_Prompt = 'Submit Prompt';
+  static const String share_app = 'Share app';
+  static const String rate_us = 'Rate ust';
+  static const String About = 'About';
+  static const String privacy_Policy= 'Privacy Policy';
+  static const String contact_Us= 'Contact Us';
 }

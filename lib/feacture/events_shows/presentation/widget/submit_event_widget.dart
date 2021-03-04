@@ -40,29 +40,32 @@ Widget customTextField({
   Function onTap,
   bool isReadOnly = false,
 }) {
-  return TextFormField(
-    onTap: onTap,
-    controller: controller,
-    maxLines: maxLine ?? 1,
-    readOnly: isReadOnly,
-    decoration: InputDecoration(
-      hintText: hintText,
-    ).copyWith(
-        focusedBorder: OutlineInputBorder(
-      borderRadius: BorderRadius.circular(15),
-      borderSide: const BorderSide(
-        color: AppColor.textFieldBgColor,
-        width: 0,
-      ),
-    )),
-    validator: (value) {
-      if (value.isEmpty) {
-        return AppString.error_required_email;
-      }
-      return null;
-    },
-    style: StyleUtil.formFieldTextStyle,
-    textInputAction: TextInputAction.next,
+  return Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 15),
+    child: TextFormField(
+      onTap: onTap,
+      controller: controller,
+      maxLines: maxLine ?? 1,
+      readOnly: isReadOnly,
+      decoration: InputDecoration(
+        hintText: hintText,
+      ).copyWith(
+          focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(15),
+        borderSide: const BorderSide(
+          color: AppColor.textFieldBgColor,
+          width: 0,
+        ),
+      )),
+      validator: (value) {
+        if (value.isEmpty) {
+          return AppString.error_required_email;
+        }
+        return null;
+      },
+      style: StyleUtil.formFieldTextStyle,
+      textInputAction: TextInputAction.next,
+    ),
   );
 }
 

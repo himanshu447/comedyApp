@@ -23,62 +23,58 @@ class MyEventListTile extends StatelessWidget {
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadiusDirectional.circular(15),
         ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 0, vertical: 0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                flex: 1,
-                child: CustomRoundCornerImage(
-                  bottomLeftCorner: 10.0,
-                  bottomRightCorner: 0.0,
-                  topRightCorner: 0.0,
-                  topLeftCorner: 10.0,
-                  placeholder: 'images/trip.jpeg',
-                  image: ' ',
-                  height: 120,
-                  width: 150,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Expanded(
+              flex: 1,
+              child: CustomRoundCornerImage(
+                bottomLeftCorner: 10.0,
+                bottomRightCorner: 0.0,
+                topRightCorner: 0.0,
+                topLeftCorner: 10.0,
+                placeholder: 'images/trip.jpeg',
+                image: ' ',
+                height: MediaQuery.of(context).size.height * 0.16,
+              ),
+            ),
+            /*       Image.asset(
+              'assets/images/trip.jpeg',
+              width: 150,
+              fit: BoxFit.cover,
+            ),*/
+            Expanded(
+              flex: 2,
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    TextComponent(
+                      title: eventTime,
+                      fontSize: 16,
+                      margin: EdgeInsets.symmetric(vertical: 10),
+                      fontWeight: FontWeight.w400,
+                      color: AppColor.primary_pink[500],
+                    ),
+                    TextComponent(
+                      title: eventTitle,
+                      fontSize: 17,
+                      fontWeight: FontWeight.w600,
+                    ),
+                    TextComponent(
+                      title: eventOPrice,
+                      fontSize: 16,
+                      margin: EdgeInsets.symmetric(vertical: 10),
+                      fontWeight: FontWeight.w400,
+                    )
+                  ],
                 ),
               ),
-              /*       Image.asset(
-                'assets/images/trip.jpeg',
-                width: 150,
-                fit: BoxFit.cover,
-              ),*/
-              Expanded(
-                flex: 2,
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      TextComponent(
-                        title: eventTime,
-                        fontSize: 16,
-                        margin: EdgeInsets.symmetric(vertical: 10),
-                        fontWeight: FontWeight.w400,
-                        color: AppColor.primary_pink[500],
-                      ),
-                      TextComponent(
-                        title: eventTitle,
-                        fontSize: 17,
-                        fontWeight: FontWeight.w600,
-                      ),
-                      TextComponent(
-                        title: eventOPrice,
-                        fontSize: 16,
-                        margin: EdgeInsets.symmetric(vertical: 10),
-                        fontWeight: FontWeight.w400,
-                      )
-                    ],
-                  ),
-                ),
-              )
-            ],
-          ),
+            )
+          ],
         ),
       ),
     );

@@ -28,7 +28,7 @@ Widget eventTopWidget({BuildContext context, String imageUrl}) {
                 BoxDecoration(color: AppColor.white, shape: BoxShape.circle),
             padding: EdgeInsets.all(8),
             margin: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-            child: imageAsset(img: AppIcons.ic_back, width: 25.0, height: 25.0),
+            child: imageAsset(img: AppIcons.ic_back, width: 20.0, height: 20.0),
           ),
         ),
       )
