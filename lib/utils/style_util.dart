@@ -62,4 +62,18 @@ class StyleUtil {
     fontFamily: 'SF Pro Display',
     color: AppColor.gry,
   );
+
+  static TextStyle levelOfCompletenessTextStyle = const TextStyle(
+    fontSize: 22,
+    fontWeight: FontWeight.w600,
+    fontFamily: 'SF Pro Display',
+    color: AppColor.black,
+  );
+
+  static TextStyle nextButtonTextStyle = const TextStyle(
+    fontSize: 18,
+    fontWeight: FontWeight.w500,
+    fontFamily: 'SF Pro Display',
+    color: AppColor.white,
+  );
 }

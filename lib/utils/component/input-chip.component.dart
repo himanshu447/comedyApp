@@ -14,6 +14,7 @@ class InputChipComponent extends StatefulWidget {
   final ValueSetter<String> onAddCallBack;
   final String hintText;
   final Color chipTextColor;
+  final bool isTextFieldVisible;
 
   const InputChipComponent({
     Key key,
@@ -27,6 +28,7 @@ class InputChipComponent extends StatefulWidget {
     this.onRemoveCallBack,
     this.hintText,
     this.chipTextColor,
+    this.isTextFieldVisible = true,
   }) : super(key: key);
 
   @override
@@ -46,43 +48,48 @@ class _InputChipComponentState extends State<InputChipComponent>
       children: <Widget>[
         Padding(
           padding: widget.padding,
-          child: TextFormField(
-            controller: _controller,
-            focusNode: _hasTagFocusNode,
-            onTap: () {
-              setState(() {
-                FocusScope.of(context).requestFocus(_hasTagFocusNode);
-              });
-            },
-            decoration: InputDecoration(
-              hintText: widget.hintText,
-              fillColor: _hasTagFocusNode.hasFocus
-                  ? AppColor.white
-                  : AppColor.textFieldBgColor,
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(15),
-                borderSide: const BorderSide(
-                  color: Colors.black,
-                  width: 0,
-                ),
-              ),
-            ),
-            keyboardType: widget.keyboardType ?? TextInputType.text,
-            onChanged: (value) {
-              if (value.endsWith(",")) {
-                widget.onAddCallBack(value.substring(0, value.length - 1));
-                _controller.clear();
-              }
-            },
-          ),
+          child: widget.isTextFieldVisible
+              ? TextFormField(
+                  controller: _controller,
+                  focusNode: _hasTagFocusNode,
+                  onTap: () {
+                    setState(() {
+                      FocusScope.of(context).requestFocus(_hasTagFocusNode);
+                    });
+                  },
+                  decoration: InputDecoration(
+                    hintText: widget.hintText,
+                    fillColor: _hasTagFocusNode.hasFocus
+                        ? AppColor.white
+                        : AppColor.textFieldBgColor,
+                    focusedBorder: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15),
+                      borderSide: const BorderSide(
+                        color: Colors.black,
+                        width: 0,
+                      ),
+                    ),
+                  ),
+                  keyboardType: widget.keyboardType ?? TextInputType.text,
+                  onChanged: (value) {
+                    if (value.endsWith(" ")) {
+                      _controller.clear();
+                      widget.onAddCallBack(value.substring(0, value.length - 1));
+                    }
+                  },
+                )
+              : Container(),
         ),
         Visibility(
           visible: widget.list.length > 0,
           child: Wrap(
-						crossAxisAlignment: WrapCrossAlignment.start,
+            crossAxisAlignment: WrapCrossAlignment.start,
+            spacing: 10,
+            alignment: WrapAlignment.start,
             children: widget.list
                 .map((e) => FilterChip(
-                      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                       backgroundColor: widget.chipColor ?? Colors.blue,
                       label: TextComponent(
                         title: e,

@@ -48,13 +48,15 @@ class HomeWriteWithoutPromptCardWidget extends StatelessWidget {
                     color: AppColor.black,
                     margin: EdgeInsets.symmetric(vertical: 10),
                   ),
-                  TextComponent(
-                    title: AppString.write_without_prompts_desc,
-                    fontSize: 15,
-                    fontWeight: FontWeight.w400,
-                    color: Colors.black38,
-                    maxLine: MediaQuery.of(context).devicePixelRatio >= 2 ? 3 : 2,
-                    textOverflow: TextOverflow.ellipsis,
+                  Expanded(
+                    child: TextComponent(
+                      title: AppString.write_without_prompts_desc,
+                      fontSize: 15,
+                      fontWeight: FontWeight.w400,
+                      color: Colors.black38,
+                      maxLine: MediaQuery.of(context).devicePixelRatio >= 2 ? 3 : 2,
+                      textOverflow: TextOverflow.ellipsis,
+                    ),
                   ),
                 ],
               ),

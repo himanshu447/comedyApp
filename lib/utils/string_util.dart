@@ -88,4 +88,7 @@ class AppString {
   static const String error_required_prompt = 'Please enter a Prompt.';
   static const String add_Photo = 'Add Photo';
   static const String time_zone = 'Time zone';
+  static const String level_of_completeness = 'Level of completeness';
+  static const String degree_of_not_sucking = 'Degree of not sucking';
+  static const String saving_your_writing = 'Saving your writing..';
 }
