@@ -48,4 +48,44 @@ class HomeView extends StatelessWidget {
       ),
     );
   }
+  Future showPinBottomSheet(
+      {BuildContext context, String securityPin, Function onForgotPin}) async {
+    bool isValidate = false;
+    WidgetsBinding.instance.addPostFrameCallback(
+          (_) async {
+        await showModalBottomSheet(
+          isDismissible: false,
+          isScrollControlled: true,
+          enableDrag: false,
+          context: context,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(15),
+              topRight: Radius.circular(15),
+            ),
+          ),
+          builder: (builder) {
+            return WillPopScope(
+              onWillPop: () async => false,
+              child: SingleChildScrollView(
+                child: Container(
+                  height: MediaQuery.of(context).size.height * 0.40,
+                  width: double.maxFinite,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(15),
+
+                  ),
+                  child: Column(
+                    children: [
+
+                    ],
+                  )
+                ),
+              ),
+            );
+          },
+        );
+      },
+    );
+  }
 }

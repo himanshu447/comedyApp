@@ -28,18 +28,10 @@ class _EventsShowsState extends State<EventsShows> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      persistentFooterButtons: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 0),
-          child: submitButton(title: AppString.Submit_event_or_show, onPress: _submitData),
-        ),
-      ],
-/*
-      bottomSheet: Padding(
+      bottomNavigationBar:  Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        child: submitButton(
-            title: AppString.Submit_event_or_show, onPress: _submitData),
-      ),*/
+        child: submitButton(title: AppString.Submit_event_or_show, onPress: _submitData),
+      ),
       appBar: customAppbar(
         context: context,
         title: AppString.event_and_shows,
@@ -55,22 +47,24 @@ class _EventsShowsState extends State<EventsShows> {
           ),
           Visibility(
             visible: true,
-            child: ListView.builder(
-              padding: EdgeInsets.symmetric(
-                horizontal: 15,
-              ).copyWith(),
-              shrinkWrap: true,
-              itemCount: 2,
-              itemBuilder: (context, index) {
-                return MyEventListTile(
-                  onTap: () {
-                    Navigator.pushNamed(context, RouteName.event_detail);
-                  },
-                  eventTitle: 'Halloween (Throughout)',
-                  eventTime: 'Feb 3 8:30 PM ESt',
-                  eventOPrice: '180\$',
-                );
-              },
+            child: Expanded(
+              child: ListView.builder(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 15,
+                ).copyWith(),
+                shrinkWrap: true,
+                itemCount: 4,
+                itemBuilder: (context, index) {
+                  return MyEventListTile(
+                    onTap: () {
+                      Navigator.pushNamed(context, RouteName.event_detail);
+                    },
+                    eventTitle: 'Halloween (Throughout)',
+                    eventTime: 'Feb 3 8:30 PM ESt',
+                    eventOPrice: '180\$',
+                  );
+                },
+              ),
             ),
           ),
           Visibility(visible: false, child: emptyEvent()),

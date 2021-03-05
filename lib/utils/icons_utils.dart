@@ -1,6 +1,7 @@
 class AppIcons {
   ///Common
   static const String ic_back = 'assets/images/icons/icon_back.png';
+  static const String ic_left = 'assets/images/icons/ic_left.png';
   static const String ic_success = 'assets/images/icons/success.png';
   static const String ic_search = 'assets/images/icons/search.png';
   static const String ic_filter = 'assets/images/icons/filter.png';
@@ -22,4 +23,14 @@ class AppIcons {
   static const String ic_ticket = 'assets/images/icons/events_shows/ic_ticket.png';
   static const String ic_web = 'assets/images/icons/events_shows/ic_web.png';
   static const String ic_add_image_place_holder = 'assets/images/icons/events_shows/ic_add_image_placeholder.png';
+
+
+  //about
+  static const String ic_submit_prompt = 'assets/images/icons/about/ic_submit_prompt.png';
+  static const String ic_share = 'assets/images/icons/about/ic_share.png';
+  static const String ic_rate = 'assets/images/icons/about/ic_ratting.png';
+  static const String ic_about= 'assets/images/icons/about/ic_about.png';
+  static const String ic_privacy_policy = 'assets/images/icons/about/ic_policy.png';
+  static const String ic_contact_us = 'assets/images/icons/about/ic_call.png';
+
 }
