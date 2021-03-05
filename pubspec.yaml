@@ -39,6 +39,8 @@ dependencies:
   simple_gesture_detector: ^0.1.6
   intl: ^0.16.1
   cached_network_image: ^2.5.0
+  share: 0.6.5+4
+
 
 
 

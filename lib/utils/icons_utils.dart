@@ -5,6 +5,7 @@ class AppIcons {
   static const String ic_search = 'assets/images/icons/search.png';
   static const String ic_filter = 'assets/images/icons/filter.png';
   static const String ic_calendar = 'assets/images/icons/calendar.png';
+  static const String ic_more = 'assets/images/icons/more.png';
 
   ///Home
   static const String ic_home_answer_writing = 'assets/images/icons/home/answer_writing_prompts.png';

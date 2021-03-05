@@ -1,5 +1,9 @@
 import 'package:comedy/common/general_widget.dart';
 import 'package:comedy/feacture/write_whthout_prompt/data/model/write_without_prompt_model.dart';
+import 'package:comedy/share/widget/auto_filled_date_widget.dart';
+import 'package:comedy/share/widget/more_option_bootm_sheet_widget.dart';
+import 'package:comedy/share/widget/custom_dialog_widget.dart';
+import 'package:comedy/share/widget/sub_module_app_bar_widget.dart';
 import 'package:comedy/utils/color_util.dart';
 import 'package:comedy/utils/component/input-chip.component.dart';
 import 'package:comedy/utils/component/number_slider_component.dart';
@@ -30,7 +34,7 @@ class _WriteWithoutPromptViewState extends State<WriteWithoutPromptView> {
   bool isTagSubmitted = false;
   bool isLevelOfCompletenessSubmitted = false;
 
-  List<String> secondList = [];
+  List<String> tagList = [];
 
   int degreeOfSucking = 3;
   int levelOfCompleteness = 3;
@@ -54,65 +58,21 @@ class _WriteWithoutPromptViewState extends State<WriteWithoutPromptView> {
               crossAxisAlignment: CrossAxisAlignment.stretch,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Container(
-                  width: double.infinity,
+                SubModuleAppBarWidget(
                   color: AppColor.primary_orange[500],
-                  padding: EdgeInsets.only(top: AppBar().preferredSize.height),
-                  child: ListTile(
-                    contentPadding: EdgeInsets.zero,
-                    dense: false,
-                    leading: IconButton(
-                      icon: imageAsset(
-                        img: AppIcons.ic_back,
-                        width: 25.0,
-                        height: 25.0,
-                      ),
-                      onPressed: () => Navigator.pop(context),
-                    ),
-                    title: TextComponent(
-                      title: AppString.free_write,
-                      textStyle: StyleUtil.appBarTextStyle,
-                      fontSize: 28,
-                      fontWeight: FontWeight.w600,
-                      textAlign: TextAlign.center,
-                    ),
-                    trailing: !isPromptTitleAndDescSubmitted || !isTagSubmitted
-                        ? FlatButton(
-                            onPressed: _submitPromptTitleAndDesc,
-                            child: TextComponent(
-                              title: AppString.done,
-                              fontSize: 17,
-                              fontWeight: FontWeight.w600,
-                            ),
-                          )
-                        : Container(),
-                  ),
+                  title: AppString.free_write,
+                  actionWidget:
+                      !isPromptTitleAndDescSubmitted || !isTagSubmitted
+                          ? FlatButton(
+                              onPressed: _submitPromptTitleAndDesc,
+                              child: TextComponent(
+                                title: AppString.done,
+                                textStyle: StyleUtil.calenderHeaderTextStyle,
+                              ),
+                            )
+                          : Container(),
                 ),
-                Container(
-                  color: AppColor.textFieldBgColor,
-                  margin: EdgeInsets.only(bottom: 16),
-                  padding: EdgeInsets.symmetric(horizontal: 16, vertical: 22),
-                  child: Row(
-                    children: [
-                      TextComponent(
-                        title: AppString.date,
-                        textStyle: StyleUtil.formFieldTextStyle,
-                      ),
-                      TextComponent(
-                        title: AppString.auto_filled,
-                        textStyle: StyleUtil.calenderTextStyle,
-                        margin: EdgeInsets.symmetric(horizontal: 12),
-                      ),
-                      Expanded(
-                        child: TextComponent(
-                          title: '01 Feb, 2021',
-                          textStyle: StyleUtil.formFieldTextStyle,
-                          textAlign: TextAlign.right,
-                        ),
-                      )
-                    ],
-                  ),
-                ),
+                AutoFilledDateWidget(),
                 isPromptTitleAndDescSubmitted
                     ? TextComponent(
                         title: _titleController.text.trim(),
@@ -219,7 +179,7 @@ class _WriteWithoutPromptViewState extends State<WriteWithoutPromptView> {
                       ),
                 isPromptTitleAndDescSubmitted
                     ? InputChipComponent(
-                        list: secondList,
+                        list: tagList,
                         hintText: AppString.hint_prompt_has_tag,
                         chipColor: AppColor.primary_orange[100],
                         chipTextColor: AppColor.primary_orange[500],
@@ -231,7 +191,7 @@ class _WriteWithoutPromptViewState extends State<WriteWithoutPromptView> {
                         ).copyWith(top: 14, bottom: 14),
                         onAddCallBack: (val) {
                           setState(() {
-                            secondList.add(val.trim());
+                            tagList.add(val.trim());
                           });
                         },
                       )
@@ -320,10 +280,11 @@ class _WriteWithoutPromptViewState extends State<WriteWithoutPromptView> {
         isLevelOfCompletenessSubmitted = true;
       });
     } else {
-      showSavingDialog();
-
+      CustomDialogs.showSavingDataDialog(context);
       Future.delayed(
-        Duration(seconds: 5),
+        Duration(
+          seconds: 1,
+        ),
       ).then(
         (value) => Navigator.pushNamed(
           context,
@@ -333,32 +294,47 @@ class _WriteWithoutPromptViewState extends State<WriteWithoutPromptView> {
             description: _promptController.text.trim(),
             degreeOfSucking: degreeOfSucking,
             levelOfCompleteness: levelOfCompleteness,
-            tags: secondList,
+            tags: tagList,
           ),
         ),
       );
     }
   }
-
-  showSavingDialog() {
-    showDialog(
-      context: context,
-      child: AlertDialog(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        backgroundColor: AppColor.white,
-        contentPadding: EdgeInsets.all(30),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            CircularProgressIndicator(),
-            TextComponent(
-              title: AppString.saving_your_writing,
-              textStyle: StyleUtil.formFieldTextStyle,
-              margin: EdgeInsets.only(top: 22),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
 }
+
+/*
+Container(
+                  width: double.infinity,
+                  color: AppColor.primary_orange[500],
+                  padding: EdgeInsets.only(top: AppBar().preferredSize.height),
+                  child: ListTile(
+                    contentPadding: EdgeInsets.zero,
+                    dense: false,
+                    leading: IconButton(
+                      icon: imageAsset(
+                        img: AppIcons.ic_back,
+                        width: 25.0,
+                        height: 25.0,
+                      ),
+                      onPressed: () => Navigator.pop(context),
+                    ),
+                    title: TextComponent(
+                      title: AppString.free_write,
+                      textStyle: StyleUtil.appBarTextStyle,
+                      fontSize: 28,
+                      fontWeight: FontWeight.w600,
+                      textAlign: TextAlign.center,
+                    ),
+                    trailing: !isPromptTitleAndDescSubmitted || !isTagSubmitted
+                        ? FlatButton(
+                            onPressed: _submitPromptTitleAndDesc,
+                            child: TextComponent(
+                              title: AppString.done,
+                              fontSize: 17,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          )
+                        : Container(),
+                  ),
+                ),
+ */

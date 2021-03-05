@@ -9,8 +9,13 @@ class AppString {
   static const String reset = 'Reset';
   static const String apply = 'Apply';
   static const String done = 'Done';
-  static var date = 'Date';
-  static var next = 'Next';
+  static const String date = 'Date';
+  static const String next = 'Next';
+  static const String edit = 'Edit';
+  static const String delete = 'Delete';
+  static const String share = 'Share';
+  static const String cancel = 'Cancel';
+  static const String save = 'Save';
 
   ///Landing Screen
   static const String home = 'Home';
@@ -83,7 +88,7 @@ class AppString {
   static const String auto_filled = '(autofilled)';
   static const String hint_prompt_title = 'Type your prompt title here...';
   static const String hint_prompt_here = 'Write prompt here...';
-  static const String hint_prompt_has_tag = '#type_hastag_here';
+  static const String hint_prompt_has_tag = '#type_hastag_here (tag will separated by space)';
   static const String error_required_prompt_title = 'Please enter a Title.';
   static const String error_required_prompt = 'Please enter a Prompt.';
   static const String add_Photo = 'Add Photo';
@@ -91,4 +96,6 @@ class AppString {
   static const String level_of_completeness = 'Level of completeness';
   static const String degree_of_not_sucking = 'Degree of not sucking';
   static const String saving_your_writing = 'Saving your writing..';
+  static const String delete_prompt_dialog_title = 'Are you sure you want to delete prompt?';
+
 }

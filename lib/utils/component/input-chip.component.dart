@@ -42,70 +42,75 @@ class _InputChipComponentState extends State<InputChipComponent>
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: <Widget>[
-        Padding(
-          padding: widget.padding,
-          child: widget.isTextFieldVisible
-              ? TextFormField(
-                  controller: _controller,
-                  focusNode: _hasTagFocusNode,
-                  onTap: () {
-                    setState(() {
-                      FocusScope.of(context).requestFocus(_hasTagFocusNode);
-                    });
-                  },
-                  decoration: InputDecoration(
-                    hintText: widget.hintText,
-                    fillColor: _hasTagFocusNode.hasFocus
-                        ? AppColor.white
-                        : AppColor.textFieldBgColor,
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(15),
-                      borderSide: const BorderSide(
-                        color: Colors.black,
-                        width: 0,
+    return Form(
+      onChanged: () {
+        _controller.text;
+      },
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          Padding(
+            padding: widget.padding,
+            child: widget.isTextFieldVisible
+                ? TextFormField(
+                    controller: _controller,
+                    focusNode: _hasTagFocusNode,
+                    onTap: () {
+                      /*       setState(() {
+                        FocusScope.of(context).requestFocus(_hasTagFocusNode);
+                      });*/
+                    },
+                    decoration: InputDecoration(
+                      hintText: widget.hintText,
+                      fillColor: _hasTagFocusNode.hasFocus
+                          ? AppColor.white
+                          : AppColor.textFieldBgColor,
+                      focusedBorder: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(15),
+                        borderSide: const BorderSide(
+                          color: Colors.black,
+                          width: 0,
+                        ),
                       ),
                     ),
-                  ),
-                  keyboardType: widget.keyboardType ?? TextInputType.text,
-                  onChanged: (value) {
-                    if (value.endsWith(" ")) {
-                      _controller.clear();
-                      widget.onAddCallBack(value.substring(0, value.length - 1));
-                    }
-                  },
-                )
-              : Container(),
-        ),
-        Visibility(
-          visible: widget.list.length > 0,
-          child: Wrap(
-            crossAxisAlignment: WrapCrossAlignment.start,
-            spacing: 10,
-            alignment: WrapAlignment.start,
-            children: widget.list
-                .map((e) => FilterChip(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-                      backgroundColor: widget.chipColor ?? Colors.blue,
-                      label: TextComponent(
-                        title: e,
-                        color: widget.chipTextColor,
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400,
-                      ),
-                      //avatar: Icon(Icons.remove_circle_outline, color: widget.iconColor ?? Colors.white),
-                      onSelected: (value) {
-                        //widget.onRemoveCallBack(e);
-                      },
-                    ))
-                .toList(),
+                    keyboardType: widget.keyboardType ?? TextInputType.text,
+                    onChanged: (value) {
+                      if (value.endsWith(" ")) {
+                        widget.onAddCallBack(value.substring(0, value.length - 1));
+                        _controller.clear();
+                      }
+                    },
+                  )
+                : Container(),
           ),
-        ),
-      ],
+          Visibility(
+            visible: widget.list.length > 0,
+            child: Wrap(
+              crossAxisAlignment: WrapCrossAlignment.start,
+              spacing: 10,
+              alignment: WrapAlignment.start,
+              children: widget.list
+                  .map((e) => FilterChip(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                        backgroundColor: widget.chipColor ?? Colors.blue,
+                        label: TextComponent(
+                          title: e,
+                          color: widget.chipTextColor,
+                          fontSize: 16,
+                          fontWeight: FontWeight.w400,
+                        ),
+                        //avatar: Icon(Icons.remove_circle_outline, color: widget.iconColor ?? Colors.white),
+                        onSelected: (value) {
+                          //widget.onRemoveCallBack(e);
+                        },
+                      ))
+                  .toList(),
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
