@@ -286,7 +286,7 @@ class _WriteWithoutPromptViewState extends State<WriteWithoutPromptView> {
           seconds: 1,
         ),
       ).then(
-        (value) => Navigator.pushNamed(
+        (value) => Navigator.popAndPushNamed(
           context,
           RouteName.write_without_prompt_detail,
           arguments: WriteWithoutPromptModel(

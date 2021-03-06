@@ -211,7 +211,7 @@ class _MySavedViewState extends State<MySavedView> {
                                 width: 20,
                               ),
                               TextComponent(
-                                title: AppString.short_filter,
+                                title: AppString.sort_filter,
                                 fontWeight: FontWeight.w600,
                                 fontSize: 17,
                                 margin: EdgeInsets.symmetric(horizontal: 10),

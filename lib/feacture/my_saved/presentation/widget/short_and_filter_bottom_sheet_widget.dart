@@ -53,7 +53,7 @@ class _ShortAndFilterBottomSheetWidgetState
                   ),
                   Expanded(
                     child: TextComponent(
-                      title: AppString.short_filter,
+                      title: AppString.sort_filter,
                       fontSize: 22,
                       fontWeight: FontWeight.w600,
                       textAlign: TextAlign.center,

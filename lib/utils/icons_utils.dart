@@ -7,6 +7,7 @@ class AppIcons {
   static const String ic_filter = 'assets/images/icons/filter.png';
   static const String ic_calendar = 'assets/images/icons/calendar.png';
   static const String ic_more = 'assets/images/icons/more.png';
+  static const String ic_close = 'assets/images/icons/close.png';
 
   ///Home
   static const String ic_home_answer_writing = 'assets/images/icons/home/answer_writing_prompts.png';
@@ -25,7 +26,7 @@ class AppIcons {
   static const String ic_add_image_place_holder = 'assets/images/icons/events_shows/ic_add_image_placeholder.png';
 
 
-  //about
+  ///about
   static const String ic_submit_prompt = 'assets/images/icons/about/ic_submit_prompt.png';
   static const String ic_share = 'assets/images/icons/about/ic_share.png';
   static const String ic_rate = 'assets/images/icons/about/ic_ratting.png';
@@ -33,4 +34,7 @@ class AppIcons {
   static const String ic_privacy_policy = 'assets/images/icons/about/ic_policy.png';
   static const String ic_contact_us = 'assets/images/icons/about/ic_call.png';
 
+  ///Answer_writing_prompt
+  static const String ic_timer = 'assets/images/icons/answer_writing_prompt/timer.png';
+  static const String ic_time_up = 'assets/images/icons/answer_writing_prompt/time_up.png';
 }

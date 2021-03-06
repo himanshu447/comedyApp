@@ -4,7 +4,7 @@ class AppString {
   static const String submit = 'Submit';
   static const String ok = 'Ok';
   static const String search = 'Search...';
-  static const String short_filter = 'Short and Filter';
+  static const String sort_filter = 'Sort and Filter';
   static const String sort = 'SORT';
   static const String reset = 'Reset';
   static const String apply = 'Apply';
@@ -88,7 +88,8 @@ class AppString {
   static const String auto_filled = '(autofilled)';
   static const String hint_prompt_title = 'Type your prompt title here...';
   static const String hint_prompt_here = 'Write prompt here...';
-  static const String hint_prompt_has_tag = '#type_hastag_here (tag will separated by space)';
+  static const String hint_prompt_has_tag =
+      '#type_hastag_here (tag will separated by space)';
   static const String error_required_prompt_title = 'Please enter a Title.';
   static const String error_required_prompt = 'Please enter a Prompt.';
   static const String add_Photo = 'Add Photo';
@@ -96,15 +97,32 @@ class AppString {
   static const String level_of_completeness = 'Level of completeness';
   static const String degree_of_not_sucking = 'Degree of not sucking';
   static const String saving_your_writing = 'Saving your writing..';
-  static const String delete_prompt_dialog_title = 'Are you sure you want to delete prompt?';
-
+  static const String delete_prompt_dialog_title =
+      'Are you sure you want to delete prompt?';
 
   ///about
-
   static const String submit_Prompt = 'Submit Prompt';
   static const String share_app = 'Share app';
   static const String rate_us = 'Rate ust';
   static const String About = 'About';
-  static const String privacy_Policy= 'Privacy Policy';
-  static const String contact_Us= 'Contact Us';
+  static const String privacy_Policy = 'Privacy Policy';
+  static const String contact_Us = 'Contact Us';
+
+  ///Answer writing prompt
+  static const String answer_prompt_sheet_title =
+      'Write a joke which ends with the punchline,';
+  static const String answer_prompt_sheet_desc =
+      "Knock knock.  Who's there?  Butt. Butt who? Knock knock. Who's there?  Interrupting cow. Interrupting cow who?";
+
+  static const String start_writing = 'Start writing';
+  static const String new_prompt = 'New prompt';
+  static const String write_prompt = 'Writing prompt';
+  static const String write_prompt_question =
+      'Write a joke about a recent news event. Try using something other than coronavirus or other obvious topic.';
+  static const String write_prompt_example_answer =
+      '"So Peru changed three presidents within a week. Wow, Peru, it seems like you have more commitment issues than I do."';
+  static const String example = 'Example: ';
+  static const String hit_answer_writing_prompt_here = 'Answer writing prompt here...';
+  static const String error_answer_writing_prompt_here = 'Please don’t leave this blank.';
+  static const String time_up = 'Your five minutes are up!';
 }

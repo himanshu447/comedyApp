@@ -1,3 +1,5 @@
+import 'package:comedy/feacture/answer_writing_prompt/presentation/page/answer_wiriting_prompt.dart';
+import 'package:comedy/feacture/answer_writing_prompt/presentation/page/answer_writing_prompt_detail.dart';
 import 'package:comedy/feacture/events_shows/presentation/page/event_detail.dart';
 import 'package:comedy/feacture/events_shows/presentation/page/events_shows.dart';
 import 'package:comedy/feacture/events_shows/presentation/page/submit_events.dart';
@@ -9,7 +11,6 @@ import 'package:flutter/material.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings routeSettings) {
-
     switch (routeSettings.name) {
       case RouteName.event_show:
         return MaterialPageRoute(
@@ -30,6 +31,19 @@ class RouteGenerator {
         WriteWithoutPromptModel args = routeSettings.arguments;
         return MaterialPageRoute(
           builder: (_) => WriteWithoutPromptDetailView(
+            withoutPromptModel: args,
+          ),
+        );
+
+      case RouteName.answer_writing_prompt:
+        return MaterialPageRoute(
+          builder: (_) => AnswerWritingPromptView(),
+        );
+
+      case RouteName.answer_writing_prompt_detail:
+        WriteWithoutPromptModel args = routeSettings.arguments;
+        return MaterialPageRoute(
+          builder: (_) => AnswerWritingPromptDetailView(
             withoutPromptModel: args,
           ),
         );
