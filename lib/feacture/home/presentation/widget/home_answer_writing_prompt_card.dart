@@ -2,6 +2,7 @@ import 'package:comedy/utils/color_util.dart';
 import 'package:comedy/utils/component/text_component.dart';
 import 'package:comedy/utils/icons_utils.dart';
 import 'package:comedy/utils/string_util.dart';
+import 'package:comedy/utils/style_util.dart';
 import 'package:flutter/material.dart';
 
 class HomeAnswerWritingPromptCardWidget extends StatelessWidget {
@@ -41,9 +42,7 @@ class HomeAnswerWritingPromptCardWidget extends StatelessWidget {
                 children: [
                   TextComponent(
                     title: AppString.answer_writing_prompts,
-                    fontSize: 22,
-                    fontWeight: FontWeight.w600,
-                    color: AppColor.black,
+                    textStyle: StyleUtil.levelOfCompletenessTextStyle,
                     margin: EdgeInsets.symmetric(vertical: 10),
                   ),
                   Expanded(

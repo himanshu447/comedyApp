@@ -10,6 +10,7 @@ import 'package:comedy/utils/component/tag_select_check_list.dart';
 import 'package:comedy/utils/component/text_component.dart';
 import 'package:comedy/utils/icons_utils.dart';
 import 'package:comedy/utils/string_util.dart';
+import 'package:comedy/utils/style_util.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -111,10 +112,8 @@ class _MySavedViewState extends State<MySavedView> {
             children: [
               TextComponent(
                 title: AppString.laugh_draft,
-                fontSize: 30,
-                fontWeight: FontWeight.w600,
-                color: AppColor.white,
                 textAlign: TextAlign.center,
+                textStyle: StyleUtil.topAppBarTextStyle,
               ),
               Container(
                 margin: EdgeInsets.symmetric(horizontal: 20).copyWith(top: 20),

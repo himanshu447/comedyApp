@@ -24,7 +24,7 @@ class AppString {
   static const String about = 'About';
 
   ///Home screen
-  static const String laugh_draft = 'LaughDraft';
+  static const String laugh_draft = 'LAUGHDRAFT';
   static const String answer_writing_prompts = 'Answer writing prompts';
   static const String answer_writing_prompts_desc =
       'Answer a randomly-selected comedy writing prompt in five minutes or less.';

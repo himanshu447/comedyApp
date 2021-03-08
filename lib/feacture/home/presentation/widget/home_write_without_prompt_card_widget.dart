@@ -2,6 +2,7 @@ import 'package:comedy/utils/color_util.dart';
 import 'package:comedy/utils/component/text_component.dart';
 import 'package:comedy/utils/icons_utils.dart';
 import 'package:comedy/utils/string_util.dart';
+import 'package:comedy/utils/style_util.dart';
 import 'package:flutter/material.dart';
 
 class HomeWriteWithoutPromptCardWidget extends StatelessWidget {
@@ -43,9 +44,7 @@ class HomeWriteWithoutPromptCardWidget extends StatelessWidget {
                 children: [
                   TextComponent(
                     title: AppString.write_without_prompts,
-                    fontSize: 22,
-                    fontWeight: FontWeight.w600,
-                    color: AppColor.black,
+                    textStyle: StyleUtil.levelOfCompletenessTextStyle,
                     margin: EdgeInsets.symmetric(vertical: 10),
                   ),
                   Expanded(

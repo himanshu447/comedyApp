@@ -93,10 +93,13 @@ flutter:
     - family: SF-Pro-Display
       fonts:
         - asset: assets/fonts/SF-Pro-Display-Bold.otf
+          weight: 900
         - asset: assets/fonts/SF-Pro-Display-Medium.otf
+          weight: 600
         - asset: assets/fonts/SF-Pro-Display-Regular.otf
+          weight: 500
         - asset: assets/fonts/SF-Pro-Display-Semibold.otf
-
+          weight: 800
   #         style: italic
   #   - family: Trajan Pro
   #     fonts:

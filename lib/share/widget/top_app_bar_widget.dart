@@ -1,5 +1,6 @@
 import 'package:comedy/utils/color_util.dart';
 import 'package:comedy/utils/component/text_component.dart';
+import 'package:comedy/utils/style_util.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -34,10 +35,7 @@ class TopAppBarWidget extends StatelessWidget {
         children: [
           TextComponent(
             title: title,
-            fontSize: 30,
-            fontWeight: FontWeight.w600,
-            color: AppColor.white,
-            textAlign: TextAlign.center,
+            textStyle: StyleUtil.topAppBarTextStyle,
           ),
           subTitle,
         ],

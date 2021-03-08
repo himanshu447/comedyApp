@@ -76,4 +76,12 @@ class StyleUtil {
     fontFamily: 'SF Pro Display',
     color: AppColor.white,
   );
+
+  static TextStyle topAppBarTextStyle = const TextStyle(
+    fontSize: 30,
+    fontWeight: FontWeight.w400,
+    fontFamily: 'SF Pro Display',
+    color: AppColor.white,
+  );
+
 }
