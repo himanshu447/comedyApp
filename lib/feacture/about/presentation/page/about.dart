@@ -4,6 +4,7 @@ import 'package:comedy/share/widget/top_app_bar_widget.dart';
 import 'package:comedy/utils/color_util.dart';
 import 'package:comedy/utils/component/text_component.dart';
 import 'package:comedy/utils/icons_utils.dart';
+import 'package:comedy/utils/route/route_name.dart';
 import 'package:comedy/utils/string_util.dart';
 import 'package:flutter/material.dart';
 
@@ -33,23 +34,34 @@ class _AboutViewState extends State<AboutView> {
     );
     filterList.add(
       AboutTileModel(
-          label: AppString.rate_us, leadIcon: AppIcons.ic_rate, onPress: () {}),
+        label: AppString.rate_us,
+        leadIcon: AppIcons.ic_rate,
+        onPress: () {},
+      ),
     );
     filterList.add(
       AboutTileModel(
-          label: AppString.about, leadIcon: AppIcons.ic_about, onPress: () {}),
+        label: AppString.about,
+        leadIcon: AppIcons.ic_about,
+        onPress: () => Navigator.pushNamed(
+          context,
+          RouteName.about_us,
+        ),
+      ),
     );
     filterList.add(
       AboutTileModel(
-          label: AppString.privacy_Policy,
-          leadIcon: AppIcons.ic_privacy_policy,
-          onPress: () {}),
+        label: AppString.privacy_Policy,
+        leadIcon: AppIcons.ic_privacy_policy,
+        onPress: () {},
+      ),
     );
     filterList.add(
       AboutTileModel(
-          label: AppString.contact_Us,
-          leadIcon: AppIcons.ic_contact_us,
-          onPress: () {}),
+        label: AppString.contact_Us,
+        leadIcon: AppIcons.ic_contact_us,
+        onPress: () {},
+      ),
     );
 
     super.initState();

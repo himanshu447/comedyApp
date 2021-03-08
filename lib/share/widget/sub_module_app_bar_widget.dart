@@ -1,4 +1,5 @@
 import 'package:comedy/common/general_widget.dart';
+import 'package:comedy/utils/color_util.dart';
 import 'package:comedy/utils/component/text_component.dart';
 import 'package:comedy/utils/icons_utils.dart';
 import 'package:comedy/utils/style_util.dart';
@@ -8,11 +9,15 @@ class SubModuleAppBarWidget extends StatelessWidget {
   final Color color;
   final String title;
   final Widget actionWidget;
+  final TextStyle titleTextStyle;
+  final Color backIconColor;
 
   const SubModuleAppBarWidget({
     this.color,
     this.title,
     this.actionWidget,
+    this.titleTextStyle,
+    this.backIconColor,
   });
 
   @override
@@ -29,17 +34,19 @@ class SubModuleAppBarWidget extends StatelessWidget {
             img: AppIcons.ic_back,
             width: 25.0,
             height: 25.0,
+            color: backIconColor ?? AppColor.black,
           ),
           onPressed: () => Navigator.pop(context),
         ),
         title: TextComponent(
           title: title,
-          textStyle: StyleUtil.appBarTextStyle,
-          fontSize: 28,
-          fontWeight: FontWeight.w600,
+          textStyle: titleTextStyle ?? StyleUtil.appBarTextStyle,
           textAlign: TextAlign.center,
         ),
-        trailing: actionWidget,
+        trailing: actionWidget ??
+            Container(
+              width: 20,
+            ),
       ),
     );
   }

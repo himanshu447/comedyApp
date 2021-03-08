@@ -1,3 +1,4 @@
+import 'package:comedy/feacture/about/presentation/page/about_us.dart';
 import 'package:comedy/feacture/answer_writing_prompt/presentation/page/answer_wiriting_prompt.dart';
 import 'package:comedy/feacture/answer_writing_prompt/presentation/page/answer_writing_prompt_detail.dart';
 import 'package:comedy/feacture/events_shows/presentation/page/event_detail.dart';
@@ -46,6 +47,11 @@ class RouteGenerator {
           builder: (_) => AnswerWritingPromptDetailView(
             withoutPromptModel: args,
           ),
+        );
+
+      case RouteName.about_us:
+        return MaterialPageRoute(
+          builder: (_) => AboutUsView(),
         );
         return MaterialPageRoute(builder: (_) => EventsShows());
 
