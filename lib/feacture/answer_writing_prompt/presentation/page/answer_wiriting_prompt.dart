@@ -51,8 +51,9 @@ class _AnswerWritingPromptViewState extends State<AnswerWritingPromptView> {
       oneSec,
       (Timer timer) {
         if (_start == ConstantUtil.END_TIMER_VALUE) {
-          setState(() {
+            isAnswerSubmitRequest = true;
             _showTimeUpDialog();
+          setState(() {
             timer.cancel();
           });
         } else {
@@ -101,29 +102,20 @@ class _AnswerWritingPromptViewState extends State<AnswerWritingPromptView> {
                       ? TimerHelper.formatHHMMSS(_start)
                       : AppString.write_prompt,
                   actionWidget: FlatButton(
-                    onPressed: _submitData,
+                    onPressed: (!isAnswerSubmitRequest) ||
+                            (isAnswerSavedButtonPress && !isTagSubmitted)
+                        ? _submitData
+                        : null,
                     child: TextComponent(
-                    /*  title: !isAnswerSubmitRequest || !isTitleSubmit
-                              ?  isAnswerSavedButtonPress  && !isTitleSubmit
-                                    ? AppString.done
-                                    :''
-                              : ''*/
-                      title: AppString.done
-,                      /*title: _start != ConstantUtil.END_TIMER_VALUE
-                                ? isAnswerSavedButtonPress || !isTitleSubmit
-                                    ? AppString.done
-                                    : ''
-                                :'',*/
-                      /*title: _start != ConstantUtil.END_TIMER_VALUE || isAnswerSavedButtonPress || !isTitleSubmit
+                      title: (!isAnswerSubmitRequest) ||
+                              (isAnswerSavedButtonPress && !isTagSubmitted )
                           ? AppString.done
-                          : '',*/
+                          : '',
                       textStyle: StyleUtil.calenderHeaderTextStyle,
                     ),
                   ),
                 ),
-
                 AutoFilledDateWidget(),
-
                 isAnswerSavedButtonPress
                     ? Padding(
                         padding: const EdgeInsets.symmetric(
@@ -143,7 +135,8 @@ class _AnswerWritingPromptViewState extends State<AnswerWritingPromptView> {
                                 },
                                 validator: (value) {
                                   if (value.isEmpty) {
-                                    return AppString.error_required_prompt_title;
+                                    return AppString
+                                        .error_required_prompt_title;
                                   }
                                   return null;
                                 },
@@ -176,7 +169,6 @@ class _AnswerWritingPromptViewState extends State<AnswerWritingPromptView> {
                               ),
                       )
                     : Container(),
-
                 !isAnswerSavedButtonPress
                     ? TextComponent(
                         title: AppString.write_prompt,
@@ -190,7 +182,6 @@ class _AnswerWritingPromptViewState extends State<AnswerWritingPromptView> {
                         ),
                       )
                     : Container(),
-
                 TextComponent(
                   title: _start != ConstantUtil.END_TIMER_VALUE
                       ? !isAnswerSubmitRequest
@@ -203,7 +194,6 @@ class _AnswerWritingPromptViewState extends State<AnswerWritingPromptView> {
                     vertical: 12,
                   ),
                 ),
-
                 _start != ConstantUtil.END_TIMER_VALUE
                     ? !isAnswerSubmitRequest
                         ? Padding(
@@ -230,71 +220,69 @@ class _AnswerWritingPromptViewState extends State<AnswerWritingPromptView> {
                           )
                         : Container()
                     : Container(),
-
                 isTitleSubmit
                     ? InputChipComponent(
-                  list: tagList,
-                  hintText: AppString.hint_prompt_has_tag,
-                  chipColor: AppColor.primary_green[100],
-                  chipTextColor: AppColor.primary_green[500],
-                  keyboardType: TextInputType.text,
-                  isTextFieldVisible: !isTagSubmitted,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 20,
-                    vertical: 50,
-                  ).copyWith(top: 34, bottom: 14),
-                  onAddCallBack: (val) {
-                    setState(() {
-                      tagList.add(val.trim());
-                    });
-                  },
-                )
+                        list: tagList,
+                        hintText: AppString.hint_prompt_has_tag,
+                        chipColor: AppColor.primary_green[100],
+                        chipTextColor: AppColor.primary_green[500],
+                        keyboardType: TextInputType.text,
+                        isTextFieldVisible: !isTagSubmitted,
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 20,
+                          vertical: 50,
+                        ).copyWith(top: 34, bottom: 14),
+                        onAddCallBack: (val) {
+                          setState(() {
+                            tagList.add(val.trim());
+                          });
+                        },
+                      )
                     : Container(),
-
                 isTagSubmitted && !isLevelOfCompletenessSubmitted
                     ? TextComponent(
-                  title: AppString.level_of_completeness,
-                  textStyle: StyleUtil.levelOfCompletenessTextStyle,
-                  margin: EdgeInsets.only(top: 60),
-                  textAlign: TextAlign.center,
-                )
+                        title: AppString.level_of_completeness,
+                        textStyle: StyleUtil.levelOfCompletenessTextStyle,
+                        margin: EdgeInsets.only(top: 60),
+                        textAlign: TextAlign.center,
+                      )
                     : Container(),
-
                 isTagSubmitted && !isLevelOfCompletenessSubmitted
                     ? HorizantalPicker(
-                  minValue: 1,
-                  maxValue: 10,
-                  onChanged: (val) {
-                    levelOfCompleteness = val;
-                  },
-                  activeItemBgColor: AppColor.primary_green[100],
-                  activeTextStyle: StyleUtil.activeNumberTextStyle.copyWith(color:AppColor.primary_green[500]),
-                  deActiveTextStyle: StyleUtil.inActiveNumberTextStyle,
-                )
+                        minValue: 1,
+                        maxValue: 10,
+                        onChanged: (val) {
+                          print(val);
+                          levelOfCompleteness = val;
+                        },
+                        activeItemBgColor: AppColor.primary_green[100],
+                        activeTextStyle: StyleUtil.activeNumberTextStyle
+                            .copyWith(color: AppColor.primary_green[500]),
+                        deActiveTextStyle: StyleUtil.inActiveNumberTextStyle,
+                      )
                     : Container(),
-
                 isLevelOfCompletenessSubmitted
                     ? TextComponent(
-                  title: AppString.degree_of_not_sucking,
-                  textStyle: StyleUtil.levelOfCompletenessTextStyle,
-                  margin: EdgeInsets.only(top: 60),
-                  textAlign: TextAlign.center,
-                )
+                        title: AppString.degree_of_not_sucking,
+                        textStyle: StyleUtil.levelOfCompletenessTextStyle,
+                        margin: EdgeInsets.only(top: 60),
+                        textAlign: TextAlign.center,
+                      )
                     : Container(),
-
                 isLevelOfCompletenessSubmitted
                     ? HorizantalPicker(
-                  minValue: 1,
-                  maxValue: 10,
-                  onChanged: (val) {
-                    degreeOfSucking = val;
-                  },
-                  activeItemBgColor: AppColor.primary_green[100],
-                  activeTextStyle: StyleUtil.activeNumberTextStyle.copyWith(color:AppColor.primary_green[500]),
-                  deActiveTextStyle: StyleUtil.inActiveNumberTextStyle,
-                )
+                        minValue: 1,
+                        maxValue: 10,
+                        onChanged: (val) {
+                          print(val);
+                          degreeOfSucking = val;
+                        },
+                        activeItemBgColor: AppColor.primary_green[100],
+                        activeTextStyle: StyleUtil.activeNumberTextStyle
+                            .copyWith(color: AppColor.primary_green[500]),
+                        deActiveTextStyle: StyleUtil.inActiveNumberTextStyle,
+                      )
                     : Container(),
-
                 _start != ConstantUtil.END_TIMER_VALUE
                     ? !isAnswerSubmitRequest
                         ? Padding(
@@ -350,7 +338,9 @@ class _AnswerWritingPromptViewState extends State<AnswerWritingPromptView> {
             ),
           ),
         ),
-        (_start == ConstantUtil.END_TIMER_VALUE || isAnswerSubmitRequest) && MediaQuery.of(context).viewInsets.bottom == 0 && !isAnswerSavedButtonPress
+        (_start == ConstantUtil.END_TIMER_VALUE || isAnswerSubmitRequest) &&
+                MediaQuery.of(context).viewInsets.bottom == 0 &&
+                !isAnswerSavedButtonPress
             ? Positioned(
                 bottom: 10,
                 left: 20,
@@ -372,27 +362,24 @@ class _AnswerWritingPromptViewState extends State<AnswerWritingPromptView> {
                 ),
               )
             : Container(),
-
         Positioned(
           bottom: 10,
           left: 20,
           right: 20,
-          child: MediaQuery.of(context).viewInsets.bottom == 0 &&
-              isTagSubmitted
+          child: MediaQuery.of(context).viewInsets.bottom == 0 && isTagSubmitted
               ? RawMaterialButton(
-            onPressed: _submitData,
-            padding: EdgeInsets.symmetric(vertical: 14),
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12)),
-            fillColor: AppColor.primary_green[500],
-            child: TextComponent(
-              title: AppString.next,
-              textStyle: StyleUtil.nextButtonTextStyle,
-            ),
-          )
+                  onPressed: _submitData,
+                  padding: EdgeInsets.symmetric(vertical: 14),
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12)),
+                  fillColor: AppColor.primary_green[500],
+                  child: TextComponent(
+                    title: AppString.next,
+                    textStyle: StyleUtil.nextButtonTextStyle,
+                  ),
+                )
               : Container(),
         )
-
       ],
     );
   }
@@ -475,31 +462,35 @@ class _AnswerWritingPromptViewState extends State<AnswerWritingPromptView> {
       setState(() {
         isTagSubmitted = true;
       });
-    } else if (!isLevelOfCompletenessSubmitted && isTagSubmitted) {
+    }
+    else if (!isLevelOfCompletenessSubmitted && isTagSubmitted) {
       print('Level ');
       setState(() {
         isLevelOfCompletenessSubmitted = true;
       });
-    }else{
+    }
+    else if(isLevelOfCompletenessSubmitted && isTagSubmitted && _answerController.text.trim().isNotEmpty && _titleController.text.trim().isNotEmpty){
       CustomDialogs.showSavingDataDialog(context);
-    Future.delayed(
-      Duration(
-        seconds: 1,
-      ),
-    ).then(
-          (value) => Navigator.popAndPushNamed(
-        context,
-        RouteName.answer_writing_prompt_detail,
-        arguments: WriteWithoutPromptModel(
-          title: _titleController.text.trim(),
-          description: _answerController.text.trim(),
-          degreeOfSucking: degreeOfSucking,
-          levelOfCompleteness: levelOfCompleteness,
-          tags: tagList,
+      Future.delayed(
+        Duration(
+          seconds: 1,
         ),
-      ),
-    );
-
+      ).then(
+        (value) => Navigator.popAndPushNamed(
+          context,
+          RouteName.answer_writing_prompt_detail,
+          arguments: WriteWithoutPromptModel(
+            title: _titleController.text.trim(),
+            description: _answerController.text.trim(),
+            degreeOfSucking: degreeOfSucking,
+            levelOfCompleteness: levelOfCompleteness,
+            tags: tagList,
+          ),
+        ),
+      );
+    }
+    else {
+      return;
     }
   }
 }

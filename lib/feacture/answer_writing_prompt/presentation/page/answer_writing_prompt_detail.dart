@@ -23,8 +23,8 @@ class AnswerWritingPromptDetailView extends StatefulWidget {
       _AnswerWritingPromptDetailViewState();
 }
 
-class _AnswerWritingPromptDetailViewState extends State<AnswerWritingPromptDetailView> {
-
+class _AnswerWritingPromptDetailViewState
+    extends State<AnswerWritingPromptDetailView> {
   TextEditingController _titleController;
   TextEditingController _promptController;
 
@@ -76,148 +76,147 @@ class _AnswerWritingPromptDetailViewState extends State<AnswerWritingPromptDetai
                   title: AppString.write_prompt,
                   actionWidget: isEditButtonPress
                       ? FlatButton(
-                    onPressed: (){
-                      setState(() {
-                        isEditButtonPress = false;
-                      });
-                    },
-                    child: TextComponent(
-                      title: AppString.save,
-                      textStyle: StyleUtil.calenderHeaderTextStyle,
-                    ),
-                  )
+                          onPressed: () {
+                            setState(() {
+                              isEditButtonPress = false;
+                            });
+                          },
+                          child: TextComponent(
+                            title: AppString.save,
+                            textStyle: StyleUtil.calenderHeaderTextStyle,
+                          ),
+                        )
                       : IconButton(
-                    icon: Image.asset(
-                      AppIcons.ic_more,
-                      height: 20,
-                    ),
-                    onPressed: _showMoreBottomSheet,
-                  ),
+                          icon: Image.asset(
+                            AppIcons.ic_more,
+                            height: 20,
+                          ),
+                          onPressed: _showMoreBottomSheet,
+                        ),
                 ),
                 AutoFilledDateWidget(),
-
                 isEditButtonPress
                     ? Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 20,
-                    vertical: 12,
-                  ),
-                  child: TextFormField(
-                    controller: _titleController,
-                    focusNode: _titleFocusNode,
-                    textInputAction: TextInputAction.next,
-                    onTap: () {
-                      setState(() {
-                        FocusScope.of(context)
-                            .requestFocus(_titleFocusNode);
-                      });
-                    },
-                    validator: (value) {
-                      if (value.isEmpty) {
-                        return AppString.error_required_prompt_title;
-                      }
-                      return null;
-                    },
-                    decoration: InputDecoration(
-                      hintText: AppString.hint_prompt_title,
-                      fillColor: _titleFocusNode.hasFocus
-                          ? AppColor.white
-                          : AppColor.textFieldBgColor,
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15),
-                        borderSide: BorderSide(
-                          color: _titleFocusNode.hasFocus
-                              ? Colors.black
-                              : AppColor.textFieldBgColor,
-                          width: 0,
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 20,
+                          vertical: 12,
                         ),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15),
-                        borderSide: const BorderSide(
-                          color: Colors.black,
-                          width: 0,
+                        child: TextFormField(
+                          controller: _titleController,
+                          focusNode: _titleFocusNode,
+                          textInputAction: TextInputAction.next,
+                          onTap: () {
+                            setState(() {
+                              FocusScope.of(context)
+                                  .requestFocus(_titleFocusNode);
+                            });
+                          },
+                          validator: (value) {
+                            if (value.isEmpty) {
+                              return AppString.error_required_prompt_title;
+                            }
+                            return null;
+                          },
+                          decoration: InputDecoration(
+                            hintText: AppString.hint_prompt_title,
+                            fillColor: _titleFocusNode.hasFocus
+                                ? AppColor.white
+                                : AppColor.textFieldBgColor,
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(15),
+                              borderSide: BorderSide(
+                                color: _titleFocusNode.hasFocus
+                                    ? Colors.black
+                                    : AppColor.textFieldBgColor,
+                                width: 0,
+                              ),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(15),
+                              borderSide: const BorderSide(
+                                color: Colors.black,
+                                width: 0,
+                              ),
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                  ),
-                )
+                      )
                     : TextComponent(
-                  title: _titleController.text.trim(),
-                  textStyle: StyleUtil.calenderHeaderTextStyle,
-                  margin:
-                  EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                ),
+                        title: _titleController.text.trim(),
+                        textStyle: StyleUtil.calenderHeaderTextStyle,
+                        margin:
+                            EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                      ),
                 isEditButtonPress
                     ? Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 20,
-                    vertical: 12,
-                  ),
-                  child: TextFormField(
-                    controller: _promptController,
-                    focusNode: _promptFocusNode,
-                    maxLines: 8,
-                    onTap: () {
-                      setState(() {
-                        FocusScope.of(context)
-                            .requestFocus(_promptFocusNode);
-                      });
-                    },
-                    validator: (value) {
-                      if (value.isEmpty) {
-                        return AppString.error_required_prompt;
-                      }
-                      return null;
-                    },
-                    decoration: InputDecoration(
-                      hintText: AppString.hint_prompt_here,
-                      fillColor: _promptFocusNode.hasFocus
-                          ? AppColor.white
-                          : AppColor.textFieldBgColor,
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15),
-                        borderSide: BorderSide(
-                          color: _promptFocusNode.hasFocus
-                              ? Colors.black
-                              : AppColor.textFieldBgColor,
-                          width: 0,
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 20,
+                          vertical: 12,
                         ),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(15),
-                        borderSide: const BorderSide(
-                          color: Colors.black,
-                          width: 0,
+                        child: TextFormField(
+                          controller: _promptController,
+                          focusNode: _promptFocusNode,
+                          maxLines: 8,
+                          onTap: () {
+                            setState(() {
+                              FocusScope.of(context)
+                                  .requestFocus(_promptFocusNode);
+                            });
+                          },
+                          validator: (value) {
+                            if (value.isEmpty) {
+                              return AppString.error_required_prompt;
+                            }
+                            return null;
+                          },
+                          decoration: InputDecoration(
+                            hintText: AppString.hint_prompt_here,
+                            fillColor: _promptFocusNode.hasFocus
+                                ? AppColor.white
+                                : AppColor.textFieldBgColor,
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(15),
+                              borderSide: BorderSide(
+                                color: _promptFocusNode.hasFocus
+                                    ? Colors.black
+                                    : AppColor.textFieldBgColor,
+                                width: 0,
+                              ),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(15),
+                              borderSide: const BorderSide(
+                                color: Colors.black,
+                                width: 0,
+                              ),
+                            ),
+                          ),
                         ),
-                      ),
-                    ),
-                  ),
-                )
+                      )
                     : TextComponent(
-                  title: _promptController.text.trim(),
-                  textStyle: StyleUtil.formFieldTextStyle,
-                  margin:
-                  EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-                ),
+                        title: _promptController.text.trim(),
+                        textStyle: StyleUtil.formFieldTextStyle,
+                        margin:
+                            EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                      ),
                 widget.withoutPromptModel.tags.isNotEmpty
                     ? InputChipComponent(
-                  list: tagList,
-                  hintText: AppString.hint_prompt_has_tag,
-                  chipColor: AppColor.primary_green[100],
-                  chipTextColor: AppColor.primary_green[500],
-                  keyboardType: TextInputType.text,
-                  isTextFieldVisible: isEditButtonPress,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 20,
-                    vertical: 10,
-                  ).copyWith(top: 14, bottom: 14),
-                  onAddCallBack: (val) {
-                    setState(() {
-                      tagList.add(val.trim());
-                    });
-                  },
-                )
+                        list: tagList,
+                        hintText: AppString.hint_prompt_has_tag,
+                        chipColor: AppColor.primary_green[100],
+                        chipTextColor: AppColor.primary_green[500],
+                        keyboardType: TextInputType.text,
+                        isTextFieldVisible: isEditButtonPress,
+                        padding: const EdgeInsets.symmetric(
+                          horizontal: 20,
+                          vertical: 10,
+                        ).copyWith(top: 14, bottom: 14),
+                        onAddCallBack: (val) {
+                          setState(() {
+                            tagList.add(val.trim());
+                          });
+                        },
+                      )
                     : Container()
               ],
             ),
@@ -227,10 +226,10 @@ class _AnswerWritingPromptDetailViewState extends State<AnswerWritingPromptDetai
         //bottom Level And Degree
         MediaQuery.of(context).viewInsets.bottom == 0
             ? LevelAndDegreeDetailWidget(
-          levelOfCompleteness:
-          widget.withoutPromptModel.levelOfCompleteness,
-          degreeOfSucking: widget.withoutPromptModel.degreeOfSucking,
-        )
+                levelOfCompleteness:
+                    widget.withoutPromptModel.levelOfCompleteness,
+                degreeOfSucking: widget.withoutPromptModel.degreeOfSucking,
+              )
             : Container(),
       ],
     );

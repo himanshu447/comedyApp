@@ -81,19 +81,20 @@ class _HorizantalPickerState extends State<HorizantalPicker> {
                 onSelectedItemChanged: (item) {
                   setState(() {
                     curItem = item;
-                    widget.onChanged(item);
+                    widget.onChanged(item + 1);
                   });
                   setState(() {});
                 },
                 children: List.generate(
-                    10,
-                    (index) => ItemWidget(
-                          title: (index + 1).toString(),
-                          activeBgColor: widget.activeItemBgColor,
-                          activeTextStyle: widget.activeTextStyle,
-                          deActiveTextStyle: widget.deActiveTextStyle,
-                          isSelected: curItem == index,
-                        )).toList(),
+                  widget.maxValue,
+                  (index) => ItemWidget(
+                    title: (index + 1).toString(),
+                    activeBgColor: widget.activeItemBgColor,
+                    activeTextStyle: widget.activeTextStyle,
+                    deActiveTextStyle: widget.deActiveTextStyle,
+                    isSelected: curItem == index,
+                  ),
+                ).toList(),
               ),
             ),
           ],
