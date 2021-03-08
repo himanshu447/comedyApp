@@ -1,6 +1,7 @@
 import 'package:comedy/common/common_appbar.dart';
 import 'package:comedy/feacture/events_shows/presentation/widget/event_list_tile_widget.dart';
 import 'package:comedy/feacture/events_shows/presentation/widget/event_widget.dart';
+import 'package:comedy/share/widget/sub_module_app_bar_widget.dart';
 import 'package:comedy/utils/calender/table_calendar.dart';
 import 'package:comedy/utils/color_util.dart';
 import 'package:comedy/utils/component/text_component.dart';
@@ -28,17 +29,21 @@ class _EventsShowsState extends State<EventsShows> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar:  Padding(
+      bottomNavigationBar: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        child: submitButton(title: AppString.Submit_event_or_show, onPress: _submitData),
-      ),
-      appBar: customAppbar(
-        context: context,
-        title: AppString.event_and_shows,
-        backgroundColor: AppColor.primary_pink[500],
+        child: submitButton(
+            title: AppString.Submit_event_or_show, onPress: _submitData),
       ),
       body: Column(
         children: [
+          /* context: context,
+          title: AppString.event_and_shows,
+          backgroundColor: AppColor.primary_pink[500],*/
+
+          SubModuleAppBarWidget(
+            color: AppColor.primary_pink[500],
+            title: AppString.event_and_shows,
+          ),
           EventCalender(
             calendarController: _calendarController,
             odDaySelected: (date) {

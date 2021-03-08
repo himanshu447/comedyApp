@@ -46,10 +46,12 @@ class BottomNavState extends State<BottomNav> {
     return Material(
       elevation: widget.elevation,
       color: widget.color,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        mainAxisSize: MainAxisSize.max,
-        children: buildRowOfNavBar,
+      child: SafeArea (
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          mainAxisSize: MainAxisSize.max,
+          children: buildRowOfNavBar,
+        ),
       ),
     );
   }

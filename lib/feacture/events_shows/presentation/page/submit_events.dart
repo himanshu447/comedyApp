@@ -2,6 +2,7 @@ import 'package:comedy/common/common_appbar.dart';
 import 'package:comedy/common/general_widget.dart';
 import 'package:comedy/feacture/events_shows/presentation/widget/event_widget.dart';
 import 'package:comedy/feacture/events_shows/presentation/widget/submit_event_widget.dart';
+import 'package:comedy/share/widget/sub_module_app_bar_widget.dart';
 import 'package:comedy/utils/color_util.dart';
 import 'package:comedy/utils/component/text_component.dart';
 import 'package:comedy/utils/icons_utils.dart';
@@ -33,111 +34,117 @@ class _SubmitEventsState extends State<SubmitEvents> {
         child: submitButton(
             title: AppString.Submit_event_or_show, onPress: _submitData),
       ),
-      appBar: customAppbar(
-        context: context,
-        title: AppString.event_and_shows,
-        backgroundColor: AppColor.primary_pink[500],
-      ),
-      body: SingleChildScrollView(
-        child: Column(
-          children: [
-            topAddImageWidget(size: size),
-            verticalSpace(25.0),
-            customTextField(
-                controller: eventNameController,
-                hintText: AppString.event_name),
-            verticalSpace(20.0),
-            customTextField(
-                controller: aboutEventController,
-                hintText: AppString.about_event,
-                maxLine: 4),
-            verticalSpace(20.0),
-            Row(
-              children: [
-                Expanded(
-                    child: timePicker(
-                  hintName: AppString.start_date,
-                  controller: startTimeController,
-                  onTap: () {
-                    selectDate(context).then((date) {
-                      print(date);
-                      if (date != null)
-                        setState(() {
-                          startTimeController.text = date;
-                        });
-                    });
-                  },
-                )),
-                horizontalSpace(10),
-                Expanded(
-                    child: timePicker(
-                  hintName: AppString.start_time,
-                  controller: startDateController,
-                  onTap: () {
-                    selectTime(context).then((date) {
-                      print(date);
-                      if (date != null)
-                        setState(() {
-                          startDateController.text = date;
-                        });
-                    });
-                  },
-                )),
-              ],
-            ),
-            verticalSpace(20.0),
-            Row(
-              children: [
-                Expanded(
-                    child: timePicker(
-                  hintName: AppString.end_date,
-                  controller: endDateController,
-                  onTap: () {
-                    selectDate(context).then((date) {
-                      print(date);
-                      if (date != null)
-                        setState(() {
-                          endDateController.text = date;
-                        });
-                    });
-                  },
-                )),
-                horizontalSpace(10),
-                Expanded(
-                    child: timePicker(
-                  hintName: AppString.end_date,
-                  controller: endTimeController,
-                  onTap: () {
-                    selectTime(context).then((date) {
-                      print(date);
-                      if (date != null)
-                        setState(() {
-                          endTimeController.text = date;
-                        });
-                    });
-                  },
-                )),
-              ],
-            ),
-            verticalSpace(20.0),
-            timezoneRow(),
-            verticalSpace(20.0),
-            customTextField(
-              controller: eventLinkController,
-              hintText: AppString.event_link,
-            ),
-            verticalSpace(20.0),
-            customTextField(
-              controller: eventCostController,
-              hintText: AppString.cost,
-            ),
-            verticalSpace(20.0),
+      body: Column(
+        children: [
+          SubModuleAppBarWidget(
+            color: AppColor.primary_pink[500],
+            title: AppString.event_and_shows,
+          ),
 
-            /*    customTextField(
-                      controller: controller, hintText: 'Event Name'),
-                  verticalSpace(20.0),*/
-          ],
-        ),
+          Expanded(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  topAddImageWidget(size: size),
+                  verticalSpace(25.0),
+                  customTextField(
+                      controller: eventNameController,
+                      hintText: AppString.event_name),
+                  verticalSpace(20.0),
+                  customTextField(
+                      controller: aboutEventController,
+                      hintText: AppString.about_event,
+                      maxLine: 4),
+                  verticalSpace(20.0),
+                  Row(
+                    children: [
+                      Expanded(
+                          child: timePicker(
+                        hintName: AppString.start_date,
+                        controller: startTimeController,
+                        onTap: () {
+                          selectDate(context).then((date) {
+                            print(date);
+                            if (date != null)
+                              setState(() {
+                                startTimeController.text = date;
+                              });
+                          });
+                        },
+                      )),
+                      horizontalSpace(10),
+                      Expanded(
+                          child: timePicker(
+                        hintName: AppString.start_time,
+                        controller: startDateController,
+                        onTap: () {
+                          selectTime(context).then((date) {
+                            print(date);
+                            if (date != null)
+                              setState(() {
+                                startDateController.text = date;
+                              });
+                          });
+                        },
+                      )),
+                    ],
+                  ),
+                  verticalSpace(20.0),
+                  Row(
+                    children: [
+                      Expanded(
+                          child: timePicker(
+                        hintName: AppString.end_date,
+                        controller: endDateController,
+                        onTap: () {
+                          selectDate(context).then((date) {
+                            print(date);
+                            if (date != null)
+                              setState(() {
+                                endDateController.text = date;
+                              });
+                          });
+                        },
+                      )),
+                      horizontalSpace(10),
+                      Expanded(
+                          child: timePicker(
+                        hintName: AppString.end_date,
+                        controller: endTimeController,
+                        onTap: () {
+                          selectTime(context).then((date) {
+                            print(date);
+                            if (date != null)
+                              setState(() {
+                                endTimeController.text = date;
+                              });
+                          });
+                        },
+                      )),
+                    ],
+                  ),
+                  verticalSpace(20.0),
+                  timezoneRow(),
+                  verticalSpace(20.0),
+                  customTextField(
+                    controller: eventLinkController,
+                    hintText: AppString.event_link,
+                  ),
+                  verticalSpace(20.0),
+                  customTextField(
+                    controller: eventCostController,
+                    hintText: AppString.cost,
+                  ),
+                  verticalSpace(20.0),
+                ],
+              ),
+            ),
+          ),
+
+          /*    customTextField(
+                    controller: controller, hintText: 'Event Name'),
+                verticalSpace(20.0),*/
+        ],
       ),
     );
   }
