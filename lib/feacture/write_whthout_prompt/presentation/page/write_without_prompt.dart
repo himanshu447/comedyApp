@@ -1,20 +1,20 @@
-import 'package:comedy/common/general_widget.dart';
 import 'package:comedy/feacture/write_whthout_prompt/data/model/write_without_prompt_model.dart';
+import 'package:comedy/feacture/write_whthout_prompt/presentation/bloc/write_without_prompt_bloc.dart';
+import 'package:comedy/injector.dart';
 import 'package:comedy/share/widget/auto_filled_date_widget.dart';
-import 'package:comedy/share/widget/more_option_bootm_sheet_widget.dart';
 import 'package:comedy/share/widget/custom_dialog_widget.dart';
 import 'package:comedy/share/widget/sub_module_app_bar_widget.dart';
 import 'package:comedy/utils/color_util.dart';
 import 'package:comedy/utils/component/input-chip.component.dart';
 import 'package:comedy/utils/component/number_slider_component.dart';
 import 'package:comedy/utils/component/text_component.dart';
-import 'package:comedy/utils/icons_utils.dart';
 import 'package:comedy/utils/route/route_name.dart';
 import 'package:comedy/utils/string_util.dart';
 import 'package:comedy/utils/style_util.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class WriteWithoutPromptView extends StatefulWidget {
   @override
@@ -39,10 +39,29 @@ class _WriteWithoutPromptViewState extends State<WriteWithoutPromptView> {
   int degreeOfSucking = 3;
   int levelOfCompleteness = 3;
 
+  WriteWithoutPromptBloc withoutPromptBloc;
+
+  @override
+  void initState() {
+    withoutPromptBloc = injector<WriteWithoutPromptBloc>();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    withoutPromptBloc.close();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _loadBody(),
+      body: BlocBuilder<WriteWithoutPromptBloc,WriteWithoutPromptState>(
+        cubit: withoutPromptBloc,
+        builder: (context, snapshot) {
+          return _loadBody();
+        }
+      ),
     );
   }
 
@@ -271,16 +290,22 @@ class _WriteWithoutPromptViewState extends State<WriteWithoutPromptView> {
           isPromptTitleAndDescSubmitted = true;
         });
       }
-    } else if (!isTagSubmitted) {
+    }
+    else if (!isTagSubmitted) {
       setState(() {
         isTagSubmitted = true;
       });
-    } else if (!isLevelOfCompletenessSubmitted) {
+    }
+    else if (!isLevelOfCompletenessSubmitted) {
       setState(() {
         isLevelOfCompletenessSubmitted = true;
       });
-    } else {
+    }
+    else {
+
       CustomDialogs.showSavingDataDialog(context);
+
+
       Future.delayed(
         Duration(
           seconds: 1,
