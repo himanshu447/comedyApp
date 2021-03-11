@@ -1,7 +1,5 @@
 enum EndPoint {
-  Login,
-  UserList,
-  CreateUser,
+  CreateEvent,
 }
 
 enum LandingTab {
