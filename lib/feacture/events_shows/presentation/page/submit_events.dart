@@ -1,11 +1,17 @@
 import 'package:comedy/common/general_widget.dart';
+import 'package:comedy/feacture/events_shows/data/model/event_show_model.dart';
+import 'package:comedy/feacture/events_shows/presentation/bloc/event_show_bloc.dart';
 import 'package:comedy/feacture/events_shows/presentation/widget/event_widget.dart';
 import 'package:comedy/feacture/events_shows/presentation/widget/submit_event_widget.dart';
+import 'package:comedy/injector.dart';
+import 'package:comedy/share/widget/custom_dialog_widget.dart';
 import 'package:comedy/share/widget/sub_module_app_bar_widget.dart';
 import 'package:comedy/utils/color_util.dart';
 import 'package:comedy/utils/component/text_component.dart';
 import 'package:comedy/utils/string_util.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
 
 class SubmitEvents extends StatefulWidget {
   @override
@@ -24,8 +30,50 @@ class _SubmitEventsState extends State<SubmitEvents> {
 
   final _eventkey = GlobalKey<FormState>();
 
+  EventShowBloc eventShowBloc;
+
+  DateTime startDate;
+  DateTime endDate;
+
+  final picker = ImagePicker();
+  String image;
+
+  @override
+  void initState() {
+    super.initState();
+    eventShowBloc = injector<EventShowBloc>();
+  }
+
+  @override
+  void dispose() {
+    eventShowBloc.close();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
+    return BlocListener(
+      listener: (_, state) {
+        if (state is SubmittingEventShowState) {
+          CustomDialogs.showSavingDataDialog(
+            context: context,
+            title: AppString.event_submitting,
+          );
+        } else if (state is SubmittedEventShowState) {
+          Navigator.pop(context, state.eventShowModel);
+        }
+      },
+      cubit: eventShowBloc,
+      child: BlocBuilder<EventShowBloc, EventShowState>(
+        cubit: eventShowBloc,
+        builder: (_, state) {
+          return loadBody();
+        },
+      ),
+    );
+  }
+
+  Widget loadBody() {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
       bottomNavigationBar: Padding(
@@ -45,7 +93,14 @@ class _SubmitEventsState extends State<SubmitEvents> {
                 key: _eventkey,
                 child: Column(
                   children: [
-                    topAddImageWidget(size: size),
+                    InkWell(
+                      onTap: () async {
+                        final pickedFile =
+                            await picker.getImage(source: ImageSource.gallery);
+                        image = pickedFile.path;
+                      },
+                      child: topAddImageWidget(size: size),
+                    ),
                     verticalSpace(25.0),
                     customTextField(
                         controller: eventNameController,
@@ -73,7 +128,7 @@ class _SubmitEventsState extends State<SubmitEvents> {
                         Expanded(
                             child: timePicker(
                           hintName: AppString.start_date,
-                          controller: startTimeController,
+                          controller: startDateController,
                           validator: (value) {
                             if (value.isEmpty) {
                               return "Please Enter a About Event";
@@ -85,7 +140,8 @@ class _SubmitEventsState extends State<SubmitEvents> {
                               print(date);
                               if (date != null)
                                 setState(() {
-                                  startTimeController.text = date;
+                                  startDateController.text = date[0];
+                                  startDate = date[1];
                                 });
                             });
                           },
@@ -94,7 +150,7 @@ class _SubmitEventsState extends State<SubmitEvents> {
                         Expanded(
                             child: timePicker(
                           hintName: AppString.start_time,
-                          controller: startDateController,
+                          controller: startTimeController,
                           validator: (value) {
                             if (value.isEmpty) {
                               return "Please Enter a About Event";
@@ -106,7 +162,7 @@ class _SubmitEventsState extends State<SubmitEvents> {
                               print(date);
                               if (date != null)
                                 setState(() {
-                                  startDateController.text = date;
+                                  startTimeController.text = date;
                                 });
                             });
                           },
@@ -125,7 +181,8 @@ class _SubmitEventsState extends State<SubmitEvents> {
                               print(date);
                               if (date != null)
                                 setState(() {
-                                  endDateController.text = date;
+                                  endDateController.text = date[0];
+                                  endDate = date[1];
                                 });
                             });
                           },
@@ -200,7 +257,22 @@ class _SubmitEventsState extends State<SubmitEvents> {
 
   _submitData() {
     if (_eventkey.currentState.validate()) {
-      print('Submit Event');
+      eventShowBloc.add(
+        SubmitEventAndShowsEvent(
+          eventShowModel: EventShowModel(
+            name: eventNameController.text.trim(),
+            about: aboutEventController.text.trim(),
+            startDate: startDate,
+            endDate: endDate,
+            updatedAt: DateTime.now(),
+            cost: int.parse(eventCostController.text.trim()),
+            endTime: endTimeController.text.trim(),
+            startTime: startTimeController.text.trim(),
+            eventLink: eventLinkController.text.trim(),
+            image: image,
+          ),
+        ),
+      );
     } else {
       print('Not success');
     }

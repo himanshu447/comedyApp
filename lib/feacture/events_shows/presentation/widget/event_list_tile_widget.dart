@@ -1,18 +1,36 @@
 import 'package:comedy/common/custom_round_image.dart';
+import 'package:comedy/feacture/events_shows/data/model/event_show_model.dart';
 import 'package:comedy/utils/color_util.dart';
 import 'package:comedy/utils/component/text_component.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class MyEventListTile extends StatelessWidget {
-  final String eventTime, eventTitle, eventOPrice;
+  final EventShowModel eventShowModel;
   final Function onTap;
 
-  const MyEventListTile(
-      {this.eventTime, this.onTap, this.eventTitle, this.eventOPrice});
+  const MyEventListTile({
+    this.eventShowModel,
+    this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
+
+    var abc = eventShowModel.startTime.split(':');
+
+    var ab = DateTime(
+      eventShowModel.startDate.year,
+      eventShowModel.startDate.month,
+      eventShowModel.startDate.weekday,
+      int.parse(abc[0]),
+      int.parse(abc[1]),
+      int.parse(abc[2]),
+    );
+
+    String date = DateFormat('MMM d H:mm a').format(ab);
+
     return InkWell(
       onTap: onTap,
       child: Card(
@@ -35,15 +53,10 @@ class MyEventListTile extends StatelessWidget {
                 topRightCorner: 0.0,
                 topLeftCorner: 10.0,
                 placeholder: 'images/trip.jpeg',
-                image: ' ',
+                image:  eventShowModel.image,
                 height: MediaQuery.of(context).size.height * 0.16,
               ),
             ),
-            /*       Image.asset(
-              'assets/images/trip.jpeg',
-              width: 150,
-              fit: BoxFit.cover,
-            ),*/
             Expanded(
               flex: 2,
               child: Padding(
@@ -53,19 +66,19 @@ class MyEventListTile extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     TextComponent(
-                      title: eventTime,
+                      title: date,
                       fontSize: 16,
                       margin: EdgeInsets.symmetric(vertical: 10),
                       fontWeight: FontWeight.w400,
                       color: AppColor.primary_pink[500],
                     ),
                     TextComponent(
-                      title: eventTitle,
+                      title: eventShowModel.name,
                       fontSize: 17,
                       fontWeight: FontWeight.w600,
                     ),
                     TextComponent(
-                      title: eventOPrice,
+                      title: eventShowModel.cost.toString(),
                       fontSize: 16,
                       margin: EdgeInsets.symmetric(vertical: 10),
                       fontWeight: FontWeight.w400,

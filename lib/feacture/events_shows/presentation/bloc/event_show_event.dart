@@ -3,10 +3,12 @@ part of 'event_show_bloc.dart';
 @immutable
 abstract class EventShowEvent {}
 
-class EventShowsEvents extends EventShowEvent {
-  EventShowsEvents();
-}
+class GetEvents extends EventShowEvent{}
 
-class EventAllDataGetEvents extends EventShowEvent {
-  List<Object> get props => null;
+class SubmitEventAndShowsEvent extends EventShowEvent {
+  final EventShowModel eventShowModel;
+
+  SubmitEventAndShowsEvent({
+    @required this.eventShowModel,
+  });
 }

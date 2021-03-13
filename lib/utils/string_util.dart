@@ -82,6 +82,8 @@ class AppString {
   static const String start_date = 'Start date';
   static const String end_time = 'End time';
   static const String start_time = 'Start time';
+  static const String event_submitting = 'Your event is submitting....';
+
 
   ///Write without prompt
   static const String free_write = 'Free Write';
@@ -127,4 +129,5 @@ class AppString {
   static const String error_answer_writing_prompt_here =
       'Please don’t leave this blank.';
   static const String time_up = 'Your five minutes are up!';
+
 }

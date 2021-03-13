@@ -4,15 +4,13 @@ import 'package:comedy/utils/error/failure.dart';
 import 'package:comedy/utils/usecase/usecase.dart';
 import 'package:dartz/dartz.dart';
 
-class CreateEventUseCase extends UseCase<EventShowModel, EventShowModel> {
+class GetEventsUseCase extends UseCase<List<EventShowModel>, NoParams> {
   final EventShowRepository eventShowRepository;
 
-  CreateEventUseCase({
-    this.eventShowRepository,
-  });
+  GetEventsUseCase({this.eventShowRepository});
 
   @override
-  Future<Either<Failure, EventShowModel>> call(EventShowModel params) {
-    return eventShowRepository.createEvent(params);
+  Future<Either<Failure, List<EventShowModel>>> call(NoParams params) {
+    return eventShowRepository.getEvents();
   }
 }

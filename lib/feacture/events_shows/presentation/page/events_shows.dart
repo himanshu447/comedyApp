@@ -1,3 +1,5 @@
+import 'package:comedy/feacture/events_shows/data/model/event_show_model.dart';
+import 'package:comedy/feacture/events_shows/presentation/bloc/event_show_bloc.dart';
 import 'package:comedy/feacture/events_shows/presentation/widget/event_list_tile_widget.dart';
 import 'package:comedy/feacture/events_shows/presentation/widget/event_widget.dart';
 import 'package:comedy/share/widget/sub_module_app_bar_widget.dart';
@@ -9,6 +11,9 @@ import 'package:comedy/utils/route/route_name.dart';
 import 'package:comedy/utils/string_util.dart';
 import 'package:comedy/utils/style_util.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+
+import '../../../../injector.dart';
 
 class EventsShows extends StatefulWidget {
   @override
@@ -16,64 +21,86 @@ class EventsShows extends StatefulWidget {
 }
 
 class _EventsShowsState extends State<EventsShows> {
-  //Bloc bloc = injector<EventShowBloc>();
   CalendarController _calendarController;
+
+  EventShowBloc eventShowBloc;
+
   @override
   void initState() {
     super.initState();
-
+    eventShowBloc = injector<EventShowBloc>();
     _calendarController = CalendarController();
+
+    eventShowBloc.add(GetEvents());
+  }
+
+  @override
+  void dispose() {
+    eventShowBloc.close();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      bottomNavigationBar: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        child: submitButton(
-            title: AppString.Submit_event_or_show, onPress: _submitData),
-      ),
-      body: Column(
-        children: [
-          /* context: context,
-          title: AppString.event_and_shows,
-          backgroundColor: AppColor.primary_pink[500],*/
+        bottomNavigationBar: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+          child: submitButton(
+              title: AppString.Submit_event_or_show, onPress: _submitData),
+        ),
+        body: BlocBuilder<EventShowBloc, EventShowState>(
+          cubit: eventShowBloc,
+          builder: (_, state) {
+            if (state is LoadedAllEventsState) {
+              return loadBody(list: state.list);
+            } else {
+              return loadBody(list: []);
+            }
+          },
+        ));
+  }
 
-          SubModuleAppBarWidget(
-            color: AppColor.primary_pink[500],
-            title: AppString.event_and_shows,
-          ),
-          EventCalender(
-            calendarController: _calendarController,
-            odDaySelected: (date) {
-              print(date);
-            },
-          ),
-          Visibility(
-            visible: true,
-            child: Expanded(
-              child: ListView.builder(
-                padding: EdgeInsets.symmetric(
-                  horizontal: 15,
-                ).copyWith(),
-                shrinkWrap: true,
-                itemCount: 4,
-                itemBuilder: (context, index) {
-                  return MyEventListTile(
-                    onTap: () {
-                      Navigator.pushNamed(context, RouteName.event_detail);
-                    },
-                    eventTitle: 'Halloween (Throughout)',
-                    eventTime: 'Feb 3 8:30 PM ESt',
-                    eventOPrice: '180\$',
-                  );
-                },
-              ),
+  Widget loadBody({List<EventShowModel> list}) {
+    return Column(
+      children: [
+        SubModuleAppBarWidget(
+          color: AppColor.primary_pink[500],
+          title: AppString.event_and_shows,
+        ),
+        EventCalender(
+          calendarController: _calendarController,
+          odDaySelected: (date) {
+            print(date);
+          },
+        ),
+        Visibility(
+          visible: list.isNotEmpty,
+          child: Expanded(
+            child: ListView.builder(
+              padding: EdgeInsets.symmetric(
+                horizontal: 15,
+              ).copyWith(),
+              shrinkWrap: true,
+              itemCount: list.length,
+              itemBuilder: (context, index) {
+                return MyEventListTile(
+                  onTap: () {
+                    Navigator.pushNamed(
+                      context,
+                      RouteName.event_detail,
+                    );
+                  },
+                  eventShowModel: list[index],
+                );
+              },
             ),
           ),
-          Visibility(visible: false, child: emptyEvent()),
-        ],
-      ),
+        ),
+        Visibility(
+          visible: list.isEmpty,
+          child: emptyEvent(),
+        ),
+      ],
     );
   }
 
@@ -103,7 +130,15 @@ class _EventsShowsState extends State<EventsShows> {
   }
 
   _submitData() {
-    Navigator.pushNamed(context, RouteName.submit_event);
+    /*Navigator.of(context)
+        .push(MaterialPageRoute(builder: (_) => BlocProvider(
+      child: ,
+    )));*/
+    Navigator.pushNamed(
+      context,
+      RouteName.submit_event,
+      arguments: eventShowBloc,
+    );
 
     print('Submit Event');
   }

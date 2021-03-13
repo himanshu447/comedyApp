@@ -1,3 +1,8 @@
+import 'package:comedy/feacture/events_shows/data/datasource/event_show_data_source.dart';
+import 'package:comedy/feacture/events_shows/domain/repository/event_show_repository.dart';
+import 'package:comedy/feacture/events_shows/domain/usecase/create_event_usecase.dart';
+import 'package:comedy/feacture/events_shows/domain/usecase/get_events_usecase.dart';
+import 'package:comedy/feacture/events_shows/presentation/bloc/event_show_bloc.dart';
 import 'package:comedy/feacture/write_whthout_prompt/data/datasource/write_without_prompt_data_source.dart';
 import 'package:comedy/feacture/write_whthout_prompt/data/repository/write_without_prompt_repository_impl.dart';
 import 'package:comedy/feacture/write_whthout_prompt/presentation/bloc/write_without_prompt_bloc.dart';
@@ -8,6 +13,7 @@ import 'package:comedy/share/service/web_service.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 
+import 'feacture/events_shows/data/repository/event_show_repository_impl.dart';
 import 'feacture/landing/presentation/bloc/landing_bloc.dart';
 import 'feacture/submit_prompt/domain/usecase/submit_prompt_usecase.dart';
 import 'feacture/submit_prompt/presentation/bloc/submit_prompt_bloc.dart';
@@ -29,6 +35,45 @@ Future init() async {
 
   ///Write without prompt
   _submitPrompt();
+
+  ///Event and shows
+  _eventShows();
+}
+
+void _eventShows() {
+  //bloc
+  injector.registerFactory(
+    () => EventShowBloc(
+      createEventUseCase: injector(),
+      getEventsUseCase: injector(),
+    ),
+  );
+
+  //useCase
+  injector.registerLazySingleton(
+    () => CreateEventUseCase(
+      eventShowRepository: injector(),
+    ),
+  );
+  injector.registerLazySingleton(
+    () => GetEventsUseCase(
+      eventShowRepository: injector(),
+    ),
+  );
+
+  //repository
+  injector.registerLazySingleton<EventShowRepository>(
+    () => EventShowRepositoryImpl(
+      eventShowDataSource: injector(),
+    ),
+  );
+
+  //dataSource
+  injector.registerLazySingleton<EventShowDataSource>(
+    () => EventShowDataSourceImpl(
+      webService: injector(),
+    ),
+  );
 }
 
 void _writeWithoutPrompt() {
