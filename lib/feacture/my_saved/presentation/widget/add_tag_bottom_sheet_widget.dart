@@ -64,9 +64,10 @@ class _AddTagBottomSheetWidgetState extends State<AddTagBottomSheetWidget> {
                           onPressed: () {
                             widget.selectedTagList(selectedTagList);
                             setState(() {
-                            selectedTagList.clear();
-                            widget.tagList.map((e) => e = e.copyWith(isChecked: false));
-                            Navigator.pop(context);
+                              selectedTagList.clear();
+                              widget.tagList
+                                  .map((e) => e = e.copyWith(isChecked: false));
+                              Navigator.pop(context);
                             });
                           },
                           child: TextComponent(
@@ -80,7 +81,7 @@ class _AddTagBottomSheetWidgetState extends State<AddTagBottomSheetWidget> {
                   ),
                   Container(
                     margin:
-                    EdgeInsets.symmetric(horizontal: 12).copyWith(top: 16),
+                        EdgeInsets.symmetric(horizontal: 12).copyWith(top: 16),
                     padding: EdgeInsets.symmetric(horizontal: 12, vertical: 2),
                     decoration: BoxDecoration(
                       color: AppColor.textFieldBgColor,
@@ -100,7 +101,7 @@ class _AddTagBottomSheetWidgetState extends State<AddTagBottomSheetWidget> {
                           child: TextFormField(
                             decoration: InputDecoration(
                               contentPadding:
-                              EdgeInsets.symmetric(horizontal: 12),
+                                  EdgeInsets.symmetric(horizontal: 12),
                               filled: false,
                               hintText: AppString.search,
                               border: InputBorder.none,
@@ -120,13 +121,10 @@ class _AddTagBottomSheetWidgetState extends State<AddTagBottomSheetWidget> {
               ),
             ),
             Positioned.fill(
-              top: MediaQuery
-                  .of(context)
-                  .size
-                  .height / 5.2,
+              top: MediaQuery.of(context).size.height / 5.2,
               bottom: 0,
               child: SingleChildScrollView(
-                padding: EdgeInsets.symmetric(horizontal: 10),
+                padding: EdgeInsets.all(10.0),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -141,15 +139,20 @@ class _AddTagBottomSheetWidgetState extends State<AddTagBottomSheetWidget> {
                           isChecked: widget.tagList[index].isChecked == true,
                           itemSelected: (val) {
                             if (selectedTagList.isNotEmpty) {
-                              if (!selectedTagList.contains(widget.tagList[index])) {
-                                selectedTagList.add(widget.tagList[index].label);
+                              if (!selectedTagList
+                                  .contains(widget.tagList[index])) {
+                                selectedTagList
+                                    .add(widget.tagList[index].label);
                               }
                             } else {
                               selectedTagList.add(widget.tagList[index].label);
                             }
 
                             setState(() {
-                              widget.tagList[index] = widget.tagList[index].copyWith(isChecked: !widget.tagList[index].isChecked);
+                              widget.tagList[index] = widget.tagList[index]
+                                  .copyWith(
+                                      isChecked:
+                                          !widget.tagList[index].isChecked);
                             });
                           },
                         );

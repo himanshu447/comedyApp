@@ -1,4 +1,6 @@
-abstract class Failure {}
+abstract class Failure {
+  String get message => null;
+}
 
 class Error extends Failure {
   final String errMessage;

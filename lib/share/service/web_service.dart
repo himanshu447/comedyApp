@@ -1,10 +1,10 @@
 import 'dart:convert';
 import 'dart:io';
+
 import 'package:comedy/utils/constant_util.dart';
 import 'package:http/http.dart' as http;
 
-class WebService{
-
+class WebService {
   Future<dynamic> requestGET({
     String url,
   }) async {
@@ -65,7 +65,7 @@ class WebService{
     var uri = Uri.parse(url);
     var request = new http.MultipartRequest("POST", uri);
     var multipartFile =
-    new http.MultipartFile('img', stream, length, filename: imageFile.path);
+        new http.MultipartFile('img', stream, length, filename: imageFile.path);
     request.files.add(multipartFile);
     request.headers.addAll(headers);
     var response = await request.send();
