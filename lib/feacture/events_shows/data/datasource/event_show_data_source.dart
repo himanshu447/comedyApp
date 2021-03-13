@@ -1,17 +1,14 @@
-import 'dart:convert';
-
 import 'package:comedy/feacture/events_shows/data/model/event_show_model.dart';
-import 'package:comedy/feacture/events_shows/data/model/get_all_events_data.dart';
 import 'package:comedy/share/service/service.dart';
 import 'package:comedy/share/service/web_service.dart';
+import 'package:comedy/utils/constant_util.dart';
 import 'package:comedy/utils/enum_util.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 
 abstract class EventShowDataSource {
-  Future<dynamic> createEvent();
+  Future<EventShowModel> createEvent(EventShowModel eventShowModel);
 
-  Future<AllEventsData> allEventDataGet();
+  Future<List<EventShowModel>> getEvents();
 }
 
 class EventShowDataSourceImpl extends EventShowDataSource {
@@ -22,52 +19,51 @@ class EventShowDataSourceImpl extends EventShowDataSource {
   });
 
   @override
-  Future createEvent({EventShowModel eventShowModel}) async {
+  Future<EventShowModel> createEvent(EventShowModel eventShowModel) async {
     try {
-      var result = await webService.requestPOST(
+      var result = await webService.requestMultipart(
         url: Services.getServices(
           EndPoint.CreateEvent,
         ),
-        body: eventShowModel.tojson(),
+        eventShowModel: eventShowModel,
       );
+
       print(result);
 
-      //wait for result
-
+      if (result['status']) {
+        return EventShowModel.fromMap(result['data']);
+      } else {
+        throw result['message'];
+      }
     } catch (e) {
+      print(e.toString());
       throw e;
     }
   }
 
   @override
-  Future<AllEventsData> allEventDataGet() async {
-    String url = "http://52.66.128.99/comedy_app/api/get-all-event";
-    // try {
-    //   var result = await webService.requestGET(
-    //     url: url,
-    //   );
-    //   print(result);
-    //   return result;
-    // } catch (e) {
-    //   throw e;
-    // }
+  Future<List<EventShowModel>> getEvents() async {
+    try {
+      var result = await webService.requestGET(
+        url: Services.getServices(
+          EndPoint.GetEvents,
+        ),
+      );
 
-    Map<String, String> headers;
+      print(result);
 
-    headers = {
-      "Content-type": "application/x-www-form-urlencoded",
-    };
-    var response = await http.get(url, headers: headers);
+      if (result[ConstantUtil.result_success]) {
+        print(result[ConstantUtil.result_success]);
 
-    print(response.body);
-    if (response.statusCode == 200) {
-      print('Success');
-      var res = json.decode(response.body);
-      AllEventsData allEventsData = AllEventsData.fromJson(res);
-      return allEventsData;
-    } else {
-      print('Not Success');
-      throw Exception();
+        return (result[ConstantUtil.result_response]['data'] as List)
+            .map((e) => EventShowModel.fromMap(e))
+            .toList();
+      } else {
+        throw result[ConstantUtil.result_response];
+      }
+    } catch (e) {
+      print(e.toString());
+      throw e;
     }
   }
 }

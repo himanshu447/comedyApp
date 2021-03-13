@@ -51,8 +51,8 @@ class _AnswerWritingPromptViewState extends State<AnswerWritingPromptView> {
       oneSec,
       (Timer timer) {
         if (_start == ConstantUtil.END_TIMER_VALUE) {
-            isAnswerSubmitRequest = true;
-            _showTimeUpDialog();
+          isAnswerSubmitRequest = true;
+          _showTimeUpDialog();
           setState(() {
             timer.cancel();
           });
@@ -108,7 +108,7 @@ class _AnswerWritingPromptViewState extends State<AnswerWritingPromptView> {
                         : null,
                     child: TextComponent(
                       title: (!isAnswerSubmitRequest) ||
-                              (isAnswerSavedButtonPress && !isTagSubmitted )
+                              (isAnswerSavedButtonPress && !isTagSubmitted)
                           ? AppString.done
                           : '',
                       textStyle: StyleUtil.calenderHeaderTextStyle,
@@ -450,27 +450,28 @@ class _AnswerWritingPromptViewState extends State<AnswerWritingPromptView> {
         isAnswerSubmitRequest = true;
       });
       _timer.cancel();
-    }
-    else if (_answerFormKey.currentState.validate() && !isTitleSubmit) {
+    } else if (_answerFormKey.currentState.validate() && !isTitleSubmit) {
       print('TitleSubmit');
       setState(() {
         isTitleSubmit = true;
       });
-    }
-    else if (!isTagSubmitted && isTitleSubmit) {
+    } else if (!isTagSubmitted && isTitleSubmit) {
       print('TAG Sub');
       setState(() {
         isTagSubmitted = true;
       });
-    }
-    else if (!isLevelOfCompletenessSubmitted && isTagSubmitted) {
+    } else if (!isLevelOfCompletenessSubmitted && isTagSubmitted) {
       print('Level ');
       setState(() {
         isLevelOfCompletenessSubmitted = true;
       });
-    }
-    else if(isLevelOfCompletenessSubmitted && isTagSubmitted && _answerController.text.trim().isNotEmpty && _titleController.text.trim().isNotEmpty){
-      CustomDialogs.showSavingDataDialog(context);
+    } else if (isLevelOfCompletenessSubmitted &&
+        isTagSubmitted &&
+        _answerController.text.trim().isNotEmpty &&
+        _titleController.text.trim().isNotEmpty) {
+      CustomDialogs.showSavingDataDialog(
+        context: context,
+      );
       Future.delayed(
         Duration(
           seconds: 1,
@@ -488,8 +489,7 @@ class _AnswerWritingPromptViewState extends State<AnswerWritingPromptView> {
           ),
         ),
       );
-    }
-    else {
+    } else {
       return;
     }
   }

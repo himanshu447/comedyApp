@@ -92,7 +92,7 @@ Widget customHeightTextField({
   );
 }
 
-Future<String> selectDate(BuildContext context) async {
+Future<dynamic> selectDate(BuildContext context) async {
   DateTime _selectedDate;
   DateTime selectedDate = DateTime.now();
 
@@ -153,10 +153,8 @@ Future<String> selectDate(BuildContext context) async {
   if (pickedDate != null) {
     _selectedDate = pickedDate;
     print(_selectedDate.toString() + ' selected date');
-    String selected =
-        dateFormat(dateTime: _selectedDate, format: 'dd MMMM, yyyy');
-    print(selected);
-    return selected;
+    String selected = dateFormat(dateTime: _selectedDate, format: 'dd MMMM, yyyy');
+    return [selected,_selectedDate];
   }
 /*  CupertinoDatePicker(
     maximumYear: 2022,

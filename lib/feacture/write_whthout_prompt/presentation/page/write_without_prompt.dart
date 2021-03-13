@@ -56,12 +56,11 @@ class _WriteWithoutPromptViewState extends State<WriteWithoutPromptView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocBuilder<WriteWithoutPromptBloc,WriteWithoutPromptState>(
-        cubit: withoutPromptBloc,
-        builder: (context, snapshot) {
-          return _loadBody();
-        }
-      ),
+      body: BlocBuilder<WriteWithoutPromptBloc, WriteWithoutPromptState>(
+          cubit: withoutPromptBloc,
+          builder: (context, snapshot) {
+            return _loadBody();
+          }),
     );
   }
 
@@ -290,21 +289,18 @@ class _WriteWithoutPromptViewState extends State<WriteWithoutPromptView> {
           isPromptTitleAndDescSubmitted = true;
         });
       }
-    }
-    else if (!isTagSubmitted) {
+    } else if (!isTagSubmitted) {
       setState(() {
         isTagSubmitted = true;
       });
-    }
-    else if (!isLevelOfCompletenessSubmitted) {
+    } else if (!isLevelOfCompletenessSubmitted) {
       setState(() {
         isLevelOfCompletenessSubmitted = true;
       });
-    }
-    else {
-
-      CustomDialogs.showSavingDataDialog(context);
-
+    } else {
+      CustomDialogs.showSavingDataDialog(
+        context: context,
+      );
 
       Future.delayed(
         Duration(

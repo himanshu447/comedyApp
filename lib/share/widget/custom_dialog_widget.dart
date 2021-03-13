@@ -5,7 +5,10 @@ import 'package:comedy/utils/style_util.dart';
 import 'package:flutter/material.dart';
 
 class CustomDialogs {
-  static showSavingDataDialog(BuildContext context) {
+  static showSavingDataDialog({
+    BuildContext context,
+    String title = AppString.saving_your_writing,
+  }) {
     showDialog(
       context: context,
       child: AlertDialog(

@@ -1,5 +1,3 @@
-
-
 import 'package:comedy/utils/enum_util.dart';
 
 class Services {
@@ -9,6 +7,8 @@ class Services {
     switch (endPoint) {
       case EndPoint.CreateEvent:
         return baseUrl + 'api/create-event';
+      case EndPoint.GetEvents:
+        return baseUrl + 'api/get-all-event';
       default:
         return '';
     }

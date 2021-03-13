@@ -1,26 +1,34 @@
 part of 'event_show_bloc.dart';
 
 @immutable
-abstract class EventShowState {}
+abstract class EventShowState {
+  final List<EventShowModel> eventList;
+
+  EventShowState({
+    this.eventList,
+  });
+}
 
 class EventShowInitial extends EventShowState {}
 
-class LoadingBeginHomeState extends EventShowState {}
+class LoadingAllEventsState extends EventShowState {}
 
-class LoadingEndHomeState extends EventShowState {}
+class LoadedAllEventsState extends EventShowState {
+  final List<EventShowModel> list;
 
-class EventsuccessState extends EventShowState {
-  EventShowModel eventShowModel;
-  EventsuccessState(this.eventShowModel);
+  LoadedAllEventsState({this.list}):super(eventList: list);
+}
+
+class SubmittingEventShowState extends EventShowState {}
+
+class SubmittedEventShowState extends EventShowState {
+  final EventShowModel eventShowModel;
+
+  SubmittedEventShowState({this.eventShowModel});
 }
 
 class ErrorState extends EventShowState {
   final String message;
-  ErrorState(this.message);
-}
 
-class EventallDataGet extends EventShowState {
-  AllEventsData allEventsData;
-
-  EventallDataGet({this.allEventsData});
+  ErrorState({this.message});
 }
