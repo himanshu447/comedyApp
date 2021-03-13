@@ -38,6 +38,7 @@ Widget customTextField({
   String hintText,
   var maxLine,
   Function onTap,
+  Function validator,
   bool isReadOnly = false,
 }) {
   return Padding(
@@ -57,12 +58,13 @@ Widget customTextField({
           width: 0,
         ),
       )),
-      validator: (value) {
-        if (value.isEmpty) {
-          return AppString.error_required_email;
-        }
-        return null;
-      },
+      validator: validator,
+      // validator: (value) {
+      //   if (value.isEmpty) {
+      //     return AppString.error_required_email;
+      //   }
+      //   return null;
+      // },
       style: StyleUtil.formFieldTextStyle,
       textInputAction: TextInputAction.next,
     ),

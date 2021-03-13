@@ -122,7 +122,9 @@ class AppString {
   static const String write_prompt_example_answer =
       '"So Peru changed three presidents within a week. Wow, Peru, it seems like you have more commitment issues than I do."';
   static const String example = 'Example: ';
-  static const String hit_answer_writing_prompt_here = 'Answer writing prompt here...';
-  static const String error_answer_writing_prompt_here = 'Please don’t leave this blank.';
+  static const String hit_answer_writing_prompt_here =
+      'Answer writing prompt here...';
+  static const String error_answer_writing_prompt_here =
+      'Please don’t leave this blank.';
   static const String time_up = 'Your five minutes are up!';
 }

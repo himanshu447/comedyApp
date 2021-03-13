@@ -26,7 +26,8 @@ class HomeView extends StatelessWidget {
               top: MediaQuery.of(context).size.width / 2.5,
             ),
             child: SingleChildScrollView(
-              padding: EdgeInsets.only(bottom: MediaQuery.of(context).size.width/4),
+              padding: EdgeInsets.only(
+                  bottom: MediaQuery.of(context).size.width / 4),
               child: Column(
                 children: [
                   HomeAnswerWritingPromptCardWidget(
@@ -60,6 +61,7 @@ class HomeView extends StatelessWidget {
   showAnswerWritingPromptSheet(BuildContext context) {
     showModalBottomSheet(
       context: context,
+      isScrollControlled: true,
       backgroundColor: AppColor.white,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
@@ -68,104 +70,100 @@ class HomeView extends StatelessWidget {
         ),
       ),
       builder: (_) {
-        return Stack(
-          children: [
-            Column(
-              children: [
-                SizedBox(
-                  width: 50,
-                  child: Divider(
-                    color: AppColor.bottomBarTextColor,
-                    thickness: 3,
-                  ),
+        return SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(
+                width: 50,
+                child: Divider(
+                  color: AppColor.bottomBarTextColor,
+                  thickness: 3,
                 ),
-                SizedBox(
-                  height: 12,
-                ),
-                ListTile(
-                  leading: IconButton(
-                    onPressed: () => Navigator.of(context).pop(),
-                    icon: Image.asset(
-                      AppIcons.ic_close,
-                      height: 22,
-                    ),
-                  ),
-                  title: TextComponent(
-                    title: AppString.answer_writing_prompts,
-                    textStyle: StyleUtil.levelOfCompletenessTextStyle,
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(vertical: 20),
-                  child: Image.asset(
-                    AppIcons.ic_timer,
-                    height: 124,
-                  ),
-                ),
-                TextComponent(
-                  title: AppString.answer_prompt_sheet_title,
-                  textStyle: StyleUtil.calenderHeaderTextStyle,
-                  textAlign: TextAlign.center,
-                  margin: EdgeInsets.symmetric(horizontal: 26, vertical: 12),
-                ),
-                TextComponent(
-                  title: AppString.answer_prompt_sheet_desc,
-                  textStyle: StyleUtil.calenderHeaderTextStyle.copyWith(
-                    color: AppColor.primary_green[500],
-                  ),
-                  margin: EdgeInsets.symmetric(horizontal: 26, vertical: 16),
-                  textAlign: TextAlign.center,
-                ),
-              ],
-            ),
-            Positioned(
-              bottom: 20,
-              left: 20,
-              right: 20,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: [
-                  Expanded(
-                    child: RawMaterialButton(
-                      onPressed: () => Navigator.popAndPushNamed(
-                        context,
-                        RouteName.answer_writing_prompt,
-                      ),
-                      padding: EdgeInsets.symmetric(vertical: 16),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      fillColor: AppColor.primary_green[500],
-                      child: TextComponent(
-                        title: AppString.start_writing,
-                        textStyle: StyleUtil.nextButtonTextStyle,
-                      ),
-                    ),
-                  ),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  Expanded(
-                    child: RawMaterialButton(
-                      onPressed: () => Navigator.popAndPushNamed(
-                        context,
-                        RouteName.answer_writing_prompt,
-                      ),
-                      padding: EdgeInsets.symmetric(vertical: 16),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      fillColor: AppColor.primary_green[500],
-                      child: TextComponent(
-                        title: AppString.new_prompt,
-                        textStyle: StyleUtil.nextButtonTextStyle,
-                      ),
-                    ),
-                  ),
-                ],
               ),
-            )
-          ],
+              SizedBox(
+                height: 12,
+              ),
+              ListTile(
+                leading: IconButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                  icon: Image.asset(
+                    AppIcons.ic_close,
+                    height: 22,
+                  ),
+                ),
+                title: TextComponent(
+                  title: AppString.answer_writing_prompts,
+                  textStyle: StyleUtil.levelOfCompletenessTextStyle,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(vertical: 20),
+                child: Image.asset(
+                  AppIcons.ic_timer,
+                  height: 120,
+                ),
+              ),
+              TextComponent(
+                title: AppString.answer_prompt_sheet_title,
+                textStyle: StyleUtil.calenderHeaderTextStyle,
+                textAlign: TextAlign.center,
+                margin: EdgeInsets.symmetric(horizontal: 26, vertical: 12),
+              ),
+              TextComponent(
+                title: AppString.answer_prompt_sheet_desc,
+                textStyle: StyleUtil.calenderHeaderTextStyle.copyWith(
+                  color: AppColor.primary_green[500],
+                ),
+                margin: EdgeInsets.symmetric(horizontal: 26, vertical: 0),
+                textAlign: TextAlign.center,
+              ),
+              Padding(
+                padding: EdgeInsets.all(17.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    Expanded(
+                      child: RawMaterialButton(
+                        onPressed: () => Navigator.popAndPushNamed(
+                          context,
+                          RouteName.answer_writing_prompt,
+                        ),
+                        padding: EdgeInsets.symmetric(vertical: 16),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        fillColor: AppColor.primary_green[500],
+                        child: TextComponent(
+                          title: AppString.start_writing,
+                          textStyle: StyleUtil.nextButtonTextStyle,
+                        ),
+                      ),
+                    ),
+                    SizedBox(
+                      width: 20,
+                    ),
+                    Expanded(
+                      child: RawMaterialButton(
+                        onPressed: () => Navigator.popAndPushNamed(
+                          context,
+                          RouteName.answer_writing_prompt,
+                        ),
+                        padding: EdgeInsets.symmetric(vertical: 16),
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        fillColor: AppColor.primary_green[500],
+                        child: TextComponent(
+                          title: AppString.new_prompt,
+                          textStyle: StyleUtil.nextButtonTextStyle,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              )
+            ],
+          ),
         );
       },
     );

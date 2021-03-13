@@ -1,4 +1,3 @@
-import 'package:comedy/common/common_appbar.dart';
 import 'package:comedy/feacture/events_shows/presentation/widget/event_list_tile_widget.dart';
 import 'package:comedy/feacture/events_shows/presentation/widget/event_widget.dart';
 import 'package:comedy/share/widget/sub_module_app_bar_widget.dart';
@@ -17,8 +16,8 @@ class EventsShows extends StatefulWidget {
 }
 
 class _EventsShowsState extends State<EventsShows> {
+  //Bloc bloc = injector<EventShowBloc>();
   CalendarController _calendarController;
-
   @override
   void initState() {
     super.initState();
