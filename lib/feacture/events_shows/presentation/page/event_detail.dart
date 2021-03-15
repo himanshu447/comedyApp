@@ -6,6 +6,7 @@ import 'package:comedy/utils/component/text_component.dart';
 import 'package:comedy/utils/icons_utils.dart';
 import 'package:comedy/utils/string_util.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class EventDetail extends StatefulWidget {
   final EventShowModel eventShowModel;
@@ -22,6 +23,19 @@ class EventDetail extends StatefulWidget {
 class _EventDetailState extends State<EventDetail> {
   @override
   Widget build(BuildContext context) {
+    var abc = widget.eventShowModel.startTime.split(':');
+
+    var ab = DateTime(
+      widget.eventShowModel.startDate.year,
+      widget.eventShowModel.startDate.month,
+      widget.eventShowModel.startDate.weekday,
+      int.parse(abc[0]),
+      int.parse(abc[1]),
+      int.parse(abc[2]),
+    );
+
+    String date = DateFormat('MMM d H:mm:ss a').format(ab);
+
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -33,12 +47,16 @@ class _EventDetailState extends State<EventDetail> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  eventScheduleDate('Feb 7 AT 8:30 AM EST - Feb 7 AT 8:30 AM EST'),
+                  eventScheduleDate('${date} - ${date}'),
                   eventTitle(widget.eventShowModel.name),
                   verticalSpace(20),
-                  descriptionTile(title: '\$151', iconName: AppIcons.ic_ticket),
+                  descriptionTile(
+                      title: '\$${widget.eventShowModel.cost}',
+                      iconName: AppIcons.ic_ticket),
                   verticalSpace(20),
-                  descriptionTile(title: 'www.facebook.com', iconName: AppIcons.ic_web),
+                  descriptionTile(
+                      title: widget.eventShowModel.eventLink,
+                      iconName: AppIcons.ic_web),
                   verticalSpace(20),
                   Divider(
                     color: AppColor.verticalDividerColor,
@@ -52,8 +70,7 @@ class _EventDetailState extends State<EventDetail> {
                   ),
                   verticalSpace(15),
                   TextComponent(
-                    title:
-                        'Mardi Gras is a wonderful carnival that takes place in New Orleans each year. The festival can be traced back to medieval Europe. It was brought to America by the French-Canadian explorer Jean Baptiste Le Moyne Sieur de Bienville.',
+                    title: widget.eventShowModel.about,
                     fontSize: 17,
                     fontWeight: FontWeight.w400,
                   ),
