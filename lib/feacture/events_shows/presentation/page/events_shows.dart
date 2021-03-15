@@ -1,5 +1,6 @@
 import 'package:comedy/feacture/events_shows/data/model/event_show_model.dart';
 import 'package:comedy/feacture/events_shows/presentation/bloc/event_show_bloc.dart';
+import 'package:comedy/feacture/events_shows/presentation/page/submit_events.dart';
 import 'package:comedy/feacture/events_shows/presentation/widget/event_list_tile_widget.dart';
 import 'package:comedy/feacture/events_shows/presentation/widget/event_widget.dart';
 import 'package:comedy/share/widget/sub_module_app_bar_widget.dart';
@@ -88,6 +89,7 @@ class _EventsShowsState extends State<EventsShows> {
                     Navigator.pushNamed(
                       context,
                       RouteName.event_detail,
+                      arguments: list[index],
                     );
                   },
                   eventShowModel: list[index],
@@ -129,17 +131,15 @@ class _EventsShowsState extends State<EventsShows> {
     );
   }
 
-  _submitData() {
-    /*Navigator.of(context)
-        .push(MaterialPageRoute(builder: (_) => BlocProvider(
-      child: ,
-    )));*/
-    Navigator.pushNamed(
-      context,
-      RouteName.submit_event,
-      arguments: eventShowBloc,
-    );
+  _submitData() async{
 
-    print('Submit Event');
+    var result = await Navigator.of(context).push(
+      MaterialPageRoute(
+        builder: (_) => BlocProvider.value(
+          value:  eventShowBloc,
+          child: SubmitEvents(),
+        ),
+      ),
+    );
   }
 }

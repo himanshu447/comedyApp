@@ -9,27 +9,22 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 Widget topAddImageWidget({Size size}) {
-  return Container(
-    height: size.height / 4,
-    width: size.width,
-    color: AppColor.primary_pink[50],
-    child: Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        imageAsset(
-            img: AppIcons.ic_add_image_place_holder,
-            width: 100.0,
-            height: 100.0),
-        verticalSpace(10),
-        TextComponent(
-          title: AppString.add_Photo,
-          color: AppColor.primary_pink[500],
-          fontSize: 17,
-          fontWeight: FontWeight.w600,
-        ),
-      ],
-    ),
+  return Column(
+    crossAxisAlignment: CrossAxisAlignment.center,
+    mainAxisAlignment: MainAxisAlignment.center,
+    children: [
+      imageAsset(
+          img: AppIcons.ic_add_image_place_holder,
+          width: 100.0,
+          height: 100.0),
+      verticalSpace(10),
+      TextComponent(
+        title: AppString.add_Photo,
+        color: AppColor.primary_pink[500],
+        fontSize: 17,
+        fontWeight: FontWeight.w600,
+      ),
+    ],
   );
 }
 

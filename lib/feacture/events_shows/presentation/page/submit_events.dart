@@ -1,3 +1,6 @@
+import 'dart:io';
+
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:comedy/common/general_widget.dart';
 import 'package:comedy/feacture/events_shows/data/model/event_show_model.dart';
 import 'package:comedy/feacture/events_shows/presentation/bloc/event_show_bloc.dart';
@@ -12,6 +15,7 @@ import 'package:comedy/utils/string_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 
 class SubmitEvents extends StatefulWidget {
   @override
@@ -41,7 +45,14 @@ class _SubmitEventsState extends State<SubmitEvents> {
   @override
   void initState() {
     super.initState();
-    eventShowBloc = injector<EventShowBloc>();
+  }
+  @override
+  void didChangeDependencies() {
+    eventShowBloc = BlocProvider.of<EventShowBloc>(context,listen: true);
+
+    print('length is ---->${eventShowBloc.state.eventList.length}');
+
+    super.didChangeDependencies();
   }
 
   @override
@@ -60,7 +71,9 @@ class _SubmitEventsState extends State<SubmitEvents> {
             title: AppString.event_submitting,
           );
         } else if (state is SubmittedEventShowState) {
+          Navigator.pop(context);
           Navigator.pop(context, state.eventShowModel);
+          eventShowBloc.add(AddSubmittedEventInToListEvent(eventShowModel: state.eventShowModel));
         }
       },
       cubit: eventShowBloc,
@@ -95,11 +108,25 @@ class _SubmitEventsState extends State<SubmitEvents> {
                   children: [
                     InkWell(
                       onTap: () async {
-                        final pickedFile =
-                            await picker.getImage(source: ImageSource.gallery);
-                        image = pickedFile.path;
+                        final pickedFile = await picker.getImage(source: ImageSource.gallery);
+                        setState(() {
+                          image = pickedFile.path;
+                        });
                       },
-                      child: topAddImageWidget(size: size),
+                      child: Container(
+                        height: size.height / 4,
+                        width: size.width,
+                        color: AppColor.primary_pink[50],
+                        child: CachedNetworkImage(
+                          imageUrl: '',
+                          fit: BoxFit.fill,
+                          errorWidget: (ctx,url,_){
+                            return image != null
+                                ? Image.file(File(image),fit: BoxFit.fill,)
+                                : topAddImageWidget(size: size);
+                          },
+                        ),
+                      ),
                     ),
                     verticalSpace(25.0),
                     customTextField(

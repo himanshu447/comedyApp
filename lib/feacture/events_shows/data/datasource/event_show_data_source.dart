@@ -56,7 +56,7 @@ class EventShowDataSourceImpl extends EventShowDataSource {
         print(result[ConstantUtil.result_success]);
 
         return (result[ConstantUtil.result_response]['data'] as List)
-            .map((e) => EventShowModel.fromMap(e))
+            .map((e) => EventShowModel.fromMapForList(e))
             .toList();
       } else {
         throw result[ConstantUtil.result_response];

@@ -18,7 +18,11 @@ class RouteGenerator {
           builder: (_) => EventsShows(),
         );
       case RouteName.event_detail:
-        return MaterialPageRoute(builder: (_) => EventDetail());
+        return MaterialPageRoute(
+          builder: (_) => EventDetail(
+            eventShowModel: routeSettings.arguments,
+          ),
+        );
 
       case RouteName.submit_event:
         return MaterialPageRoute(builder: (_) => SubmitEvents());

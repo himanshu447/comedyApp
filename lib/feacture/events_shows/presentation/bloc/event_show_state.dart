@@ -19,12 +19,18 @@ class LoadedAllEventsState extends EventShowState {
   LoadedAllEventsState({this.list}):super(eventList: list);
 }
 
-class SubmittingEventShowState extends EventShowState {}
+class SubmittingEventShowState extends EventShowState {
+  final List<EventShowModel> list;
+
+  SubmittingEventShowState({this.list}):super(eventList: list);
+
+}
 
 class SubmittedEventShowState extends EventShowState {
   final EventShowModel eventShowModel;
+  final List<EventShowModel> list;
 
-  SubmittedEventShowState({this.eventShowModel});
+  SubmittedEventShowState({this.eventShowModel,this.list,}):super(eventList: list);
 }
 
 class ErrorState extends EventShowState {
