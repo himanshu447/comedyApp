@@ -1,8 +1,8 @@
 import 'package:comedy/feacture/write_whthout_prompt/data/model/write_without_prompt_model.dart';
 import 'package:comedy/share/widget/auto_filled_date_widget.dart';
+import 'package:comedy/share/widget/custom_dialog_widget.dart';
 import 'package:comedy/share/widget/level_and_degree_detail_widget.dart';
 import 'package:comedy/share/widget/more_option_bootm_sheet_widget.dart';
-import 'package:comedy/share/widget/custom_dialog_widget.dart';
 import 'package:comedy/share/widget/sub_module_app_bar_widget.dart';
 import 'package:comedy/utils/color_util.dart';
 import 'package:comedy/utils/component/input-chip.component.dart';
@@ -80,7 +80,7 @@ class _WriteWithoutPromptDetailViewState
                   title: AppString.free_write,
                   actionWidget: isEditButtonPress
                       ? FlatButton(
-                          onPressed: (){
+                          onPressed: () {
                             setState(() {
                               isEditButtonPress = false;
                             });
@@ -247,7 +247,7 @@ class _WriteWithoutPromptDetailViewState
           CustomDialogs.showConfirmDeletePromptDialog(
             context: context,
             deleteCallback: () {
-              print('delete button press from dialog');
+              print("Delete Data-------------------->press the button");
             },
           );
         },

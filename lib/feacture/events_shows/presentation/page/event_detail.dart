@@ -41,7 +41,8 @@ class _EventDetailState extends State<EventDetail> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            eventTopWidget(context: context, imageUrl: ' '),
+            eventTopWidget(
+                context: context, imageUrl: widget.eventShowModel.image),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: Column(
