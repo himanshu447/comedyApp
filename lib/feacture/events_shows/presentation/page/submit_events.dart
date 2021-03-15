@@ -137,7 +137,7 @@ class _SubmitEventsState extends State<SubmitEvents> {
                         controller: eventNameController,
                         validator: (value) {
                           if (value.isEmpty) {
-                            return "Please Enter a Event name";
+                            return "Please Enter a Eventname";
                           }
                           return null;
                         },
@@ -148,7 +148,7 @@ class _SubmitEventsState extends State<SubmitEvents> {
                         hintText: AppString.about_event,
                         validator: (value) {
                           if (value.isEmpty) {
-                            return "Please Enter a About Event";
+                            return "Please Enter a AboutEvent";
                           }
                           return null;
                         },
@@ -160,12 +160,6 @@ class _SubmitEventsState extends State<SubmitEvents> {
                             child: timePicker(
                           hintName: AppString.start_date,
                           controller: startDateController,
-                          validator: (value) {
-                            if (value.isEmpty) {
-                              return "Please Enter a About Event";
-                            }
-                            return null;
-                          },
                           onTap: () {
                             selectDate(context).then((date) {
                               print(date);
@@ -182,12 +176,6 @@ class _SubmitEventsState extends State<SubmitEvents> {
                             child: timePicker(
                           hintName: AppString.start_time,
                           controller: startTimeController,
-                          validator: (value) {
-                            if (value.isEmpty) {
-                              return "Please Enter a About Event";
-                            }
-                            return null;
-                          },
                           onTap: () {
                             selectTime(context).then((date) {
                               print(date);
@@ -265,10 +253,6 @@ class _SubmitEventsState extends State<SubmitEvents> {
               ),
             ),
           ),
-
-          /*    customTextField(
-                    controller: controller, hintText: 'Event Name'),
-                verticalSpace(20.0),*/
         ],
       ),
     );

@@ -15,7 +15,6 @@ class WriteWithoutPromptRepositoryImpl extends WriteWithoutPromptRepository {
   Future<Either<Failure, dynamic>> submitPrompt() async {
     try {
       var result = await withoutPromptDataSource.submitPrompt();
-
       return Right(result);
     } on PlatformException catch (e) {
       return Left(Error(errMessage: e.message));

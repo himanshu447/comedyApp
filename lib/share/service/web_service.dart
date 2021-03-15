@@ -20,6 +20,20 @@ class WebService {
     return _getResponse(response: response);
   }
 
+  Future<dynamic> requestDelete({
+    String url,
+  }) async {
+    Map<String, String> headers;
+
+    headers = {
+      "Content-type": "application/x-www-form-urlencoded",
+    };
+
+    final response = await http.delete(url, headers: headers);
+
+    return _getResponse(response: response);
+  }
+
   Future<dynamic> requestPOST({
     String url,
     dynamic body,
@@ -67,23 +81,32 @@ class WebService {
     var length = await imageFile.length();
     var uri = Uri.parse(url);
     var request = new http.MultipartRequest("POST", uri);
-    var multipartFile = new http.MultipartFile('image', stream, length, filename: imageFile.path);
+    var multipartFile = new http.MultipartFile('image', stream, length,
+        filename: imageFile.path);
 
     request.files.add(multipartFile);
 
     request.fields.addAll({
       'name': eventShowModel.name != null ? eventShowModel.name : null,
       'about': eventShowModel.about != null ? eventShowModel.about : null,
-      'start_date': eventShowModel.startDate != null ? eventShowModel.startDate.toString() : null,
-      'start_time': eventShowModel.startTime != null ? eventShowModel.startTime : null,
-      'end_date': eventShowModel.endDate!= null ? eventShowModel.endDate.toString() : null,
-      'end_time': eventShowModel.endTime != null ? eventShowModel.endTime : null,
-      'timezone': eventShowModel.timezone != null ? eventShowModel.timezone : null,
-      'eventlink': eventShowModel.eventLink != null ? eventShowModel.eventLink : null,
-      'cost':  eventShowModel.cost != null ? eventShowModel.cost.toString() : null,
-      'timezone' : 'GTM +3'
+      'start_date': eventShowModel.startDate != null
+          ? eventShowModel.startDate.toString()
+          : null,
+      'start_time':
+          eventShowModel.startTime != null ? eventShowModel.startTime : null,
+      'end_date': eventShowModel.endDate != null
+          ? eventShowModel.endDate.toString()
+          : null,
+      'end_time':
+          eventShowModel.endTime != null ? eventShowModel.endTime : null,
+      'timezone':
+          eventShowModel.timezone != null ? eventShowModel.timezone : null,
+      'eventlink':
+          eventShowModel.eventLink != null ? eventShowModel.eventLink : null,
+      'cost':
+          eventShowModel.cost != null ? eventShowModel.cost.toString() : null,
+      'timezone': 'GTM +3'
     });
-
 
     request.headers.addAll(headers);
 

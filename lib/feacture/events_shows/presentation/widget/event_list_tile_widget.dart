@@ -17,7 +17,6 @@ class MyEventListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     var abc = eventShowModel.startTime.split(':');
 
     var ab = DateTime(
@@ -53,7 +52,7 @@ class MyEventListTile extends StatelessWidget {
                 topRightCorner: 0.0,
                 topLeftCorner: 10.0,
                 placeholder: 'images/trip.jpeg',
-                image:  eventShowModel.image,
+                image: eventShowModel.image,
                 height: MediaQuery.of(context).size.height * 0.16,
               ),
             ),
@@ -78,7 +77,7 @@ class MyEventListTile extends StatelessWidget {
                       fontWeight: FontWeight.w600,
                     ),
                     TextComponent(
-                      title: eventShowModel.cost.toString(),
+                      title: '\$${eventShowModel.cost}',
                       fontSize: 16,
                       margin: EdgeInsets.symmetric(vertical: 10),
                       fontWeight: FontWeight.w400,
