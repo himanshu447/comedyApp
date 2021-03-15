@@ -209,7 +209,7 @@ class _SubmitPromptWidgetState extends State<SubmitPromptWidget> {
           submitPromptModel: SubmitPromptModel(
             email: _emailController.text.trim(),
             name: _nameController.text.trim(),
-            desc: _promptTextController.text.trim(),
+            description: _promptTextController.text.trim(),
             website: _websiteController.text.trim(),
           ),
         ),
