@@ -43,12 +43,28 @@ class EventShowModel extends Equatable {
         endTime: json['end_time'] == null ? null : json["end_time"],
         timezone: json['timezone'] == null ? null : json["timezone"],
         eventLink: json['eventlink'] == null ? null : json["eventlink"],
-        cost: json['cost'] == null ? null : json["cost"],
+        cost: json['cost'] == null ? null : int.parse(json["cost"]),
         image: json['image'] == null ? null : json["image"],
         updatedAt: json['updatedAt'] == null ? null : DateTime.parse(json["updatedAt"]),
         createdAt: json['created_at'] == null ? null : DateTime.parse(json["created_at"]),
         id: json['id'] == null ? null : json["id"],
       );
+
+  factory EventShowModel.fromMapForList(Map<String, dynamic> json) => EventShowModel(
+    name: json['name'] == null ? null : json["name"],
+    about: json['about'] == null ? null : json["about"],
+    startDate: json['start_date'] == null ? null : DateTime.parse(json["start_date"]),
+    startTime: json['start_time'] == null ? null : json["start_time"],
+    endDate: json['end_date'] == null ? null : DateTime.parse(json["end_date"]),
+    endTime: json['end_time'] == null ? null : json["end_time"],
+    timezone: json['timezone'] == null ? null : json["timezone"],
+    eventLink: json['eventlink'] == null ? null : json["eventlink"],
+    cost: json['cost'] == null ? null : json["cost"],
+    image: json['image'] == null ? null : json["image"],
+    updatedAt: json['updatedAt'] == null ? null : DateTime.parse(json["updatedAt"]),
+    createdAt: json['created_at'] == null ? null : DateTime.parse(json["created_at"]),
+    id: json['id'] == null ? null : json["id"],
+  );
 
   Map<String, dynamic> toMap({bool strict = false,}) {
 
@@ -61,8 +77,8 @@ class EventShowModel extends Equatable {
       'end_time': endTime != null ? endTime : null,
       'timezone': timezone != null ? timezone : null,
       'eventlink': eventLink != null ? eventLink : null,
-      'cost':  cost != null ? cost.toString() : null,
-      'timezone' : 'GTM +3'
+      'cost':  cost != null ? cost : null,
+      'timezone' : 'GTM +3',
     };
 
     if (strict) {

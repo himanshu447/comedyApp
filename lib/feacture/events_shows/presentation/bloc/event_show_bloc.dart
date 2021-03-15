@@ -44,14 +44,22 @@ class EventShowBloc extends Bloc<EventShowEvent, EventShowState> {
 
       yield* result.fold(
         (failure) async* {
-          print(failure);
+          print('datta is failure ----->${(failure as Error).errMessage}');
           yield ErrorState(message: (failure as Error).errMessage);
         },
         (success) async* {
-          print(success);
-          yield SubmittedEventShowState(eventShowModel: success);
+          yield SubmittedEventShowState(eventShowModel: success,list: state.eventList);
         },
       );
+    }
+
+    else if (event is AddSubmittedEventInToListEvent){
+
+      var tempList = state.eventList;
+
+      tempList.insert(0, event.eventShowModel);
+
+      yield LoadedAllEventsState(list: tempList);
     }
   }
 }

@@ -9,6 +9,8 @@ class Services {
         return baseUrl + 'api/create-event';
       case EndPoint.GetEvents:
         return baseUrl + 'api/get-all-event';
+      case EndPoint.CreatePrompt:
+        return baseUrl + '/api/create-prompts';
       default:
         return '';
     }

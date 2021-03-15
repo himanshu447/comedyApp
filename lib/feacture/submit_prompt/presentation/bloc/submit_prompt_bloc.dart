@@ -2,7 +2,7 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:comedy/feacture/submit_prompt/data/model/submit_prompt_model.dart';
-import 'package:comedy/feacture/submit_prompt/domain/usecase/submit_prompt_usecase.dart';
+import 'package:comedy/feacture/submit_prompt/domain/usecase/create_prompt_usecase.dart';
 import 'package:comedy/utils/error/failure.dart';
 import 'package:meta/meta.dart';
 
@@ -12,10 +12,10 @@ part 'submit_prompt_state.dart';
 
 class SubmitPromptBloc extends Bloc<SubmitPromptEvent, SubmitPromptState> {
   SubmitPromptBloc({
-    this.submitPromptUseCase,
+    this.createPromptUseCase,
   }) : super(SubmitPromptInitial());
 
-  final SubmitPromptUseCase submitPromptUseCase;
+  final CreatePromptUseCase createPromptUseCase;
 
   @override
   Stream<SubmitPromptState> mapEventToState(SubmitPromptEvent event) async* {
@@ -23,7 +23,7 @@ class SubmitPromptBloc extends Bloc<SubmitPromptEvent, SubmitPromptState> {
     if (event is SubmitPromptResultEvent) {
       yield SubmitPromptLoadingState();
 
-      final result = await submitPromptUseCase(event.submitPromptModel);
+      final result = await createPromptUseCase(event.submitPromptModel);
 
       yield* result.fold(
         (failure) async* {

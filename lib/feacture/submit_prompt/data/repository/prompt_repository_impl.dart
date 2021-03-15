@@ -1,5 +1,6 @@
-import 'package:comedy/share/prompt/data/datasource/prompt_datasource.dart';
-import 'package:comedy/share/prompt/domain/repository/prompt_repository.dart';
+import 'package:comedy/feacture/submit_prompt/data/datasource/prompt_datasource.dart';
+import 'package:comedy/feacture/submit_prompt/data/model/submit_prompt_model.dart';
+import 'package:comedy/feacture/submit_prompt/domain/repository/prompt_repository.dart';
 import 'package:comedy/utils/error/failure.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/services.dart';
@@ -12,9 +13,9 @@ class PromptRepositoryImpl extends PromptRepository {
   });
 
   @override
-  Future<Either<Failure, dynamic>> submitPrompt() async {
+  Future<Either<Failure, SubmitPromptModel>> submitPrompt({SubmitPromptModel submitPromptModel}) async {
     try {
-      var result = promptDataSource.submitPrompt();
+      var result = await promptDataSource.submitPrompt(submitPromptModel: submitPromptModel);
       return Right(result);
     } on PlatformException catch (e) {
       return Left(Error(errMessage: e.message));

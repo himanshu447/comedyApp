@@ -1,6 +1,8 @@
 enum EndPoint {
   CreateEvent,
   GetEvents,
+
+  CreatePrompt,
 }
 
 enum LandingTab {
