@@ -10,7 +10,6 @@ import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
 part 'event_show_event.dart';
-
 part 'event_show_state.dart';
 
 class EventShowBloc extends Bloc<EventShowEvent, EventShowState> {
@@ -25,7 +24,6 @@ class EventShowBloc extends Bloc<EventShowEvent, EventShowState> {
   @override
   Stream<EventShowState> mapEventToState(EventShowEvent event) async* {
     if (event is GetEvents) {
-
       yield LoadingAllEventsState();
 
       var result = await getEventsUseCase(NoParams());
@@ -39,10 +37,7 @@ class EventShowBloc extends Bloc<EventShowEvent, EventShowState> {
           yield LoadedAllEventsState(list: success);
         },
       );
-
-    }
-
-    else if (event is SubmitEventAndShowsEvent) {
+    } else if (event is SubmitEventAndShowsEvent) {
       yield SubmittingEventShowState();
 
       var result = await createEventUseCase(event.eventShowModel);

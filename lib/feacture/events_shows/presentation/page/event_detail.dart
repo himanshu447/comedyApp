@@ -1,4 +1,3 @@
-import 'package:comedy/common/custom_round_image.dart';
 import 'package:comedy/common/general_widget.dart';
 import 'package:comedy/feacture/events_shows/presentation/widget/event_detail_widget.dart';
 import 'package:comedy/utils/color_util.dart';
