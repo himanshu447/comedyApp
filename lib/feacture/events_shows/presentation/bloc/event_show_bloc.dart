@@ -38,7 +38,7 @@ class EventShowBloc extends Bloc<EventShowEvent, EventShowState> {
         },
       );
     } else if (event is SubmitEventAndShowsEvent) {
-      yield SubmittingEventShowState();
+      yield SubmittingEventShowState(list: state.eventList);
 
       var result = await createEventUseCase(event.eventShowModel);
 

@@ -8,3 +8,10 @@ abstract class UseCase<Type, Params> {
 
 class NoParams {}
 
+class IdParams {
+  final int id;
+
+  IdParams({
+    this.id,
+  });
+}

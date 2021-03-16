@@ -2,27 +2,37 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:comedy/feacture/write_whthout_prompt/data/model/write_without_prompt_model.dart';
-import 'package:comedy/feacture/write_whthout_prompt/domain/usecase/submit_write_without_prompt_usecase.dart';
+import 'package:comedy/feacture/write_whthout_prompt/domain/usecase/create_write_without_prompt_usecase.dart';
+import 'package:comedy/feacture/write_whthout_prompt/domain/usecase/delete_write_without_prompt_usecase.dart';
+import 'package:comedy/feacture/write_whthout_prompt/domain/usecase/update_write_without_prompt_usecase.dart';
 import 'package:comedy/utils/error/failure.dart';
+import 'package:comedy/utils/usecase/usecase.dart';
 import 'package:meta/meta.dart';
 
 part 'write_without_prompt_event.dart';
 
 part 'write_without_prompt_state.dart';
 
-class WriteWithoutPromptBloc
-    extends Bloc<WriteWithoutPromptEvent, WriteWithoutPromptState> {
+class WriteWithoutPromptBloc extends Bloc<WriteWithoutPromptEvent, WriteWithoutPromptState> {
   WriteWithoutPromptBloc({
-    this.submitWriteWithoutPromptUseCase,
+    this.createWriteWithoutPromptUseCase,
+    this.deleteWriteWithoutPromptUseCase,
+    this.updateWriteWithoutPromptUseCase,
   }) : super(WriteWithoutPromptInitialState());
 
-  final SubmitWriteWithoutPromptUseCase submitWriteWithoutPromptUseCase;
+  final CreateWriteWithoutPromptUseCase createWriteWithoutPromptUseCase;
+  final DeleteWriteWithoutPromptUseCase deleteWriteWithoutPromptUseCase;
+  final UpdateWriteWithoutPromptUseCase updateWriteWithoutPromptUseCase;
+
 
   @override
-  Stream<WriteWithoutPromptState> mapEventToState(
-      WriteWithoutPromptEvent event) async* {
-    if (event is SubmitPromptEvent) {
-      final failureOrSuccess = await submitWriteWithoutPromptUseCase(
+  Stream<WriteWithoutPromptState> mapEventToState(WriteWithoutPromptEvent event) async* {
+
+    if (event is CreateWriteWithoutPromptEvent) {
+
+      yield WriteWithoutPromptSubmittingState();
+
+      final failureOrSuccess = await createWriteWithoutPromptUseCase(
         event.writeWithoutPromptModel,
       );
 
@@ -31,9 +41,46 @@ class WriteWithoutPromptBloc
           WriteWithoutPromptErrorState(error: (failure as Error).errMessage);
         },
         (success) async* {
-          WriteWithoutPromptSuccessState();
+          WriteWithoutPromptSuccessState(writeWithoutPromptModel: success);
         },
       );
     }
+
+    else if (event is UpdateWriteWithoutPromptEvent) {
+
+      yield WriteWithoutPromptSubmittingState();
+
+      final failureOrSuccess = await updateWriteWithoutPromptUseCase(
+        event.writeWithoutPromptModel,
+      );
+
+      yield* failureOrSuccess.fold(
+            (failure) async* {
+          WriteWithoutPromptErrorState(error: (failure as Error).errMessage);
+        },
+            (success) async* {
+          WriteWithoutPromptSuccessState(writeWithoutPromptModel: success);
+        },
+      );
+    }
+
+    else if (event is DeleteWriteWithoutPromptEvent) {
+
+      yield WriteWithoutPromptSubmittingState();
+
+      final failureOrSuccess = await deleteWriteWithoutPromptUseCase(
+        IdParams(id: event.id,)
+      );
+
+      yield* failureOrSuccess.fold(
+            (failure) async* {
+          WriteWithoutPromptErrorState(error: (failure as Error).errMessage);
+        },
+            (success) async* {
+          //WriteWithoutPromptSuccessState(writeWithoutPromptModel: success);
+        },
+      );
+    }
+
   }
 }

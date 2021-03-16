@@ -10,7 +10,13 @@ class Services {
       case EndPoint.GetEvents:
         return baseUrl + 'api/get-all-event';
       case EndPoint.CreatePrompt:
-        return baseUrl + '/api/create-prompts';
+        return baseUrl + 'api/create-prompts';
+      case EndPoint.CreateWriteWithoutPrompt:
+        return baseUrl + 'api/create-without-prompts';
+      case EndPoint.DeleteWriteWithoutPrompt:
+        return baseUrl + 'api/delete-without-prompts/';
+      case EndPoint.UpdateWriteWithoutPrompt:
+        return baseUrl + 'api/update-without-prompts/';
       default:
         return '';
     }

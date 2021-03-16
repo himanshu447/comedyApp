@@ -5,6 +5,8 @@ abstract class WriteWithoutPromptState {}
 
 class WriteWithoutPromptInitialState extends WriteWithoutPromptState {}
 
+class WriteWithoutPromptSubmittingState extends WriteWithoutPromptState {}
+
 class WriteWithoutPromptErrorState extends WriteWithoutPromptInitialState {
   final String error;
 
@@ -13,4 +15,10 @@ class WriteWithoutPromptErrorState extends WriteWithoutPromptInitialState {
   });
 }
 
-class WriteWithoutPromptSuccessState extends WriteWithoutPromptInitialState {}
+class WriteWithoutPromptSuccessState extends WriteWithoutPromptInitialState {
+  final WriteWithoutPromptModel writeWithoutPromptModel;
+
+  WriteWithoutPromptSuccessState({
+    this.writeWithoutPromptModel,
+  });
+}

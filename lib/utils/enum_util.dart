@@ -3,6 +3,11 @@ enum EndPoint {
   GetEvents,
 
   CreatePrompt,
+
+  CreateWriteWithoutPrompt,
+  DeleteWriteWithoutPrompt,
+  UpdateWriteWithoutPrompt,
+
 }
 
 enum LandingTab {
