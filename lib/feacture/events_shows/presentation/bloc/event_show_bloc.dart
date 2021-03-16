@@ -44,17 +44,15 @@ class EventShowBloc extends Bloc<EventShowEvent, EventShowState> {
 
       yield* result.fold(
         (failure) async* {
-          print('datta is failure ----->${(failure as Error).errMessage}');
+          print('data is failure ----->${(failure as Error).errMessage}');
           yield ErrorState(message: (failure as Error).errMessage);
         },
         (success) async* {
-          yield SubmittedEventShowState(eventShowModel: success,list: state.eventList);
+          yield SubmittedEventShowState(
+              eventShowModel: success, list: state.eventList);
         },
       );
-    }
-
-    else if (event is AddSubmittedEventInToListEvent){
-
+    } else if (event is AddSubmittedEventInToListEvent) {
       var tempList = state.eventList;
 
       tempList.insert(0, event.eventShowModel);
