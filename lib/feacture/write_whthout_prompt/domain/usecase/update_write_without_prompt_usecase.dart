@@ -5,16 +5,16 @@ import 'package:comedy/utils/usecase/usecase.dart';
 import 'package:dartz/dartz.dart';
 import 'package:flutter/material.dart';
 
-class SubmitWriteWithoutPromptUseCase
-    extends UseCase<dynamic, WriteWithoutPromptModel> {
+class UpdateWriteWithoutPromptUseCase
+    extends UseCase<WriteWithoutPromptModel, WriteWithoutPromptModel> {
   final WriteWithoutPromptRepository withoutPromptRepository;
 
-  SubmitWriteWithoutPromptUseCase({
+  UpdateWriteWithoutPromptUseCase({
     @required this.withoutPromptRepository,
   });
 
   @override
-  Future<Either<Failure, dynamic>> call(WriteWithoutPromptModel params) {
-    return withoutPromptRepository.submitPrompt();
+  Future<Either<Failure, WriteWithoutPromptModel>> call(WriteWithoutPromptModel params) {
+    return withoutPromptRepository.updateWriteWithoutPrompt(writeWithoutPromptModel: params);
   }
 }

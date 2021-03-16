@@ -5,6 +5,8 @@ import 'package:comedy/feacture/events_shows/domain/usecase/get_events_usecase.d
 import 'package:comedy/feacture/events_shows/presentation/bloc/event_show_bloc.dart';
 import 'package:comedy/feacture/write_whthout_prompt/data/datasource/write_without_prompt_data_source.dart';
 import 'package:comedy/feacture/write_whthout_prompt/data/repository/write_without_prompt_repository_impl.dart';
+import 'package:comedy/feacture/write_whthout_prompt/domain/usecase/delete_write_without_prompt_usecase.dart';
+import 'package:comedy/feacture/write_whthout_prompt/domain/usecase/update_write_without_prompt_usecase.dart';
 import 'package:comedy/feacture/write_whthout_prompt/presentation/bloc/write_without_prompt_bloc.dart';
 import 'package:comedy/share/service/web_service.dart';
 import 'package:get_it/get_it.dart';
@@ -17,7 +19,7 @@ import 'feacture/submit_prompt/domain/repository/prompt_repository.dart';
 import 'feacture/submit_prompt/domain/usecase/create_prompt_usecase.dart';
 import 'feacture/submit_prompt/presentation/bloc/submit_prompt_bloc.dart';
 import 'feacture/write_whthout_prompt/domain/repository/write_without_prompt_repository.dart';
-import 'feacture/write_whthout_prompt/domain/usecase/submit_write_without_prompt_usecase.dart';
+import 'feacture/write_whthout_prompt/domain/usecase/create_write_without_prompt_usecase.dart';
 
 final injector = GetIt.instance;
 
@@ -77,12 +79,27 @@ void _eventShows() {
 
 void _writeWithoutPrompt() {
   //bloc
-  injector.registerFactory(() =>
-      WriteWithoutPromptBloc(submitWriteWithoutPromptUseCase: injector()));
+  injector.registerFactory(
+    () => WriteWithoutPromptBloc(
+      createWriteWithoutPromptUseCase: injector(),
+      deleteWriteWithoutPromptUseCase: injector(),
+      updateWriteWithoutPromptUseCase: injector(),
+    ),
+  );
 
   //useCase
   injector.registerLazySingleton(
-    () => SubmitWriteWithoutPromptUseCase(
+    () => CreateWriteWithoutPromptUseCase(
+      withoutPromptRepository: injector(),
+    ),
+  );
+  injector.registerLazySingleton(
+    () => DeleteWriteWithoutPromptUseCase(
+      withoutPromptRepository: injector(),
+    ),
+  );
+  injector.registerLazySingleton(
+    () => UpdateWriteWithoutPromptUseCase(
       withoutPromptRepository: injector(),
     ),
   );
@@ -104,7 +121,8 @@ void _writeWithoutPrompt() {
 
 void _submitPrompt() {
   //bloc
-  injector.registerFactory(() => SubmitPromptBloc(createPromptUseCase: injector()));
+  injector
+      .registerFactory(() => SubmitPromptBloc(createPromptUseCase: injector()));
 
   //useCase
   injector.registerLazySingleton(

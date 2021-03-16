@@ -170,7 +170,7 @@ Future<dynamic> selectDate(BuildContext context) async {
   if (picked != null && picked != selectedDate) return selectedDate;*/
 }
 
-Future selectTime(BuildContext context) async {
+Future<dynamic> selectTime(BuildContext context) async {
   DateTime _selectedDate;
   DateTime selectedDate = DateTime.now();
 
@@ -228,7 +228,7 @@ Future selectTime(BuildContext context) async {
     print(_selectedDate.toString() + ' selected date');
     String selected = DateFormat.jm().format(_selectedDate);
     print(selected);
-    return selected;
+    return [selected,_selectedDate];
   }
 /*  CupertinoDatePicker(
     maximumYear: 2022,

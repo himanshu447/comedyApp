@@ -14,6 +14,7 @@ import 'package:comedy/utils/string_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 
 class SubmitEvents extends StatefulWidget {
   @override
@@ -30,12 +31,16 @@ class _SubmitEventsState extends State<SubmitEvents> {
   TextEditingController startDateController = TextEditingController();
   TextEditingController endDateController = TextEditingController();
 
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+
   final _eventkey = GlobalKey<FormState>();
 
   EventShowBloc eventShowBloc;
 
   DateTime startDate;
   DateTime endDate;
+  DateTime startTime;
+  DateTime endTime;
 
   final picker = ImagePicker();
   String image;
@@ -72,8 +77,13 @@ class _SubmitEventsState extends State<SubmitEvents> {
         } else if (state is SubmittedEventShowState) {
           Navigator.pop(context);
           Navigator.pop(context, state.eventShowModel);
-          eventShowBloc.add(AddSubmittedEventInToListEvent(
-              eventShowModel: state.eventShowModel));
+          eventShowBloc.add(
+            AddSubmittedEventInToListEvent(
+              eventShowModel: state.eventShowModel,
+            ),
+          );
+        } else if (state is ErrorState) {
+          showSnackBar(msg: state.message);
         }
       },
       cubit: eventShowBloc,
@@ -89,6 +99,7 @@ class _SubmitEventsState extends State<SubmitEvents> {
   Widget loadBody() {
     Size size = MediaQuery.of(context).size;
     return Scaffold(
+      key: _scaffoldKey,
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
         child: submitButton(
@@ -181,7 +192,8 @@ class _SubmitEventsState extends State<SubmitEvents> {
                               print(date);
                               if (date != null)
                                 setState(() {
-                                  startTimeController.text = date;
+                                  startTimeController.text = date[0];
+                                  startTime = date[1];
                                 });
                             });
                           },
@@ -216,7 +228,8 @@ class _SubmitEventsState extends State<SubmitEvents> {
                               print(date);
                               if (date != null)
                                 setState(() {
-                                  endTimeController.text = date;
+                                  endTimeController.text = date[0];
+                                  endTime = date[1];
                                 });
                             });
                           },
@@ -282,8 +295,8 @@ class _SubmitEventsState extends State<SubmitEvents> {
             updatedAt: DateTime.now(),
             cost: int.parse(eventCostController.text.trim()),
             endTime: endTimeController.text.trim(),
-            startTime: startTimeController.text.trim(),
-            eventLink: eventLinkController.text.trim(),
+            startTime: DateFormat.Hms().format(startTime),
+            eventLink: DateFormat.Hms().format(endTime),
             image: image,
           ),
         ),
@@ -319,6 +332,16 @@ class _SubmitEventsState extends State<SubmitEvents> {
             ),
           )
         ],
+      ),
+    );
+  }
+
+  showSnackBar({String msg}) {
+    _scaffoldKey.currentState.showSnackBar(
+      SnackBar(
+        content: TextComponent(
+          title: msg,
+        ),
       ),
     );
   }

@@ -26,6 +26,8 @@ class _EventsShowsState extends State<EventsShows> {
 
   EventShowBloc eventShowBloc;
 
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+
   @override
   void initState() {
     super.initState();
@@ -44,6 +46,7 @@ class _EventsShowsState extends State<EventsShows> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        key: _scaffoldKey,
         bottomNavigationBar: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           child: submitButton(

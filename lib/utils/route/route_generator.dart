@@ -8,7 +8,9 @@ import 'package:comedy/feacture/write_whthout_prompt/data/model/write_without_pr
 import 'package:comedy/feacture/write_whthout_prompt/presentation/page/write_without_prompt.dart';
 import 'package:comedy/feacture/write_whthout_prompt/presentation/page/write_without_prompt_detail.dart';
 import 'package:comedy/utils/route/route_name.dart';
+import 'package:comedy/utils/route/screen_argument_model/write_without_prompt_detail_arguments.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings routeSettings) {
@@ -33,10 +35,13 @@ class RouteGenerator {
         );
 
       case RouteName.write_without_prompt_detail:
-        WriteWithoutPromptModel args = routeSettings.arguments;
+        WriteWithoutPromptDetailScreenArguments args = routeSettings.arguments;
         return MaterialPageRoute(
-          builder: (_) => WriteWithoutPromptDetailView(
-            withoutPromptModel: args,
+          builder: (_) => BlocProvider.value(
+            value: args.withoutPromptBloc,
+            child: WriteWithoutPromptDetailView(
+              withoutPromptModel: args.writeWithoutPromptModel,
+            ),
           ),
         );
 

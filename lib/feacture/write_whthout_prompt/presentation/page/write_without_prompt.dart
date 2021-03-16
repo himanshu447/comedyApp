@@ -9,6 +9,7 @@ import 'package:comedy/utils/component/input-chip.component.dart';
 import 'package:comedy/utils/component/number_slider_component.dart';
 import 'package:comedy/utils/component/text_component.dart';
 import 'package:comedy/utils/route/route_name.dart';
+import 'package:comedy/utils/route/screen_argument_model/write_without_prompt_detail_arguments.dart';
 import 'package:comedy/utils/string_util.dart';
 import 'package:comedy/utils/style_util.dart';
 import 'package:flutter/cupertino.dart';
@@ -41,6 +42,9 @@ class _WriteWithoutPromptViewState extends State<WriteWithoutPromptView> {
 
   WriteWithoutPromptBloc withoutPromptBloc;
 
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+
+
   @override
   void initState() {
     withoutPromptBloc = injector<WriteWithoutPromptBloc>();
@@ -56,11 +60,41 @@ class _WriteWithoutPromptViewState extends State<WriteWithoutPromptView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocBuilder<WriteWithoutPromptBloc, WriteWithoutPromptState>(
-          cubit: withoutPromptBloc,
-          builder: (context, snapshot) {
-            return _loadBody();
-          }),
+      key: _scaffoldKey,
+      body: BlocListener(
+        listener: (_, state) {
+          if (state is WriteWithoutPromptSubmittingState) {
+            CustomDialogs.showSavingDataDialog(
+              context: context,
+            );
+          }
+          else if (state is WriteWithoutPromptSuccessState) {
+            Navigator.popAndPushNamed(
+              context,
+              RouteName.write_without_prompt_detail,
+              arguments: WriteWithoutPromptDetailScreenArguments(
+                writeWithoutPromptModel: WriteWithoutPromptModel(
+                  title: state.writeWithoutPromptModel.title,
+                  description: state.writeWithoutPromptModel.description,
+                  degreeOfSucking: state.writeWithoutPromptModel.degreeOfSucking,
+                  levelOfCompleteness: state.writeWithoutPromptModel.levelOfCompleteness,
+                  tags: state.writeWithoutPromptModel.tags,
+                ),
+                withoutPromptBloc: withoutPromptBloc,
+              )
+            );
+          }
+          else if(state is WriteWithoutPromptErrorState){
+            showSnackBar(msg: state.error);
+          }
+        },
+        cubit: withoutPromptBloc,
+        child: BlocBuilder<WriteWithoutPromptBloc, WriteWithoutPromptState>(
+            cubit: withoutPromptBloc,
+            builder: (context, snapshot) {
+              return _loadBody();
+            }),
+      ),
     );
   }
 
@@ -298,19 +332,9 @@ class _WriteWithoutPromptViewState extends State<WriteWithoutPromptView> {
         isLevelOfCompletenessSubmitted = true;
       });
     } else {
-      CustomDialogs.showSavingDataDialog(
-        context: context,
-      );
-
-      Future.delayed(
-        Duration(
-          seconds: 1,
-        ),
-      ).then(
-        (value) => Navigator.popAndPushNamed(
-          context,
-          RouteName.write_without_prompt_detail,
-          arguments: WriteWithoutPromptModel(
+      withoutPromptBloc.add(
+        CreateWriteWithoutPromptEvent(
+          writeWithoutPromptModel: WriteWithoutPromptModel(
             title: _titleController.text.trim(),
             description: _promptController.text.trim(),
             degreeOfSucking: degreeOfSucking,
@@ -321,6 +345,18 @@ class _WriteWithoutPromptViewState extends State<WriteWithoutPromptView> {
       );
     }
   }
+
+  showSnackBar({String msg}) {
+    _scaffoldKey.currentState.showSnackBar(
+      SnackBar(
+        content: TextComponent(
+          title: msg,
+        ),
+      ),
+    );
+  }
+
+
 }
 
 /*

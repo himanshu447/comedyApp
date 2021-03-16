@@ -26,6 +26,8 @@ class _SubmitPromptWidgetState extends State<SubmitPromptWidget> {
 
   SubmitPromptBloc _submitPromptBloc;
 
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+
   @override
   void initState() {
     _submitPromptBloc = injector<SubmitPromptBloc>();
@@ -41,10 +43,13 @@ class _SubmitPromptWidgetState extends State<SubmitPromptWidget> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       body: BlocListener(
           listener: (context, state) {
           if(state is SubmitPromptSuccessState){
             _showSuccessDialog();
+          }else if(state is SubmitPromptErrorState){
+            showSnackBar(msg: state.errorMessage);
           }
         },
         child: BlocBuilder<SubmitPromptBloc, SubmitPromptState>(
@@ -260,4 +265,15 @@ class _SubmitPromptWidgetState extends State<SubmitPromptWidget> {
       ),
     );
   }
+
+  showSnackBar({String msg}) {
+    _scaffoldKey.currentState.showSnackBar(
+      SnackBar(
+        content: TextComponent(
+          title: msg,
+        ),
+      ),
+    );
+  }
+
 }
