@@ -22,15 +22,9 @@ class WriteWithoutPromptModel extends Equatable {
         id: json['id'] != null ? json['id'] : null,
         title: json["title"] != null ? json["title"] : null,
         description: json["description"] != null ? json["description"] : null,
-        tags: json["tags"] != null
-            ? (json["tags"] as List<String>).map((e) => e).toList()
-            : null,
-        levelOfCompleteness: json["level_of_completeness"] != null
-            ? int.parse(json["level_of_completeness"])
-            : null,
-        degreeOfSucking: json["degree_of_not_sucking"] != null
-            ? int.parse(json["degree_of_not_sucking"])
-            : null,
+        tags: json["tags"] != null ? (json["tags"] as List<String>).map((e) => e).toList() : null,
+        levelOfCompleteness: json["level_of_completeness"] != null ?  int.parse(json["level_of_completeness"]) : null,
+        degreeOfSucking: json["degree_of_not_sucking"] != null ? int.parse(json["degree_of_not_sucking"]) : null,
       );
 
   Map<String, dynamic> toMap({
@@ -40,10 +34,8 @@ class WriteWithoutPromptModel extends Equatable {
       "title": title != null ? title : null,
       "description": description != null ? description : null,
       "tags": tags != null ? tags.toString() : null,
-      "level_of_completeness":
-          levelOfCompleteness != null ? levelOfCompleteness.toString() : null,
-      'degree_of_not_sucking':
-          degreeOfSucking != null ? degreeOfSucking.toString() : null,
+      "level_of_completeness": levelOfCompleteness != null ? levelOfCompleteness.toString() : null,
+      'degree_of_not_sucking': degreeOfSucking != null ? degreeOfSucking.toString() : null,
     };
     if (strict) {
       Map<String, dynamic> newMap = {};

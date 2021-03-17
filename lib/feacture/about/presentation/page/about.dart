@@ -1,7 +1,6 @@
 import 'package:comedy/common/general_widget.dart';
 import 'package:comedy/feacture/about/data/model/about_tile_model.dart';
 import 'package:comedy/share/widget/top_app_bar_widget.dart';
-import 'package:comedy/utils/color_util.dart';
 import 'package:comedy/utils/component/text_component.dart';
 import 'package:comedy/utils/icons_utils.dart';
 import 'package:comedy/utils/route/route_name.dart';

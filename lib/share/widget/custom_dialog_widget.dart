@@ -69,7 +69,10 @@ class CustomDialogs {
                   VerticalDivider(),
                   Expanded(
                     child: FlatButton(
-                      onPressed: deleteCallback,
+                      onPressed:(){
+                        Navigator.pop(context);
+                        deleteCallback();
+                      },
                       child: TextComponent(
                         title: AppString.delete,
                         textStyle: StyleUtil.calenderHeaderTextStyle.copyWith(

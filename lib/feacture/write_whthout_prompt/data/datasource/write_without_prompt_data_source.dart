@@ -45,7 +45,7 @@ class WriteWithoutPromptDataSourceImpl extends WriteWithoutPromptDataSource {
     try {
       var result = await webService.requestDelete(
           url: Services.getServices(
-            EndPoint.CreateWriteWithoutPrompt,
+            EndPoint.DeleteWriteWithoutPrompt,
           ) + '$id',
       );
 

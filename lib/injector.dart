@@ -13,7 +13,7 @@ import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 import 'feacture/events_shows/data/repository/event_show_repository_impl.dart';
 import 'feacture/landing/presentation/bloc/landing_bloc.dart';
-import 'feacture/submit_prompt/data/datasource/prompt_datasource.dart';
+import 'feacture/submit_prompt/data/datasource/prompt_data_source.dart';
 import 'feacture/submit_prompt/data/repository/prompt_repository_impl.dart';
 import 'feacture/submit_prompt/domain/repository/prompt_repository.dart';
 import 'feacture/submit_prompt/domain/usecase/create_prompt_usecase.dart';
@@ -121,8 +121,7 @@ void _writeWithoutPrompt() {
 
 void _submitPrompt() {
   //bloc
-  injector
-      .registerFactory(() => SubmitPromptBloc(createPromptUseCase: injector()));
+  injector.registerFactory(() => SubmitPromptBloc(createPromptUseCase: injector()));
 
   //useCase
   injector.registerLazySingleton(

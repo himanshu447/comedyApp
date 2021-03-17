@@ -52,12 +52,6 @@ class _WriteWithoutPromptViewState extends State<WriteWithoutPromptView> {
   }
 
   @override
-  void dispose() {
-    withoutPromptBloc.close();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
@@ -69,6 +63,9 @@ class _WriteWithoutPromptViewState extends State<WriteWithoutPromptView> {
             );
           }
           else if (state is WriteWithoutPromptSuccessState) {
+
+            Navigator.pop(context);
+
             Navigator.popAndPushNamed(
               context,
               RouteName.write_without_prompt_detail,
@@ -79,6 +76,7 @@ class _WriteWithoutPromptViewState extends State<WriteWithoutPromptView> {
                   degreeOfSucking: state.writeWithoutPromptModel.degreeOfSucking,
                   levelOfCompleteness: state.writeWithoutPromptModel.levelOfCompleteness,
                   tags: state.writeWithoutPromptModel.tags,
+                  id: state.writeWithoutPromptModel.id,
                 ),
                 withoutPromptBloc: withoutPromptBloc,
               )

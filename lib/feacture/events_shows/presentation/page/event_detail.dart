@@ -23,8 +23,6 @@ class EventDetail extends StatefulWidget {
 class _EventDetailState extends State<EventDetail> {
   @override
   Widget build(BuildContext context) {
-
-
     var abc = widget.eventShowModel.startTime.split(':');
 
     var ab = DateTime(
@@ -43,18 +41,23 @@ class _EventDetailState extends State<EventDetail> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            eventTopWidget(context: context, imageUrl: widget.eventShowModel.image),
+            eventTopWidget(
+                context: context, imageUrl: widget.eventShowModel.image),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  eventScheduleDate('${date} - ${date}'), // ignore: unnecessary_brace_in_string_interps
+                  eventScheduleDate('${date} - ${date}'),
                   eventTitle(widget.eventShowModel.name),
                   verticalSpace(20),
-                  descriptionTile(title: '\$${widget.eventShowModel.cost}', iconName: AppIcons.ic_ticket),
+                  descriptionTile(
+                      title: '\$${widget.eventShowModel.cost}',
+                      iconName: AppIcons.ic_ticket),
                   verticalSpace(20),
-                  descriptionTile(title: widget.eventShowModel.eventLink, iconName: AppIcons.ic_web),
+                  descriptionTile(
+                      title: widget.eventShowModel.eventLink,
+                      iconName: AppIcons.ic_web),
                   verticalSpace(20),
                   Divider(
                     color: AppColor.verticalDividerColor,
@@ -68,7 +71,7 @@ class _EventDetailState extends State<EventDetail> {
                   ),
                   verticalSpace(15),
                   TextComponent(
-                    title:widget.eventShowModel.about,
+                    title: widget.eventShowModel.about,
                     fontSize: 17,
                     fontWeight: FontWeight.w400,
                   ),

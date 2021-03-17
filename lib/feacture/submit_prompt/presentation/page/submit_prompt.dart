@@ -22,6 +22,8 @@ class _SubmitPromptWidgetState extends State<SubmitPromptWidget> {
   final TextEditingController _websiteController = TextEditingController();
   final TextEditingController _promptTextController = TextEditingController();
 
+  final FocusNode _nameFocusNode = FocusNode();
+
   final GlobalKey<FormState> _formKey = GlobalKey();
 
   SubmitPromptBloc _submitPromptBloc;
@@ -37,6 +39,11 @@ class _SubmitPromptWidgetState extends State<SubmitPromptWidget> {
   @override
   void dispose() {
     _submitPromptBloc.close();
+    _nameFocusNode.dispose();
+    _nameController.dispose();
+    _emailController.dispose();
+    _promptTextController.dispose();
+    _websiteController.dispose();
     super.dispose();
   }
 
@@ -44,11 +51,12 @@ class _SubmitPromptWidgetState extends State<SubmitPromptWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      body: BlocListener(
-          listener: (context, state) {
-          if(state is SubmitPromptSuccessState){
+      body: BlocListener<SubmitPromptBloc, SubmitPromptState>(
+        cubit: _submitPromptBloc,
+        listener: (cx, state) {
+          if (state is SubmitPromptSuccessState) {
             _showSuccessDialog();
-          }else if(state is SubmitPromptErrorState){
+          } else if (state is SubmitPromptErrorState) {
             showSnackBar(msg: state.errorMessage);
           }
         },
@@ -94,6 +102,7 @@ class _SubmitPromptWidgetState extends State<SubmitPromptWidget> {
                   ).copyWith(top: 20),
                   child: TextFormField(
                     controller: _nameController,
+                    focusNode: _nameFocusNode,
                     decoration: InputDecoration(
                       hintText: AppString.hint_your_name,
                     ),
@@ -165,7 +174,6 @@ class _SubmitPromptWidgetState extends State<SubmitPromptWidget> {
                       return null;
                     },
                     style: StyleUtil.formFieldTextStyle,
-                    textInputAction: TextInputAction.done,
                   ),
                 ),
                 Padding(
@@ -191,18 +199,20 @@ class _SubmitPromptWidgetState extends State<SubmitPromptWidget> {
             ),
           ),
         ),
-        Positioned(
-          top: 0,
-          bottom: 0,
-          left: 0,
-          right: 0,
-          child: Container(
-            color: Colors.black26,
-            child: Center(
-              child: CircularProgressIndicator(),
-            ),
-          ),
-        ),
+        isDataLoading
+            ? Positioned(
+                top: 0,
+                bottom: 0,
+                left: 0,
+                right: 0,
+                child: Container(
+                  color: Colors.black26,
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                ),
+              )
+            : Container(),
       ],
     );
   }
@@ -247,7 +257,16 @@ class _SubmitPromptWidgetState extends State<SubmitPromptWidget> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
               child: RawMaterialButton(
-                onPressed: () => Navigator.pop(context),
+                onPressed: () {
+                  _nameController.clear();
+                  _emailController.clear();
+                  _websiteController.clear();
+                  _promptTextController.clear();
+
+                  _nameFocusNode.requestFocus();
+
+                  Navigator.pop(context);
+                },
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(15)),
                 padding: EdgeInsets.symmetric(vertical: 12),
@@ -275,5 +294,4 @@ class _SubmitPromptWidgetState extends State<SubmitPromptWidget> {
       ),
     );
   }
-
 }

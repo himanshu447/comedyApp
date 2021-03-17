@@ -22,6 +22,7 @@ class PromptDataSourceImpl extends PromptDataSource {
         url: Services.getServices(
           EndPoint.CreatePrompt,
         ),
+        body: submitPromptModel.toMap()
       );
 
       print(result);

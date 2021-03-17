@@ -43,7 +43,6 @@ class _NumberSelectionSwiperState extends State<NumberSelectionSwiper>
   AnimationController _controller;
   Tween<double> _tween;
 
-  final ScrollController _scrollController = ScrollController();
 
   @override
   void dispose() {
@@ -179,11 +178,9 @@ class MeasureLine extends StatelessWidget {
 
     states.asMap().forEach((index, text) {
       var paddingTop = 0.0;
-      var scale = 0.7;
       var opacity = .2;
       if (animatingUnitIndex == index) {
         paddingTop = unitAnimatingValue * 5;
-        scale = (1 - unitAnimatingValue) * 0.7;
         opacity = 0.3 + unitAnimatingValue * 0.7;
       }
       res.add(GestureDetector(
@@ -422,7 +419,6 @@ class MyIndicator extends StatelessWidget {
   final double width;
 
   _buildIndicator() {
-    var opacityOfYellow = possition > 0.5 ? 1.0 : possition * 2;
     return GestureDetector(
       onHorizontalDragStart: onDragStart,
       onHorizontalDragUpdate: onDrag,
