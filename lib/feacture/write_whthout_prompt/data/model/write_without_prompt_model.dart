@@ -19,16 +19,13 @@ class WriteWithoutPromptModel extends Equatable {
 
   factory WriteWithoutPromptModel.fromMap(Map<String, dynamic> json) {
 
-    List<String> result = json["tags"].split(',');
-
    return  WriteWithoutPromptModel(
       id: json['id'] != null ? json['id'] : null,
       title: json["title"] != null ? json["title"] : null,
       description: json["description"] != null ? json["description"] : null,
-     tags: result,
-     /* tags: json["tags"] != null ? (json["tags"] as List<String>)
+      tags: json["tags"] != null ? (json["tags"] as List<String>)
           .map((e) => e)
-          .toList() : null,*/
+          .toList() : null,
       levelOfCompleteness: json["level_of_completeness"] != null ? json["level_of_completeness"] : null,
       degreeOfSucking: json["degree_of_not_sucking"] != null ? json["degree_of_not_sucking"] : null,
     );

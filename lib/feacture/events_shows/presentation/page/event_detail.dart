@@ -48,7 +48,7 @@ class _EventDetailState extends State<EventDetail> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  eventScheduleDate('${date} - ${date}'),
+                  eventScheduleDate('$date - $date'),
                   eventTitle(widget.eventShowModel.name),
                   verticalSpace(20),
                   descriptionTile(

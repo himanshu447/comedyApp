@@ -136,7 +136,7 @@ class _EventsShowsState extends State<EventsShows> {
 
   _submitData() async{
 
-    var result = await Navigator.of(context).push(
+    await Navigator.of(context).push(
       MaterialPageRoute(
         builder: (_) => BlocProvider.value(
           value:  eventShowBloc,

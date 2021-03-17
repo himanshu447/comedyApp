@@ -572,7 +572,7 @@ class _TableCalendarState extends State<TableCalendar>
     );
   }
 
-  TableRow _buildDaysOfWeek() {
+  /*TableRow _buildDaysOfWeek() {
     return TableRow(
       decoration: widget.daysOfWeekStyle.decoration,
       children:
@@ -599,7 +599,7 @@ class _TableCalendarState extends State<TableCalendar>
         );
       }).toList(),
     );
-  }
+  }*/
 
   TableRow _buildTableRow(List<DateTime> days) {
     return TableRow(

@@ -1,4 +1,4 @@
-import 'package:comedy/feacture/submit_prompt/data/datasource/prompt_datasource.dart';
+import 'package:comedy/feacture/submit_prompt/data/datasource/prompt_data_source.dart';
 import 'package:comedy/feacture/submit_prompt/data/model/submit_prompt_model.dart';
 import 'package:comedy/feacture/submit_prompt/domain/repository/prompt_repository.dart';
 import 'package:comedy/utils/error/failure.dart';
