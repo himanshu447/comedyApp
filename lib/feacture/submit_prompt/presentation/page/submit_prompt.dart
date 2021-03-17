@@ -92,7 +92,7 @@ class _SubmitPromptWidgetState extends State<SubmitPromptWidget> {
                     fontWeight: FontWeight.w600,
                     color: AppColor.white,
                     textAlign: TextAlign.center,
-                    margin: EdgeInsets.only(top: 60, right: 20, left: 20),
+                    margin: EdgeInsets.only(top: 50, right: 20, left: 20),
                   ),
                 ),
                 Padding(
