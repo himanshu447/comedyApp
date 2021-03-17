@@ -13,7 +13,8 @@ part 'write_without_prompt_event.dart';
 
 part 'write_without_prompt_state.dart';
 
-class WriteWithoutPromptBloc extends Bloc<WriteWithoutPromptEvent, WriteWithoutPromptState> {
+class WriteWithoutPromptBloc
+    extends Bloc<WriteWithoutPromptEvent, WriteWithoutPromptState> {
   WriteWithoutPromptBloc({
     this.createWriteWithoutPromptUseCase,
     this.deleteWriteWithoutPromptUseCase,
@@ -24,12 +25,11 @@ class WriteWithoutPromptBloc extends Bloc<WriteWithoutPromptEvent, WriteWithoutP
   final DeleteWriteWithoutPromptUseCase deleteWriteWithoutPromptUseCase;
   final UpdateWriteWithoutPromptUseCase updateWriteWithoutPromptUseCase;
 
-
   @override
-  Stream<WriteWithoutPromptState> mapEventToState(WriteWithoutPromptEvent event) async* {
+  Stream<WriteWithoutPromptState> mapEventToState(
+      WriteWithoutPromptEvent event) async* {
 
     if (event is CreateWriteWithoutPromptEvent) {
-
       yield WriteWithoutPromptSubmittingState();
 
       final failureOrSuccess = await createWriteWithoutPromptUseCase(
@@ -38,16 +38,17 @@ class WriteWithoutPromptBloc extends Bloc<WriteWithoutPromptEvent, WriteWithoutP
 
       yield* failureOrSuccess.fold(
         (failure) async* {
-          WriteWithoutPromptErrorState(error: (failure as Error).errMessage);
+          yield WriteWithoutPromptErrorState(
+              error: (failure as Error).errMessage);
         },
         (success) async* {
-          WriteWithoutPromptSuccessState(writeWithoutPromptModel: success);
+          yield WriteWithoutPromptSuccessState(
+              writeWithoutPromptModel: success);
         },
       );
     }
 
     else if (event is UpdateWriteWithoutPromptEvent) {
-
       yield WriteWithoutPromptSubmittingState();
 
       final failureOrSuccess = await updateWriteWithoutPromptUseCase(
@@ -55,32 +56,31 @@ class WriteWithoutPromptBloc extends Bloc<WriteWithoutPromptEvent, WriteWithoutP
       );
 
       yield* failureOrSuccess.fold(
-            (failure) async* {
-          WriteWithoutPromptErrorState(error: (failure as Error).errMessage);
+        (failure) async* {
+          yield WriteWithoutPromptErrorState(error: (failure as Error).errMessage);
         },
-            (success) async* {
-          WriteWithoutPromptSuccessState(writeWithoutPromptModel: success);
+        (success) async* {
+          yield WriteWithoutPromptSuccessState(writeWithoutPromptModel: success);
         },
       );
     }
 
     else if (event is DeleteWriteWithoutPromptEvent) {
 
-      yield WriteWithoutPromptSubmittingState();
+      yield DeletingWriteWithoutPromptState();
 
-      final failureOrSuccess = await deleteWriteWithoutPromptUseCase(
-        IdParams(id: event.id,)
-      );
+      final failureOrSuccess = await deleteWriteWithoutPromptUseCase(IdParams(
+        id: event.id,
+      ));
 
       yield* failureOrSuccess.fold(
-            (failure) async* {
-          WriteWithoutPromptErrorState(error: (failure as Error).errMessage);
+        (failure) async* {
+          yield WriteWithoutPromptErrorState(error: (failure as Error).errMessage);
         },
-            (success) async* {
-          //WriteWithoutPromptSuccessState(writeWithoutPromptModel: success);
+        (success) async* {
+          yield DeletedWriteWithoutPromptState();
         },
       );
     }
-
   }
 }

@@ -78,16 +78,26 @@ class _WriteWithoutPromptDetailViewState
     return Scaffold(
       body: BlocListener(
         cubit: withoutPromptBloc,
-        listener: (_,state){
-          if (state is WriteWithoutPromptSubmittingState) {
+        listener: (_, state) {
+          if (state is DeletedWriteWithoutPromptState) {
+            Navigator.pop(context);
+          } else if (state is WriteWithoutPromptSubmittingState) {
             CustomDialogs.showSavingDataDialog(
               context: context,
             );
+          } else if (state is WriteWithoutPromptSuccessState) {
+            Navigator.pop(context);
+            setState(() {
+              isEditButtonPress = false;
+            });
           }
         },
         child: BlocBuilder<WriteWithoutPromptBloc, WriteWithoutPromptState>(
           cubit: withoutPromptBloc,
           builder: (_, state) {
+            if (state is DeletingWriteWithoutPromptState) {
+              return _loadBody(isDataDeleting: true);
+            }
             return _loadBody();
           },
         ),
@@ -95,7 +105,7 @@ class _WriteWithoutPromptDetailViewState
     );
   }
 
-  Widget _loadBody() {
+  Widget _loadBody({bool isDataDeleting = false}) {
     return Stack(
       fit: StackFit.expand,
       children: [
@@ -115,19 +125,19 @@ class _WriteWithoutPromptDetailViewState
                           onPressed: () {
                             withoutPromptBloc.add(
                               UpdateWriteWithoutPromptEvent(
-                                writeWithoutPromptModel: WriteWithoutPromptModel(
+                                writeWithoutPromptModel:
+                                    WriteWithoutPromptModel(
                                   id: widget.withoutPromptModel.id,
                                   description: _promptController.text.trim(),
                                   title: _titleController.text.trim(),
                                   tags: tagList,
-                                  levelOfCompleteness: widget.withoutPromptModel.levelOfCompleteness,
-                                  degreeOfSucking: widget.withoutPromptModel.degreeOfSucking,
+                                  levelOfCompleteness: widget
+                                      .withoutPromptModel.levelOfCompleteness,
+                                  degreeOfSucking:
+                                      widget.withoutPromptModel.degreeOfSucking,
                                 ),
                               ),
                             );
-                            /*setState(() {
-                              isEditButtonPress = false;
-                            });*/
                           },
                           child: TextComponent(
                             title: AppString.save,
@@ -278,6 +288,21 @@ class _WriteWithoutPromptDetailViewState
                 degreeOfSucking: widget.withoutPromptModel.degreeOfSucking,
               )
             : Container(),
+
+        isDataDeleting
+            ? Positioned(
+                top: 0,
+                bottom: 0,
+                left: 0,
+                right: 0,
+                child: Container(
+                  color: Colors.black12,
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                ),
+              )
+            : Container(),
       ],
     );
   }
@@ -286,27 +311,27 @@ class _WriteWithoutPromptDetailViewState
     MoreOptionBottomSheetWidget(
       cancelButtonColor: AppColor.primary_orange[500],
       deleteButtonCallback: () {
-        print('show delete dialog');
         CustomDialogs.showConfirmDeletePromptDialog(
           context: context,
           deleteCallback: () {
-            print("Delete Data-------------------->press the button");
-            withoutPromptBloc.add(
-              DeleteWriteWithoutPromptEvent(
-                id: widget.withoutPromptModel.id,
-              ),
-            );
+            try {
+              withoutPromptBloc.add(
+                DeleteWriteWithoutPromptEvent(
+                  id: widget.withoutPromptModel.id,
+                ),
+              );
+            } catch (e) {
+              print(e.toString());
+            }
           },
         );
       },
       editButtonCallback: () {
-        print('Edit button press');
         setState(() {
           isEditButtonPress = true;
         });
       },
       shareButtonCallback: () {
-        print('Share button press');
         Share.share('this is share button');
       },
     ).showMoreSheetDialog(context);
