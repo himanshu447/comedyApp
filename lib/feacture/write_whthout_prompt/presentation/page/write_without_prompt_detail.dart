@@ -45,6 +45,8 @@ class _WriteWithoutPromptDetailViewState
 
   WriteWithoutPromptBloc withoutPromptBloc;
 
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
+
   @override
   void initState() {
     _titleController = TextEditingController(
@@ -76,6 +78,7 @@ class _WriteWithoutPromptDetailViewState
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
       body: BlocListener(
         cubit: withoutPromptBloc,
         listener: (_, state) {
@@ -90,6 +93,8 @@ class _WriteWithoutPromptDetailViewState
             setState(() {
               isEditButtonPress = false;
             });
+          } else if (state is WriteWithoutPromptErrorState) {
+            showSnackBar(msg: state.error);
           }
         },
         child: BlocBuilder<WriteWithoutPromptBloc, WriteWithoutPromptState>(
@@ -335,5 +340,15 @@ class _WriteWithoutPromptDetailViewState
         Share.share('this is share button');
       },
     ).showMoreSheetDialog(context);
+  }
+
+  showSnackBar({String msg}) {
+    _scaffoldKey.currentState.showSnackBar(
+      SnackBar(
+        content: TextComponent(
+          title: msg,
+        ),
+      ),
+    );
   }
 }

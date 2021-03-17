@@ -64,8 +64,8 @@ class _LandingViewState extends State<LandingView> {
         children: [
           HomeView(),
           MySavedView(),
-          //SubmitPromptWidget(),
-          Container(),
+          SubmitPromptWidget(),
+          //Container(),
           AboutView(),
         ],
       ),
