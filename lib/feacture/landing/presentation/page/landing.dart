@@ -5,7 +5,6 @@ import 'package:comedy/feacture/my_saved/presentation/page/my_saved.dart';
 import 'package:comedy/feacture/submit_prompt/presentation/page/submit_prompt.dart';
 import 'package:comedy/injector.dart';
 import 'package:comedy/utils/component/bottom_nav_component.dart';
-import 'package:comedy/utils/component/text_component.dart';
 import 'package:comedy/utils/enum_util.dart';
 import 'package:comedy/utils/string_util.dart';
 import 'package:comedy/utils/style_util.dart';
@@ -65,7 +64,6 @@ class _LandingViewState extends State<LandingView> {
           HomeView(),
           MySavedView(),
           SubmitPromptWidget(),
-          //Container(),
           AboutView(),
         ],
       ),

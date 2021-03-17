@@ -121,8 +121,7 @@ void _writeWithoutPrompt() {
 
 void _submitPrompt() {
   //bloc
-  injector
-      .registerFactory(() => SubmitPromptBloc(createPromptUseCase: injector()));
+  injector.registerFactory(() => SubmitPromptBloc(createPromptUseCase: injector()));
 
   //useCase
   injector.registerLazySingleton(
