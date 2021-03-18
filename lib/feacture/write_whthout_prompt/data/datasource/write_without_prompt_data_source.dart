@@ -1,4 +1,5 @@
 import 'package:comedy/feacture/write_whthout_prompt/data/model/write_without_prompt_model.dart';
+import 'package:comedy/share/data/datasource/save_prompt_data_source.dart';
 import 'package:comedy/share/service/service.dart';
 import 'package:comedy/share/service/web_service.dart';
 import 'package:comedy/utils/constant_util.dart';
@@ -12,9 +13,11 @@ abstract class WriteWithoutPromptDataSource {
 
 class WriteWithoutPromptDataSourceImpl extends WriteWithoutPromptDataSource {
   final WebService webService;
+  final SavePromptDataSource savePromptDataSource;
 
   WriteWithoutPromptDataSourceImpl({
     this.webService,
+    this.savePromptDataSource,
   });
 
   @override
@@ -28,8 +31,12 @@ class WriteWithoutPromptDataSourceImpl extends WriteWithoutPromptDataSource {
         body: writeWithoutPromptModel.toMap(strict: true)
       );
       print(result);
+
       if (result[ConstantUtil.result_success]) {
+
+        await savePromptDataSource.savePrompt(result[ConstantUtil.result_response]['data']['id']);
         return WriteWithoutPromptModel.fromMap(result[ConstantUtil.result_response]['data']);
+
       } else {
         print(result[ConstantUtil.result_response]);
         throw result[ConstantUtil.result_response];

@@ -1,3 +1,4 @@
+import 'package:comedy/feacture/my_saved/data/model/my_saved_model.dart';
 import 'package:comedy/utils/color_util.dart';
 import 'package:comedy/utils/component/text_component.dart';
 import 'package:comedy/utils/icons_utils.dart';
@@ -5,6 +6,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class MySavedItem extends StatelessWidget {
+  final MySavedModel mySavedModel;
+
+  const MySavedItem({this.mySavedModel});
+
   @override
   Widget build(BuildContext context) {
     return Card(

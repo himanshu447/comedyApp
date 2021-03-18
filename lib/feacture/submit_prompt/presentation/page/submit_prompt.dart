@@ -290,6 +290,8 @@ class _SubmitPromptWidgetState extends State<SubmitPromptWidget> {
       SnackBar(
         content: TextComponent(
           title: msg,
+          color: AppColor.white,
+          fontSize: 16,
         ),
       ),
     );

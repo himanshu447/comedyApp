@@ -3,16 +3,23 @@ import 'package:comedy/feacture/events_shows/domain/repository/event_show_reposi
 import 'package:comedy/feacture/events_shows/domain/usecase/create_event_usecase.dart';
 import 'package:comedy/feacture/events_shows/domain/usecase/get_events_usecase.dart';
 import 'package:comedy/feacture/events_shows/presentation/bloc/event_show_bloc.dart';
+import 'package:comedy/feacture/my_saved/data/datasource/my_saved_data_source.dart';
+import 'package:comedy/feacture/my_saved/data/repository/my_saved_repository_impl.dart';
+import 'package:comedy/feacture/my_saved/domain/repository/my_saved_repository.dart';
 import 'package:comedy/feacture/write_whthout_prompt/data/datasource/write_without_prompt_data_source.dart';
 import 'package:comedy/feacture/write_whthout_prompt/data/repository/write_without_prompt_repository_impl.dart';
 import 'package:comedy/feacture/write_whthout_prompt/domain/usecase/delete_write_without_prompt_usecase.dart';
 import 'package:comedy/feacture/write_whthout_prompt/domain/usecase/update_write_without_prompt_usecase.dart';
 import 'package:comedy/feacture/write_whthout_prompt/presentation/bloc/write_without_prompt_bloc.dart';
+import 'package:comedy/share/data/datasource/save_prompt_data_source.dart';
 import 'package:comedy/share/service/web_service.dart';
+import 'package:device_info/device_info.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 import 'feacture/events_shows/data/repository/event_show_repository_impl.dart';
 import 'feacture/landing/presentation/bloc/landing_bloc.dart';
+import 'feacture/my_saved/domain/usecase/get_my_saved_prompt_use_case.dart';
+import 'feacture/my_saved/presentation/bloc/my_saved_bloc.dart';
 import 'feacture/submit_prompt/data/datasource/prompt_data_source.dart';
 import 'feacture/submit_prompt/data/repository/prompt_repository_impl.dart';
 import 'feacture/submit_prompt/domain/repository/prompt_repository.dart';
@@ -27,6 +34,14 @@ Future init() async {
   ///External
   injector.registerLazySingleton(() => http.Client());
   injector.registerLazySingleton(() => WebService());
+  injector.registerLazySingleton(() => DeviceInfoPlugin());
+
+  injector.registerLazySingleton<SavePromptDataSource>(
+    () => SavePromptDataSourceImpl(
+      webService: injector(),
+      deviceInfoPlugin: injector(),
+    ),
+  );
 
   ///Landing Bloc
   injector.registerFactory(() => LandingBloc());
@@ -39,6 +54,9 @@ Future init() async {
 
   ///Event and shows
   _eventShows();
+
+  ///My Saved
+  _mySaved();
 }
 
 void _eventShows() {
@@ -115,13 +133,15 @@ void _writeWithoutPrompt() {
   injector.registerLazySingleton<WriteWithoutPromptDataSource>(
     () => WriteWithoutPromptDataSourceImpl(
       webService: injector(),
+      savePromptDataSource: injector(),
     ),
   );
 }
 
 void _submitPrompt() {
   //bloc
-  injector.registerFactory(() => SubmitPromptBloc(createPromptUseCase: injector()));
+  injector
+      .registerFactory(() => SubmitPromptBloc(createPromptUseCase: injector()));
 
   //useCase
   injector.registerLazySingleton(
@@ -141,6 +161,34 @@ void _submitPrompt() {
   injector.registerLazySingleton<PromptDataSource>(
     () => PromptDataSourceImpl(
       webService: injector(),
+    ),
+  );
+}
+
+void _mySaved() {
+  //bloc
+  injector
+      .registerFactory(() => MySavedBloc(getMySavedPromptUseCase: injector()));
+
+  //useCase
+  injector.registerLazySingleton(
+    () => GetMySavedPromptUseCase(
+      mySavedRepository: injector(),
+    ),
+  );
+
+  //repository
+  injector.registerLazySingleton<MySavedRepository>(
+    () => MySavedRepositoryImpl(
+      mySavedDataSource: injector(),
+    ),
+  );
+
+  //dataSource
+  injector.registerLazySingleton<MySavedDataSource>(
+    () => MySavedDataSourceImpl(
+      webService: injector(),
+      deviceInfoPlugin: injector(),
     ),
   );
 }

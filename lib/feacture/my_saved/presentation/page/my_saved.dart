@@ -1,7 +1,10 @@
 import 'package:comedy/feacture/my_saved/data/model/add_tag_model.dart';
+import 'package:comedy/feacture/my_saved/data/model/my_saved_model.dart';
 import 'package:comedy/feacture/my_saved/data/model/short_filter_model.dart';
+import 'package:comedy/feacture/my_saved/presentation/bloc/my_saved_bloc.dart';
 import 'package:comedy/feacture/my_saved/presentation/widget/my_saved_item.dart';
 import 'package:comedy/feacture/my_saved/presentation/widget/short_and_filter_bottom_sheet_widget.dart';
+import 'package:comedy/injector.dart';
 import 'package:comedy/share/widget/add_widget.dart';
 import 'package:comedy/utils/color_util.dart';
 import 'package:comedy/utils/component/text_component.dart';
@@ -10,6 +13,7 @@ import 'package:comedy/utils/string_util.dart';
 import 'package:comedy/utils/style_util.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MySavedView extends StatefulWidget {
   @override
@@ -26,9 +30,14 @@ class _MySavedViewState extends State<MySavedView> {
 
   int filterResult;
 
+  MySavedBloc mySavedBloc;
+
   @override
   void initState() {
     super.initState();
+
+    mySavedBloc = injector<MySavedBloc>();
+    mySavedBloc.add(LoadMySavedEvent());
 
     list = List.generate(10, (index) => 'TexTo number $index');
     tagList = List.generate(20,
@@ -85,67 +94,91 @@ class _MySavedViewState extends State<MySavedView> {
   }
 
   @override
+  void dispose() {
+    mySavedBloc.close();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _loadBody(),
+      body: Stack(
+        children: [
+          Container(
+            width: double.infinity,
+            height: MediaQuery.of(context).size.width / 1.5,
+            padding: EdgeInsets.only(top: AppBar().preferredSize.height + 20),
+            decoration: BoxDecoration(
+              color: AppColor.primary_blue[500],
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(50),
+                bottomRight: Radius.circular(50),
+              ),
+            ),
+            child: Column(
+              children: [
+                TextComponent(
+                  title: AppString.laugh_draft,
+                  textAlign: TextAlign.center,
+                  textStyle: StyleUtil.topAppBarTextStyle,
+                ),
+                Container(
+                  margin:
+                      EdgeInsets.symmetric(horizontal: 20).copyWith(top: 20),
+                  padding: EdgeInsets.symmetric(horizontal: 12, vertical: 2),
+                  decoration: BoxDecoration(
+                    color: AppColor.white,
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  child: Row(
+                    children: [
+                      Image.asset(
+                        AppIcons.ic_search,
+                        height: 25,
+                        width: 25,
+                      ),
+                      SizedBox(
+                        width: 20,
+                      ),
+                      Expanded(
+                        child: TextFormField(
+                          controller: _searchController,
+                          decoration: InputDecoration(
+                            contentPadding:
+                                EdgeInsets.symmetric(horizontal: 12),
+                            filled: false,
+                            hintText: AppString.search,
+                            border: InputBorder.none,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+          BlocBuilder<MySavedBloc, MySavedState>(
+            cubit: mySavedBloc,
+            builder: (_, state) {
+              if( state is LoadingMySavedState){
+                return Center(child: CircularProgressIndicator(),);
+              }
+              else if(state is LoadedMySavedState){
+              return _loadBody(list: state.savedList);
+              }else{
+                return Container();
+              }
+            },
+          ),
+        ],
+      ),
     );
   }
 
-  Widget _loadBody() {
+  Widget _loadBody({List<MySavedModel> list}) {
     return Stack(
       children: [
-        Container(
-          width: double.infinity,
-          height: MediaQuery.of(context).size.width / 1.5,
-          padding: EdgeInsets.only(top: AppBar().preferredSize.height + 20),
-          decoration: BoxDecoration(
-            color: AppColor.primary_blue[500],
-            borderRadius: BorderRadius.only(
-              bottomLeft: Radius.circular(50),
-              bottomRight: Radius.circular(50),
-            ),
-          ),
-          child: Column(
-            children: [
-              TextComponent(
-                title: AppString.laugh_draft,
-                textAlign: TextAlign.center,
-                textStyle: StyleUtil.topAppBarTextStyle,
-              ),
-              Container(
-                margin: EdgeInsets.symmetric(horizontal: 20).copyWith(top: 20),
-                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 2),
-                decoration: BoxDecoration(
-                  color: AppColor.white,
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child: Row(
-                  children: [
-                    Image.asset(
-                      AppIcons.ic_search,
-                      height: 25,
-                      width: 25,
-                    ),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    Expanded(
-                      child: TextFormField(
-                        controller: _searchController,
-                        decoration: InputDecoration(
-                          contentPadding: EdgeInsets.symmetric(horizontal: 12),
-                          filled: false,
-                          hintText: AppString.search,
-                          border: InputBorder.none,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
         Visibility(
           visible: list.isEmpty,
           child: Positioned(
@@ -173,7 +206,7 @@ class _MySavedViewState extends State<MySavedView> {
               shrinkWrap: true,
               itemCount: list.length,
               itemBuilder: (_, index) {
-                return MySavedItem();
+                return MySavedItem(mySavedModel: list[index],);
               },
             ),
           ),

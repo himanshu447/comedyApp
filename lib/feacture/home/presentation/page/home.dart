@@ -23,7 +23,7 @@ class HomeView extends StatelessWidget {
           ),
           Padding(
             padding: EdgeInsets.only(
-              top: MediaQuery.of(context).size.width / 2.7,
+              top: MediaQuery.of(context).size.width / 2.5,
             ),
             child: SingleChildScrollView(
               padding: EdgeInsets.only(

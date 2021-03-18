@@ -8,6 +8,8 @@ enum EndPoint {
   DeleteWriteWithoutPrompt,
   UpdateWriteWithoutPrompt,
 
+  SavedPrompt,
+  GetSavedPrompt,
 }
 
 enum LandingTab {

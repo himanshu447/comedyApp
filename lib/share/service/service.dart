@@ -17,6 +17,10 @@ class Services {
         return baseUrl + 'api/delete-without-prompts/';
       case EndPoint.UpdateWriteWithoutPrompt:
         return baseUrl + 'api/update-without-prompts/';
+      case EndPoint.SavedPrompt:
+        return baseUrl + 'api/save-prompts';
+      case EndPoint.GetSavedPrompt:
+        return baseUrl + 'api/get-saved-prompts';
       default:
         return '';
     }

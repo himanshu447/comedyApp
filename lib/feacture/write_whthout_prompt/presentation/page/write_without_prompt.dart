@@ -83,6 +83,7 @@ class _WriteWithoutPromptViewState extends State<WriteWithoutPromptView> {
             );
           }
           else if(state is WriteWithoutPromptErrorState){
+            Navigator.pop(context);
             showSnackBar(msg: state.error);
           }
         },
@@ -349,6 +350,8 @@ class _WriteWithoutPromptViewState extends State<WriteWithoutPromptView> {
       SnackBar(
         content: TextComponent(
           title: msg,
+          color: AppColor.white,
+          fontSize: 16,
         ),
       ),
     );

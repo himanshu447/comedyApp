@@ -55,6 +55,9 @@ class _EventsShowsState extends State<EventsShows> {
         body: BlocBuilder<EventShowBloc, EventShowState>(
           cubit: eventShowBloc,
           builder: (_, state) {
+            if(state is EventShowInitial){
+              return Center(child: CircularProgressIndicator(),);
+            }
             if (state is LoadedAllEventsState) {
               return loadBody(list: state.list);
             } else {
@@ -105,6 +108,12 @@ class _EventsShowsState extends State<EventsShows> {
           visible: list.isEmpty,
           child: emptyEvent(),
         ),
+        Visibility(
+          visible: list == null,
+          child: Center(
+            child: CircularProgressIndicator(),
+          ),
+        ),
       ],
     );
   }
@@ -134,12 +143,11 @@ class _EventsShowsState extends State<EventsShows> {
     );
   }
 
-  _submitData() async{
-
+  _submitData() async {
     await Navigator.of(context).push(
       MaterialPageRoute(
         builder: (_) => BlocProvider.value(
-          value:  eventShowBloc,
+          value: eventShowBloc,
           child: SubmitEvents(),
         ),
       ),
