@@ -171,6 +171,12 @@ class _SubmitEventsState extends State<SubmitEvents> {
                             child: timePicker(
                           hintName: AppString.start_date,
                           controller: startDateController,
+                          validator: (value) {
+                            if (value.isEmpty) {
+                              return "Please Enter a Start Date";
+                            }
+                            return null;
+                          },
                           onTap: () {
                             selectDate(context).then((date) {
                               print(date);
@@ -187,6 +193,12 @@ class _SubmitEventsState extends State<SubmitEvents> {
                             child: timePicker(
                           hintName: AppString.start_time,
                           controller: startTimeController,
+                          validator: (value) {
+                            if (value.isEmpty) {
+                              return "Please Enter a Start Time";
+                            }
+                            return null;
+                          },
                           onTap: () {
                             selectTime(context).then((date) {
                               print(date);
@@ -207,6 +219,12 @@ class _SubmitEventsState extends State<SubmitEvents> {
                             child: timePicker(
                           hintName: AppString.end_date,
                           controller: endDateController,
+                          validator: (value) {
+                            if (value.isEmpty) {
+                              return "Please Enter a EndDate";
+                            }
+                            return null;
+                          },
                           onTap: () {
                             selectDate(context).then((date) {
                               print(date);
@@ -223,6 +241,12 @@ class _SubmitEventsState extends State<SubmitEvents> {
                             child: timePicker(
                           hintName: AppString.end_date,
                           controller: endTimeController,
+                          validator: (value) {
+                            if (value.isEmpty) {
+                              return "Please Enter a EndTime";
+                            }
+                            return null;
+                          },
                           onTap: () {
                             selectTime(context).then((date) {
                               print(date);
