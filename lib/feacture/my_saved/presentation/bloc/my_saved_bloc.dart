@@ -28,10 +28,26 @@ class MySavedBloc extends Bloc<MySavedEvent, MySavedState> {
       yield* result.fold(
         (failure) async* {
           yield ErrorMySavedState(message: (failure as Error).errMessage);
-          },
+        },
         (success) async* {
           yield LoadedMySavedState(savedList: success);
         },
+      );
+    } else if (event is SearchMySavedEvent) {
+      var text = event.text.trim().toUpperCase();
+
+      var mySavedList = (state as LoadedMySavedState).savedList;
+
+      var searchList = mySavedList
+          .where((element) =>
+              element.title.contains(text) || element.answer.contains(text))
+          .toList();
+
+      print(searchList.length);
+
+      yield LoadedMySavedState(
+        searchSavedList: searchList,
+        savedList: mySavedList,
       );
     }
   }
