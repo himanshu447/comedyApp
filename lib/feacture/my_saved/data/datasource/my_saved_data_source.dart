@@ -24,6 +24,7 @@ class MySavedDataSourceImpl extends MySavedDataSource {
   @override
   Future<List<MySavedModel>> getMySavedPrompt() async {
     var deviceId = await _getDeviceId();
+    print("device id----------------->" + deviceId);
 
     try {
       var result = await webService.requestPOST(

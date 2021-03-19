@@ -161,12 +161,13 @@ class _MySavedViewState extends State<MySavedView> {
           BlocBuilder<MySavedBloc, MySavedState>(
             cubit: mySavedBloc,
             builder: (_, state) {
-              if( state is LoadingMySavedState){
-                return Center(child: CircularProgressIndicator(),);
-              }
-              else if(state is LoadedMySavedState){
-              return _loadBody(list: state.savedList);
-              }else{
+              if (state is LoadingMySavedState) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else if (state is LoadedMySavedState) {
+                return _loadBody(list: state.savedList);
+              } else {
                 return Container();
               }
             },
@@ -206,7 +207,9 @@ class _MySavedViewState extends State<MySavedView> {
               shrinkWrap: true,
               itemCount: list.length,
               itemBuilder: (_, index) {
-                return MySavedItem(mySavedModel: list[index],);
+                return MySavedItem(
+                  mySavedModel: list[index],
+                );
               },
             ),
           ),
