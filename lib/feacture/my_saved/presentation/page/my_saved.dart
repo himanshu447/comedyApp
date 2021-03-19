@@ -23,7 +23,6 @@ class MySavedView extends StatefulWidget {
 class _MySavedViewState extends State<MySavedView> {
   final TextEditingController _searchController = TextEditingController();
 
-  List<String> list = [];
   List<ShortAndFilterModel> filterList = [];
   List<AddTagModel> tagList = [];
   List<String> selectedTagList = [];
@@ -32,6 +31,9 @@ class _MySavedViewState extends State<MySavedView> {
 
   MySavedBloc mySavedBloc;
 
+  List<MySavedModel> searchSavedList = [];
+  List<MySavedModel> mySavedList = [];
+
   @override
   void initState() {
     super.initState();
@@ -39,7 +41,6 @@ class _MySavedViewState extends State<MySavedView> {
     mySavedBloc = injector<MySavedBloc>();
     mySavedBloc.add(LoadMySavedEvent());
 
-    list = List.generate(10, (index) => 'TexTo number $index');
     tagList = List.generate(20,
         (index) => AddTagModel(label: 'Tag Number $index', isChecked: false));
 
@@ -102,76 +103,19 @@ class _MySavedViewState extends State<MySavedView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        children: [
-          Container(
-            width: double.infinity,
-            height: MediaQuery.of(context).size.width / 1.5,
-            padding: EdgeInsets.only(top: AppBar().preferredSize.height + 20),
-            decoration: BoxDecoration(
-              color: AppColor.primary_blue[500],
-              borderRadius: BorderRadius.only(
-                bottomLeft: Radius.circular(50),
-                bottomRight: Radius.circular(50),
-              ),
-            ),
-            child: Column(
-              children: [
-                TextComponent(
-                  title: AppString.laugh_draft,
-                  textAlign: TextAlign.center,
-                  textStyle: StyleUtil.topAppBarTextStyle,
-                ),
-                Container(
-                  margin:
-                      EdgeInsets.symmetric(horizontal: 20).copyWith(top: 20),
-                  padding: EdgeInsets.symmetric(horizontal: 12, vertical: 2),
-                  decoration: BoxDecoration(
-                    color: AppColor.white,
-                    borderRadius: BorderRadius.circular(15),
-                  ),
-                  child: Row(
-                    children: [
-                      Image.asset(
-                        AppIcons.ic_search,
-                        height: 25,
-                        width: 25,
-                      ),
-                      SizedBox(
-                        width: 20,
-                      ),
-                      Expanded(
-                        child: TextFormField(
-                          controller: _searchController,
-                          decoration: InputDecoration(
-                            contentPadding:
-                                EdgeInsets.symmetric(horizontal: 12),
-                            filled: false,
-                            hintText: AppString.search,
-                            border: InputBorder.none,
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-          ),
-          BlocBuilder<MySavedBloc, MySavedState>(
-            cubit: mySavedBloc,
-            builder: (_, state) {
-              if( state is LoadingMySavedState){
-                return Center(child: CircularProgressIndicator(),);
-              }
-              else if(state is LoadedMySavedState){
-              return _loadBody(list: state.savedList);
-              }else{
-                return Container();
-              }
-            },
-          ),
-        ],
+      body: BlocBuilder<MySavedBloc, MySavedState>(
+        cubit: mySavedBloc,
+        builder: (_, state) {
+          if (state is LoadingMySavedState) {
+            return Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (state is LoadedMySavedState) {
+            return _loadBody(list: state.searchSavedList.isEmpty ? state.savedList : state.searchSavedList);
+          } else {
+            return Container();
+          }
+        },
       ),
     );
   }
@@ -179,6 +123,67 @@ class _MySavedViewState extends State<MySavedView> {
   Widget _loadBody({List<MySavedModel> list}) {
     return Stack(
       children: [
+        Container(
+          width: double.infinity,
+          height: MediaQuery.of(context).size.width / 1.5,
+          padding: EdgeInsets.only(top: AppBar().preferredSize.height + 20),
+          decoration: BoxDecoration(
+            color: AppColor.primary_blue[500],
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(50),
+              bottomRight: Radius.circular(50),
+            ),
+          ),
+          child: Column(
+            children: [
+              TextComponent(
+                title: AppString.laugh_draft,
+                textAlign: TextAlign.center,
+                textStyle: StyleUtil.topAppBarTextStyle,
+              ),
+              Container(
+                margin: EdgeInsets.symmetric(horizontal: 20).copyWith(top: 20),
+                padding: EdgeInsets.symmetric(horizontal: 12, vertical: 2),
+                decoration: BoxDecoration(
+                  color: AppColor.white,
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                child: Row(
+                  children: [
+                    Image.asset(
+                      AppIcons.ic_search,
+                      height: 25,
+                      width: 25,
+                    ),
+                    SizedBox(
+                      width: 20,
+                    ),
+                    Expanded(
+                      child: TextFormField(
+                        /*onTap: () => showSearch(
+                          context: context,
+                          delegate: Search(
+                            mySavedList: tempListForSearch,
+                          ),
+                        ),*/
+                        onChanged: (value){
+                          mySavedBloc.add(SearchMySavedEvent(text: value));
+                        },
+                        controller: _searchController,
+                        decoration: InputDecoration(
+                          contentPadding: EdgeInsets.symmetric(horizontal: 12),
+                          filled: false,
+                          hintText: AppString.search,
+                          border: InputBorder.none,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
         Visibility(
           visible: list.isEmpty,
           child: Positioned(
@@ -206,7 +211,9 @@ class _MySavedViewState extends State<MySavedView> {
               shrinkWrap: true,
               itemCount: list.length,
               itemBuilder: (_, index) {
-                return MySavedItem(mySavedModel: list[index],);
+                return MySavedItem(
+                  mySavedModel: list[index],
+                );
               },
             ),
           ),

@@ -4,6 +4,7 @@ import 'package:comedy/utils/component/text_component.dart';
 import 'package:comedy/utils/icons_utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class MySavedItem extends StatelessWidget {
   final MySavedModel mySavedModel;
@@ -25,7 +26,7 @@ class MySavedItem extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             TextComponent(
-              title: 'Prompts Writing #1',
+              title: mySavedModel.title,
               fontSize: 17,
               fontWeight: FontWeight.w600,
             ),
@@ -37,7 +38,7 @@ class MySavedItem extends StatelessWidget {
                   width: 20,
                 ),
                 TextComponent(
-                  title: '30 Jan, 2021',
+                  title: DateFormat('dd MMM, yyyy').format(mySavedModel.createdAt),
                   fontWeight: FontWeight.w400,
                   fontSize: 17,
                   color: AppColor.gry,
@@ -46,8 +47,7 @@ class MySavedItem extends StatelessWidget {
               ],
             ),
             TextComponent(
-              title:
-                  'Now led tedious shy lasting females off. Dashwood marianne in of enterance be...',
+              title: mySavedModel.answer,
               fontSize: 17,
               fontWeight: FontWeight.w400,
               textOverflow: TextOverflow.ellipsis,
