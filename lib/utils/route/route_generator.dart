@@ -8,6 +8,7 @@ import 'package:comedy/feacture/write_whthout_prompt/data/model/write_without_pr
 import 'package:comedy/feacture/write_whthout_prompt/presentation/page/write_without_prompt.dart';
 import 'package:comedy/feacture/write_whthout_prompt/presentation/page/write_without_prompt_detail.dart';
 import 'package:comedy/utils/route/route_name.dart';
+import 'package:comedy/utils/route/screen_argument_model/answer_writing_prompt_argument.dart';
 import 'package:comedy/utils/route/screen_argument_model/write_without_prompt_detail_arguments.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -46,8 +47,14 @@ class RouteGenerator {
         );
 
       case RouteName.answer_writing_prompt:
+        AnswerWritingPromptScreenArguments args = routeSettings.arguments;
         return MaterialPageRoute(
-          builder: (_) => AnswerWritingPromptView(),
+          builder: (_) => BlocProvider.value(
+            value: args.answerWritingPromptBloc,
+            child: AnswerWritingPromptView(
+              questionAnswerModel: args.questionAnswerModel,
+            ),
+          ),
         );
 
       case RouteName.answer_writing_prompt_detail:

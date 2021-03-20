@@ -26,10 +26,10 @@ class WriteWithoutPromptModel extends Equatable {
             ? (json["tags"] as List<String>).map((e) => e).toList()
             : null,
         levelOfCompleteness: json["level_of_completeness"] != null
-            ? int.parse(json["level_of_completeness"])
+            ? json["level_of_completeness"]
             : null,
         degreeOfSucking: json["degree_of_not_sucking"] != null
-            ? int.parse(json["degree_of_not_sucking"])
+            ? json["degree_of_not_sucking"]
             : null,
       );
 
@@ -39,12 +39,13 @@ class WriteWithoutPromptModel extends Equatable {
     Map<String, dynamic> map = {
       "title": title != null ? title : null,
       "description": description != null ? description : null,
-      "tags": tags != null ? tags.toString() : null,
+      "tags": tags != null ? tags.map((dynamic e) => '"$e"').toList().toString() : null,
       "level_of_completeness":
           levelOfCompleteness != null ? levelOfCompleteness.toString() : null,
       'degree_of_not_sucking':
           degreeOfSucking != null ? degreeOfSucking.toString() : null,
     };
+
     if (strict) {
       Map<String, dynamic> newMap = {};
 

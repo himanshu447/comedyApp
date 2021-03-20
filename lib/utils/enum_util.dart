@@ -10,6 +10,8 @@ enum EndPoint {
 
   SavedPrompt,
   GetSavedPrompt,
+
+  GetSampleQuestions,
 }
 
 enum LandingTab {

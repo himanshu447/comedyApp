@@ -1,3 +1,5 @@
+import 'package:comedy/feacture/answer_writing_prompt/data/datasource/answer_writing_prompt_datasource.dart';
+import 'package:comedy/feacture/answer_writing_prompt/data/repository/answer_writing_prompt_repository_impl.dart';
 import 'package:comedy/feacture/events_shows/data/datasource/event_show_data_source.dart';
 import 'package:comedy/feacture/events_shows/domain/repository/event_show_repository.dart';
 import 'package:comedy/feacture/events_shows/domain/usecase/create_event_usecase.dart';
@@ -16,6 +18,9 @@ import 'package:comedy/share/service/web_service.dart';
 import 'package:device_info/device_info.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
+import 'feacture/answer_writing_prompt/domain/repository/answer_writing_prompt_repository.dart';
+import 'feacture/answer_writing_prompt/domain/usecase/get_questions_use_case.dart';
+import 'feacture/answer_writing_prompt/presentation/bloc/answer_writing_prompt_bloc.dart';
 import 'feacture/events_shows/data/repository/event_show_repository_impl.dart';
 import 'feacture/landing/presentation/bloc/landing_bloc.dart';
 import 'feacture/my_saved/domain/usecase/get_my_saved_prompt_use_case.dart';
@@ -57,6 +62,9 @@ Future init() async {
 
   ///My Saved
   _mySaved();
+
+  ///Answer Writing Prompt
+  _answerWritingPrompt();
 }
 
 void _eventShows() {
@@ -189,6 +197,33 @@ void _mySaved() {
     () => MySavedDataSourceImpl(
       webService: injector(),
       deviceInfoPlugin: injector(),
+    ),
+  );
+}
+
+void _answerWritingPrompt() {
+  //bloc
+  injector.registerFactory(
+      () => AnswerWritingPromptBloc(getQuestionsUseCase: injector()));
+
+  //useCase
+  injector.registerLazySingleton(
+    () => GetQuestionsUseCase(
+      answerWritingPromptRepository: injector(),
+    ),
+  );
+
+  //repository
+  injector.registerLazySingleton<AnswerWritingPromptRepository>(
+    () => AnswerWritingPromptRepositoryImpl(
+      answerWritingPromptDataSource: injector(),
+    ),
+  );
+
+  //dataSource
+  injector.registerLazySingleton<AnswerWritingPromptDataSource>(
+    () => AnswerWritingPromptDataSourceImpl(
+      webService: injector(),
     ),
   );
 }

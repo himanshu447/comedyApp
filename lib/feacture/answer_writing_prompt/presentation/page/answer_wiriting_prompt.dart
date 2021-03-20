@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:comedy/feacture/answer_writing_prompt/data/model/question_answer_model.dart';
 import 'package:comedy/feacture/write_whthout_prompt/data/model/write_without_prompt_model.dart';
 import 'package:comedy/share/widget/auto_filled_date_widget.dart';
 import 'package:comedy/share/widget/custom_dialog_widget.dart';
@@ -17,6 +18,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class AnswerWritingPromptView extends StatefulWidget {
+
+  final QuestionAnswerModel questionAnswerModel;
+
+  const AnswerWritingPromptView({this.questionAnswerModel});
+
   @override
   _AnswerWritingPromptViewState createState() =>
       _AnswerWritingPromptViewState();

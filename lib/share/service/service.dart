@@ -21,6 +21,8 @@ class Services {
         return baseUrl + 'api/save-prompts';
       case EndPoint.GetSavedPrompt:
         return baseUrl + 'api/get-saved-prompts';
+      case EndPoint.GetSampleQuestions:
+        return baseUrl + 'api/get-answer-writing-prompt';
       default:
         return '';
     }
