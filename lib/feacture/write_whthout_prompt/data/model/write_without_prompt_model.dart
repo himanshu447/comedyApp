@@ -39,7 +39,7 @@ class WriteWithoutPromptModel extends Equatable {
     Map<String, dynamic> map = {
       "title": title != null ? title : null,
       "description": description != null ? description : null,
-      "tags": tags != null ? tags.toString() : null,
+      "tags": tags != null ? tags.map((e) => e).toList() : null,
       "level_of_completeness":
           levelOfCompleteness != null ? levelOfCompleteness.toString() : null,
       'degree_of_not_sucking':
