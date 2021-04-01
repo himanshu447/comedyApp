@@ -1,12 +1,14 @@
 import 'package:equatable/equatable.dart';
 
 class WriteWithoutPromptModel extends Equatable {
-  final int id;
   final String title;
   final String description;
   final List<String> tags;
   final int levelOfCompleteness;
   final int degreeOfSucking;
+  final int id;
+  final DateTime updatedAt;
+  final DateTime createdAt;
 
   WriteWithoutPromptModel({
     this.id,
@@ -15,37 +17,32 @@ class WriteWithoutPromptModel extends Equatable {
     this.tags,
     this.levelOfCompleteness,
     this.degreeOfSucking,
+    this.createdAt,
+    this.updatedAt,
   });
-
-  //(json["tags"] as List<String>).map((e) => e).toList()
 
   factory WriteWithoutPromptModel.fromMap(Map<String, dynamic> json) =>
       WriteWithoutPromptModel(
-        id: json['id'] != null ? json['id'] : null,
-        title: json["title"] != null ? json["title"] : null,
-        description: json["description"] != null ? json["description"] : null,
-        tags: json["tags"] != null
-            ? List<String>.from(json['tags'].map((x) => x))
-            : null,
-        levelOfCompleteness: json["level_of_completeness"] != null
-            ? json["level_of_completeness"]
-            : null,
-        degreeOfSucking: json["degree_of_not_sucking"] != null
-            ? json["degree_of_not_sucking"]
-            : null,
+        title: json["title"],
+        tags: List<String>.from(json["tags"].map((x) => x)),
+        description: json["description"],
+        levelOfCompleteness: json["level_of_completeness"],
+        degreeOfSucking: json["degree_of_not_sucking"],
+        updatedAt: DateTime.parse(json["updated_at"]),
+        createdAt: DateTime.parse(json["created_at"]),
+        id: json["id"],
       );
 
-  Map<String, dynamic> toMap({
-    bool strict = false,
-  }) {
+  Map<String, dynamic> toMap({bool strict = false}) {
     Map<String, dynamic> map = {
       "title": title != null ? title : null,
+      "tags": tags != null ? List<dynamic>.from(tags.map((x) => x)) : null,
       "description": description != null ? description : null,
-      "tags": tags != null ? tags.map((dynamic e) => '"$e"').toList().toString() : null,
-      "level_of_completeness":
-          levelOfCompleteness != null ? levelOfCompleteness.toString() : null,
-      'degree_of_not_sucking':
-          degreeOfSucking != null ? degreeOfSucking.toString() : null,
+      "level_of_completeness": levelOfCompleteness != null ? levelOfCompleteness : null,
+      "degree_of_not_sucking": degreeOfSucking != null ? degreeOfSucking : null,
+      "updated_at": updatedAt.toIso8601String(),
+      "created_at": createdAt.toIso8601String(),
+      "id": id != null ? id : null,
     };
 
     if (strict) {
@@ -63,10 +60,11 @@ class WriteWithoutPromptModel extends Equatable {
 
   @override
   List<Object> get props => [
+        id,
         title,
-        description,
         tags,
         levelOfCompleteness,
+        description,
         degreeOfSucking,
       ];
 }

@@ -184,6 +184,8 @@ class _SubmitEventsState extends State<SubmitEvents> {
                                 setState(() {
                                   startDateController.text = date[0];
                                   startDate = date[1];
+                                  endDateController.text = date[0];
+                                  endDate = date[1];
                                 });
                             });
                           },
@@ -239,7 +241,7 @@ class _SubmitEventsState extends State<SubmitEvents> {
                         horizontalSpace(10),
                         Expanded(
                             child: timePicker(
-                          hintName: AppString.end_date,
+                          hintName: AppString.end_time,
                           controller: endTimeController,
                           validator: (value) {
                             if (value.isEmpty) {
@@ -308,23 +310,36 @@ class _SubmitEventsState extends State<SubmitEvents> {
   }
 
   _submitData() {
-    if (_eventkey.currentState.validate()) {
-      eventShowBloc.add(
-        SubmitEventAndShowsEvent(
-          eventShowModel: EventShowModel(
-            name: eventNameController.text.trim(),
-            about: aboutEventController.text.trim(),
-            startDate: startDate,
-            endDate: endDate,
-            updatedAt: DateTime.now(),
-            cost: int.parse(eventCostController.text.trim()),
-            endTime: endTimeController.text.trim(),
-            startTime: DateFormat.Hms().format(startTime),
-            eventLink: DateFormat.Hms().format(endTime),
-            image: image,
+
+    if(image == null){
+      showSnackBar(msg: AppString.image_required);
+    }
+    else if (_eventkey.currentState.validate()) {
+
+
+      try{
+        print('dsasadsada');
+
+        eventShowBloc.add(
+          SubmitEventAndShowsEvent(
+            eventShowModel: EventShowModel(
+              name: eventNameController.text.trim(),
+              about: aboutEventController.text.trim(),
+              startDate: startDate,
+              endDate: endDate,
+              updatedAt: DateTime.now(),
+              cost: int.parse(eventCostController.text.trim()),
+              endTime: endTimeController.text.trim(),
+              startTime: DateFormat.Hms().format(startTime),
+              eventLink: DateFormat.Hms().format(endTime),
+              image: image,
+            ),
           ),
-        ),
-      );
+        );
+      }catch(e){
+        print(e.toString());
+      }
+
     } else {
       print('Not success');
     }

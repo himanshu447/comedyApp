@@ -34,7 +34,7 @@ class WriteWithoutPromptDataSourceImpl extends WriteWithoutPromptDataSource {
 
       if (result[ConstantUtil.result_success]) {
 
-        await savePromptDataSource.savePrompt(result[ConstantUtil.result_response]['data']['id']);
+        await savePromptDataSource.savePrompt(withoutPromptId: result[ConstantUtil.result_response]['data']['id']);
         return WriteWithoutPromptModel.fromMap(result[ConstantUtil.result_response]['data']);
 
       } else {

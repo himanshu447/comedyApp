@@ -1,5 +1,7 @@
 import 'dart:async';
+import 'package:comedy/feacture/answer_writing_prompt/data/model/answer_write_prompt_model.dart';
 import 'package:comedy/feacture/answer_writing_prompt/data/model/question_answer_model.dart';
+import 'package:comedy/feacture/answer_writing_prompt/presentation/bloc/answer_writing_prompt_bloc.dart';
 import 'package:comedy/feacture/write_whthout_prompt/data/model/write_without_prompt_model.dart';
 import 'package:comedy/share/widget/auto_filled_date_widget.dart';
 import 'package:comedy/share/widget/custom_dialog_widget.dart';
@@ -12,13 +14,14 @@ import 'package:comedy/utils/constant_util.dart';
 import 'package:comedy/utils/helper/timer_helper.dart';
 import 'package:comedy/utils/icons_utils.dart';
 import 'package:comedy/utils/route/route_name.dart';
+import 'package:comedy/utils/route/screen_argument_model/answer_writing_prompt_detail_arguments.dart';
 import 'package:comedy/utils/string_util.dart';
 import 'package:comedy/utils/style_util.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AnswerWritingPromptView extends StatefulWidget {
-
   final QuestionAnswerModel questionAnswerModel;
 
   const AnswerWritingPromptView({this.questionAnswerModel});
@@ -36,6 +39,8 @@ class _AnswerWritingPromptViewState extends State<AnswerWritingPromptView> {
   final FocusNode _answerFocusNode = FocusNode();
   final FocusNode _titleFocusNode = FocusNode();
 
+  AnswerWritingPromptBloc answerWritingPromptBloc;
+
   List<String> tagList = [];
 
   Timer _timer;
@@ -49,6 +54,8 @@ class _AnswerWritingPromptViewState extends State<AnswerWritingPromptView> {
 
   int degreeOfSucking = 3;
   int levelOfCompleteness = 3;
+
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
 
   void _startTimer() {
     const oneSec = const Duration(seconds: 1);
@@ -78,6 +85,12 @@ class _AnswerWritingPromptViewState extends State<AnswerWritingPromptView> {
   }
 
   @override
+  void didChangeDependencies() {
+    answerWritingPromptBloc = BlocProvider.of<AnswerWritingPromptBloc>(context, listen: true);
+    super.didChangeDependencies();
+  }
+
+  @override
   void dispose() {
     _timer.cancel();
     super.dispose();
@@ -86,7 +99,51 @@ class _AnswerWritingPromptViewState extends State<AnswerWritingPromptView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _loadBody(),
+      key: _scaffoldKey,
+      body: BlocListener(
+        listener: (_, state) {
+          if (state is AnswerWritingPromptSubmittingState) {
+            CustomDialogs.showSavingDataDialog(
+              context: context,
+            );
+          }
+
+          else if (state is AnswerWritingPromptSuccessState) {
+
+            Navigator.pop(context);
+
+            Navigator.popAndPushNamed(
+                context,
+                RouteName.answer_writing_prompt_detail,
+                arguments: AnswerWritingPromptDetailScreenArguments(
+                  answerWritePromptModel: AnswerWritePromptModel(
+                    title: state.answerWritePromptModel.title,
+                    degreeOfNotSucking: state.answerWritePromptModel.degreeOfNotSucking,
+                    levelOfCompleteness: state.answerWritePromptModel.levelOfCompleteness,
+                    tags: state.answerWritePromptModel.tags,
+                    id: state.answerWritePromptModel.id,
+                    answer: state.answerWritePromptModel.answer,
+                    sampleAnswer: state.answerWritePromptModel.sampleAnswer,
+                    question: state.answerWritePromptModel.question,
+                  ),
+                  answerWritingPromptBloc: answerWritingPromptBloc,
+                )
+            );
+          }
+
+          else if(state is ErrorState){
+            Navigator.pop(context);
+            showSnackBar(msg: state.error);
+          }
+        },
+        cubit: answerWritingPromptBloc,
+        child: BlocBuilder<AnswerWritingPromptBloc, AnswerWritingPromptState>(
+          cubit: answerWritingPromptBloc,
+          builder: (context, snapshot) {
+            return _loadBody();
+          },
+        ),
+      ),
     );
   }
 
@@ -191,7 +248,7 @@ class _AnswerWritingPromptViewState extends State<AnswerWritingPromptView> {
                 TextComponent(
                   title: _start != ConstantUtil.END_TIMER_VALUE
                       ? !isAnswerSubmitRequest
-                          ? AppString.write_prompt_question
+                          ? widget.questionAnswerModel.question
                           : _answerController.text.trim()
                       : _answerController.text.trim(),
                   textStyle: StyleUtil.formFieldTextStyle,
@@ -218,7 +275,8 @@ class _AnswerWritingPromptViewState extends State<AnswerWritingPromptView> {
                                     ),
                                   ),
                                   TextSpan(
-                                    text: AppString.write_prompt_example_answer,
+                                    text:
+                                        widget.questionAnswerModel.sampleAnswer,
                                   ),
                                 ],
                               ),
@@ -240,7 +298,7 @@ class _AnswerWritingPromptViewState extends State<AnswerWritingPromptView> {
                         ).copyWith(top: 34, bottom: 14),
                         onAddCallBack: (val) {
                           setState(() {
-                            tagList.add(val.trim());
+                            tagList.add('#${val.trim()}');
                           });
                         },
                       )
@@ -475,7 +533,20 @@ class _AnswerWritingPromptViewState extends State<AnswerWritingPromptView> {
         isTagSubmitted &&
         _answerController.text.trim().isNotEmpty &&
         _titleController.text.trim().isNotEmpty) {
-      CustomDialogs.showSavingDataDialog(
+      answerWritingPromptBloc.add(
+        CreateAnswerWritePromptEvent(
+          answerWritePromptModel: AnswerWritePromptModel(
+            question: widget.questionAnswerModel.question,
+            sampleAnswer: widget.questionAnswerModel.sampleAnswer,
+            answer: _answerController.text.trim(),
+            title: _titleController.text.trim(),
+            tags: tagList,
+            levelOfCompleteness: levelOfCompleteness,
+            degreeOfNotSucking: degreeOfSucking,
+          ),
+        ),
+      );
+      /*CustomDialogs.showSavingDataDialog(
         context: context,
       );
       Future.delayed(
@@ -494,9 +565,21 @@ class _AnswerWritingPromptViewState extends State<AnswerWritingPromptView> {
             tags: tagList,
           ),
         ),
-      );
+      );*/
     } else {
       return;
     }
+  }
+
+  showSnackBar({String msg}) {
+    _scaffoldKey.currentState.showSnackBar(
+      SnackBar(
+        content: TextComponent(
+          title: msg,
+          color: AppColor.white,
+          fontSize: 16,
+        ),
+      ),
+    );
   }
 }

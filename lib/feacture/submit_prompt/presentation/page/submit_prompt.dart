@@ -272,7 +272,7 @@ class _SubmitPromptWidgetState extends State<SubmitPromptWidget> {
                 padding: EdgeInsets.symmetric(vertical: 12),
                 fillColor: AppColor.primary_blue[500],
                 child: TextComponent(
-                  title: AppString.ok,
+                  title: AppString.capital_ok,
                   color: AppColor.white,
                   fontWeight: FontWeight.w500,
                   fontSize: 18,

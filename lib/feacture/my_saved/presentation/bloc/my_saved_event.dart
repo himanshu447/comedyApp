@@ -12,3 +12,5 @@ class SearchMySavedEvent extends MySavedEvent {
     this.text,
   });
 }
+
+class ClearSearchListEvent extends MySavedEvent {}

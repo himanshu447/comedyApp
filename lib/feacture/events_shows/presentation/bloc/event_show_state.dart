@@ -14,23 +14,29 @@ class EventShowInitial extends EventShowState {}
 class LoadingAllEventsState extends EventShowState {}
 
 class LoadedAllEventsState extends EventShowState {
-  final List<EventShowModel> list;
+  final List<EventShowModel> allList;
+  final List<EventShowModel> dateWiseList;
 
-  LoadedAllEventsState({this.list}):super(eventList: list);
+  LoadedAllEventsState({
+    this.allList,
+    this.dateWiseList,
+  }) : super(eventList: allList);
 }
 
 class SubmittingEventShowState extends EventShowState {
   final List<EventShowModel> list;
 
-  SubmittingEventShowState({this.list}):super(eventList: list);
-
+  SubmittingEventShowState({this.list}) : super(eventList: list);
 }
 
 class SubmittedEventShowState extends EventShowState {
   final EventShowModel eventShowModel;
   final List<EventShowModel> list;
 
-  SubmittedEventShowState({this.eventShowModel,this.list,}):super(eventList: list);
+  SubmittedEventShowState({
+    this.eventShowModel,
+    this.list,
+  }) : super(eventList: list);
 }
 
 class ErrorState extends EventShowState {

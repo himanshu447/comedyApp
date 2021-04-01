@@ -38,7 +38,8 @@ class MySavedItem extends StatelessWidget {
                   width: 20,
                 ),
                 TextComponent(
-                  title: DateFormat('dd MMM, yyyy').format(mySavedModel.createdAt),
+                  title:
+                      DateFormat('dd MMM, yyyy').format(mySavedModel.createdAt),
                   fontWeight: FontWeight.w400,
                   fontSize: 17,
                   color: AppColor.gry,
@@ -47,7 +48,9 @@ class MySavedItem extends StatelessWidget {
               ],
             ),
             TextComponent(
-              title: mySavedModel.answer,
+              title: mySavedModel.answer != null
+                  ? mySavedModel.answer
+                  : mySavedModel.withoutPromptDescription,
               fontSize: 17,
               fontWeight: FontWeight.w400,
               textOverflow: TextOverflow.ellipsis,

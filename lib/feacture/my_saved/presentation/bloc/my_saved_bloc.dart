@@ -30,17 +30,16 @@ class MySavedBloc extends Bloc<MySavedEvent, MySavedState> {
           yield ErrorMySavedState(message: (failure as Error).errMessage);
         },
         (success) async* {
-          yield LoadedMySavedState(savedList: success);
+          yield LoadedMySavedState(savedList: success, searchSavedList: null);
         },
       );
     } else if (event is SearchMySavedEvent) {
-      var text = event.text.trim().toUpperCase();
-
       var mySavedList = (state as LoadedMySavedState).savedList;
 
       var searchList = mySavedList
           .where((element) =>
-              element.title.contains(text) || element.answer.contains(text))
+              element.title.contains(event.text.trim()) ||
+              element.answer.contains(event.text.trim()))
           .toList();
 
       print(searchList.length);
@@ -49,6 +48,11 @@ class MySavedBloc extends Bloc<MySavedEvent, MySavedState> {
         searchSavedList: searchList,
         savedList: mySavedList,
       );
+    } else if (event is ClearSearchListEvent) {
+
+      var mySavedList = (state as LoadedMySavedState).savedList;
+
+      yield LoadedMySavedState(savedList: mySavedList, searchSavedList: null);
     }
   }
 }

@@ -13,6 +13,8 @@ class MySavedModel {
     this.status,
     this.createdAt,
     this.updatedAt,
+    this.withoutPromptId,
+    this.withoutPromptDescription,
   });
 
   final int id;
@@ -22,12 +24,14 @@ class MySavedModel {
   final String sampleAnswer;
   final String answer;
   final String title;
-  final String tags;
+  List<String> tags;
   final int levelOfCompleteness;
   final int degreeOfNotSucking;
   final String status;
   final DateTime createdAt;
   final DateTime updatedAt;
+  final int withoutPromptId;
+  final String withoutPromptDescription;
 
   factory MySavedModel.fromMap(Map<String, dynamic> json) => MySavedModel(
         id: json["id"] != null ? json["id"] : null,
@@ -38,7 +42,7 @@ class MySavedModel {
             json["sample_answer"] != null ? json["sample_answer"] : null,
         answer: json["answer"] != null ? json["answer"] : null,
         title: json["title"] != null ? json["title"] : null,
-        tags: json["tags"],
+        tags: List<String>.from(json["tags"].map((x) => x)),
         levelOfCompleteness: json["level_of_completeness"] != null
             ? json["level_of_completeness"]
             : null,
@@ -51,6 +55,12 @@ class MySavedModel {
             : null,
         updatedAt: json["updated_at"] != null
             ? DateTime.parse(json["updated_at"])
+            : null,
+        withoutPromptId: json["without_prompts_id"] != null
+            ? json["without_prompts_id"]
+            : null,
+        withoutPromptDescription: json["without_prompts_description"] != null
+            ? json["without_prompts_description"]
             : null,
       );
 

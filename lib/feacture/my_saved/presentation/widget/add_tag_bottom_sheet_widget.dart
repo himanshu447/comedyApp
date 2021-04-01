@@ -8,11 +8,13 @@ import 'package:flutter/material.dart';
 
 class AddTagBottomSheetWidget extends StatefulWidget {
   final List<AddTagModel> tagList;
+  final List<String> tempList;
   final ValueSetter<List<String>> selectedTagList;
 
   const AddTagBottomSheetWidget({
     Key key,
     this.tagList,
+    this.tempList,
     this.selectedTagList,
   }) : super(key: key);
 
@@ -23,9 +25,23 @@ class AddTagBottomSheetWidget extends StatefulWidget {
 
 class _AddTagBottomSheetWidgetState extends State<AddTagBottomSheetWidget> {
   final List<String> selectedTagList = [];
+  final TextEditingController _searchController = TextEditingController();
+
+  List<AddTagModel> searchTagList;
 
   @override
+  void initState() {
+    super.initState();
+
+    /*widget.tagList.forEach((element) {
+      if(element.isChecked){
+        selectedTagList.add(element.label);
+      }
+    });*/
+  }
+  @override
   Widget build(BuildContext context) {
+
     return FractionallySizedBox(
       heightFactor: 0.9,
       child: Padding(
@@ -59,16 +75,16 @@ class _AddTagBottomSheetWidgetState extends State<AddTagBottomSheetWidget> {
                         ),
                       ),
                       Visibility(
-                        visible: selectedTagList.isNotEmpty,
+                        visible: widget.tempList.isNotEmpty,
                         child: FlatButton(
                           onPressed: () {
-                            widget.selectedTagList(selectedTagList);
-                            setState(() {
-                              selectedTagList.clear();
-                              widget.tagList
-                                  .map((e) => e = e.copyWith(isChecked: false));
-                              Navigator.pop(context);
-                            });
+                            widget.selectedTagList(widget.tempList);
+                            setState(
+                              () {
+                              //  selectedTagList.clear();
+                                Navigator.pop(context);
+                              },
+                            );
                           },
                           child: TextComponent(
                             title: AppString.done,
@@ -87,28 +103,55 @@ class _AddTagBottomSheetWidgetState extends State<AddTagBottomSheetWidget> {
                       color: AppColor.textFieldBgColor,
                       borderRadius: BorderRadius.circular(15),
                     ),
-                    child: Row(
-                      children: [
-                        Image.asset(
-                          AppIcons.ic_search,
-                          height: 25,
-                          width: 25,
-                        ),
-                        SizedBox(
-                          width: 20,
-                        ),
-                        Expanded(
-                          child: TextFormField(
-                            decoration: InputDecoration(
-                              contentPadding:
-                                  EdgeInsets.symmetric(horizontal: 12),
-                              filled: false,
-                              hintText: AppString.search,
-                              border: InputBorder.none,
+                    child: Form(
+                      onChanged: () {
+                        setState(() {
+                          _searchController;
+                        });
+                      },
+                      child: Row(
+                        children: [
+                          Image.asset(
+                            AppIcons.ic_search,
+                            height: 25,
+                            width: 25,
+                          ),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          Expanded(
+                            child: TextFormField(
+                              controller: _searchController,
+                              decoration: InputDecoration(
+                                contentPadding:
+                                    EdgeInsets.symmetric(horizontal: 12),
+                                filled: false,
+                                hintText: AppString.search,
+                                border: InputBorder.none,
+                              ),
+                              onChanged: (text) {
+                                _searchTagFromList(text);
+                              },
                             ),
                           ),
-                        ),
-                      ],
+                          _searchController.text.trim().isNotEmpty
+                              ? Container(
+                            child: IconButton(
+                              icon: Icon(
+                                Icons.close,
+                                color: AppColor.gry,
+                                size: 25,
+                              ),
+                              onPressed: () {
+                                _searchController.clear();
+                                _changedIsCheckFromSearch();
+                                searchTagList = null;
+                              },
+                            ),
+                          )
+                              : Container(),
+                        ],
+                      ),
                     ),
                   ),
                   TextComponent(
@@ -128,36 +171,15 @@ class _AddTagBottomSheetWidgetState extends State<AddTagBottomSheetWidget> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    ListView.builder(
-                      shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
-                      itemCount: widget.tagList.length,
-                      itemBuilder: (_, index) {
-                        return CheckListTitleComponent(
-                          label: widget.tagList[index].label,
-                          value: widget.tagList[index],
-                          isChecked: widget.tagList[index].isChecked == true,
-                          itemSelected: (val) {
-                            if (selectedTagList.isNotEmpty) {
-                              if (!selectedTagList
-                                  .contains(widget.tagList[index])) {
-                                selectedTagList
-                                    .add(widget.tagList[index].label);
-                              }
-                            } else {
-                              selectedTagList.add(widget.tagList[index].label);
-                            }
-
-                            setState(() {
-                              widget.tagList[index] = widget.tagList[index]
-                                  .copyWith(
-                                      isChecked:
-                                          !widget.tagList[index].isChecked);
-                            });
-                          },
-                        );
-                      },
-                    )
+                    searchTagList == null
+                        ? _buildList(widget.tagList)
+                        : searchTagList.isNotEmpty
+                            ? _buildList(searchTagList)
+                            : Center(
+                                child: TextComponent(
+                                  title: 'Result not found',
+                                ),
+                              ),
                   ],
                 ),
               ),
@@ -166,5 +188,58 @@ class _AddTagBottomSheetWidgetState extends State<AddTagBottomSheetWidget> {
         ),
       ),
     );
+  }
+
+  _changedIsCheckFromSearch(){
+
+    searchTagList.forEach((element) {
+      if(element.isChecked){
+        var index = widget.tagList.indexWhere((tag) => tag.label == element.label);
+        widget.tagList[index]  = widget.tagList[index].copyWith(isChecked: true);
+      }
+
+    });
+
+  }
+
+  Widget _buildList(List<AddTagModel> list) {
+    return ListView.builder(
+      shrinkWrap: true,
+      physics: NeverScrollableScrollPhysics(),
+      itemCount: list.length,
+      itemBuilder: (_, index) {
+        return CheckListTitleComponent(
+          label: list[index].label,
+          value: list[index],
+          isChecked: list[index].isChecked == true,
+          itemSelected: (AddTagModel val) {
+
+            if (widget.tempList.isNotEmpty) {
+              if (!widget.tempList.contains(val.label) && !val.isChecked) {
+                widget.tempList.add(val.label);
+              }else{
+                widget.tempList.remove(val.label);
+              }
+            } else {
+              widget.tempList.add(val.label);
+            }
+
+            setState(() {
+              list[index] = list[index].copyWith(isChecked: !list[index].isChecked);
+            });
+          },
+        );
+      },
+    );
+  }
+
+  _searchTagFromList(String text) {
+    var tempList = widget.tagList
+        .where((element) => element.label.contains(text))
+        .toList();
+
+    setState(() {
+    searchTagList = tempList;
+    });
   }
 }

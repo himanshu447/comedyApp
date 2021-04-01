@@ -22,7 +22,7 @@ class MyEventListTile extends StatelessWidget {
     var ab = DateTime(
       eventShowModel.startDate.year,
       eventShowModel.startDate.month,
-      eventShowModel.startDate.weekday,
+      eventShowModel.startDate.day,
       int.parse(abc[0]),
       int.parse(abc[1]),
       int.parse(abc[2]),

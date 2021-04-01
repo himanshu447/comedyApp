@@ -5,6 +5,7 @@ class Services {
 
   static String getServices(EndPoint endPoint) {
     switch (endPoint) {
+
       case EndPoint.CreateEvent:
         return baseUrl + 'api/create-event';
       case EndPoint.GetEvents:
@@ -17,6 +18,15 @@ class Services {
         return baseUrl + 'api/delete-without-prompts/';
       case EndPoint.UpdateWriteWithoutPrompt:
         return baseUrl + 'api/update-without-prompts/';
+
+      case EndPoint.CreateAnswerWritingPrompt:
+        return baseUrl + 'api/create-answer-writing-prompt';
+      case EndPoint.UpdateAnswerWritingPrompt:
+        return baseUrl + 'api/delete-answer/';
+      case EndPoint.DeleteAnswerWritingPrompt:
+        return baseUrl + 'api/update-answer/';
+
+
       case EndPoint.SavedPrompt:
         return baseUrl + 'api/save-prompts';
       case EndPoint.GetSavedPrompt:

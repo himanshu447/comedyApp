@@ -1,4 +1,5 @@
-import 'package:comedy/feacture/write_whthout_prompt/data/model/write_without_prompt_model.dart';
+import 'package:comedy/feacture/answer_writing_prompt/data/model/answer_write_prompt_model.dart';
+import 'package:comedy/feacture/answer_writing_prompt/presentation/bloc/answer_writing_prompt_bloc.dart';
 import 'package:comedy/share/widget/auto_filled_date_widget.dart';
 import 'package:comedy/share/widget/custom_dialog_widget.dart';
 import 'package:comedy/share/widget/level_and_degree_detail_widget.dart';
@@ -11,12 +12,13 @@ import 'package:comedy/utils/icons_utils.dart';
 import 'package:comedy/utils/string_util.dart';
 import 'package:comedy/utils/style_util.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:share/share.dart';
 
 class AnswerWritingPromptDetailView extends StatefulWidget {
-  final WriteWithoutPromptModel withoutPromptModel;
+  final AnswerWritePromptModel answerWritePromptModel;
 
-  const AnswerWritingPromptDetailView({this.withoutPromptModel});
+  const AnswerWritingPromptDetailView({this.answerWritePromptModel});
 
   @override
   _AnswerWritingPromptDetailViewState createState() =>
@@ -32,34 +34,79 @@ class _AnswerWritingPromptDetailViewState
   final FocusNode _promptFocusNode = FocusNode();
 
   final GlobalKey<FormState> _answerDetailFormKey = GlobalKey<FormState>();
+  final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
 
   List<String> tagList = [];
 
   bool isEditButtonPress = false;
 
+  AnswerWritingPromptBloc answerWritingPromptBloc;
+
   @override
   void initState() {
     _titleController = TextEditingController(
-      text: widget.withoutPromptModel.title,
+      text: widget.answerWritePromptModel.title,
     );
     _promptController = TextEditingController(
-      text: widget.withoutPromptModel.description,
+      text: widget.answerWritePromptModel.answer,
     );
 
-    if (widget.withoutPromptModel.tags.isNotEmpty) {
-      tagList = widget.withoutPromptModel.tags;
+    if (widget.answerWritePromptModel.tags.isNotEmpty) {
+      tagList = widget.answerWritePromptModel.tags;
     }
+
     super.initState();
+  }
+
+  @override
+  void didChangeDependencies() {
+    answerWritingPromptBloc =
+        BlocProvider.of<AnswerWritingPromptBloc>(context, listen: true);
+    super.didChangeDependencies();
+  }
+
+  @override
+  void dispose() {
+    answerWritingPromptBloc.close();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _loadBody(),
+      key: _scaffoldKey,
+      body: BlocListener(
+        cubit: answerWritingPromptBloc,
+        listener: (_, state) {
+          if (state is DeletedAnswerWritingPromptState) {
+            Navigator.pop(context);
+          } else if (state is AnswerWritingPromptSubmittingState) {
+            CustomDialogs.showSavingDataDialog(
+              context: context,
+            );
+          } else if (state is AnswerWritingPromptSuccessState) {
+            Navigator.pop(context);
+            setState(() {
+              isEditButtonPress = false;
+            });
+          } else if (state is ErrorState) {
+            showSnackBar(msg: state.error);
+          }
+        },
+        child: BlocBuilder<AnswerWritingPromptBloc, AnswerWritingPromptState>(
+          cubit: answerWritingPromptBloc,
+          builder: (_, state) {
+            if (state is DeletingAnswerWritingPromptState) {
+              return _loadBody(isDataDeleting: true);
+            }
+            return _loadBody();
+          },
+        ),
+      ),
     );
   }
 
-  Widget _loadBody() {
+  Widget _loadBody({bool isDataDeleting = false}) {
     return Stack(
       fit: StackFit.expand,
       children: [
@@ -77,9 +124,22 @@ class _AnswerWritingPromptDetailViewState
                   actionWidget: isEditButtonPress
                       ? FlatButton(
                           onPressed: () {
-                            setState(() {
-                              isEditButtonPress = false;
-                            });
+                            answerWritingPromptBloc.add(
+                              UpdateAnswerWritingPromptEvent(
+                                answerWritePromptModel:
+                                AnswerWritePromptModel(
+                                  id: widget.answerWritePromptModel.id,
+                                  answer: _promptController.text.trim(),
+                                  title: _titleController.text.trim(),
+                                  sampleAnswer: widget.answerWritePromptModel.sampleAnswer,
+                                  question: widget.answerWritePromptModel.question,
+                                  updatedAt: DateTime.now(),
+                                  tags: tagList,
+                                  levelOfCompleteness: widget.answerWritePromptModel.levelOfCompleteness,
+                                  degreeOfNotSucking: widget.answerWritePromptModel.degreeOfNotSucking,
+                                ),
+                              ),
+                            );
                           },
                           child: TextComponent(
                             title: AppString.save,
@@ -199,7 +259,7 @@ class _AnswerWritingPromptDetailViewState
                         margin:
                             EdgeInsets.symmetric(horizontal: 20, vertical: 12),
                       ),
-                widget.withoutPromptModel.tags.isNotEmpty
+                widget.answerWritePromptModel.tags.isNotEmpty
                     ? InputChipComponent(
                         list: tagList,
                         hintText: AppString.hint_prompt_has_tag,
@@ -213,7 +273,7 @@ class _AnswerWritingPromptDetailViewState
                         ).copyWith(top: 14, bottom: 14),
                         onAddCallBack: (val) {
                           setState(() {
-                            tagList.add(val.trim());
+                            tagList.add('#${val.trim()}');
                           });
                         },
                       )
@@ -227,8 +287,24 @@ class _AnswerWritingPromptDetailViewState
         MediaQuery.of(context).viewInsets.bottom == 0
             ? LevelAndDegreeDetailWidget(
                 levelOfCompleteness:
-                    widget.withoutPromptModel.levelOfCompleteness,
-                degreeOfSucking: widget.withoutPromptModel.degreeOfSucking,
+                    widget.answerWritePromptModel.levelOfCompleteness,
+                degreeOfSucking:
+                    widget.answerWritePromptModel.degreeOfNotSucking,
+              )
+            : Container(),
+
+        isDataDeleting
+            ? Positioned(
+                top: 0,
+                bottom: 0,
+                left: 0,
+                right: 0,
+                child: Container(
+                  color: Colors.black12,
+                  child: Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                ),
               )
             : Container(),
       ],
@@ -237,25 +313,41 @@ class _AnswerWritingPromptDetailViewState
 
   _showMoreBottomSheet() {
     MoreOptionBottomSheetWidget(
-        cancelButtonColor: AppColor.primary_orange[500],
-        deleteButtonCallback: () {
-          print('show delete dialog');
-          CustomDialogs.showConfirmDeletePromptDialog(
-            context: context,
-            deleteCallback: () {
-              print('delete button press from dialog');
-            },
-          );
-        },
-        editButtonCallback: () {
-          print('Edit button press');
-          setState(() {
-            isEditButtonPress = true;
-          });
-        },
-        shareButtonCallback: () {
-          print('Share button press');
-          Share.share('this is share button');
-        }).showMoreSheetDialog(context);
+      cancelButtonColor: AppColor.primary_orange[500],
+      deleteButtonCallback: () {
+        CustomDialogs.showConfirmDeletePromptDialog(
+          context: context,
+          deleteCallback: () {
+            try {
+              answerWritingPromptBloc.add(
+                DeleteAnswerWritingPromptEvent(
+                  id: widget.answerWritePromptModel.id,
+                ),
+              );
+            } catch (e) {
+              print(e.toString());
+            }
+          },
+        );
+      },
+      editButtonCallback: () {
+        setState(() {
+          isEditButtonPress = true;
+        });
+      },
+      shareButtonCallback: () {
+        Share.share('this is share button');
+      },
+    ).showMoreSheetDialog(context);
+  }
+
+  showSnackBar({String msg}) {
+    _scaffoldKey.currentState.showSnackBar(
+      SnackBar(
+        content: TextComponent(
+          title: msg,
+        ),
+      ),
+    );
   }
 }

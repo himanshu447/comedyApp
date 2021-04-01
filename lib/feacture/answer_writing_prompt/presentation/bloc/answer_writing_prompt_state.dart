@@ -31,3 +31,17 @@ class ErrorState extends AnswerWritingPromptState {
     this.error,
   });
 }
+
+class AnswerWritingPromptSubmittingState extends AnswerWritingPromptState {}
+
+class AnswerWritingPromptSuccessState extends AnswerWritingPromptState {
+  final AnswerWritePromptModel answerWritePromptModel;
+
+  AnswerWritingPromptSuccessState({
+    this.answerWritePromptModel,
+  });
+}
+
+class DeletingAnswerWritingPromptState extends AnswerWritingPromptState {}
+
+class DeletedAnswerWritingPromptState extends AnswerWritingPromptState {}

@@ -11,7 +11,7 @@ import 'add_tag_bottom_sheet_widget.dart';
 class ShortAndFilterBottomSheetWidget extends StatefulWidget {
   final List<ShortAndFilterModel> filterList;
   final List<AddTagModel> tagList;
-  final VoidCallback resultCallback;
+  final ValueSetter<List<String>> resultCallback;
 
   ShortAndFilterBottomSheetWidget({
     this.filterList,
@@ -27,6 +27,12 @@ class ShortAndFilterBottomSheetWidget extends StatefulWidget {
 class _ShortAndFilterBottomSheetWidgetState
     extends State<ShortAndFilterBottomSheetWidget> {
   List<String> selectedTagList = [];
+
+  @override
+  void initState() {
+    selectedTagList.clear();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -176,7 +182,17 @@ class _ShortAndFilterBottomSheetWidgetState
                       padding: const EdgeInsets.symmetric(vertical: 20),
                       child: RawMaterialButton(
                         onPressed: () {
-                          widget.resultCallback();
+                          List<String> resultList = [];
+                          var selectedFilter = widget.filterList.firstWhere(
+                              (element) => element.isChecked,
+                              orElse: () => null);
+                          if (selectedFilter != null) {
+                            resultList.add(selectedFilter.label);
+                          }
+                          if (selectedTagList.isNotEmpty) {
+                            resultList.addAll(selectedTagList);
+                          }
+                          widget.resultCallback(resultList);
                           Navigator.pop(context);
                         },
                         fillColor: AppColor.primary_blue[500],
@@ -233,11 +249,15 @@ class _ShortAndFilterBottomSheetWidgetState
       builder: (context) {
         return AddTagBottomSheetWidget(
           tagList: widget.tagList,
+          tempList: selectedTagList,
           selectedTagList: (val) {
-            setState(() {
-              selectedTagList.clear();
-              selectedTagList.addAll(val);
+            val.forEach((element) {
+              if (!selectedTagList.contains(element)) {
+                selectedTagList.add(element);
+              }
             });
+
+            setState(() {});
           },
         );
       },

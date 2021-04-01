@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:meta/meta.dart';
 
 part 'event_show_event.dart';
+
 part 'event_show_state.dart';
 
 class EventShowBloc extends Bloc<EventShowEvent, EventShowState> {
@@ -34,7 +35,21 @@ class EventShowBloc extends Bloc<EventShowEvent, EventShowState> {
           yield ErrorState(message: (failure as Error).errMessage);
         },
         (success) async* {
-          yield LoadedAllEventsState(list: success);
+          var currentDate = DateTime.now();
+
+          var todayEvents = success
+              .where((element) =>
+                  element.startDate.compareTo(
+                    DateTime(
+                      currentDate.year,
+                      currentDate.month,
+                      currentDate.day,
+                    ),
+                  ) ==
+                  0)
+              .toList();
+          yield LoadedAllEventsState(
+              allList: success, dateWiseList: todayEvents);
         },
       );
     } else if (event is SubmitEventAndShowsEvent) {
@@ -57,7 +72,24 @@ class EventShowBloc extends Bloc<EventShowEvent, EventShowState> {
 
       tempList.insert(0, event.eventShowModel);
 
-      yield LoadedAllEventsState(list: tempList);
+      yield LoadedAllEventsState(allList: tempList);
+    } else if (event is ChangeDateForFilter) {
+      var todayEvents = state.eventList
+          .where((element) => element.startDate.compareTo(event.newDate) == 0)
+          .toList();
+
+      print(event.newDate);
+
+      state.eventList.forEach((element) {
+        print(element.startDate);
+
+        print(element.startDate.compareTo(event.newDate));
+      });
+
+      print(todayEvents.length);
+
+      yield LoadedAllEventsState(
+          allList: state.eventList, dateWiseList: todayEvents);
     }
   }
 }

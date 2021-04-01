@@ -59,7 +59,7 @@ class _EventsShowsState extends State<EventsShows> {
               return Center(child: CircularProgressIndicator(),);
             }
             if (state is LoadedAllEventsState) {
-              return loadBody(list: state.list);
+              return loadBody(list: state.dateWiseList);
             } else {
               return loadBody(list: []);
             }
@@ -76,8 +76,9 @@ class _EventsShowsState extends State<EventsShows> {
         ),
         EventCalender(
           calendarController: _calendarController,
-          odDaySelected: (date) {
+          odDaySelected: (DateTime date) {
             print(date);
+            eventShowBloc.add(ChangeDateForFilter(newDate: DateTime(date.year,date.month,date.day)));
           },
         ),
         Visibility(

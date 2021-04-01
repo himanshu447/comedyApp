@@ -20,3 +20,10 @@ class AddSubmittedEventInToListEvent extends EventShowEvent {
     @required this.eventShowModel,
   });
 }
+
+class ChangeDateForFilter extends EventShowEvent {
+  final DateTime newDate;
+
+  ChangeDateForFilter({this.newDate,});
+
+}

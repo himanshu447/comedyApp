@@ -12,6 +12,11 @@ enum EndPoint {
   GetSavedPrompt,
 
   GetSampleQuestions,
+
+  CreateAnswerWritingPrompt,
+  UpdateAnswerWritingPrompt,
+  DeleteAnswerWritingPrompt,
+
 }
 
 enum LandingTab {

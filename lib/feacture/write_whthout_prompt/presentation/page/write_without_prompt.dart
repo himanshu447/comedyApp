@@ -242,7 +242,7 @@ class _WriteWithoutPromptViewState extends State<WriteWithoutPromptView> {
                         ).copyWith(top: 14, bottom: 14),
                         onAddCallBack: (val) {
                           setState(() {
-                            tagList.add(val.trim());
+                            tagList.add('#${val.trim()}');
                           });
                         },
                       )

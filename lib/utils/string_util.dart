@@ -3,6 +3,7 @@ class AppString {
   static const String app_name = 'ComedyApp';
   static const String submit = 'Submit';
   static const String ok = 'Ok';
+  static const String capital_ok = 'OK';
   static const String search = 'Search...';
   static const String sort_filter = 'Sort and Filter';
   static const String sort = 'SORT';
@@ -83,6 +84,7 @@ class AppString {
   static const String end_time = 'End time';
   static const String start_time = 'Start time';
   static const String event_submitting = 'Your event is submitting....';
+  static const String image_required = 'At least one Event image required.';
 
 
   ///Write without prompt
@@ -91,7 +93,7 @@ class AppString {
   static const String hint_prompt_title = 'Type your prompt title here...';
   static const String hint_prompt_here = 'Write prompt here...';
   static const String hint_prompt_has_tag =
-      '#type_hastag_here (tag will separated by space)';
+      '#type_hastag_here(separated by space)';
   static const String error_required_prompt_title = 'Please enter a Title.';
   static const String error_required_prompt = 'Please enter a Prompt.';
   static const String add_Photo = 'Add Photo';

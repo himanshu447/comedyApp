@@ -19,7 +19,10 @@ import 'package:device_info/device_info.dart';
 import 'package:get_it/get_it.dart';
 import 'package:http/http.dart' as http;
 import 'feacture/answer_writing_prompt/domain/repository/answer_writing_prompt_repository.dart';
+import 'feacture/answer_writing_prompt/domain/usecase/create_answer_writing_prompt_usecase.dart';
+import 'feacture/answer_writing_prompt/domain/usecase/delete_answer_writing_prompt_usecase.dart';
 import 'feacture/answer_writing_prompt/domain/usecase/get_questions_use_case.dart';
+import 'feacture/answer_writing_prompt/domain/usecase/update_answer_writing_prompt_usecase.dart';
 import 'feacture/answer_writing_prompt/presentation/bloc/answer_writing_prompt_bloc.dart';
 import 'feacture/events_shows/data/repository/event_show_repository_impl.dart';
 import 'feacture/landing/presentation/bloc/landing_bloc.dart';
@@ -203,12 +206,31 @@ void _mySaved() {
 
 void _answerWritingPrompt() {
   //bloc
-  injector.registerFactory(
-      () => AnswerWritingPromptBloc(getQuestionsUseCase: injector()));
+  injector.registerFactory(() => AnswerWritingPromptBloc(
+        getQuestionsUseCase: injector(),
+        createAnswerWritingPromptUseCase: injector(),
+        deleteAnswerWritingPromptUseCase: injector(),
+        updateAnswerWritingPromptUseCase: injector(),
+      ));
 
   //useCase
   injector.registerLazySingleton(
     () => GetQuestionsUseCase(
+      answerWritingPromptRepository: injector(),
+    ),
+  );
+  injector.registerLazySingleton(
+        () => CreateAnswerWritingPromptUseCase(
+      answerWritingPromptRepository: injector(),
+    ),
+  );
+  injector.registerLazySingleton(
+        () => UpdateAnswerWritingPromptUseCase(
+      answerWritingPromptRepository: injector(),
+    ),
+  );
+  injector.registerLazySingleton(
+        () => DeleteAnswerWritingPromptUseCase(
       answerWritingPromptRepository: injector(),
     ),
   );
@@ -224,6 +246,7 @@ void _answerWritingPrompt() {
   injector.registerLazySingleton<AnswerWritingPromptDataSource>(
     () => AnswerWritingPromptDataSourceImpl(
       webService: injector(),
+      savePromptDataSource: injector(),
     ),
   );
 }

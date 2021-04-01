@@ -13,7 +13,7 @@ class LoadedMySavedState extends MySavedState {
 
   LoadedMySavedState({
     this.savedList,
-    this.searchSavedList = const []
+    this.searchSavedList
   });
 }
 

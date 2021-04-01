@@ -9,5 +9,5 @@ class ConstantUtil {
   static const String result_response = 'response';
 
   static const int START_TIMER_VALUE = 60;
-  static const int END_TIMER_VALUE = 65;
+  static const int END_TIMER_VALUE = 300;
 }
