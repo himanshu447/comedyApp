@@ -29,6 +29,10 @@ class EventShowBloc extends Bloc<EventShowEvent, EventShowState> {
 
       var result = await getEventsUseCase(NoParams());
 
+      if(state.eventList != null){
+      state.eventList.clear();
+      }
+
       yield* result.fold(
         (failure) async* {
           print(failure);

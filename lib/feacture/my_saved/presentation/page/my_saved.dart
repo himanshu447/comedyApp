@@ -218,7 +218,8 @@ class _MySavedViewState extends State<MySavedView> {
 
                 if (state.searchSavedList == null) {
                   return _loadBody(list: state.savedList);
-                } else if (state.searchSavedList.isEmpty) {
+                }
+                else if (state.searchSavedList.isEmpty) {
                   return Stack(
                     children: [
                       Positioned(
@@ -236,7 +237,8 @@ class _MySavedViewState extends State<MySavedView> {
                       ),
                     ],
                   );
-                } else {
+                }
+                else {
                   return _loadBody(list: state.searchSavedList);
                 }
               }

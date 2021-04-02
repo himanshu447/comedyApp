@@ -16,6 +16,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
+import '../../../../injector.dart';
+
 class SubmitEvents extends StatefulWidget {
   @override
   _SubmitEventsState createState() => _SubmitEventsState();
@@ -47,16 +49,8 @@ class _SubmitEventsState extends State<SubmitEvents> {
 
   @override
   void initState() {
+    eventShowBloc = injector<EventShowBloc>();
     super.initState();
-  }
-
-  @override
-  void didChangeDependencies() {
-    eventShowBloc = BlocProvider.of<EventShowBloc>(context, listen: true);
-
-    print('length is ---->${eventShowBloc.state.eventList.length}');
-
-    super.didChangeDependencies();
   }
 
   @override
@@ -75,13 +69,14 @@ class _SubmitEventsState extends State<SubmitEvents> {
             title: AppString.event_submitting,
           );
         } else if (state is SubmittedEventShowState) {
-          Navigator.pop(context);
           Navigator.pop(context, state.eventShowModel);
-          eventShowBloc.add(
+          Navigator.pop(context, state.eventShowModel);
+         /* eventShowBloc.add(GetEvents()
+          *//*eventShowBloc.add(
             AddSubmittedEventInToListEvent(
               eventShowModel: state.eventShowModel,
-            ),
-          );
+            ),*//*
+          );*/
         } else if (state is ErrorState) {
           showSnackBar(msg: state.message);
         }
@@ -318,16 +313,6 @@ class _SubmitEventsState extends State<SubmitEvents> {
     else if (_eventkey.currentState.validate()) {
 
       try{
-        print('${eventShowBloc}');
-        print('${eventNameController.text.trim()}');
-        print('${aboutEventController.text.trim()}');
-        print('${startDate}');
-        print('${endDate}');
-        print('${eventCostController.text.trim()}');
-        print('${DateFormat.Hms().format(startTime)}');
-        print('${DateFormat.Hms().format(endTime)}');
-        print('${image}');
-
         eventShowBloc.add(
           SubmitEventAndShowsEvent(
             eventShowModel: EventShowModel(

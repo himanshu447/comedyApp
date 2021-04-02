@@ -68,8 +68,7 @@ class _EventsShowsState extends State<EventsShows> {
     return Scaffold(
       bottomNavigationBar: Padding(
         padding:  EdgeInsets.symmetric(horizontal: list.isNotEmpty ? 20 : 0, vertical: 10),
-        child: list.isNotEmpty
-            ? submitButton(title: AppString.Submit_event_or_show, onPress: _submitData)
+        child: list.isNotEmpty ? submitButton(title: AppString.Submit_event_or_show, onPress: _submitData)
             : ShowAddWidget(),
       ),
       body: Column(
@@ -149,13 +148,14 @@ class _EventsShowsState extends State<EventsShows> {
   }
 
   _submitData() async {
-    await Navigator.of(context).push(
+
+    var result = await Navigator.of(context).push(
       MaterialPageRoute(
-        builder: (_) => BlocProvider.value(
-          value: eventShowBloc,
-          child: SubmitEvents(),
-        ),
+        builder: (_) => SubmitEvents(),
       ),
     );
+    if(result != null) {
+      eventShowBloc.add(GetEvents());
+    }
   }
 }
