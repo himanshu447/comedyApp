@@ -27,9 +27,10 @@ class WriteWithoutPromptRepositoryImpl extends WriteWithoutPromptRepository {
   }
 
   @override
-  Future<Either<Failure, bool>> deleteWriteWithoutPrompt({int id}) async{
+  Future<Either<Failure, bool>> deleteWriteWithoutPrompt({int id}) async {
     try {
-      var result = await withoutPromptDataSource.deleteWriteWithoutPrompt(id: id);
+      var result =
+          await withoutPromptDataSource.deleteWriteWithoutPrompt(id: id);
       return Right(result);
     } on PlatformException catch (e) {
       return Left(Error(errMessage: e.message));
@@ -39,9 +40,11 @@ class WriteWithoutPromptRepositoryImpl extends WriteWithoutPromptRepository {
   }
 
   @override
-  Future<Either<Failure, WriteWithoutPromptModel>> updateWriteWithoutPrompt({WriteWithoutPromptModel writeWithoutPromptModel}) async{
+  Future<Either<Failure, WriteWithoutPromptModel>> updateWriteWithoutPrompt(
+      {WriteWithoutPromptModel writeWithoutPromptModel}) async {
     try {
-      var result = await withoutPromptDataSource.updateWriteWithoutPrompt(writeWithoutPromptModel: writeWithoutPromptModel);
+      var result = await withoutPromptDataSource.updateWriteWithoutPrompt(
+          writeWithoutPromptModel: writeWithoutPromptModel);
       return Right(result);
     } on PlatformException catch (e) {
       return Left(Error(errMessage: e.message));
