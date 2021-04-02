@@ -236,7 +236,7 @@ class _SubmitPromptWidgetState extends State<SubmitPromptWidget> {
     showDialog(
       context: context,
       barrierDismissible: false,
-      child: AlertDialog(
+      builder: (_)=> AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         title: Image.asset(
           AppIcons.ic_success,

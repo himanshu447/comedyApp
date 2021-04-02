@@ -13,10 +13,7 @@ Widget topAddImageWidget({Size size}) {
     crossAxisAlignment: CrossAxisAlignment.center,
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
-      imageAsset(
-          img: AppIcons.ic_add_image_place_holder,
-          width: 100.0,
-          height: 100.0),
+      imageAsset(img: AppIcons.ic_add_image_place_holder, width: 100.0, height: 100.0),
       verticalSpace(10),
       TextComponent(
         title: AppString.add_Photo,
@@ -89,7 +86,7 @@ Widget customHeightTextField({
   );
 }
 
-Future<dynamic> selectDate({BuildContext context,DateTime startDate}) async {
+Future<dynamic> selectDate({BuildContext context, DateTime startDate}) async {
   DateTime _selectedDate;
   DateTime selectedDate = DateTime.now();
 
@@ -117,8 +114,7 @@ Future<dynamic> selectDate({BuildContext context,DateTime startDate}) async {
                     CupertinoButton(
                       child: Text('Done'),
                       onPressed: () {
-                        Navigator.of(context)
-                            .pop(tempPickedDate ?? selectedDate);
+                        Navigator.of(context).pop(tempPickedDate ?? selectedDate);
                       },
                     ),
                   ],
@@ -132,7 +128,8 @@ Future<dynamic> selectDate({BuildContext context,DateTime startDate}) async {
                 child: Container(
                   color: AppColor.datePickerBackColor,
                   child: CupertinoDatePicker(
-                    minimumDate:  DateTime.now(),
+                    initialDateTime: startDate ?? DateTime.now().add(Duration(hours: 1)),
+                    minimumDate: startDate ?? DateTime.now(),
                     maximumDate: DateTime.now().add(Duration(days: 90)),
                     use24hFormat: false,
                     mode: CupertinoDatePickerMode.date,
@@ -153,7 +150,7 @@ Future<dynamic> selectDate({BuildContext context,DateTime startDate}) async {
     _selectedDate = pickedDate;
     print(_selectedDate.toString() + ' selected date');
     String selected = dateFormat(dateTime: _selectedDate, format: 'dd MMMM, yyyy');
-    return [selected,_selectedDate];
+    return [selected, _selectedDate];
   }
 /*  CupertinoDatePicker(
     maximumYear: 2022,
@@ -174,7 +171,7 @@ Future<dynamic> selectDate({BuildContext context,DateTime startDate}) async {
   if (picked != null && picked != selectedDate) return selectedDate;*/
 }
 
-Future<dynamic> selectTime(BuildContext context) async {
+Future<dynamic> selectTime(BuildContext context, {DateTime startDateTime}) async {
   DateTime _selectedDate;
   DateTime selectedDate = DateTime.now();
 
@@ -198,8 +195,15 @@ Future<dynamic> selectTime(BuildContext context) async {
                     CupertinoButton(
                       child: Text('Done'),
                       onPressed: () {
-                        Navigator.of(context)
-                            .pop(tempPickedDate ?? selectedDate);
+                        if (tempPickedDate == null) {
+                          if (startDateTime == null) {
+                            Navigator.of(context).pop(selectedDate);
+                          } else {
+                            Navigator.of(context).pop(selectedDate.add(Duration(hours: 1)));
+                          }
+                        } else {
+                          Navigator.of(context).pop(tempPickedDate);
+                        }
                       },
                     ),
                   ],
@@ -213,11 +217,20 @@ Future<dynamic> selectTime(BuildContext context) async {
                 child: Container(
                   color: AppColor.datePickerBackColor,
                   child: CupertinoDatePicker(
+                    initialDateTime: startDateTime == null ? DateTime.now() : startDateTime.add(Duration(hours: 1)),
+                    maximumDate: DateTime.now().add(Duration(days: 90)),
+
+                    /*         initialDateTime: startDate ?? DateTime.now().add(Duration(hours: 1)),
+                    minimumDate: startDate ?? DateTime.now(),
+                    maximumDate: DateTime.now().add(Duration(days: 90)),
+                    use24hFormat: false,
+                    mode: CupertinoDatePickerMode.date,*/
+
                     onDateTimeChanged: (duration) {
                       tempPickedDate = duration;
                     },
                     mode: CupertinoDatePickerMode.time,
-                    minimumDate: today,
+                    minimumDate: startDateTime == null ? today : startDateTime.add(Duration(hours: 1)),
                     minuteInterval: 1,
                   ),
                 ),
@@ -232,7 +245,7 @@ Future<dynamic> selectTime(BuildContext context) async {
     print(_selectedDate.toString() + ' selected date');
     String selected = DateFormat.jm().format(_selectedDate);
     print(selected);
-    return [selected,_selectedDate];
+    return [selected, _selectedDate];
   }
 /*  CupertinoDatePicker(
     maximumYear: 2022,

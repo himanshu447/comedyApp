@@ -11,7 +11,7 @@ class CustomDialogs {
   }) {
     showDialog(
       context: context,
-      child: AlertDialog(
+      builder: (_) => AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         backgroundColor: AppColor.white,
         contentPadding: EdgeInsets.all(30),
@@ -36,7 +36,7 @@ class CustomDialogs {
   }) {
     showDialog(
       context: context,
-      child: AlertDialog(
+      builder: (_) =>  AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         backgroundColor: AppColor.white,
         contentPadding: EdgeInsets.zero,
