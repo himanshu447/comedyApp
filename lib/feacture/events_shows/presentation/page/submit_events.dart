@@ -178,7 +178,7 @@ class _SubmitEventsState extends State<SubmitEvents> {
                             return null;
                           },
                           onTap: () {
-                            selectDate(context).then((date) {
+                            selectDate(context: context).then((date) {
                               print(date);
                               if (date != null)
                                 setState(() {
@@ -228,7 +228,7 @@ class _SubmitEventsState extends State<SubmitEvents> {
                             return null;
                           },
                           onTap: () {
-                            selectDate(context).then((date) {
+                            selectDate(context: context,startDate: startDate).then((date) {
                               print(date);
                               if (date != null)
                                 setState(() {
@@ -278,6 +278,7 @@ class _SubmitEventsState extends State<SubmitEvents> {
                     verticalSpace(20.0),
                     customTextField(
                       controller: eventCostController,
+                      textInputType: TextInputType.numberWithOptions(),
                       validator: (value) {
                         if (value.isEmpty) {
                           return "Please Enter a Event Cost";
@@ -316,9 +317,16 @@ class _SubmitEventsState extends State<SubmitEvents> {
     }
     else if (_eventkey.currentState.validate()) {
 
-
       try{
-        print('dsasadsada');
+        print('${eventShowBloc}');
+        print('${eventNameController.text.trim()}');
+        print('${aboutEventController.text.trim()}');
+        print('${startDate}');
+        print('${endDate}');
+        print('${eventCostController.text.trim()}');
+        print('${DateFormat.Hms().format(startTime)}');
+        print('${DateFormat.Hms().format(endTime)}');
+        print('${image}');
 
         eventShowBloc.add(
           SubmitEventAndShowsEvent(

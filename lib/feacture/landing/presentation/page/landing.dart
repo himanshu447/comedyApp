@@ -62,7 +62,7 @@ class _LandingViewState extends State<LandingView> {
         index: selectedTab.index,
         children: [
           HomeView(),
-          MySavedView(),
+          MySavedView(key: UniqueKey(),),
           SubmitPromptWidget(),
           AboutView(),
         ],

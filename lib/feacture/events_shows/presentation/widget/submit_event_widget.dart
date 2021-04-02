@@ -34,6 +34,7 @@ Widget customTextField({
   var maxLine,
   Function onTap,
   Function validator,
+  TextInputType textInputType,
   bool isReadOnly = false,
 }) {
   return Padding(
@@ -43,6 +44,7 @@ Widget customTextField({
       controller: controller,
       maxLines: maxLine ?? 1,
       readOnly: isReadOnly,
+      keyboardType: textInputType,
       decoration: InputDecoration(
         hintText: hintText,
       ).copyWith(
@@ -87,9 +89,11 @@ Widget customHeightTextField({
   );
 }
 
-Future<dynamic> selectDate(BuildContext context) async {
+Future<dynamic> selectDate({BuildContext context,DateTime startDate}) async {
   DateTime _selectedDate;
   DateTime selectedDate = DateTime.now();
+
+  print(startDate);
 
   DateTime pickedDate = await showModalBottomSheet<DateTime>(
       context: context,
@@ -128,10 +132,10 @@ Future<dynamic> selectDate(BuildContext context) async {
                 child: Container(
                   color: AppColor.datePickerBackColor,
                   child: CupertinoDatePicker(
-                    maximumDate: DateTime.now(),
+                    minimumDate:  DateTime.now(),
+                    maximumDate: DateTime.now().add(Duration(days: 90)),
                     use24hFormat: false,
                     mode: CupertinoDatePickerMode.date,
-                    initialDateTime: selectedDate,
                     onDateTimeChanged: (datetime) {
                       if (datetime != null) {
                         tempPickedDate = datetime;

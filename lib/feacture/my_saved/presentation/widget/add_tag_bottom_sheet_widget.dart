@@ -24,7 +24,6 @@ class AddTagBottomSheetWidget extends StatefulWidget {
 }
 
 class _AddTagBottomSheetWidgetState extends State<AddTagBottomSheetWidget> {
-  final List<String> selectedTagList = [];
   final TextEditingController _searchController = TextEditingController();
 
   List<AddTagModel> searchTagList;

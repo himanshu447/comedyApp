@@ -3,6 +3,8 @@ import 'package:comedy/feacture/events_shows/presentation/bloc/event_show_bloc.d
 import 'package:comedy/feacture/events_shows/presentation/page/submit_events.dart';
 import 'package:comedy/feacture/events_shows/presentation/widget/event_list_tile_widget.dart';
 import 'package:comedy/feacture/events_shows/presentation/widget/event_widget.dart';
+import 'package:comedy/feacture/my_saved/presentation/widget/add_tag_bottom_sheet_widget.dart';
+import 'package:comedy/share/widget/add_widget.dart';
 import 'package:comedy/share/widget/sub_module_app_bar_widget.dart';
 import 'package:comedy/utils/calender/table_calendar.dart';
 import 'package:comedy/utils/color_util.dart';
@@ -47,11 +49,6 @@ class _EventsShowsState extends State<EventsShows> {
   Widget build(BuildContext context) {
     return Scaffold(
         key: _scaffoldKey,
-        bottomNavigationBar: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-          child: submitButton(
-              title: AppString.Submit_event_or_show, onPress: _submitData),
-        ),
         body: BlocBuilder<EventShowBloc, EventShowState>(
           cubit: eventShowBloc,
           builder: (_, state) {
@@ -68,54 +65,62 @@ class _EventsShowsState extends State<EventsShows> {
   }
 
   Widget loadBody({List<EventShowModel> list}) {
-    return Column(
-      children: [
-        SubModuleAppBarWidget(
-          color: AppColor.primary_pink[500],
-          title: AppString.event_and_shows,
-        ),
-        EventCalender(
-          calendarController: _calendarController,
-          odDaySelected: (DateTime date) {
-            print(date);
-            eventShowBloc.add(ChangeDateForFilter(newDate: DateTime(date.year,date.month,date.day)));
-          },
-        ),
-        Visibility(
-          visible: list.isNotEmpty,
-          child: Expanded(
-            child: ListView.builder(
-              padding: EdgeInsets.symmetric(
-                horizontal: 15,
-              ).copyWith(),
-              shrinkWrap: true,
-              itemCount: list.length,
-              itemBuilder: (context, index) {
-                return MyEventListTile(
-                  onTap: () {
-                    Navigator.pushNamed(
-                      context,
-                      RouteName.event_detail,
-                      arguments: list[index],
-                    );
-                  },
-                  eventShowModel: list[index],
-                );
-              },
+    return Scaffold(
+      bottomNavigationBar: Padding(
+        padding:  EdgeInsets.symmetric(horizontal: list.isNotEmpty ? 20 : 0, vertical: 10),
+        child: list.isNotEmpty
+            ? submitButton(title: AppString.Submit_event_or_show, onPress: _submitData)
+            : ShowAddWidget(),
+      ),
+      body: Column(
+        children: [
+          SubModuleAppBarWidget(
+            color: AppColor.primary_pink[500],
+            title: AppString.event_and_shows,
+          ),
+          EventCalender(
+            calendarController: _calendarController,
+            odDaySelected: (DateTime date) {
+              print(date);
+              eventShowBloc.add(ChangeDateForFilter(newDate: DateTime(date.year,date.month,date.day)));
+            },
+          ),
+          Visibility(
+            visible: list.isNotEmpty,
+            child: Expanded(
+              child: ListView.builder(
+                padding: EdgeInsets.symmetric(
+                  horizontal: 15,
+                ).copyWith(),
+                shrinkWrap: true,
+                itemCount: list.length,
+                itemBuilder: (context, index) {
+                  return MyEventListTile(
+                    onTap: () {
+                      Navigator.pushNamed(
+                        context,
+                        RouteName.event_detail,
+                        arguments: list[index],
+                      );
+                    },
+                    eventShowModel: list[index],
+                  );
+                },
+              ),
             ),
           ),
-        ),
-        Visibility(
-          visible: list.isEmpty,
-          child: emptyEvent(),
-        ),
-        Visibility(
-          visible: list == null,
-          child: Center(
-            child: CircularProgressIndicator(),
+          Visibility(
+            visible: list.isEmpty,
+            child: emptyEvent(),
           ),
-        ),
-      ],
+          Visibility(
+            visible: list == null,
+            child: Center(
+              child: CircularProgressIndicator(),
+            ),
+          ),
+        ],
+      ),
     );
   }
 
@@ -136,8 +141,7 @@ class _EventsShowsState extends State<EventsShows> {
           ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 30),
-            child: submitButton(
-                title: AppString.Submit_event_or_show, onPress: _submitData),
+            child: submitButton(title: AppString.Submit_event_or_show, onPress: _submitData),
           ),
         ],
       ),

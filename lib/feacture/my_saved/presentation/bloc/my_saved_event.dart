@@ -14,3 +14,13 @@ class SearchMySavedEvent extends MySavedEvent {
 }
 
 class ClearSearchListEvent extends MySavedEvent {}
+
+class FilterListEvent extends MySavedEvent {
+  final Filters filters;
+  final List<String> tags;
+
+  FilterListEvent({
+    this.filters,
+    this.tags = const [],
+  });
+}

@@ -12,11 +12,13 @@ class ShortAndFilterBottomSheetWidget extends StatefulWidget {
   final List<ShortAndFilterModel> filterList;
   final List<AddTagModel> tagList;
   final ValueSetter<List<String>> resultCallback;
+  final List<String> settingSeletedTagList;
 
   ShortAndFilterBottomSheetWidget({
     this.filterList,
     this.tagList,
     this.resultCallback,
+    this.settingSeletedTagList,
   });
 
   @override
@@ -24,14 +26,17 @@ class ShortAndFilterBottomSheetWidget extends StatefulWidget {
       _ShortAndFilterBottomSheetWidgetState();
 }
 
-class _ShortAndFilterBottomSheetWidgetState
-    extends State<ShortAndFilterBottomSheetWidget> {
+class _ShortAndFilterBottomSheetWidgetState extends State<ShortAndFilterBottomSheetWidget> {
   List<String> selectedTagList = [];
 
   @override
   void initState() {
-    selectedTagList.clear();
     super.initState();
+
+    if(widget.settingSeletedTagList.isNotEmpty){
+      selectedTagList.addAll(widget.settingSeletedTagList);
+    }
+
   }
 
   @override
@@ -69,15 +74,16 @@ class _ShortAndFilterBottomSheetWidgetState
                     onPressed: () {
                       setState(() {
                         selectedTagList.clear();
-                        var data = widget.filterList
-                            .indexWhere((element) => element.isChecked);
+                        var data = widget.filterList.indexWhere((element) => element.isChecked);
 
                         if (data >= 0) {
-                          widget.filterList[data] = widget.filterList[data]
-                              .copyWith(isChecked: false);
+                          widget.filterList[data] = widget.filterList[data].copyWith(isChecked: false);
                         }
-                        widget.filterList.first =
-                            widget.filterList.first.copyWith(isChecked: true);
+                        widget.filterList.first = widget.filterList.first.copyWith(isChecked: true);
+
+                        var temp = widget.tagList.map((e) => e.copyWith(isChecked: false)).toList();
+                        widget.tagList.clear();
+                        widget.tagList.addAll(temp);
                       });
                     },
                     child: TextComponent(

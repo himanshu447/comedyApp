@@ -25,3 +25,14 @@ enum LandingTab {
   submitPrompt,
   about,
 }
+
+enum Filters{
+  aToz,
+  zToA,
+  newToOldDate,
+  oldToNewDate,
+  levelHighestToLowest,
+  levelLowestToHighest,
+  degreeHighestToLowest,
+  degreeLowestToHighest,
+}

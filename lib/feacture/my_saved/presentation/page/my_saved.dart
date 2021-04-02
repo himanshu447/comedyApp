@@ -8,6 +8,7 @@ import 'package:comedy/injector.dart';
 import 'package:comedy/share/widget/add_widget.dart';
 import 'package:comedy/utils/color_util.dart';
 import 'package:comedy/utils/component/text_component.dart';
+import 'package:comedy/utils/enum_util.dart';
 import 'package:comedy/utils/icons_utils.dart';
 import 'package:comedy/utils/string_util.dart';
 import 'package:comedy/utils/style_util.dart';
@@ -17,6 +18,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:comedy/utils/extension.dart';
 
 class MySavedView extends StatefulWidget {
+  final Key key;
+
+  const MySavedView({this.key}) : super(key: key);
+
   @override
   _MySavedViewState createState() => _MySavedViewState();
 }
@@ -95,19 +100,16 @@ class _MySavedViewState extends State<MySavedView> {
     super.dispose();
   }
 
-  _saveTagFromData(List<MySavedModel> list){
-
+  _saveTagFromData(List<MySavedModel> list) {
     list.forEach((saveItem) {
-
       saveItem.tags.forEach((singleTag) {
+        AddTagModel addTagModel = AddTagModel(
+            isChecked: false, label: singleTag.substring(1).capitalize());
 
-        AddTagModel addTagModel = AddTagModel(isChecked: false,label: singleTag.substring(1).capitalize());
-
-        if(!tagList.contains(addTagModel)){
+        if (!tagList.contains(addTagModel)) {
           tagList.add(addTagModel);
         }
       });
-
     });
   }
 
@@ -118,7 +120,10 @@ class _MySavedViewState extends State<MySavedView> {
         children: [
           Container(
             width: double.infinity,
-            height: MediaQuery.of(context).size.width / 1.5,
+            height: MediaQuery
+                .of(context)
+                .size
+                .width / 1.5,
             padding: EdgeInsets.only(top: AppBar().preferredSize.height + 20),
             decoration: BoxDecoration(
               color: AppColor.primary_blue[500],
@@ -136,7 +141,7 @@ class _MySavedViewState extends State<MySavedView> {
                 ),
                 Container(
                   margin:
-                      EdgeInsets.symmetric(horizontal: 20).copyWith(top: 20),
+                  EdgeInsets.symmetric(horizontal: 20).copyWith(top: 20),
                   padding: EdgeInsets.symmetric(horizontal: 12, vertical: 2),
                   decoration: BoxDecoration(
                     color: AppColor.white,
@@ -162,7 +167,8 @@ class _MySavedViewState extends State<MySavedView> {
                             controller: _searchController,
                             decoration: InputDecoration(
                               filled: false,
-                              contentPadding: EdgeInsets.symmetric(horizontal: 12),
+                              contentPadding: EdgeInsets.symmetric(
+                                  horizontal: 12),
                               hintText: AppString.search,
                               border: InputBorder.none,
                             ),
@@ -175,20 +181,22 @@ class _MySavedViewState extends State<MySavedView> {
                             },
                           ),
                         ),
-                        _searchController.text.trim().isNotEmpty
+                        _searchController.text
+                            .trim()
+                            .isNotEmpty
                             ? Container(
-                              child: IconButton(
-                                  icon: Icon(
-                                    Icons.close,
-                                    color: AppColor.gry,
-                                    size: 25,
-                                  ),
-                                  onPressed: () {
-                                    _searchController.clear();
-                                    mySavedBloc.add(ClearSearchListEvent());
-                                  },
-                                ),
-                            )
+                          child: IconButton(
+                            icon: Icon(
+                              Icons.close,
+                              color: AppColor.gry,
+                              size: 25,
+                            ),
+                            onPressed: () {
+                              _searchController.clear();
+                              mySavedBloc.add(ClearSearchListEvent());
+                            },
+                          ),
+                        )
                             : Container(),
                       ],
                     ),
@@ -206,7 +214,6 @@ class _MySavedViewState extends State<MySavedView> {
                 );
               }
               else if (state is LoadedMySavedState) {
-
                 _saveTagFromData(state.savedList);
 
                 if (state.searchSavedList == null) {
@@ -215,7 +222,10 @@ class _MySavedViewState extends State<MySavedView> {
                   return Stack(
                     children: [
                       Positioned(
-                        top: MediaQuery.of(context).size.height / 2.1,
+                        top: MediaQuery
+                            .of(context)
+                            .size
+                            .height / 2.1,
                         right: 0.0,
                         left: 0.0,
                         child: Image.asset(
@@ -229,7 +239,8 @@ class _MySavedViewState extends State<MySavedView> {
                 } else {
                   return _loadBody(list: state.searchSavedList);
                 }
-              } else {
+              }
+              else {
                 return Container();
               }
             },
@@ -245,7 +256,10 @@ class _MySavedViewState extends State<MySavedView> {
         Visibility(
           visible: list.isEmpty,
           child: Positioned(
-            top: MediaQuery.of(context).size.height / 2.1,
+            top: MediaQuery
+                .of(context)
+                .size
+                .height / 2.1,
             right: 0.0,
             left: 0.0,
             child: Image.asset(
@@ -258,7 +272,10 @@ class _MySavedViewState extends State<MySavedView> {
         Visibility(
           visible: list.isEmpty,
           child: Positioned(
-            top: MediaQuery.of(context).size.height / 2.1,
+            top: MediaQuery
+                .of(context)
+                .size
+                .height / 2.1,
             right: 0.0,
             left: 0.0,
             child: Image.asset(
@@ -271,7 +288,10 @@ class _MySavedViewState extends State<MySavedView> {
         Visibility(
           visible: list.isNotEmpty,
           child: Positioned(
-            top: MediaQuery.of(context).size.width / 1.9,
+            top: MediaQuery
+                .of(context)
+                .size
+                .width / 1.9,
             left: 0.0,
             right: 0.0,
             bottom: 0.0,
@@ -292,58 +312,58 @@ class _MySavedViewState extends State<MySavedView> {
         list.isEmpty
             ? ShowAddWidget()
             : Positioned(
-                bottom: 20,
-                left: 0,
-                right: 0,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    GestureDetector(
-                      onTap: _showShortAndFilterSheet,
-                      child: Card(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(15)),
-                        elevation: 4,
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 12,
-                            vertical: 12,
-                          ),
-                          child: Row(
-                            children: [
-                              Image.asset(
-                                AppIcons.ic_filter,
-                                height: 20,
-                                width: 20,
-                              ),
-                              TextComponent(
-                                title: AppString.sort_filter,
-                                fontWeight: FontWeight.w600,
-                                fontSize: 17,
-                                margin: EdgeInsets.symmetric(horizontal: 10),
-                              ),
-                              Visibility(
-                                visible: filterResult != null,
-                                child: CircleAvatar(
-                                  radius: 12,
-                                  backgroundColor: AppColor.primary_blue[500],
-                                  child: TextComponent(
-                                    title: filterResult.toString(),
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 17,
-                                    color: AppColor.white,
-                                  ),
-                                ),
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
+          bottom: 20,
+          left: 0,
+          right: 0,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              GestureDetector(
+                onTap: _showShortAndFilterSheet,
+                child: Card(
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15)),
+                  elevation: 4,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 12,
                     ),
-                  ],
+                    child: Row(
+                      children: [
+                        Image.asset(
+                          AppIcons.ic_filter,
+                          height: 20,
+                          width: 20,
+                        ),
+                        TextComponent(
+                          title: AppString.sort_filter,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 17,
+                          margin: EdgeInsets.symmetric(horizontal: 10),
+                        ),
+                        Visibility(
+                          visible: filterResult != null,
+                          child: CircleAvatar(
+                            radius: 12,
+                            backgroundColor: AppColor.primary_blue[500],
+                            child: TextComponent(
+                              title: filterResult.toString(),
+                              fontWeight: FontWeight.w600,
+                              fontSize: 17,
+                              color: AppColor.white,
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
                 ),
               ),
+            ],
+          ),
+        ),
         Container(),
       ],
     );
@@ -364,10 +384,38 @@ class _MySavedViewState extends State<MySavedView> {
         return ShortAndFilterBottomSheetWidget(
           filterList: filterList,
           tagList: tagList,
+          settingSeletedTagList: selectedTagList.isEmpty ? [] : selectedTagList ,
           resultCallback: (List<String> list) {
-            setState(() {
-              filterResult = list.length;
-            });
+            var filterLabel = list[0];
+
+            List<String> tags = list.sublist(1);
+            selectedTagList = tags;
+
+            if (filterLabel == AppString.title_a_to_z) {
+              mySavedBloc.add(FilterListEvent(filters: Filters.aToz,tags: tags));
+            }
+            else if (filterLabel == AppString.title_z_to_a) {
+              mySavedBloc.add(FilterListEvent(filters: Filters.zToA,tags: tags));
+            }
+            else if (filterLabel == AppString.date_update_newest_to_older) {
+              mySavedBloc.add(FilterListEvent(filters: Filters.newToOldDate,tags: tags));
+            }
+            else if (filterLabel == AppString.date_update_older_to_newest) {
+              mySavedBloc.add(FilterListEvent(filters: Filters.oldToNewDate,tags: tags));
+            }
+            else if (filterLabel == AppString.level_of_completeness_highest_to_lowest) {
+              mySavedBloc.add(FilterListEvent(filters: Filters.levelHighestToLowest,tags: tags));
+            }
+            else if (filterLabel == AppString.level_of_completeness_lowest_to_highest) {
+              mySavedBloc.add(FilterListEvent(filters: Filters.levelLowestToHighest,tags: tags));
+            }
+            else if (filterLabel == AppString.degree_of_not_sucking_lowest_to_highest) {
+              mySavedBloc.add(FilterListEvent(filters: Filters.degreeLowestToHighest,tags: tags));
+            }
+            else if (filterLabel == AppString.degree_of_not_sucking_highest_to_lowest) {
+              mySavedBloc.add(FilterListEvent(filters: Filters.degreeHighestToLowest,tags: tags));
+            }
+            filterResult = list.length;
           },
         );
       },
