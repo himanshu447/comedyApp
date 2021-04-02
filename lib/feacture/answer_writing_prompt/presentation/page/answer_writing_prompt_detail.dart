@@ -299,7 +299,7 @@ class _AnswerWritingPromptDetailViewState
                 bottom: 0,
                 left: 0,
                 right: 0,
-                child: Container(
+                child:  Container(
                   color: Colors.black12,
                   child: Center(
                     child: CircularProgressIndicator(),

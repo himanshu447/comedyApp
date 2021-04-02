@@ -54,8 +54,6 @@ class _SubmitEventsState extends State<SubmitEvents> {
   void didChangeDependencies() {
     eventShowBloc = BlocProvider.of<EventShowBloc>(context, listen: true);
 
-    print('length is ---->${eventShowBloc.state.eventList.length}');
-
     super.didChangeDependencies();
   }
 
@@ -102,8 +100,7 @@ class _SubmitEventsState extends State<SubmitEvents> {
       key: _scaffoldKey,
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-        child: submitButton(
-            title: AppString.Submit_event_or_show, onPress: _submitData),
+        child: submitButton(title: AppString.Submit_event_or_show, onPress: _submitData),
       ),
       body: Column(
         children: [
@@ -119,8 +116,7 @@ class _SubmitEventsState extends State<SubmitEvents> {
                   children: [
                     InkWell(
                       onTap: () async {
-                        final pickedFile =
-                            await picker.getImage(source: ImageSource.gallery);
+                        final pickedFile = await picker.getImage(source: ImageSource.gallery);
                         setState(() {
                           image = pickedFile.path;
                         });
@@ -184,8 +180,7 @@ class _SubmitEventsState extends State<SubmitEvents> {
                                 setState(() {
                                   startDateController.text = date[0];
                                   startDate = date[1];
-                                  endDateController.text = date[0];
-                                  endDate = date[1];
+                                  print(startDate);
                                 });
                             });
                           },
@@ -228,7 +223,7 @@ class _SubmitEventsState extends State<SubmitEvents> {
                             return null;
                           },
                           onTap: () {
-                            selectDate(context: context,startDate: startDate).then((date) {
+                            selectDate(context: context, startDate: startDate).then((date) {
                               print(date);
                               if (date != null)
                                 setState(() {
@@ -250,7 +245,7 @@ class _SubmitEventsState extends State<SubmitEvents> {
                             return null;
                           },
                           onTap: () {
-                            selectTime(context).then((date) {
+                            selectTime(context,startDateTime: startDate).then((date) {
                               print(date);
                               if (date != null)
                                 setState(() {
@@ -298,26 +293,15 @@ class _SubmitEventsState extends State<SubmitEvents> {
     );
   }
 
-  Widget timePicker(
-      {Function onTap,
-      TextEditingController controller,
-      String hintName,
-      Function validator}) {
-    return customTextField(
-        controller: controller,
-        hintText: hintName,
-        isReadOnly: true,
-        onTap: onTap);
+  Widget timePicker({Function onTap, TextEditingController controller, String hintName, Function validator}) {
+    return customTextField(controller: controller, hintText: hintName, isReadOnly: true, onTap: onTap);
   }
 
   _submitData() {
-
-    if(image == null){
+    if (image == null) {
       showSnackBar(msg: AppString.image_required);
-    }
-    else if (_eventkey.currentState.validate()) {
-
-      try{
+    } else if (_eventkey.currentState.validate()) {
+      try {
         print('${eventShowBloc}');
         print('${eventNameController.text.trim()}');
         print('${aboutEventController.text.trim()}');
@@ -344,10 +328,9 @@ class _SubmitEventsState extends State<SubmitEvents> {
             ),
           ),
         );
-      }catch(e){
+      } catch (e) {
         print(e.toString());
       }
-
     } else {
       print('Not success');
     }

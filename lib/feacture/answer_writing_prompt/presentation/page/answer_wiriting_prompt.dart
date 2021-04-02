@@ -452,7 +452,7 @@ class _AnswerWritingPromptViewState extends State<AnswerWritingPromptView> {
     showDialog(
       context: context,
       barrierDismissible: false,
-      child: Dialog(
+      builder: (_) => Dialog(
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30),
         ),
