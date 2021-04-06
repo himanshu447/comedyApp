@@ -55,6 +55,7 @@ class HomeEventCardWidget extends StatelessWidget {
                       color: Colors.black38,
                       maxLine: MediaQuery.of(context).devicePixelRatio >= 2 ? 3 : 2,
                       textOverflow: TextOverflow.ellipsis,
+                      margin: EdgeInsets.only(bottom: 8),
                     ),
                   ),
                 ],

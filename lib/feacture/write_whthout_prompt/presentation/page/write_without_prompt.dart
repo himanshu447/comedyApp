@@ -228,6 +228,7 @@ class _WriteWithoutPromptViewState extends State<WriteWithoutPromptView> {
                           ),
                         ),
                       ),
+
                 isPromptTitleAndDescSubmitted
                     ? InputChipComponent(
                         list: tagList,
@@ -247,6 +248,7 @@ class _WriteWithoutPromptViewState extends State<WriteWithoutPromptView> {
                         },
                       )
                     : Container(),
+
                 isTagSubmitted && !isLevelOfCompletenessSubmitted
                     ? TextComponent(
                         title: AppString.level_of_completeness,
@@ -255,6 +257,7 @@ class _WriteWithoutPromptViewState extends State<WriteWithoutPromptView> {
                         textAlign: TextAlign.center,
                       )
                     : Container(),
+
                 isTagSubmitted && !isLevelOfCompletenessSubmitted
                     ? HorizantalPicker(
                         minValue: 1,
@@ -267,6 +270,7 @@ class _WriteWithoutPromptViewState extends State<WriteWithoutPromptView> {
                         deActiveTextStyle: StyleUtil.inActiveNumberTextStyle,
                       )
                     : Container(),
+
                 isLevelOfCompletenessSubmitted
                     ? TextComponent(
                         title: AppString.degree_of_not_sucking,
@@ -323,15 +327,19 @@ class _WriteWithoutPromptViewState extends State<WriteWithoutPromptView> {
         });
       }
     } else if (!isTagSubmitted) {
-      setState(() {
-        isTagSubmitted = true;
-      });
-    } else if (!isLevelOfCompletenessSubmitted) {
+        if(tagList.isNotEmpty) {
+          setState(() {
+            isTagSubmitted = true;
+          });
+        }else{
+          showSnackBar(msg:'HasTag is Required');
+        }
+    } else if (isTagSubmitted && !isLevelOfCompletenessSubmitted) {
       setState(() {
         isLevelOfCompletenessSubmitted = true;
       });
-    } else {
-      withoutPromptBloc.add(
+    } else if(isLevelOfCompletenessSubmitted){
+     /* withoutPromptBloc.add(
         CreateWriteWithoutPromptEvent(
           writeWithoutPromptModel: WriteWithoutPromptModel(
             title: _titleController.text.trim(),
@@ -341,7 +349,7 @@ class _WriteWithoutPromptViewState extends State<WriteWithoutPromptView> {
             tags: tagList,
           ),
         ),
-      );
+      );*/
     }
   }
 

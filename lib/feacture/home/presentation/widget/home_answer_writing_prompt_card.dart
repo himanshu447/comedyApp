@@ -53,6 +53,7 @@ class HomeAnswerWritingPromptCardWidget extends StatelessWidget {
                       color: Colors.black38,
                       maxLine: MediaQuery.of(context).devicePixelRatio >= 1.6 ? 3 : 2,
                       textOverflow: TextOverflow.ellipsis,
+                      margin: EdgeInsets.only(bottom: 8),
                     ),
                   ),
                 ],

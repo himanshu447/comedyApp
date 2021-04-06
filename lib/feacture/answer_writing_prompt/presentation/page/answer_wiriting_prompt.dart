@@ -521,9 +521,13 @@ class _AnswerWritingPromptViewState extends State<AnswerWritingPromptView> {
       });
     } else if (!isTagSubmitted && isTitleSubmit) {
       print('TAG Sub');
-      setState(() {
-        isTagSubmitted = true;
-      });
+      if(tagList.isNotEmpty) {
+        setState(() {
+          isTagSubmitted = true;
+        });
+      }else{
+        showSnackBar(msg:'HasTag is Required');
+      }
     } else if (!isLevelOfCompletenessSubmitted && isTagSubmitted) {
       print('Level ');
       setState(() {

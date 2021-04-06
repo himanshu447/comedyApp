@@ -23,6 +23,7 @@ class EventDetail extends StatefulWidget {
 class _EventDetailState extends State<EventDetail> {
   @override
   Widget build(BuildContext context) {
+
     var abc = widget.eventShowModel.startTime.split(':');
 
     var ab = DateTime(
