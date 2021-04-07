@@ -98,6 +98,10 @@ flutter:
           weight: 500
         - asset: assets/fonts/SF-Pro-Display-Semibold.otf
           weight: 800
+    - family: RubikMonoOne
+      fonts:
+        - asset: assets/fonts/RubikMonoOne-Regular.ttf
+          weight: 400
   #         style: italic
   #   - family: Trajan Pro
   #     fonts:

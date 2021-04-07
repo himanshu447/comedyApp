@@ -53,7 +53,7 @@ class _InputChipComponentState extends State<InputChipComponent>
           Padding(
             padding: widget.padding,
             child: widget.isTextFieldVisible
-                ? TextFormField(
+                ? TextField(
                     controller: _controller,
                     focusNode: _hasTagFocusNode,
                     onTap: () {

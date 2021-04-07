@@ -60,14 +60,13 @@ class _AnswerWritingPromptDetailViewState
 
   @override
   void didChangeDependencies() {
-    answerWritingPromptBloc =
-        BlocProvider.of<AnswerWritingPromptBloc>(context, listen: true);
+    answerWritingPromptBloc = BlocProvider.of<AnswerWritingPromptBloc>(context, listen: true);
     super.didChangeDependencies();
   }
 
   @override
   void dispose() {
-    answerWritingPromptBloc.close();
+    answerWritingPromptBloc.add(LoadQuestionsEvent());
     super.dispose();
   }
 
@@ -83,6 +82,7 @@ class _AnswerWritingPromptDetailViewState
           } else if (state is AnswerWritingPromptSubmittingState) {
             CustomDialogs.showSavingDataDialog(
               context: context,
+              title: AppString.saving_your_writing,
             );
           } else if (state is AnswerWritingPromptSuccessState) {
             Navigator.pop(context);

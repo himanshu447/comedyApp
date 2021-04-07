@@ -126,12 +126,6 @@ class _SubmitPromptWidgetState extends State<SubmitPromptWidget> {
                     decoration: InputDecoration(
                       hintText: AppString.hint_your_email,
                     ),
-                    validator: (value) {
-                      if (value.isEmpty) {
-                        return AppString.error_required_email;
-                      }
-                      return null;
-                    },
                     style: StyleUtil.formFieldTextStyle,
                     textInputAction: TextInputAction.next,
                   ),
@@ -146,12 +140,6 @@ class _SubmitPromptWidgetState extends State<SubmitPromptWidget> {
                     decoration: InputDecoration(
                       hintText: AppString.hint_your_website,
                     ),
-                    validator: (value) {
-                      if (value.isEmpty) {
-                        return AppString.error_required_website;
-                      }
-                      return null;
-                    },
                     style: StyleUtil.formFieldTextStyle,
                     textInputAction: TextInputAction.next,
                   ),
@@ -222,10 +210,10 @@ class _SubmitPromptWidgetState extends State<SubmitPromptWidget> {
       _submitPromptBloc.add(
         SubmitPromptResultEvent(
           submitPromptModel: SubmitPromptModel(
-            email: _emailController.text.trim(),
+            email: _emailController.text.trim().isNotEmpty ? _emailController.text.trim() : '',
             name: _nameController.text.trim(),
             description: _promptTextController.text.trim(),
-            website: _websiteController.text.trim(),
+            website: _websiteController.text.trim().isNotEmpty ? _websiteController.text.trim() : '',
           ),
         ),
       );

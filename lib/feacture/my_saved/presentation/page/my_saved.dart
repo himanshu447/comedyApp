@@ -7,6 +7,7 @@ import 'package:comedy/feacture/my_saved/presentation/widget/short_and_filter_bo
 import 'package:comedy/injector.dart';
 import 'package:comedy/share/widget/add_widget.dart';
 import 'package:comedy/utils/color_util.dart';
+import 'package:comedy/utils/component/size_config.dart';
 import 'package:comedy/utils/component/text_component.dart';
 import 'package:comedy/utils/enum_util.dart';
 import 'package:comedy/utils/icons_utils.dart';
@@ -103,11 +104,13 @@ class _MySavedViewState extends State<MySavedView> {
   _saveTagFromData(List<MySavedModel> list) {
     list.forEach((saveItem) {
       saveItem.tags.forEach((singleTag) {
-        AddTagModel addTagModel = AddTagModel(
-            isChecked: false, label: singleTag.substring(1).capitalize());
+        if(singleTag.substring(1).isNotEmpty) {
+          AddTagModel addTagModel = AddTagModel(
+              isChecked: false, label: singleTag.substring(1).capitalize());
 
-        if (!tagList.contains(addTagModel)) {
-          tagList.add(addTagModel);
+          if (!tagList.contains(addTagModel)) {
+            tagList.add(addTagModel);
+          }
         }
       });
     });
@@ -141,7 +144,7 @@ class _MySavedViewState extends State<MySavedView> {
                 ),
                 Container(
                   margin:
-                  EdgeInsets.symmetric(horizontal: 20).copyWith(top: 20),
+                  EdgeInsets.symmetric(horizontal: 20).copyWith(top: 30),
                   padding: EdgeInsets.symmetric(horizontal: 12, vertical: 2),
                   decoration: BoxDecoration(
                     color: AppColor.white,
@@ -258,16 +261,17 @@ class _MySavedViewState extends State<MySavedView> {
         Visibility(
           visible: list.isEmpty,
           child: Positioned(
-            top: MediaQuery
+            /*top: MediaQuery
                 .of(context)
                 .size
-                .height / 2.1,
+                .height / 2.1,*/
+            top: SizeConfig.screenHeight / 2,
             right: 0.0,
             left: 0.0,
             child: Image.asset(
               AppIcons.ic_my_save_empty,
-              height: 200,
-              width: 200,
+              height: SizeConfig.blockSizeVertical * 24,
+              width: SizeConfig.blockSizeHorizontal * 50,
             ),
           ),
         ),

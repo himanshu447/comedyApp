@@ -87,6 +87,7 @@ class _WriteWithoutPromptDetailViewState
           } else if (state is WriteWithoutPromptSubmittingState) {
             CustomDialogs.showSavingDataDialog(
               context: context,
+              title: AppString.saving_your_writing,
             );
           } else if (state is WriteWithoutPromptSuccessState) {
             Navigator.pop(context);

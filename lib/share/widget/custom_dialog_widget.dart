@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 class CustomDialogs {
   static showSavingDataDialog({
     BuildContext context,
-    String title = AppString.saving_your_writing,
+    String title,
   }) {
     showDialog(
       context: context,
@@ -20,7 +20,7 @@ class CustomDialogs {
           children: [
             CircularProgressIndicator(),
             TextComponent(
-              title: AppString.saving_your_writing,
+              title: title,
               textStyle: StyleUtil.formFieldTextStyle,
               margin: EdgeInsets.only(top: 22),
             ),

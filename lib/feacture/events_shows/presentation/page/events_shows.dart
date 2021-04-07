@@ -47,28 +47,40 @@ class _EventsShowsState extends State<EventsShows> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        key: _scaffoldKey,
-        body: BlocBuilder<EventShowBloc, EventShowState>(
-          cubit: eventShowBloc,
-          builder: (_, state) {
-            if(state is EventShowInitial){
-              return Center(child: CircularProgressIndicator(),);
-            }
-            if (state is LoadedAllEventsState) {
-              return loadBody(list: state.dateWiseList);
-            } else {
-              return loadBody(list: []);
-            }
-          },
-        ));
+    return BlocBuilder<EventShowBloc, EventShowState>(
+      cubit: eventShowBloc,
+      builder: (_, state) {
+
+        if (state is EventShowInitial) {
+          return Center(
+            child: CircularProgressIndicator(),
+          );
+        }
+        if (state is LoadedAllEventsState) {
+          print(state.dateWiseList.length);
+          print(state.allList.length);
+          return loadBody(list: state.dateWiseList);
+        } else {
+          return loadBody(list: []);
+        }
+      },
+    );
+
   }
 
   Widget loadBody({List<EventShowModel> list}) {
     return Scaffold(
+      key: _scaffoldKey,
       bottomNavigationBar: Padding(
-        padding:  EdgeInsets.symmetric(horizontal: list.isNotEmpty ? 20 : 0, vertical: 10),
-        child: list.isNotEmpty ? submitButton(title: AppString.Submit_event_or_show, onPress: _submitData)
+        padding: EdgeInsets.symmetric(
+          horizontal: list.isNotEmpty ? 20 : 0,
+          vertical: 10,
+        ),
+        child: list.isNotEmpty
+            ? submitButton(
+                title: AppString.Submit_event_or_show,
+                onPress: _submitData,
+              )
             : ShowAddWidget(),
       ),
       body: Column(
@@ -81,7 +93,15 @@ class _EventsShowsState extends State<EventsShows> {
             calendarController: _calendarController,
             odDaySelected: (DateTime date) {
               print(date);
-              eventShowBloc.add(ChangeDateForFilter(newDate: DateTime(date.year,date.month,date.day)));
+              eventShowBloc.add(
+                ChangeDateForFilter(
+                  newDate: DateTime(
+                    date.year,
+                    date.month,
+                    date.day,
+                  ),
+                ),
+              );
             },
           ),
           Visibility(
@@ -112,49 +132,41 @@ class _EventsShowsState extends State<EventsShows> {
             visible: list.isEmpty,
             child: emptyEvent(),
           ),
-          Visibility(
-            visible: list == null,
-            child: Center(
-              child: CircularProgressIndicator(),
-            ),
-          ),
         ],
       ),
     );
   }
 
   Widget emptyEvent() {
-    return Expanded(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Image.asset(
-            AppIcons.empty_event,
-            height: 150,
-            width: 200.0,
-          ),
-          TextComponent(
-            title: AppString.no_events_or_shows,
-            textStyle: StyleUtil.titleHeaderTextStyle,
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 30),
-            child: submitButton(title: AppString.Submit_event_or_show, onPress: _submitData),
-          ),
-        ],
-      ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Image.asset(
+          AppIcons.empty_event,
+          height: 150,
+          width: 200.0,
+        ),
+        TextComponent(
+          title: AppString.no_events_or_shows,
+          textStyle: StyleUtil.titleHeaderTextStyle,
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 30),
+          child: submitButton(
+              title: AppString.Submit_event_or_show, onPress: _submitData),
+        ),
+      ],
     );
   }
 
   _submitData() async {
-
     var result = await Navigator.of(context).push(
       MaterialPageRoute(
         builder: (_) => SubmitEvents(),
       ),
     );
-    if(result != null) {
+    if (result != null) {
       eventShowBloc.add(GetEvents());
     }
   }

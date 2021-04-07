@@ -60,6 +60,7 @@ class _WriteWithoutPromptViewState extends State<WriteWithoutPromptView> {
           if (state is WriteWithoutPromptSubmittingState) {
             CustomDialogs.showSavingDataDialog(
               context: context,
+              title: AppString.saving_your_writing,
             );
           }
           else if (state is WriteWithoutPromptSuccessState) {
@@ -121,7 +122,7 @@ class _WriteWithoutPromptViewState extends State<WriteWithoutPromptView> {
                                 textStyle: StyleUtil.calenderHeaderTextStyle,
                               ),
                             )
-                          : Container(),
+                          : null,
                 ),
                 AutoFilledDateWidget(),
                 isPromptTitleAndDescSubmitted
@@ -339,7 +340,7 @@ class _WriteWithoutPromptViewState extends State<WriteWithoutPromptView> {
         isLevelOfCompletenessSubmitted = true;
       });
     } else if(isLevelOfCompletenessSubmitted){
-     /* withoutPromptBloc.add(
+      withoutPromptBloc.add(
         CreateWriteWithoutPromptEvent(
           writeWithoutPromptModel: WriteWithoutPromptModel(
             title: _titleController.text.trim(),
@@ -349,7 +350,7 @@ class _WriteWithoutPromptViewState extends State<WriteWithoutPromptView> {
             tags: tagList,
           ),
         ),
-      );*/
+      );
     }
   }
 

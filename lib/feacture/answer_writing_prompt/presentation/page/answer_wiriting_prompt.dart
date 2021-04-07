@@ -105,6 +105,7 @@ class _AnswerWritingPromptViewState extends State<AnswerWritingPromptView> {
           if (state is AnswerWritingPromptSubmittingState) {
             CustomDialogs.showSavingDataDialog(
               context: context,
+              title: AppString.saving_your_writing,
             );
           }
 

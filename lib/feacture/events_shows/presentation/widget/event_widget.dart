@@ -158,10 +158,9 @@ Widget submitButton({Function onPress, String title}) {
       horizontal: 12,
       vertical: 12,
     ),
-    child: MaterialButton(
-      minWidth: double.maxFinite,
+    child: RawMaterialButton(
       onPressed: onPress,
-      color: AppColor.primary_pink[500],
+      fillColor: AppColor.primary_pink[500],
       padding: EdgeInsets.symmetric(vertical: 16),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
       child: TextComponent(

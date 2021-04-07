@@ -86,6 +86,7 @@ class _AboutViewState extends State<AboutView> {
           verticalSpace(25),
           ListView.builder(
               shrinkWrap: true,
+              physics: NeverScrollableScrollPhysics(),
               itemCount: filterList.length,
               itemBuilder: (BuildContext context, int index) {
                 return infoTile(
