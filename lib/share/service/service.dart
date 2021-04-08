@@ -22,9 +22,9 @@ class Services {
       case EndPoint.CreateAnswerWritingPrompt:
         return baseUrl + 'api/create-answer-writing-prompt';
       case EndPoint.UpdateAnswerWritingPrompt:
-        return baseUrl + 'api/delete-answer/';
-      case EndPoint.DeleteAnswerWritingPrompt:
         return baseUrl + 'api/update-answer/';
+      case EndPoint.DeleteAnswerWritingPrompt:
+        return baseUrl + 'api/delete-answer/';
 
 
       case EndPoint.SavedPrompt:

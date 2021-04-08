@@ -88,8 +88,7 @@ class AnswerWritingPromptBloc
           yield ErrorState(error: (failure as Error).errMessage);
         },
         (success) async* {
-          yield AnswerWritingPromptSuccessState(
-              answerWritePromptModel: success);
+          yield AnswerWritingPromptSuccessState(answerWritePromptModel: success);
         },
       );
     }

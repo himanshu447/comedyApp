@@ -7,6 +7,7 @@ import 'package:comedy/share/widget/more_option_bootm_sheet_widget.dart';
 import 'package:comedy/share/widget/sub_module_app_bar_widget.dart';
 import 'package:comedy/utils/color_util.dart';
 import 'package:comedy/utils/component/input-chip.component.dart';
+import 'package:comedy/utils/component/size_config.dart';
 import 'package:comedy/utils/component/text_component.dart';
 import 'package:comedy/utils/icons_utils.dart';
 import 'package:comedy/utils/string_util.dart';
@@ -116,7 +117,7 @@ class _WriteWithoutPromptDetailViewState
       fit: StackFit.expand,
       children: [
         SingleChildScrollView(
-          padding: EdgeInsets.only(bottom: 50),
+          padding: EdgeInsets.only(bottom: SizeConfig.blockSizeVertical * 50),
           child: Form(
             key: _detailFormKey,
             child: Column(

@@ -50,7 +50,6 @@ class _EventsShowsState extends State<EventsShows> {
     return BlocBuilder<EventShowBloc, EventShowState>(
       cubit: eventShowBloc,
       builder: (_, state) {
-
         if (state is EventShowInitial) {
           return Center(
             child: CircularProgressIndicator(),
@@ -65,7 +64,6 @@ class _EventsShowsState extends State<EventsShows> {
         }
       },
     );
-
   }
 
   Widget loadBody({List<EventShowModel> list}) {
@@ -81,7 +79,15 @@ class _EventsShowsState extends State<EventsShows> {
                 title: AppString.Submit_event_or_show,
                 onPress: _submitData,
               )
-            : ShowAddWidget(),
+            : Container(
+                height: 50,
+                color: AppColor.gry,
+                alignment: Alignment.center,
+                child: TextComponent(
+                  title: 'Ads',
+                  color: AppColor.white,
+                ),
+              ),
       ),
       body: Column(
         children: [

@@ -126,12 +126,12 @@ class _SubmitEventsState extends State<SubmitEvents> {
                         color: AppColor.primary_pink[50],
                         child: CachedNetworkImage(
                           imageUrl: '',
-                          fit: BoxFit.fill,
+                          fit: BoxFit.cover,
                           errorWidget: (ctx, url, _) {
                             return image != null
                                 ? Image.file(
                                     File(image),
-                                    fit: BoxFit.fill,
+                                    fit: BoxFit.cover,
                                   )
                                 : topAddImageWidget(size: size);
                           },
@@ -352,17 +352,19 @@ class _SubmitEventsState extends State<SubmitEvents> {
             ),
           ),
           TextComponent(
-            title: 'GMT +3',
+            //title: 'GMT +3',
+            title: DateTime.now().timeZoneName,
             fontWeight: FontWeight.w400,
             fontSize: 17,
+            margin:  EdgeInsets.only(left: 10),
           ),
-          Padding(
+          /*Padding(
             padding: const EdgeInsets.only(left: 10),
             child: Icon(
               Icons.arrow_forward_ios_sharp,
               size: 16,
             ),
-          )
+          )*/
         ],
       ),
     );

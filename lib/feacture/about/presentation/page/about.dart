@@ -5,6 +5,7 @@ import 'package:comedy/utils/component/text_component.dart';
 import 'package:comedy/utils/icons_utils.dart';
 import 'package:comedy/utils/route/route_name.dart';
 import 'package:comedy/utils/string_util.dart';
+import 'package:comedy/utils/style_util.dart';
 import 'package:flutter/material.dart';
 
 class AboutView extends StatefulWidget {
@@ -114,8 +115,7 @@ class _AboutViewState extends State<AboutView> {
             ),
             TextComponent(
               title: text,
-              fontSize: 17,
-              fontWeight: FontWeight.w400,
+              textStyle: StyleUtil.formFieldTextStyle,
               margin: EdgeInsets.only(left: 10),
             ),
             Spacer(),

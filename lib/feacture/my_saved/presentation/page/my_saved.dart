@@ -117,6 +117,15 @@ class _MySavedViewState extends State<MySavedView> {
   }
 
   @override
+  void didUpdateWidget(covariant MySavedView oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    if (oldWidget.key != widget.key) {
+      mySavedBloc.add(LoadMySavedEvent());
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: Stack(
@@ -166,21 +175,20 @@ class _MySavedViewState extends State<MySavedView> {
                           ),
                         ),
                         Expanded(
-                          child: TextFormField(
+                          child: TextField(
                             controller: _searchController,
                             decoration: InputDecoration(
                               filled: false,
-                              contentPadding: EdgeInsets.symmetric(
-                                  horizontal: 12),
+                              contentPadding: EdgeInsets.symmetric(horizontal: 12),
                               hintText: AppString.search,
                               border: InputBorder.none,
                             ),
                             onChanged: (text) {
-                              mySavedBloc.add(
-                                SearchMySavedEvent(
-                                  text: text,
-                                ),
-                              );
+                                mySavedBloc.add(
+                                  SearchMySavedEvent(
+                                    text: text,
+                                  ),
+                                );
                             },
                           ),
                         ),
@@ -195,8 +203,8 @@ class _MySavedViewState extends State<MySavedView> {
                               size: 25,
                             ),
                             onPressed: () {
-                              _searchController.clear();
-                              mySavedBloc.add(ClearSearchListEvent());
+                              //_searchController.clear();
+                              //mySavedBloc.add(ClearSearchListEvent());
                             },
                           ),
                         )
@@ -272,22 +280,6 @@ class _MySavedViewState extends State<MySavedView> {
               AppIcons.ic_my_save_empty,
               height: SizeConfig.blockSizeVertical * 24,
               width: SizeConfig.blockSizeHorizontal * 50,
-            ),
-          ),
-        ),
-        Visibility(
-          visible: list.isEmpty,
-          child: Positioned(
-            top: MediaQuery
-                .of(context)
-                .size
-                .height / 2.1,
-            right: 0.0,
-            left: 0.0,
-            child: Image.asset(
-              AppIcons.ic_my_save_empty,
-              height: 200,
-              width: 200,
             ),
           ),
         ),
