@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:comedy/feacture/my_saved/data/model/add_tag_model.dart';
 import 'package:comedy/feacture/my_saved/data/model/my_saved_model.dart';
 import 'package:comedy/feacture/my_saved/data/model/short_filter_model.dart';
@@ -296,7 +298,7 @@ class _MySavedViewState extends State<MySavedView> {
             child: ListView.builder(
               padding: EdgeInsets.symmetric(
                 horizontal: 20,
-              ).copyWith(),
+              ).copyWith(top: Platform.isIOS ? 15 : 0) ,
               shrinkWrap: true,
               itemCount: list.length,
               itemBuilder: (_, index) {

@@ -57,44 +57,40 @@ class _HomeViewState extends State<HomeView> {
               ),
             ),
           ),
-          SingleChildScrollView(
-            padding: EdgeInsets.only(
-              top: SizeConfig.blockSizeVertical * 8,
-            ),
-            child: Column(
-              children: [
-                TextComponent(
-                  title: AppString.laugh_draft,
-                  textStyle: StyleUtil.topAppBarTextStyle,
-                ),
-                SizedBox(
-                  height: 40,
-                ),
-                HomeAnswerWritingPromptCardWidget(
-                  cardClickCallback: () {
-                    showAnswerWritingPromptSheet(context);
-                  },
-                ),
-                HomeWriteWithoutPromptCardWidget(
-                  cardClickCallback: () => Navigator.pushNamed(
-                    context,
-                    RouteName.write_without_prompt,
+          Positioned.fill(
+            bottom: 70,
+            child: SingleChildScrollView(
+              padding: EdgeInsets.only(
+                top: SizeConfig.blockSizeVertical * 8,
+              ),
+              child: Column(
+                children: [
+                  TextComponent(
+                    title: AppString.laugh_draft,
+                    textStyle: StyleUtil.topAppBarTextStyle,
                   ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(
-                    bottom: MediaQuery.of(context).devicePixelRatio >= 2
-                        ? 0
-                        : SizeConfig.blockSizeVertical * 50,
+                  SizedBox(
+                    height: 40,
                   ),
-                  child: HomeEventCardWidget(
+                  HomeAnswerWritingPromptCardWidget(
+                    cardClickCallback: () {
+                      showAnswerWritingPromptSheet(context);
+                    },
+                  ),
+                  HomeWriteWithoutPromptCardWidget(
+                    cardClickCallback: () => Navigator.pushNamed(
+                      context,
+                      RouteName.write_without_prompt,
+                    ),
+                  ),
+                  HomeEventCardWidget(
                     cardClickCallback: () => Navigator.pushNamed(
                       context,
                       RouteName.event_show,
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
           /*Padding(
