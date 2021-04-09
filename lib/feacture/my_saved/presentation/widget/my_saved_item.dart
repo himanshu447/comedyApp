@@ -17,7 +17,7 @@ class MySavedItem extends StatelessWidget {
       elevation: 1,
       color: AppColor.white,
       shadowColor: AppColor.gry,
-      margin: EdgeInsets.symmetric(vertical: 20),
+      margin: EdgeInsets.only(bottom: 30),
       shape: RoundedRectangleBorder(
           borderRadius: BorderRadiusDirectional.circular(15)),
       child: Padding(

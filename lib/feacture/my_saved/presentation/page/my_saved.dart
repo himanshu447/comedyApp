@@ -266,6 +266,9 @@ class _MySavedViewState extends State<MySavedView> {
   }
 
   Widget _loadBody({List<MySavedModel> list}) {
+
+    print(SizeConfig.screenHeight);
+
     return Stack(
       children: [
         Visibility(
@@ -287,18 +290,22 @@ class _MySavedViewState extends State<MySavedView> {
         ),
         Visibility(
           visible: list.isNotEmpty,
-          child: Positioned(
-            top: MediaQuery
+          child: Positioned.fill(
+            top: SizeConfig.screenHeight > 700 ? SizeConfig.screenHeight/3.8 : SizeConfig.screenHeight / 2.5,
+            /*top:  MediaQuery.of(context).devicePixelRatio >= 2
+                ? SizeConfig.blockSizeVertical * 40
+                : SizeConfig.blockSizeVertical * 20,*/
+            /*top: MediaQuery
                 .of(context)
                 .size
-                .width / 1.9,
+                .height / 3.8,*/
             left: 0.0,
             right: 0.0,
             bottom: 0.0,
             child: ListView.builder(
               padding: EdgeInsets.symmetric(
                 horizontal: 20,
-              ).copyWith(top: Platform.isIOS ? 15 : 0) ,
+              ),
               shrinkWrap: true,
               itemCount: list.length,
               itemBuilder: (_, index) {
