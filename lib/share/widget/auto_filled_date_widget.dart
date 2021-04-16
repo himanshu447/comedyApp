@@ -3,6 +3,7 @@ import 'package:comedy/utils/component/text_component.dart';
 import 'package:comedy/utils/string_util.dart';
 import 'package:comedy/utils/style_util.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class AutoFilledDateWidget extends StatelessWidget {
   @override
@@ -24,7 +25,7 @@ class AutoFilledDateWidget extends StatelessWidget {
           ),
           Expanded(
             child: TextComponent(
-              title: '01 Feb, 2021',
+              title: DateFormat('dd MMM , yyyy').format(DateTime.now()),
               textStyle: StyleUtil.formFieldTextStyle,
               textAlign: TextAlign.right,
             ),
