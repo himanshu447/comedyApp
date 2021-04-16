@@ -71,7 +71,7 @@ class _AnswerWritingPromptViewState extends State<AnswerWritingPromptView> {
           });
         } else {
           setState(() {
-            _start++;
+            _start--;
           });
         }
       },
