@@ -4,7 +4,7 @@ import 'package:comedy/feacture/answer_writing_prompt/presentation/page/answer_w
 import 'package:comedy/feacture/events_shows/presentation/page/event_detail.dart';
 import 'package:comedy/feacture/events_shows/presentation/page/events_shows.dart';
 import 'package:comedy/feacture/events_shows/presentation/page/submit_events.dart';
-import 'package:comedy/feacture/write_whthout_prompt/data/model/write_without_prompt_model.dart';
+import 'package:comedy/feacture/landing/presentation/page/landing.dart';
 import 'package:comedy/feacture/write_whthout_prompt/presentation/page/write_without_prompt.dart';
 import 'package:comedy/feacture/write_whthout_prompt/presentation/page/write_without_prompt_detail.dart';
 import 'package:comedy/utils/route/route_name.dart';
@@ -17,6 +17,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class RouteGenerator {
   static Route<dynamic> generateRoute(RouteSettings routeSettings) {
     switch (routeSettings.name) {
+      case RouteName.landing:
+        return MaterialPageRoute(
+          builder: (_) => LandingView(),
+        );
       case RouteName.event_show:
         return MaterialPageRoute(
           builder: (_) => EventsShows(),

@@ -4,7 +4,7 @@ import 'package:comedy/utils/string_util.dart';
 import 'package:flutter/material.dart';
 
 import 'config/apptheme.dart';
-import 'feacture/landing/presentation/page/landing.dart';
+import 'feacture/splash/splash.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,7 +20,7 @@ class ComedyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       theme: AppTheme.themeColors(context),
       onGenerateRoute: RouteGenerator.generateRoute,
-      home: LandingView(),
+      home: SplashView(),
     );
   }
 }

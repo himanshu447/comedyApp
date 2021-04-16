@@ -37,4 +37,6 @@ class AppIcons {
   ///Answer_writing_prompt
   static const String ic_timer = 'assets/images/icons/answer_writing_prompt/timer.png';
   static const String ic_time_up = 'assets/images/icons/answer_writing_prompt/time_up.png';
+
+  static const String ic_splash_icon = 'assets/images/splash_icon.png';
 }
