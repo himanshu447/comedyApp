@@ -38,7 +38,6 @@ class _LandingViewState extends State<LandingView> {
 
   @override
   Widget build(BuildContext context) {
-
     SizeConfig().init(context);
 
     return BlocBuilder<LandingBloc, LandingState>(
@@ -68,7 +67,9 @@ class _LandingViewState extends State<LandingView> {
           HomeView(),
           MySavedView(key: ValueKey(selectedTab.index),),
           SubmitPromptWidget(),
-          AboutView(),
+          AboutView(
+            goToSubmitPromptTab: () => _onItemTapped(2),
+          ),
         ],
       ),
       bottomNavigationBar: BottomNav(

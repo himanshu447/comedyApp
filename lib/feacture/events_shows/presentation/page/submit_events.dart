@@ -13,6 +13,7 @@ import 'package:comedy/utils/component/text_component.dart';
 import 'package:comedy/utils/string_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_native_timezone/flutter_native_timezone.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 
@@ -47,10 +48,18 @@ class _SubmitEventsState extends State<SubmitEvents> {
   final picker = ImagePicker();
   String image;
 
+  String currentTimeZone = '';
+
   @override
   void initState() {
     eventShowBloc = injector<EventShowBloc>();
     super.initState();
+    _fetchLocalTimeZone();
+  }
+
+  _fetchLocalTimeZone() async {
+    currentTimeZone = await FlutterNativeTimezone.getLocalTimezone();
+    setState(() {});
   }
 
   @override
@@ -71,11 +80,11 @@ class _SubmitEventsState extends State<SubmitEvents> {
         } else if (state is SubmittedEventShowState) {
           Navigator.pop(context, state.eventShowModel);
           Navigator.pop(context, state.eventShowModel);
-         /* eventShowBloc.add(GetEvents()
-          *//*eventShowBloc.add(
+          /* eventShowBloc.add(GetEvents()
+          */ /*eventShowBloc.add(
             AddSubmittedEventInToListEvent(
               eventShowModel: state.eventShowModel,
-            ),*//*
+            ),*/ /*
           );*/
         } else if (state is ErrorState) {
           showSnackBar(msg: state.message);
@@ -223,7 +232,8 @@ class _SubmitEventsState extends State<SubmitEvents> {
                             return null;
                           },
                           onTap: () {
-                            selectDate(context: context,startDate: startDate).then((date) {
+                            selectDate(context: context, startDate: startDate)
+                                .then((date) {
                               print(date);
                               if (date != null)
                                 setState(() {
@@ -306,13 +316,10 @@ class _SubmitEventsState extends State<SubmitEvents> {
   }
 
   _submitData() {
-
-    if(image == null){
+    if (image == null) {
       showSnackBar(msg: AppString.image_required);
-    }
-    else if (_eventkey.currentState.validate()) {
-
-      try{
+    } else if (_eventkey.currentState.validate()) {
+      try {
         eventShowBloc.add(
           SubmitEventAndShowsEvent(
             eventShowModel: EventShowModel(
@@ -326,13 +333,13 @@ class _SubmitEventsState extends State<SubmitEvents> {
               startTime: DateFormat.Hms().format(startTime),
               eventLink: eventLinkController.text.trim(),
               image: image,
+              timezone: currentTimeZone.isNotEmpty ? currentTimeZone : DateTime.now().timeZoneName,
             ),
           ),
         );
-      }catch(e){
+      } catch (e) {
         print(e.toString());
       }
-
     } else {
       print('Not success');
     }
@@ -353,10 +360,12 @@ class _SubmitEventsState extends State<SubmitEvents> {
           ),
           TextComponent(
             //title: 'GMT +3',
-            title: DateTime.now().timeZoneName,
+            title: currentTimeZone.isNotEmpty
+                ? currentTimeZone
+                : DateTime.now().timeZoneName,
             fontWeight: FontWeight.w400,
             fontSize: 17,
-            margin:  EdgeInsets.only(left: 10),
+            margin: EdgeInsets.only(left: 10),
           ),
           /*Padding(
             padding: const EdgeInsets.only(left: 10),

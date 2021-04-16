@@ -337,7 +337,7 @@ class _AnswerWritingPromptDetailViewState
         });
       },
       shareButtonCallback: () {
-        Share.share('this is share button');
+        Share.share(_promptController.text.trim());
       },
     ).showMoreSheetDialog(context);
   }

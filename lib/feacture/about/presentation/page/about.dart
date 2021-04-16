@@ -9,6 +9,10 @@ import 'package:comedy/utils/style_util.dart';
 import 'package:flutter/material.dart';
 
 class AboutView extends StatefulWidget {
+  final VoidCallback goToSubmitPromptTab;
+
+  const AboutView({this.goToSubmitPromptTab});
+
   @override
   _AboutViewState createState() => _AboutViewState();
 }
@@ -24,7 +28,9 @@ class _AboutViewState extends State<AboutView> {
       AboutTileModel(
           label: AppString.submit_prompt,
           leadIcon: AppIcons.ic_submit_prompt,
-          onPress: () {}),
+          onPress: () {
+            widget.goToSubmitPromptTab();
+          }),
     );
     filterList.add(
       AboutTileModel(
