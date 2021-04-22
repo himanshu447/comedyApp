@@ -79,4 +79,41 @@ class MySavedModel {
         "created_at": createdAt.toIso8601String(),
         "updated_at": updatedAt.toIso8601String(),
       };
+
+  MySavedModel copyWith({
+    final int id,
+    final int promptId,
+    final String deviceToken,
+    final String question,
+    final String sampleAnswer,
+    final String answer,
+    final String title,
+    List<String> tags,
+    final int levelOfCompleteness,
+    final int degreeOfNotSucking,
+    final String status,
+    final DateTime createdAt,
+    final DateTime updatedAt,
+    final int withoutPromptId,
+    final String withoutPromptDescription,
+  }) {
+    return MySavedModel(
+      id: id ?? this.id,
+      status: status ?? this.status,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      levelOfCompleteness: levelOfCompleteness ?? this.levelOfCompleteness,
+      degreeOfNotSucking: degreeOfNotSucking ?? this.degreeOfNotSucking,
+      answer: answer ?? this.answer,
+      sampleAnswer: sampleAnswer ?? this.sampleAnswer,
+      question: question ?? this.question,
+      tags: tags ?? this.tags,
+      title: title ?? this.title,
+      withoutPromptId: withoutPromptId ?? this.withoutPromptId,
+      deviceToken: deviceToken ?? this.deviceToken,
+      promptId: promptId ?? this.promptId,
+      withoutPromptDescription:
+          withoutPromptDescription ?? this.withoutPromptDescription,
+    );
+  }
 }

@@ -1,3 +1,5 @@
+import 'dart:io';
+
 class ConstantUtil {
   static const String UNAUTHORIZED = 'Unauthorized Request';
   static const String NO_INTERNET = 'No Internet Available';
@@ -10,4 +12,13 @@ class ConstantUtil {
 
   static const int START_TIMER_VALUE = 300;
   static const int END_TIMER_VALUE = 0;
+
+  static String getBannerAdUnitId() {
+    if (Platform.isIOS) {
+      return 'ca-app-pub-3940256099942544/2934735716';
+    } else if (Platform.isAndroid) {
+      return 'ca-app-pub-3940256099942544/6300978111';
+    }
+    return null;
+  }
 }

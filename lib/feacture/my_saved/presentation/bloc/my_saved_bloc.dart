@@ -1,8 +1,10 @@
 import 'dart:async';
 
 import 'package:bloc/bloc.dart';
+import 'package:comedy/feacture/answer_writing_prompt/data/model/answer_write_prompt_model.dart';
 import 'package:comedy/feacture/my_saved/data/model/my_saved_model.dart';
 import 'package:comedy/feacture/my_saved/domain/usecase/get_my_saved_prompt_use_case.dart';
+import 'package:comedy/feacture/write_whthout_prompt/data/model/write_without_prompt_model.dart';
 import 'package:comedy/utils/enum_util.dart';
 import 'package:comedy/utils/error/failure.dart';
 import 'package:comedy/utils/usecase/usecase.dart';
@@ -35,7 +37,8 @@ class MySavedBloc extends Bloc<MySavedEvent, MySavedState> {
           yield LoadedMySavedState(savedList: success, searchSavedList: null);
         },
       );
-    } else if (event is SearchMySavedEvent) {
+    }
+    else if (event is SearchMySavedEvent) {
       var mySavedList = (state as LoadedMySavedState).savedList;
       List<MySavedModel> searchList = [];
 
@@ -57,11 +60,13 @@ class MySavedBloc extends Bloc<MySavedEvent, MySavedState> {
         searchSavedList: searchList,
         savedList: mySavedList,
       );
-    } else if (event is ClearSearchListEvent) {
+    }
+    else if (event is ClearSearchListEvent) {
       var mySavedList = (state as LoadedMySavedState).savedList;
 
       yield LoadedMySavedState(savedList: mySavedList, searchSavedList: null);
-    } else if (event is FilterListEvent) {
+    }
+    else if (event is FilterListEvent) {
       var mySavedList = (state as LoadedMySavedState).savedList;
 
       List<MySavedModel> tempList = [];
@@ -106,6 +111,59 @@ class MySavedBloc extends Bloc<MySavedEvent, MySavedState> {
       yield LoadedMySavedState(
         savedList: (state as LoadedMySavedState).savedList,
         searchSavedList: tempList,
+      );
+    }
+    else if(event is RemoveDataFromListEvent){
+
+      var mySavedList = (state as LoadedMySavedState).savedList;
+
+      mySavedList.removeWhere((element) => element.id == event.id);
+
+      yield LoadedMySavedState(
+        savedList: mySavedList,
+        searchSavedList: null,
+      );
+
+    }
+    else if(event is EditAnswerWriteDataInListEvent){
+
+      var mySavedList = (state as LoadedMySavedState).savedList;
+
+      var changeElementIndex = mySavedList.indexWhere((element) => element.id == event.id);
+
+      if(changeElementIndex >=0){
+        mySavedList[changeElementIndex] = mySavedList[changeElementIndex].copyWith(
+          tags:  event.answerWritePromptModel.tags,
+          title: event.answerWritePromptModel.title,
+          answer: event.answerWritePromptModel.answer,
+        );
+      }
+
+
+      yield LoadedMySavedState(
+        savedList: mySavedList,
+        searchSavedList: null,
+      );
+    }
+
+    else if(event is EditFreeWriteDataInListEvent){
+
+      var mySavedList = (state as LoadedMySavedState).savedList;
+
+      var changeElementIndex = mySavedList.indexWhere((element) => element.id == event.id);
+
+      if(changeElementIndex >=0){
+        mySavedList[changeElementIndex] = mySavedList[changeElementIndex].copyWith(
+          tags:  event.writeWithoutPromptModel.tags,
+          title: event.writeWithoutPromptModel.title,
+          withoutPromptDescription : event.writeWithoutPromptModel.description,
+        );
+      }
+
+
+      yield LoadedMySavedState(
+        savedList: mySavedList,
+        searchSavedList: null,
       );
     }
   }

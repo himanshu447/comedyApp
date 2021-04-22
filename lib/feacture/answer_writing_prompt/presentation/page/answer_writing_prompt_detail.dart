@@ -1,3 +1,4 @@
+import 'package:comedy/common/general_widget.dart';
 import 'package:comedy/feacture/answer_writing_prompt/data/model/answer_write_prompt_model.dart';
 import 'package:comedy/feacture/answer_writing_prompt/presentation/bloc/answer_writing_prompt_bloc.dart';
 import 'package:comedy/share/widget/auto_filled_date_widget.dart';
@@ -61,7 +62,8 @@ class _AnswerWritingPromptDetailViewState
 
   @override
   void didChangeDependencies() {
-    answerWritingPromptBloc = BlocProvider.of<AnswerWritingPromptBloc>(context, listen: true);
+    answerWritingPromptBloc =
+        BlocProvider.of<AnswerWritingPromptBloc>(context, listen: true);
     super.didChangeDependencies();
   }
 
@@ -73,35 +75,41 @@ class _AnswerWritingPromptDetailViewState
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: _scaffoldKey,
-      body: BlocListener(
-        cubit: answerWritingPromptBloc,
-        listener: (_, state) {
-          if (state is DeletedAnswerWritingPromptState) {
-            Navigator.pop(context);
-          } else if (state is AnswerWritingPromptSubmittingState) {
-            CustomDialogs.showSavingDataDialog(
-              context: context,
-              title: AppString.saving_your_writing,
-            );
-          } else if (state is AnswerWritingPromptSuccessState) {
-            Navigator.pop(context);
-            setState(() {
-              isEditButtonPress = false;
-            });
-          } else if (state is ErrorState) {
-            showSnackBar(msg: state.error);
-          }
-        },
-        child: BlocBuilder<AnswerWritingPromptBloc, AnswerWritingPromptState>(
+    return WillPopScope(
+      onWillPop: () async {
+        _setResultToBackScreen();
+        return false;
+      },
+      child: Scaffold(
+        key: _scaffoldKey,
+        body: BlocListener(
           cubit: answerWritingPromptBloc,
-          builder: (_, state) {
-            if (state is DeletingAnswerWritingPromptState) {
-              return _loadBody(isDataDeleting: true);
+          listener: (_, state) {
+            if (state is DeletedAnswerWritingPromptState) {
+              Navigator.pop(context, state.deletedPromptId);
+            } else if (state is AnswerWritingPromptSubmittingState) {
+              CustomDialogs.showSavingDataDialog(
+                context: context,
+                title: AppString.saving_your_writing,
+              );
+            } else if (state is AnswerWritingPromptSuccessState) {
+              Navigator.pop(context);
+              setState(() {
+                isEditButtonPress = false;
+              });
+            } else if (state is ErrorState) {
+              showSnackBar(msg: state.error);
             }
-            return _loadBody();
           },
+          child: BlocBuilder<AnswerWritingPromptBloc, AnswerWritingPromptState>(
+            cubit: answerWritingPromptBloc,
+            builder: (_, state) {
+              if (state is DeletingAnswerWritingPromptState) {
+                return _loadBody(isDataDeleting: true);
+              }
+              return _loadBody();
+            },
+          ),
         ),
       ),
     );
@@ -127,17 +135,22 @@ class _AnswerWritingPromptDetailViewState
                           onPressed: () {
                             answerWritingPromptBloc.add(
                               UpdateAnswerWritingPromptEvent(
-                                answerWritePromptModel:
-                                AnswerWritePromptModel(
+                                answerWritePromptModel: AnswerWritePromptModel(
                                   id: widget.answerWritePromptModel.id,
                                   answer: _promptController.text.trim(),
                                   title: _titleController.text.trim(),
-                                  sampleAnswer: widget.answerWritePromptModel.sampleAnswer,
-                                  question: widget.answerWritePromptModel.question,
+                                  sampleAnswer: widget
+                                      .answerWritePromptModel.sampleAnswer,
+                                  question:
+                                      widget.answerWritePromptModel.question,
                                   updatedAt: DateTime.now(),
                                   tags: tagList,
-                                  levelOfCompleteness: widget.answerWritePromptModel.levelOfCompleteness,
-                                  degreeOfNotSucking: widget.answerWritePromptModel.degreeOfNotSucking,
+                                  levelOfCompleteness: widget
+                                      .answerWritePromptModel
+                                      .levelOfCompleteness,
+                                  degreeOfNotSucking: widget
+                                      .answerWritePromptModel
+                                      .degreeOfNotSucking,
                                 ),
                               ),
                             );
@@ -154,6 +167,15 @@ class _AnswerWritingPromptDetailViewState
                           ),
                           onPressed: _showMoreBottomSheet,
                         ),
+                  leadingWidget: IconButton(
+                    icon: imageAsset(
+                      img: AppIcons.ic_back,
+                      width: 25.0,
+                      height: 25.0,
+                      color: AppColor.black,
+                    ),
+                    onPressed: () => _setResultToBackScreen(),
+                  ),
                 ),
                 AutoFilledDateWidget(),
                 isEditButtonPress
@@ -300,7 +322,7 @@ class _AnswerWritingPromptDetailViewState
                 bottom: 0,
                 left: 0,
                 right: 0,
-                child:  Container(
+                child: Container(
                   color: Colors.black12,
                   child: Center(
                     child: CircularProgressIndicator(),
@@ -348,6 +370,23 @@ class _AnswerWritingPromptDetailViewState
         content: TextComponent(
           title: msg,
         ),
+      ),
+    );
+  }
+
+  _setResultToBackScreen() {
+    Navigator.pop(
+      context,
+      AnswerWritePromptModel(
+        id: widget.answerWritePromptModel.id,
+        answer: _promptController.text.trim(),
+        title: _titleController.text.trim(),
+        sampleAnswer: widget.answerWritePromptModel.sampleAnswer,
+        question: widget.answerWritePromptModel.question,
+        updatedAt: DateTime.now(),
+        tags: tagList,
+        levelOfCompleteness: widget.answerWritePromptModel.levelOfCompleteness,
+        degreeOfNotSucking: widget.answerWritePromptModel.degreeOfNotSucking,
       ),
     );
   }

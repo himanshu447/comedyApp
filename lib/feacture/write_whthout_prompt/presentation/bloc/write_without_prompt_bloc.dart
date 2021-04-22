@@ -67,7 +67,10 @@ class WriteWithoutPromptBloc
 
     else if (event is DeleteWriteWithoutPromptEvent) {
 
+      print('event call during up');
       yield DeletingWriteWithoutPromptState();
+      print('event call during up');
+
 
       final failureOrSuccess = await deleteWriteWithoutPromptUseCase(IdParams(
         id: event.id,
@@ -78,7 +81,7 @@ class WriteWithoutPromptBloc
           yield WriteWithoutPromptErrorState(error: (failure as Error).errMessage);
         },
         (success) async* {
-          yield DeletedWriteWithoutPromptState();
+          yield DeletedWriteWithoutPromptState(deletedPromptId: event.id);
         },
       );
     }

@@ -25,4 +25,10 @@ class WriteWithoutPromptSuccessState extends WriteWithoutPromptState {
 
 class DeletingWriteWithoutPromptState extends WriteWithoutPromptState {}
 
-class DeletedWriteWithoutPromptState extends WriteWithoutPromptState {}
+class DeletedWriteWithoutPromptState extends WriteWithoutPromptState {
+  final int deletedPromptId;
+
+  DeletedWriteWithoutPromptState({
+    this.deletedPromptId,
+  });
+}

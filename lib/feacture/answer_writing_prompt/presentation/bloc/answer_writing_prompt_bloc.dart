@@ -105,7 +105,7 @@ class AnswerWritingPromptBloc
           yield ErrorState(error: (failure as Error).errMessage);
         },
         (success) async* {
-          yield DeletedAnswerWritingPromptState();
+          yield DeletedAnswerWritingPromptState(deletedPromptId: event.id);
         },
       );
     }

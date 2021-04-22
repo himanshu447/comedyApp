@@ -24,3 +24,23 @@ class FilterListEvent extends MySavedEvent {
     this.tags = const [],
   });
 }
+
+class RemoveDataFromListEvent extends MySavedEvent {
+  final int id;
+
+  RemoveDataFromListEvent({this.id});
+}
+
+class EditAnswerWriteDataInListEvent extends MySavedEvent {
+  final AnswerWritePromptModel answerWritePromptModel;
+  final int id;
+
+  EditAnswerWriteDataInListEvent({this.id, this.answerWritePromptModel});
+}
+
+class EditFreeWriteDataInListEvent extends MySavedEvent {
+  final WriteWithoutPromptModel writeWithoutPromptModel;
+  final int id;
+
+  EditFreeWriteDataInListEvent({this.id, this.writeWithoutPromptModel});
+}

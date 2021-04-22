@@ -44,4 +44,10 @@ class AnswerWritingPromptSuccessState extends AnswerWritingPromptState {
 
 class DeletingAnswerWritingPromptState extends AnswerWritingPromptState {}
 
-class DeletedAnswerWritingPromptState extends AnswerWritingPromptState {}
+class DeletedAnswerWritingPromptState extends AnswerWritingPromptState {
+  final int deletedPromptId;
+
+  DeletedAnswerWritingPromptState({
+    this.deletedPromptId,
+  });
+}

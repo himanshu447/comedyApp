@@ -1,3 +1,4 @@
+import 'package:admob_flutter/admob_flutter.dart';
 import 'package:comedy/feacture/events_shows/data/model/event_show_model.dart';
 import 'package:comedy/feacture/events_shows/presentation/bloc/event_show_bloc.dart';
 import 'package:comedy/feacture/events_shows/presentation/page/submit_events.dart';
@@ -9,6 +10,7 @@ import 'package:comedy/share/widget/sub_module_app_bar_widget.dart';
 import 'package:comedy/utils/calender/table_calendar.dart';
 import 'package:comedy/utils/color_util.dart';
 import 'package:comedy/utils/component/text_component.dart';
+import 'package:comedy/utils/constant_util.dart';
 import 'package:comedy/utils/icons_utils.dart';
 import 'package:comedy/utils/route/route_name.dart';
 import 'package:comedy/utils/string_util.dart';
@@ -81,11 +83,17 @@ class _EventsShowsState extends State<EventsShows> {
               )
             : Container(
                 height: 50,
-                color: AppColor.gry,
-                alignment: Alignment.center,
-                child: TextComponent(
-                  title: 'Ads',
-                  color: AppColor.white,
+                //color: AppColor.gry,
+                child: AdmobBanner(
+                  adUnitId: ConstantUtil.getBannerAdUnitId(),
+                  adSize: AdmobBannerSize.LARGE_BANNER,
+                  onBannerCreated:
+                      (AdmobBannerController controller) {
+                    // Dispose is called automatically for you when Flutter removes the banner from the widget tree.
+                    // Normally you don't need to worry about disposing this yourself, it's handled.
+                    // If you need direct access to dispose, this is your guy!
+                    // controller.dispose();
+                  },
                 ),
               ),
       ),

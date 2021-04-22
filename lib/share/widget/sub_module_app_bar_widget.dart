@@ -11,6 +11,7 @@ class SubModuleAppBarWidget extends StatelessWidget {
   final Widget actionWidget;
   final TextStyle titleTextStyle;
   final Color backIconColor;
+  final Widget leadingWidget;
 
   const SubModuleAppBarWidget({
     this.color,
@@ -18,6 +19,7 @@ class SubModuleAppBarWidget extends StatelessWidget {
     this.actionWidget,
     this.titleTextStyle,
     this.backIconColor,
+    this.leadingWidget,
   });
 
   @override
@@ -29,15 +31,17 @@ class SubModuleAppBarWidget extends StatelessWidget {
       child: ListTile(
         contentPadding: EdgeInsets.zero,
         dense: false,
-        leading: IconButton(
-          icon: imageAsset(
-            img: AppIcons.ic_back,
-            width: 25.0,
-            height: 25.0,
-            color: backIconColor ?? AppColor.black,
-          ),
-          onPressed: () => Navigator.pop(context),
-        ),
+        leading: leadingWidget != null
+            ? leadingWidget
+            : IconButton(
+                icon: imageAsset(
+                  img: AppIcons.ic_back,
+                  width: 25.0,
+                  height: 25.0,
+                  color: backIconColor ?? AppColor.black,
+                ),
+                onPressed: () => Navigator.pop(context),
+              ),
         title: TextComponent(
           title: title,
           textStyle: titleTextStyle ?? StyleUtil.appBarTextStyle,

@@ -1,3 +1,4 @@
+import 'package:comedy/common/general_widget.dart';
 import 'package:comedy/feacture/write_whthout_prompt/data/model/write_without_prompt_model.dart';
 import 'package:comedy/feacture/write_whthout_prompt/presentation/bloc/write_without_prompt_bloc.dart';
 import 'package:comedy/share/widget/auto_filled_date_widget.dart';
@@ -72,41 +73,50 @@ class _WriteWithoutPromptDetailViewState
 
   @override
   void dispose() {
-    withoutPromptBloc.close();
+    //withoutPromptBloc.close();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      key: _scaffoldKey,
-      body: BlocListener(
-        cubit: withoutPromptBloc,
-        listener: (_, state) {
-          if (state is DeletedWriteWithoutPromptState) {
-            Navigator.pop(context);
-          } else if (state is WriteWithoutPromptSubmittingState) {
-            CustomDialogs.showSavingDataDialog(
-              context: context,
-              title: AppString.saving_your_writing,
-            );
-          } else if (state is WriteWithoutPromptSuccessState) {
-            Navigator.pop(context);
-            setState(() {
-              isEditButtonPress = false;
-            });
-          } else if (state is WriteWithoutPromptErrorState) {
-            showSnackBar(msg: state.error);
-          }
-        },
-        child: BlocBuilder<WriteWithoutPromptBloc, WriteWithoutPromptState>(
+    return WillPopScope(
+      onWillPop: ()async{
+        _setResultToBackScreen();
+        return false;
+      },
+      child: Scaffold(
+        key: _scaffoldKey,
+        body: BlocListener(
           cubit: withoutPromptBloc,
-          builder: (_, state) {
-            if (state is DeletingWriteWithoutPromptState) {
-              return _loadBody(isDataDeleting: true);
+          listener: (_, state) {
+            if (state is DeletedWriteWithoutPromptState) {
+              Navigator.pop(context,state.deletedPromptId);
             }
-            return _loadBody();
+            else if (state is WriteWithoutPromptSubmittingState) {
+              CustomDialogs.showSavingDataDialog(
+                context: context,
+                title: AppString.saving_your_writing,
+              );
+            }
+            else if (state is WriteWithoutPromptSuccessState) {
+              Navigator.pop(context);
+              setState(() {
+                isEditButtonPress = false;
+              });
+            }
+            else if (state is WriteWithoutPromptErrorState) {
+              showSnackBar(msg: state.error);
+            }
           },
+          child: BlocBuilder<WriteWithoutPromptBloc, WriteWithoutPromptState>(
+            cubit: withoutPromptBloc,
+            builder: (_, state) {
+              if (state is DeletingWriteWithoutPromptState) {
+                return _loadBody(isDataDeleting: true);
+              }
+              return _loadBody();
+            },
+          ),
         ),
       ),
     );
@@ -158,6 +168,15 @@ class _WriteWithoutPromptDetailViewState
                           ),
                           onPressed: _showMoreBottomSheet,
                         ),
+                  leadingWidget: IconButton(
+                    icon: imageAsset(
+                      img: AppIcons.ic_back,
+                      width: 25.0,
+                      height: 25.0,
+                      color: AppColor.black,
+                    ),
+                    onPressed: () => _setResultToBackScreen(),
+                  ),
                 ),
                 AutoFilledDateWidget(),
                 isEditButtonPress
@@ -321,12 +340,17 @@ class _WriteWithoutPromptDetailViewState
         CustomDialogs.showConfirmDeletePromptDialog(
           context: context,
           deleteCallback: () {
+
+
             try {
+              print('event call -->${withoutPromptBloc}');
+              print('event call -->${widget.withoutPromptModel.id}');
               withoutPromptBloc.add(
                 DeleteWriteWithoutPromptEvent(
                   id: widget.withoutPromptModel.id,
                 ),
               );
+              print('event call end');
             } catch (e) {
               print(e.toString());
             }
@@ -342,6 +366,22 @@ class _WriteWithoutPromptDetailViewState
         Share.share(_promptController.text.trim());
       },
     ).showMoreSheetDialog(context);
+  }
+
+  _setResultToBackScreen() {
+    Navigator.pop(
+      context,
+      WriteWithoutPromptModel(
+        id: widget.withoutPromptModel.id,
+        description: _promptController.text.trim(),
+        title: _titleController.text.trim(),
+        tags: tagList,
+        levelOfCompleteness: widget
+            .withoutPromptModel.levelOfCompleteness,
+        degreeOfSucking:
+        widget.withoutPromptModel.degreeOfSucking,
+      ),
+    );
   }
 
   showSnackBar({String msg}) {

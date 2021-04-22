@@ -1,9 +1,16 @@
+import 'dart:io';
+
+import 'package:admob_flutter/admob_flutter.dart';
 import 'package:comedy/utils/color_util.dart';
+import 'package:comedy/utils/constant_util.dart';
 import 'package:comedy/utils/icons_utils.dart';
 import 'package:comedy/utils/route/route_name.dart';
 import 'package:flutter/material.dart';
 
 class SplashView extends StatelessWidget {
+
+  final AdmobBannerSize bannerSize = AdmobBannerSize.MEDIUM_RECTANGLE;
+
   @override
   Widget build(BuildContext context) {
     _navigateToNextScreen(context);
@@ -42,7 +49,18 @@ class SplashView extends StatelessWidget {
                   margin: EdgeInsets.only(top: 40),
                   height: 250,
                   width: 300,
-                  color: AppColor.gry,
+                  //color: AppColor.gry,
+                  child: AdmobBanner(
+                    adSize: bannerSize,
+                    adUnitId: ConstantUtil.getBannerAdUnitId(),
+                    onBannerCreated:
+                        (AdmobBannerController controller) {
+                      // Dispose is called automatically for you when Flutter removes the banner from the widget tree.
+                      // Normally you don't need to worry about disposing this yourself, it's handled.
+                      // If you need direct access to dispose, this is your guy!
+                      // controller.dispose();
+                    },
+                  ),
                 )
               ],
             ),
@@ -84,7 +102,7 @@ class SplashView extends StatelessWidget {
 
   _navigateToNextScreen(BuildContext context) {
     Future.delayed(
-      Duration(seconds: 4),
+      Duration(seconds: 5),
     ).then(
       (value) => Navigator.of(context).popAndPushNamed(RouteName.landing),
     );

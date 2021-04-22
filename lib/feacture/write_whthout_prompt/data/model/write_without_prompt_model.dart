@@ -55,6 +55,28 @@ class WriteWithoutPromptModel extends Equatable {
     return map;
   }
 
+  WriteWithoutPromptModel copyWith({
+    final String title,
+    final String description,
+    final List<String> tags,
+    final int levelOfCompleteness,
+    final int degreeOfSucking,
+    final int id,
+    final DateTime updatedAt,
+    final DateTime createdAt,
+  }) {
+    return WriteWithoutPromptModel(
+      id: id ?? this.id,
+      title: title ?? this.title,
+      tags: tags ?? this.tags,
+      levelOfCompleteness: levelOfCompleteness ?? this.levelOfCompleteness,
+      updatedAt: updatedAt ?? this.updatedAt,
+      createdAt: createdAt ?? this.createdAt,
+      degreeOfSucking: degreeOfSucking ?? this.degreeOfSucking,
+      description: description ?? this.description,
+    );
+  }
+
   @override
   List<Object> get props => [
         id,
