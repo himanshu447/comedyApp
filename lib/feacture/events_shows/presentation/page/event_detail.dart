@@ -24,18 +24,29 @@ class _EventDetailState extends State<EventDetail> {
   @override
   Widget build(BuildContext context) {
 
-    var abc = widget.eventShowModel.startTime.split(':');
+    var startDateFromApi = widget.eventShowModel.startTime.split(':');
+    var endDateFromApi = widget.eventShowModel.endTime.split(':');
 
-    var ab = DateTime(
+    var startDate = DateTime(
       widget.eventShowModel.startDate.year,
       widget.eventShowModel.startDate.month,
       widget.eventShowModel.startDate.weekday,
-      int.parse(abc[0]),
-      int.parse(abc[1]),
-      int.parse(abc[2]),
+      int.parse(startDateFromApi[0]),
+      int.parse(startDateFromApi[1]),
+      int.parse(startDateFromApi[2]),
     );
 
-    String date = DateFormat('MMM d H:mm:ss a').format(ab);
+    var endDate = DateTime(
+      widget.eventShowModel.endDate.year,
+      widget.eventShowModel.endDate.month,
+      widget.eventShowModel.endDate.weekday,
+      int.parse(endDateFromApi[0]),
+      int.parse(endDateFromApi[1]),
+      int.parse(endDateFromApi[2]),
+    );
+
+    String finalStartDate = DateFormat('MMM d H:mm:ss a').format(startDate);
+    String finalEndDate = DateFormat('MMM d H:mm:ss a').format(endDate);
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -49,7 +60,7 @@ class _EventDetailState extends State<EventDetail> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  eventScheduleDate('${date} - ${date}'),
+                  eventScheduleDate('$finalStartDate - $finalEndDate'),
                   eventTitle(widget.eventShowModel.name),
                   verticalSpace(20),
                   descriptionTile(

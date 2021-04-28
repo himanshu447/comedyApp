@@ -36,7 +36,7 @@ class _SubmitEventsState extends State<SubmitEvents> {
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
 
-  final _eventkey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _eventkey = GlobalKey<FormState>();
 
   EventShowBloc eventShowBloc;
 

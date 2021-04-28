@@ -24,6 +24,9 @@ class _SubmitPromptWidgetState extends State<SubmitPromptWidget> {
   final TextEditingController _promptTextController = TextEditingController();
 
   final FocusNode _nameFocusNode = FocusNode();
+  final FocusNode _emailFocusNode = FocusNode();
+  final FocusNode _websiteFocusNode = FocusNode();
+  final FocusNode _promptFocusNode = FocusNode();
 
   final GlobalKey<FormState> _formKey = GlobalKey();
 
@@ -45,6 +48,10 @@ class _SubmitPromptWidgetState extends State<SubmitPromptWidget> {
     _emailController.dispose();
     _promptTextController.dispose();
     _websiteController.dispose();
+    _nameFocusNode.dispose();
+    _emailFocusNode.dispose();
+    _websiteFocusNode.dispose();
+    _promptFocusNode.dispose();
     super.dispose();
   }
 
@@ -115,6 +122,9 @@ class _SubmitPromptWidgetState extends State<SubmitPromptWidget> {
                     },
                     style: StyleUtil.formFieldTextStyle,
                     textInputAction: TextInputAction.next,
+                    onFieldSubmitted: (va){
+                      _emailFocusNode.requestFocus();
+                    },
                   ),
                 ),
                 Padding(
@@ -124,16 +134,20 @@ class _SubmitPromptWidgetState extends State<SubmitPromptWidget> {
                   ),
                   child: TextFormField(
                     controller: _emailController,
+                    focusNode: _emailFocusNode,
                     decoration: InputDecoration(
                       hintText: AppString.hint_your_email,
                     ),
                     style: StyleUtil.formFieldTextStyle,
                     textInputAction: TextInputAction.next,
                     validator: (value) {
-                      if (RegExp(ConstantUtil.email_pattern).hasMatch(value)) {
+                      if (!RegExp(ConstantUtil.email_pattern).hasMatch(value)) {
                         return AppString.error_invalid_email;
                       }
                       return null;
+                    },
+                    onFieldSubmitted: (va){
+                      _websiteFocusNode.requestFocus();
                     },
                   ),
                 ),
@@ -144,11 +158,15 @@ class _SubmitPromptWidgetState extends State<SubmitPromptWidget> {
                   ),
                   child: TextFormField(
                     controller: _websiteController,
+                    focusNode: _websiteFocusNode,
                     decoration: InputDecoration(
                       hintText: AppString.hint_your_website,
                     ),
                     style: StyleUtil.formFieldTextStyle,
                     textInputAction: TextInputAction.next,
+                    onFieldSubmitted: (va){
+                      _promptFocusNode.requestFocus();
+                    },
                   ),
                 ),
                 Padding(
@@ -159,6 +177,7 @@ class _SubmitPromptWidgetState extends State<SubmitPromptWidget> {
                   child: TextFormField(
                     textInputAction: TextInputAction.done,
                     controller: _promptTextController,
+                    focusNode: _promptFocusNode,
                     maxLines: 5,
                     decoration: InputDecoration(
                       hintText: AppString.hint_prompt_text,

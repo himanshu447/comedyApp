@@ -74,18 +74,18 @@ class _HomeViewState extends State<HomeView> {
                   ),
                   HomeAnswerWritingPromptCardWidget(
                     cardClickCallback: () {
-                      showAnswerWritingPromptSheet(context);
+                      showAnswerWritingPromptSheet(this.context);
                     },
                   ),
                   HomeWriteWithoutPromptCardWidget(
                     cardClickCallback: () => Navigator.pushNamed(
-                      context,
+                      this.context,
                       RouteName.write_without_prompt,
                     ),
                   ),
                   HomeEventCardWidget(
                     cardClickCallback: () => Navigator.pushNamed(
-                      context,
+                      this.context,
                       RouteName.event_show,
                     ),
                   ),

@@ -94,7 +94,7 @@ class AppString {
   static const String hint_prompt_title = 'Type your title here.';
   static const String hint_prompt_here = 'Write prompt here...';
   static const String hint_prompt_has_tag =
-      '#hashtags (with a space to separate)';
+      'Type #hashtags (with a space to separate)';
   static const String error_required_prompt_title = 'Please enter a title.';
   static const String error_required_prompt = 'Please enter a Prompt.';
   static const String add_Photo = 'Add Photo';
