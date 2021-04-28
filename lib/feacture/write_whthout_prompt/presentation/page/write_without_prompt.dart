@@ -37,8 +37,8 @@ class _WriteWithoutPromptViewState extends State<WriteWithoutPromptView> {
 
   List<String> tagList = [];
 
-  int degreeOfSucking = 3;
-  int levelOfCompleteness = 3;
+  int degreeOfSucking = 5;
+  int levelOfCompleteness = 5;
 
   WriteWithoutPromptBloc withoutPromptBloc;
 
@@ -243,9 +243,11 @@ class _WriteWithoutPromptViewState extends State<WriteWithoutPromptView> {
                           vertical: 10,
                         ).copyWith(top: 14, bottom: 14),
                         onAddCallBack: (val) {
-                          setState(() {
-                            tagList.add('#${val.trim()}');
-                          });
+                          if(val.isNotEmpty){
+                            setState(() {
+                              tagList.add('#${val.trim()}');
+                            });
+                          }
                         },
                       )
                     : Container(),
@@ -328,13 +330,10 @@ class _WriteWithoutPromptViewState extends State<WriteWithoutPromptView> {
         });
       }
     } else if (!isTagSubmitted) {
-        if(tagList.isNotEmpty) {
-          setState(() {
-            isTagSubmitted = true;
-          });
-        }else{
-          showSnackBar(msg:'HasTag is Required');
-        }
+      setState(() {
+        isTagSubmitted = true;
+      });
+
     } else if (isTagSubmitted && !isLevelOfCompletenessSubmitted) {
       setState(() {
         isLevelOfCompletenessSubmitted = true;

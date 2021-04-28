@@ -1,8 +1,8 @@
 import 'dart:async';
+import 'package:admob_flutter/admob_flutter.dart';
 import 'package:comedy/feacture/answer_writing_prompt/data/model/answer_write_prompt_model.dart';
 import 'package:comedy/feacture/answer_writing_prompt/data/model/question_answer_model.dart';
 import 'package:comedy/feacture/answer_writing_prompt/presentation/bloc/answer_writing_prompt_bloc.dart';
-import 'package:comedy/feacture/write_whthout_prompt/data/model/write_without_prompt_model.dart';
 import 'package:comedy/share/widget/auto_filled_date_widget.dart';
 import 'package:comedy/share/widget/custom_dialog_widget.dart';
 import 'package:comedy/share/widget/sub_module_app_bar_widget.dart';
@@ -20,6 +20,7 @@ import 'package:comedy/utils/style_util.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:shimmer/shimmer.dart';
 
 class AnswerWritingPromptView extends StatefulWidget {
   final QuestionAnswerModel questionAnswerModel;
@@ -52,8 +53,8 @@ class _AnswerWritingPromptViewState extends State<AnswerWritingPromptView> {
   bool isTagSubmitted = false;
   bool isLevelOfCompletenessSubmitted = false;
 
-  int degreeOfSucking = 3;
-  int levelOfCompleteness = 3;
+  int degreeOfSucking = 5;
+  int levelOfCompleteness = 5;
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
 
@@ -86,7 +87,8 @@ class _AnswerWritingPromptViewState extends State<AnswerWritingPromptView> {
 
   @override
   void didChangeDependencies() {
-    answerWritingPromptBloc = BlocProvider.of<AnswerWritingPromptBloc>(context, listen: true);
+    answerWritingPromptBloc =
+        BlocProvider.of<AnswerWritingPromptBloc>(context, listen: true);
     super.didChangeDependencies();
   }
 
@@ -107,20 +109,18 @@ class _AnswerWritingPromptViewState extends State<AnswerWritingPromptView> {
               context: context,
               title: AppString.saving_your_writing,
             );
-          }
-
-          else if (state is AnswerWritingPromptSuccessState) {
-
+          } else if (state is AnswerWritingPromptSuccessState) {
             Navigator.pop(context);
 
             Navigator.popAndPushNamed(
-                context,
-                RouteName.answer_writing_prompt_detail,
+                context, RouteName.answer_writing_prompt_detail,
                 arguments: AnswerWritingPromptDetailScreenArguments(
                   answerWritePromptModel: AnswerWritePromptModel(
                     title: state.answerWritePromptModel.title,
-                    degreeOfNotSucking: state.answerWritePromptModel.degreeOfNotSucking,
-                    levelOfCompleteness: state.answerWritePromptModel.levelOfCompleteness,
+                    degreeOfNotSucking:
+                        state.answerWritePromptModel.degreeOfNotSucking,
+                    levelOfCompleteness:
+                        state.answerWritePromptModel.levelOfCompleteness,
                     tags: state.answerWritePromptModel.tags,
                     id: state.answerWritePromptModel.id,
                     answer: state.answerWritePromptModel.answer,
@@ -128,11 +128,8 @@ class _AnswerWritingPromptViewState extends State<AnswerWritingPromptView> {
                     question: state.answerWritePromptModel.question,
                   ),
                   answerWritingPromptBloc: answerWritingPromptBloc,
-                )
-            );
-          }
-
-          else if(state is ErrorState){
+                ));
+          } else if (state is ErrorState) {
             Navigator.pop(context);
             showSnackBar(msg: state.error);
           }
@@ -164,7 +161,7 @@ class _AnswerWritingPromptViewState extends State<AnswerWritingPromptView> {
                   color: AppColor.primary_green[500],
                   title: !isAnswerSavedButtonPress
                       ? TimerHelper.formatHHMMSS(_start)
-                      : AppString.write_prompt,
+                      : AppString.write,
                   actionWidget: FlatButton(
                     onPressed: (!isAnswerSubmitRequest) ||
                             (isAnswerSavedButtonPress && !isTagSubmitted)
@@ -234,11 +231,35 @@ class _AnswerWritingPromptViewState extends State<AnswerWritingPromptView> {
                       )
                     : Container(),
                 !isAnswerSavedButtonPress
-                    ? TextComponent(
-                        title: AppString.write_prompt,
+                    ? /*Padding(
+                        padding: const EdgeInsets.only(
+                          left: 20,
+                          top: 12,
+                          bottom: 12,
+                        ),
+                        child: Text.rich(TextSpan(
+                            text: AppString.response_prompt,
+                            style:
+                                StyleUtil.levelOfCompletenessTextStyle.copyWith(
+                              color: AppColor.primary_green[500],
+                            ),
+                            children: [
+                              TextSpan(
+                                text: AppString.response_prompt_five_minute,
+                                style: StyleUtil.levelOfCompletenessTextStyle
+                                    .copyWith(
+                                  color: AppColor.primary_green[500],
+                                  fontSize: 18,
+                                ),
+                              )
+                            ])),
+                      )*/
+                    TextComponent(
+                        title: AppString.response_prompt,
                         textStyle:
                             StyleUtil.levelOfCompletenessTextStyle.copyWith(
                           color: AppColor.primary_green[500],
+                              fontSize: 20,
                         ),
                         margin: EdgeInsets.symmetric(
                           horizontal: 20,
@@ -317,12 +338,10 @@ class _AnswerWritingPromptViewState extends State<AnswerWritingPromptView> {
                         minValue: 1,
                         maxValue: 10,
                         onChanged: (val) {
-                          print(val);
                           levelOfCompleteness = val;
                         },
                         activeItemBgColor: AppColor.primary_green[100],
-                        activeTextStyle: StyleUtil.activeNumberTextStyle
-                            .copyWith(color: AppColor.primary_green[500]),
+                        activeTextStyle: StyleUtil.activeNumberTextStyle.copyWith(color: AppColor.primary_green[500]),
                         deActiveTextStyle: StyleUtil.inActiveNumberTextStyle,
                       )
                     : Container(),
@@ -339,7 +358,6 @@ class _AnswerWritingPromptViewState extends State<AnswerWritingPromptView> {
                         minValue: 1,
                         maxValue: 10,
                         onChanged: (val) {
-                          print(val);
                           degreeOfSucking = val;
                         },
                         activeItemBgColor: AppColor.primary_green[100],
@@ -479,11 +497,17 @@ class _AnswerWritingPromptViewState extends State<AnswerWritingPromptView> {
               ),
               Container(
                 height: 200,
-                color: AppColor.gry,
-                alignment: Alignment.center,
                 margin: EdgeInsets.only(bottom: 20),
-                child: TextComponent(
-                  title: 'Add',
+                child: AdmobBanner(
+                  adSize: AdmobBannerSize.MEDIUM_RECTANGLE,
+                  adUnitId: ConstantUtil.getBannerAdUnitId(),
+                  onBannerCreated: (AdmobBannerController controller) {
+                    print('banner created');
+                    // Dispose is called automatically for you when Flutter removes the banner from the widget tree.
+                    // Normally you don't need to worry about disposing this yourself, it's handled.
+                    // If you need direct access to dispose, this is your guy!
+                    // controller.dispose();
+                  },
                 ),
               ),
               Padding(
@@ -521,14 +545,11 @@ class _AnswerWritingPromptViewState extends State<AnswerWritingPromptView> {
         isTitleSubmit = true;
       });
     } else if (!isTagSubmitted && isTitleSubmit) {
+
+      setState(() {
+        isTagSubmitted = true;
+      });
       print('TAG Sub');
-      if(tagList.isNotEmpty) {
-        setState(() {
-          isTagSubmitted = true;
-        });
-      }else{
-        showSnackBar(msg:'HasTag is Required');
-      }
     } else if (!isLevelOfCompletenessSubmitted && isTagSubmitted) {
       print('Level ');
       setState(() {

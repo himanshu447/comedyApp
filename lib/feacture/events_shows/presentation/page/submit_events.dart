@@ -255,7 +255,7 @@ class _SubmitEventsState extends State<SubmitEvents> {
                             return null;
                           },
                           onTap: () {
-                            selectTime(context).then((date) {
+                            selectTime(context,startDateTime: startTime).then((date) {
                               print(date);
                               if (date != null)
                                 setState(() {

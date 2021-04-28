@@ -45,6 +45,7 @@ class AppString {
   static const String hint_prompt_text = 'Prompt text';
   static const String error_required_name = 'Please enter your name.';
   static const String error_required_email = 'Please enter a email address.';
+  static const String error_invalid_email = 'Please enter valid email address.';
   static const String error_required_website = 'Please enter website.';
   static const String error_required_prompt_text = 'Please enter prompt text.';
   static const String submit_prompt_success_msg =
@@ -90,11 +91,11 @@ class AppString {
   ///Write without prompt
   static const String free_write = 'Free Write';
   static const String auto_filled = '(autofilled)';
-  static const String hint_prompt_title = 'Type your prompt title here...';
+  static const String hint_prompt_title = 'Type your title here.';
   static const String hint_prompt_here = 'Write prompt here...';
   static const String hint_prompt_has_tag =
-      '#type_hastag_here(separated by space)';
-  static const String error_required_prompt_title = 'Please enter a Title.';
+      '#hashtags (with a space to separate)';
+  static const String error_required_prompt_title = 'Please enter a title.';
   static const String error_required_prompt = 'Please enter a Prompt.';
   static const String add_Photo = 'Add Photo';
   static const String time_zone = 'Time zone';
@@ -121,6 +122,9 @@ class AppString {
   static const String start_writing = 'Start writing';
   static const String new_prompt = 'New prompt';
   static const String write_prompt = 'Writing prompt';
+  static const String write = 'Write';
+  static const String response_prompt = 'Respond to prompt (you have five minutes)';
+  static const String response_prompt_five_minute = ' (you have five minutes)';
   static const String write_prompt_question =
       'Write a joke about a recent news event. Try using something other than coronavirus or other obvious topic.';
   static const String write_prompt_example_answer =

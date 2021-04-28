@@ -93,36 +93,6 @@ class _HomeViewState extends State<HomeView> {
               ),
             ),
           ),
-          /*Padding(
-            padding: EdgeInsets.only(
-              top: MediaQuery.of(context).size.width / 2.5,
-            ),
-            child: SingleChildScrollView(
-              padding: EdgeInsets.only(
-                  bottom: MediaQuery.of(context).size.width / 4),
-              child: Column(
-                children: [
-                  HomeAnswerWritingPromptCardWidget(
-                    cardClickCallback: () {
-                      showAnswerWritingPromptSheet(context);
-                    },
-                  ),
-                  HomeWriteWithoutPromptCardWidget(
-                    cardClickCallback: () => Navigator.pushNamed(
-                      context,
-                      RouteName.write_without_prompt,
-                    ),
-                  ),
-                  HomeEventCardWidget(
-                    cardClickCallback: () => Navigator.pushNamed(
-                      context,
-                      RouteName.event_show,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),*/
           Container(),
           ShowAddWidget()
         ],

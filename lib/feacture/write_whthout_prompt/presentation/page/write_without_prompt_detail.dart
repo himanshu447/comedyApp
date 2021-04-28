@@ -59,7 +59,13 @@ class _WriteWithoutPromptDetailViewState
     );
 
     if (widget.withoutPromptModel.tags.isNotEmpty) {
-      tagList = widget.withoutPromptModel.tags;
+      widget.withoutPromptModel.tags.forEach((element) {
+        if(element.isNotEmpty){
+          tagList.add(element);
+        }
+      });
+
+      //tagList = widget.withoutPromptModel.tags;
     }
     super.initState();
   }

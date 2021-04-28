@@ -35,7 +35,7 @@ class _HorizantalPickerState extends State<HorizantalPicker> {
   List<int> valueList = [];
 
   FixedExtentScrollController _scrollController;
-  int curItem = 3;
+  int curItem = 4;
 
   @override
   void initState() {

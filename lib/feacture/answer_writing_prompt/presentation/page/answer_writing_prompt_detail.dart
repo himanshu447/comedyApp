@@ -54,7 +54,11 @@ class _AnswerWritingPromptDetailViewState
     );
 
     if (widget.answerWritePromptModel.tags.isNotEmpty) {
-      tagList = widget.answerWritePromptModel.tags;
+      widget.answerWritePromptModel.tags.forEach((element) {
+        if (element.isNotEmpty) {
+          tagList.add(element);
+        }
+      });
     }
 
     super.initState();

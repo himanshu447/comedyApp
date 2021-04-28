@@ -77,7 +77,8 @@ class _InputChipComponentState extends State<InputChipComponent>
                     keyboardType: widget.keyboardType ?? TextInputType.text,
                     onChanged: (value) {
                       if (value.endsWith(" ")) {
-                        widget.onAddCallBack(value.substring(0, value.length - 1));
+                        //widget.onAddCallBack(value.substring(0, value.length - 1));
+                        widget.onAddCallBack(value.trim());
                         _controller.clear();
                       }
                     },
@@ -92,8 +93,7 @@ class _InputChipComponentState extends State<InputChipComponent>
               alignment: WrapAlignment.start,
               children: widget.list
                   .map((e) => FilterChip(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                        padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
                         backgroundColor: widget.chipColor ?? Colors.blue,
                         label: TextComponent(
                           title: e,

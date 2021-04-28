@@ -7,12 +7,14 @@ class RadioListTitleComponent<T> extends StatelessWidget {
   final String label;
   final bool isChecked;
   final ValueChanged<T> itemSelected;
+  final bool isLeading;
 
   RadioListTitleComponent({
     @required this.value,
     @required this.label,
     @required this.itemSelected,
     this.isChecked = false,
+    this.isLeading = false,
   });
 
   @override
@@ -27,6 +29,18 @@ class RadioListTitleComponent<T> extends StatelessWidget {
           padding: const EdgeInsets.symmetric(vertical: 10.0),
           child: Row(
             children: <Widget>[
+              if(isLeading)
+                Icon(
+                  isChecked
+                      ? Icons.radio_button_checked
+                      : Icons.radio_button_unchecked,
+                  color: AppColor.primary_blue[500],
+                  size: 26,
+                ),
+              if(isLeading)
+              SizedBox(
+                width: 12,
+              ),
               Expanded(
                 child: TextComponent(
                   title: label,
@@ -35,6 +49,7 @@ class RadioListTitleComponent<T> extends StatelessWidget {
                   margin: EdgeInsets.symmetric(vertical: 2),
                 ),
               ),
+              if(!isLeading)
               Icon(
                 isChecked
                     ? Icons.radio_button_checked

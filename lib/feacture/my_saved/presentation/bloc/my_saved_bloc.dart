@@ -101,11 +101,9 @@ class MySavedBloc extends Bloc<MySavedEvent, MySavedState> {
         tempList.sort(
             (a, b) => b.levelOfCompleteness.compareTo(a.levelOfCompleteness));
       } else if (event.filters == Filters.degreeHighestToLowest) {
-        tempList.sort(
-            (a, b) => a.degreeOfNotSucking.compareTo(b.degreeOfNotSucking));
+        tempList.sort((a, b) => b.degreeOfNotSucking.compareTo(a.degreeOfNotSucking));
       } else if (event.filters == Filters.degreeLowestToHighest) {
-        tempList.sort(
-            (a, b) => b.degreeOfNotSucking.compareTo(a.degreeOfNotSucking));
+        tempList.sort((a, b) => a.degreeOfNotSucking.compareTo(b.degreeOfNotSucking));
       }
 
       yield LoadedMySavedState(
@@ -116,23 +114,47 @@ class MySavedBloc extends Bloc<MySavedEvent, MySavedState> {
     else if(event is RemoveDataFromListEvent){
 
       var mySavedList = (state as LoadedMySavedState).savedList;
+      var mySearchList = (state as LoadedMySavedState).searchSavedList;
 
-      mySavedList.removeWhere((element) => element.id == event.id);
+      if(mySearchList != null){
+        if(mySearchList.isNotEmpty){
+          mySearchList.removeWhere((element) => element.id == event.id);
+          mySavedList.removeWhere((element) => element.id == event.id);
+        }else{
+          mySavedList.removeWhere((element) => element.id == event.id);
+        }
+      }else{
+        mySavedList.removeWhere((element) => element.id == event.id);
+      }
 
       yield LoadedMySavedState(
         savedList: mySavedList,
-        searchSavedList: null,
+        searchSavedList: mySearchList,
       );
 
     }
+
     else if(event is EditAnswerWriteDataInListEvent){
 
       var mySavedList = (state as LoadedMySavedState).savedList;
+      var mySearchList = (state as LoadedMySavedState).searchSavedList;
 
-      var changeElementIndex = mySavedList.indexWhere((element) => element.id == event.id);
+      List<MySavedModel> temp = [];
+
+      if(mySearchList != null){
+        if(mySearchList.isNotEmpty){
+          temp = mySearchList;
+        }else{
+          temp = mySavedList;
+        }
+      }else{
+        temp = mySavedList;
+      }
+
+      var changeElementIndex = temp.indexWhere((element) => element.id == event.id);
 
       if(changeElementIndex >=0){
-        mySavedList[changeElementIndex] = mySavedList[changeElementIndex].copyWith(
+        temp[changeElementIndex] = temp[changeElementIndex].copyWith(
           tags:  event.answerWritePromptModel.tags,
           title: event.answerWritePromptModel.title,
           answer: event.answerWritePromptModel.answer,
@@ -140,30 +162,63 @@ class MySavedBloc extends Bloc<MySavedEvent, MySavedState> {
       }
 
 
+      if(mySearchList != null){
+        if(mySearchList.isNotEmpty){
+          mySearchList = temp;
+        }else{
+          mySavedList = temp;
+        }
+      }else{
+        mySavedList = temp;
+      }
+
       yield LoadedMySavedState(
         savedList: mySavedList,
-        searchSavedList: null,
+        searchSavedList: mySearchList,
       );
+
     }
 
     else if(event is EditFreeWriteDataInListEvent){
 
       var mySavedList = (state as LoadedMySavedState).savedList;
+      var mySearchList = (state as LoadedMySavedState).searchSavedList;
 
-      var changeElementIndex = mySavedList.indexWhere((element) => element.id == event.id);
+      List<MySavedModel> temp = [];
+
+      if(mySearchList != null){
+        if(mySearchList.isNotEmpty){
+          temp = mySearchList;
+        }else{
+          temp = mySavedList;
+        }
+      }else{
+        temp = mySavedList;
+      }
+
+      var changeElementIndex = temp.indexWhere((element) => element.id == event.id);
 
       if(changeElementIndex >=0){
-        mySavedList[changeElementIndex] = mySavedList[changeElementIndex].copyWith(
+        temp[changeElementIndex] = temp[changeElementIndex].copyWith(
           tags:  event.writeWithoutPromptModel.tags,
           title: event.writeWithoutPromptModel.title,
           withoutPromptDescription : event.writeWithoutPromptModel.description,
         );
       }
 
+      if(mySearchList != null){
+        if(mySearchList.isNotEmpty){
+          mySearchList = temp;
+        }else{
+          mySavedList = temp;
+        }
+      }else{
+        mySavedList = temp;
+      }
 
       yield LoadedMySavedState(
         savedList: mySavedList,
-        searchSavedList: null,
+        searchSavedList: mySearchList,
       );
     }
   }

@@ -9,7 +9,7 @@ class EventShowModel extends Equatable {
   final String endTime;
   final String timezone;
   final String eventLink;
-  final int cost;
+  final dynamic cost;
   final String image;
   final DateTime createdAt;
   final DateTime updatedAt;

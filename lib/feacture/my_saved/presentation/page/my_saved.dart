@@ -115,16 +115,24 @@ class _MySavedViewState extends State<MySavedView> {
 
   _saveTagFromData(List<MySavedModel> list) {
     list.forEach((saveItem) {
-      saveItem.tags.forEach((singleTag) {
-        if (singleTag.substring(1).isNotEmpty) {
-          AddTagModel addTagModel = AddTagModel(
-              isChecked: false, label: singleTag.substring(1).capitalize());
 
-          if (!tagList.contains(addTagModel)) {
-            tagList.add(addTagModel);
+      if(saveItem.tags.isNotEmpty) {
+        saveItem.tags.forEach((singleTag) {
+
+          if(singleTag.isNotEmpty){
+            if (singleTag
+                .substring(1)
+                .isNotEmpty) {
+              AddTagModel addTagModel = AddTagModel(
+                  isChecked: false, label: singleTag.substring(1).capitalize());
+
+              if (!tagList.contains(addTagModel)) {
+                tagList.add(addTagModel);
+              }
+            }
           }
-        }
-      });
+        });
+      }
     });
   }
 
@@ -133,6 +141,7 @@ class _MySavedViewState extends State<MySavedView> {
     super.didUpdateWidget(oldWidget);
 
     if (oldWidget.key != widget.key) {
+      print('sadsadsd');
       mySavedBloc.add(LoadMySavedEvent());
     }
   }
@@ -304,13 +313,13 @@ class _MySavedViewState extends State<MySavedView> {
                   mySavedModel: list[index],
                   withoutPromptBloc: withoutPromptBloc,
                   answerWritingPromptBloc: answerWritingPromptBloc,
+
                   removeDataCallBack: () {
-                    mySavedBloc
-                        .add(RemoveDataFromListEvent(id: list[index].id));
+                    mySavedBloc.add(RemoveDataFromListEvent(id: list[index].id));
                   },
+
                   editAnswerWriteDataCallBack: (val) {
-                    print(val.title);
-                    print(list[index].id);
+
 
                     mySavedBloc.add(
                       EditAnswerWriteDataInListEvent(
@@ -319,8 +328,11 @@ class _MySavedViewState extends State<MySavedView> {
                       ),
                     );
                   },
+
                   editFreeWriteDataCallBack: (val){
-                    print(val.title);
+
+                    print(mySavedBloc.state);
+
                     mySavedBloc.add(
                       EditFreeWriteDataInListEvent(
                         id: list[index].id,

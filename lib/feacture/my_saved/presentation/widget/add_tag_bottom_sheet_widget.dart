@@ -1,5 +1,6 @@
 import 'package:comedy/feacture/my_saved/data/model/add_tag_model.dart';
 import 'package:comedy/utils/color_util.dart';
+import 'package:comedy/utils/component/short_filter_select_radio_list.dart';
 import 'package:comedy/utils/component/tag_select_check_list.dart';
 import 'package:comedy/utils/component/text_component.dart';
 import 'package:comedy/utils/icons_utils.dart';
@@ -207,7 +208,62 @@ class _AddTagBottomSheetWidgetState extends State<AddTagBottomSheetWidget> {
       physics: NeverScrollableScrollPhysics(),
       itemCount: list.length,
       itemBuilder: (_, index) {
-        return CheckListTitleComponent(
+        return RadioListTitleComponent(
+          isLeading: true,
+          label: list[index].label,
+          value: list[index],
+          isChecked: list[index].isChecked == true,
+          itemSelected: (val) {
+
+            /*if (widget.tempList.isNotEmpty) {
+              if (!widget.tempList.contains(val.label) && !val.isChecked) {
+                widget.tempList.add(val.label);
+              }else{
+                widget.tempList.remove(val.label);
+              }
+            } else {
+              widget.tempList.add(val.label);
+            }
+
+            setState(() {
+              list[index] = list[index].copyWith(isChecked: !list[index].isChecked);
+            });
+                       */
+
+            var ab = list.indexWhere((element) => element.isChecked == true);
+
+            if (ab >= 0) {
+              print('adasd');
+              setState(() {
+                list[ab] = list[ab].copyWith(isChecked: false,);
+              });
+            }
+            setState(() {
+              list[index] = list[index].copyWith(isChecked: true,);
+            });
+
+            widget.tempList.clear();
+            widget.tempList.add(list.firstWhere((element) => element.isChecked).label);
+          },
+        );
+      },
+    );
+  }
+
+  _searchTagFromList(String text) {
+    var tempList = widget.tagList
+        .where((element) => element.label.contains(text))
+        .toList();
+
+    setState(() {
+    searchTagList = tempList;
+    });
+  }
+}
+
+///for multiple selection
+/*
+return CheckListTitleComponent(
           label: list[index].label,
           value: list[index],
           isChecked: list[index].isChecked == true,
@@ -228,17 +284,4 @@ class _AddTagBottomSheetWidgetState extends State<AddTagBottomSheetWidget> {
             });
           },
         );
-      },
-    );
-  }
-
-  _searchTagFromList(String text) {
-    var tempList = widget.tagList
-        .where((element) => element.label.contains(text))
-        .toList();
-
-    setState(() {
-    searchTagList = tempList;
-    });
-  }
-}
+ */

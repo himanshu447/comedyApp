@@ -43,8 +43,9 @@ class AnswerWritingPromptBloc
           yield ErrorState(error: (failure as Error).errMessage);
         },
         (success) async* {
-          yield LoadedQuestionsState(
-              questionsList: success, questionAnswerModel: success[0]);
+
+          var question = Random().nextInt(success.length);
+          yield LoadedQuestionsState(questionsList: success, questionAnswerModel: success[question]);
         },
       );
     }

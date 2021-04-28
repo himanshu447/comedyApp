@@ -26,7 +26,7 @@ class AboutUsView extends StatelessWidget {
             height: 100,
           ),
           TextComponent(
-            title: 'About US',
+            title: 'About Us',
           ),
         ],
       ),

@@ -4,6 +4,7 @@ import 'package:comedy/injector.dart';
 import 'package:comedy/share/widget/top_app_bar_widget.dart';
 import 'package:comedy/utils/color_util.dart';
 import 'package:comedy/utils/component/text_component.dart';
+import 'package:comedy/utils/constant_util.dart';
 import 'package:comedy/utils/icons_utils.dart';
 import 'package:comedy/utils/string_util.dart';
 import 'package:comedy/utils/style_util.dart';
@@ -128,6 +129,12 @@ class _SubmitPromptWidgetState extends State<SubmitPromptWidget> {
                     ),
                     style: StyleUtil.formFieldTextStyle,
                     textInputAction: TextInputAction.next,
+                    validator: (value) {
+                      if (RegExp(ConstantUtil.email_pattern).hasMatch(value)) {
+                        return AppString.error_invalid_email;
+                      }
+                      return null;
+                    },
                   ),
                 ),
                 Padding(
@@ -150,6 +157,7 @@ class _SubmitPromptWidgetState extends State<SubmitPromptWidget> {
                     vertical: 12,
                   ),
                   child: TextFormField(
+                    textInputAction: TextInputAction.done,
                     controller: _promptTextController,
                     maxLines: 5,
                     decoration: InputDecoration(
@@ -189,17 +197,17 @@ class _SubmitPromptWidgetState extends State<SubmitPromptWidget> {
         ),
         isDataLoading
             ? Positioned(
-                top: 0,
-                bottom: 0,
-                left: 0,
-                right: 0,
-                child: Container(
-                  color: Colors.black26,
-                  child: Center(
-                    child: CircularProgressIndicator(),
-                  ),
-                ),
-              )
+          top: 0,
+          bottom: 0,
+          left: 0,
+          right: 0,
+          child: Container(
+            color: Colors.black26,
+            child: Center(
+              child: CircularProgressIndicator(),
+            ),
+          ),
+        )
             : Container(),
       ],
     );
@@ -210,10 +218,14 @@ class _SubmitPromptWidgetState extends State<SubmitPromptWidget> {
       _submitPromptBloc.add(
         SubmitPromptResultEvent(
           submitPromptModel: SubmitPromptModel(
-            email: _emailController.text.trim().isNotEmpty ? _emailController.text.trim() : '',
+            email: _emailController.text
+                .trim()
+                .isNotEmpty ? _emailController.text.trim() : '',
             name: _nameController.text.trim(),
             description: _promptTextController.text.trim(),
-            website: _websiteController.text.trim().isNotEmpty ? _websiteController.text.trim() : '',
+            website: _websiteController.text
+                .trim()
+                .isNotEmpty ? _websiteController.text.trim() : '',
           ),
         ),
       );
@@ -224,52 +236,55 @@ class _SubmitPromptWidgetState extends State<SubmitPromptWidget> {
     showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (_)=> AlertDialog(
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        title: Image.asset(
-          AppIcons.ic_success,
-          height: 60,
-          width: 60,
-        ),
-        content: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            TextComponent(
-              title: AppString.submit_prompt_success_msg,
-              fontSize: 15,
-              fontWeight: FontWeight.w600,
-              color: AppColor.black,
-              margin: EdgeInsets.only(bottom: 10),
+      builder: (_) =>
+          AlertDialog(
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20)),
+            title: Image.asset(
+              AppIcons.ic_success,
+              height: 60,
+              width: 60,
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
-              child: RawMaterialButton(
-                onPressed: () {
-                  _nameController.clear();
-                  _emailController.clear();
-                  _websiteController.clear();
-                  _promptTextController.clear();
-
-                  _nameFocusNode.requestFocus();
-
-                  Navigator.pop(context);
-                },
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(15)),
-                padding: EdgeInsets.symmetric(vertical: 12),
-                fillColor: AppColor.primary_blue[500],
-                child: TextComponent(
-                  title: AppString.capital_ok,
-                  color: AppColor.white,
-                  fontWeight: FontWeight.w500,
-                  fontSize: 18,
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
+              children: [
+                TextComponent(
+                  title: AppString.submit_prompt_success_msg,
+                  fontSize: 15,
+                  fontWeight: FontWeight.w600,
+                  color: AppColor.black,
+                  margin: EdgeInsets.only(bottom: 10),
                 ),
-              ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(
+                      horizontal: 18, vertical: 12),
+                  child: RawMaterialButton(
+                    onPressed: () {
+                      _nameController.clear();
+                      _emailController.clear();
+                      _websiteController.clear();
+                      _promptTextController.clear();
+
+                      _nameFocusNode.requestFocus();
+
+                      Navigator.pop(context);
+                    },
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(15)),
+                    padding: EdgeInsets.symmetric(vertical: 12),
+                    fillColor: AppColor.primary_blue[500],
+                    child: TextComponent(
+                      title: AppString.capital_ok,
+                      color: AppColor.white,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 18,
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
-      ),
+          ),
     );
   }
 
