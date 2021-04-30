@@ -1,4 +1,5 @@
 import 'package:comedy/feacture/about/presentation/page/about_us.dart';
+import 'package:comedy/feacture/about/presentation/page/contact_me.dart';
 import 'package:comedy/feacture/answer_writing_prompt/presentation/page/answer_wiriting_prompt.dart';
 import 'package:comedy/feacture/answer_writing_prompt/presentation/page/answer_writing_prompt_detail.dart';
 import 'package:comedy/feacture/events_shows/presentation/page/event_detail.dart';
@@ -77,7 +78,9 @@ class RouteGenerator {
         return MaterialPageRoute(
           builder: (_) => AboutUsView(),
         );
-        return MaterialPageRoute(builder: (_) => EventsShows());
+
+      case RouteName.contact_me:
+        return MaterialPageRoute(builder: (_) => ContactMeView());
 
       default:
         return null;

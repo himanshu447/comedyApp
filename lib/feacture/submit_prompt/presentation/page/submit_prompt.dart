@@ -141,7 +141,7 @@ class _SubmitPromptWidgetState extends State<SubmitPromptWidget> {
                     style: StyleUtil.formFieldTextStyle,
                     textInputAction: TextInputAction.next,
                     validator: (value) {
-                      if (!RegExp(ConstantUtil.email_pattern).hasMatch(value)) {
+                      if (value.isNotEmpty && !RegExp(ConstantUtil.email_pattern).hasMatch(value)) {
                         return AppString.error_invalid_email;
                       }
                       return null;

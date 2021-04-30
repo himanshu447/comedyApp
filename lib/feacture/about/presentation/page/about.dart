@@ -49,24 +49,32 @@ class _AboutViewState extends State<AboutView> {
       AboutTileModel(
         label: AppString.about,
         leadIcon: AppIcons.ic_about,
-        onPress: () => Navigator.pushNamed(
-          context,
-          RouteName.about_us,
-        ),
+        onPress: () =>
+            Navigator.pushNamed(
+              context,
+              RouteName.about_us,
+            ),
       ),
     );
     filterList.add(
       AboutTileModel(
         label: AppString.privacy_Policy,
         leadIcon: AppIcons.ic_privacy_policy,
-        onPress: () {},
+        onPress: () {
+        },
       ),
     );
     filterList.add(
       AboutTileModel(
-        label: AppString.contact_Us,
-        leadIcon: AppIcons.ic_contact_us,
-        onPress: () {},
+          label: AppString.contact_Us,
+          leadIcon: AppIcons.ic_contact_us,
+          onPress: () {
+            Navigator.pushNamed(
+              context,
+              RouteName.contact_me,
+            );
+
+          }
       ),
     );
 

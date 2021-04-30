@@ -22,7 +22,7 @@ class AppString {
   static const String home = 'Home';
   static const String my_saved = 'My saved';
   static const String submit_prompt = 'Submit a prompt';
-  static const String about = 'About';
+  static const String about = 'About us';
 
   ///Home screen
   static const String laugh_draft = 'LAUGHDRAFT';

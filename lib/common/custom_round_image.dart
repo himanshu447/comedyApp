@@ -45,11 +45,26 @@ class CustomRoundCornerImage extends StatelessWidget {
           fit: BoxFit.cover,
           imageUrl: image,
           placeholder: (context, url) => Container(
-              child: Center(
-                  child: new CircularProgressIndicator(
-                      valueColor: new AlwaysStoppedAnimation<Color>(
-                          AppColor.primary_blue[500])))),
-          errorWidget: (context, url, error) => Container(
+            child: Center(
+              child: new CircularProgressIndicator(
+                valueColor: new AlwaysStoppedAnimation<Color>(
+                    AppColor.primary_blue[500]),
+              ),
+            ),
+          ),
+          errorWidget: (context, url, error) => Center(
+            child: new CircularProgressIndicator(
+              valueColor:
+                  new AlwaysStoppedAnimation<Color>(AppColor.primary_blue[500]),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+/*
+Container(
             height: width,
             width: height,
             decoration: BoxDecoration(
@@ -70,6 +85,5 @@ class CustomRoundCornerImage extends StatelessWidget {
           ),
         ),
       ),
-    );
-  }
-}
+    )
+ */
