@@ -4,6 +4,7 @@ import 'package:comedy/feacture/events_shows/presentation/widget/event_detail_wi
 import 'package:comedy/utils/color_util.dart';
 import 'package:comedy/utils/component/text_component.dart';
 import 'package:comedy/utils/icons_utils.dart';
+import 'package:comedy/utils/route/route_name.dart';
 import 'package:comedy/utils/string_util.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -23,7 +24,6 @@ class EventDetail extends StatefulWidget {
 class _EventDetailState extends State<EventDetail> {
   @override
   Widget build(BuildContext context) {
-
     var startDateFromApi = widget.eventShowModel.startTime.split(':');
     var endDateFromApi = widget.eventShowModel.endTime.split(':');
 
@@ -67,9 +67,16 @@ class _EventDetailState extends State<EventDetail> {
                       title: '\$${widget.eventShowModel.cost}',
                       iconName: AppIcons.ic_ticket),
                   verticalSpace(20),
-                  descriptionTile(
+                  GestureDetector(
+                    onTap: (){
+                      Navigator.pushNamed(context, RouteName.web_view,arguments: widget.eventShowModel.eventLink);
+                    },
+                    child: descriptionTile(
                       title: widget.eventShowModel.eventLink,
-                      iconName: AppIcons.ic_web),
+                      iconName: AppIcons.ic_web,
+                      textColor: AppColor.primary_blue[500]
+                    ),
+                  ),
                   verticalSpace(20),
                   Divider(
                     color: AppColor.verticalDividerColor,
@@ -97,7 +104,7 @@ class _EventDetailState extends State<EventDetail> {
     );
   }
 
-  Widget descriptionTile({String title, iconName}) {
+  Widget descriptionTile({String title, iconName, Color textColor}) {
     return Row(
       children: [
         Container(
@@ -117,6 +124,7 @@ class _EventDetailState extends State<EventDetail> {
               title: title,
               fontWeight: FontWeight.w600,
               fontSize: 17,
+              color: textColor != null ? textColor : null,
             ),
           ),
         ),

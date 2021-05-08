@@ -38,7 +38,7 @@ class AppString {
 
   ///submit prompt
   static const String submit_prompt_top_desc =
-      'We are always looking for new  prompts to help with comedy writing. We’ll attribute all prompts.';
+      'We are always looking for new prompts for comedy writing exercises. Please provide your prompt, and we’ll make sure to attribute it to you.';
   static const String hint_your_name = 'Your name';
   static const String hint_your_email = 'Your email';
   static const String hint_your_website = 'Your website';
@@ -69,7 +69,7 @@ class AppString {
 
   static const String filter_by_tag = 'FILTER BY TAGS';
   static const String search_tag = 'Search tags';
-  static const String add_tag = 'Add Tags';
+  static const String add_tag = 'Search Tags';
   static const String all_tag = 'All Tags';
 
   ///Events And shows
@@ -94,7 +94,7 @@ class AppString {
   static const String hint_prompt_title = 'Type your title here.';
   static const String hint_prompt_here = 'Write prompt here...';
   static const String hint_prompt_has_tag =
-      'Type #hashtags (with a space to separate)';
+      'Type #hashtags (separated by a space)';
   static const String error_required_prompt_title = 'Please enter a title.';
   static const String error_required_prompt = 'Please enter a Prompt.';
   static const String add_Photo = 'Add Photo';
@@ -123,7 +123,7 @@ class AppString {
   static const String new_prompt = 'New prompt';
   static const String write_prompt = 'Writing prompt';
   static const String write = 'Write';
-  static const String response_prompt = 'Respond to prompt (you have five minutes)';
+  static const String response_prompt = 'You have 5 minutes to repond:';
   static const String response_prompt_five_minute = ' (you have five minutes)';
   static const String write_prompt_question =
       'Write a joke about a recent news event. Try using something other than coronavirus or other obvious topic.';

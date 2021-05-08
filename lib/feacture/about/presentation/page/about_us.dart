@@ -22,6 +22,7 @@ class AboutUsView extends StatelessWidget {
               width: 50,
             ),
           ),
+
           SizedBox(
             height: 50,
           ),

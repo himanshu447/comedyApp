@@ -79,22 +79,25 @@ class EventShowBloc extends Bloc<EventShowEvent, EventShowState> {
 
       yield LoadedAllEventsState(allList: tempList);
     } else if (event is ChangeDateForFilter) {
-      var todayEvents = state.eventList
-          .where((element) => element.startDate.compareTo(event.newDate) == 0)
-          .toList();
 
-      print(event.newDate);
+      print('-------------------->${event.newDate}');
 
-      state.eventList.forEach((element) {
-        print(element.startDate);
+      if(event.newDate != null){
+        var todayEvents = state.eventList
+            .where((element) => element.startDate.compareTo(event.newDate) == 0)
+            .toList();
 
-        print(element.startDate.compareTo(event.newDate));
-      });
+        yield LoadedAllEventsState(allList: state.eventList, dateWiseList: todayEvents);
+      }
 
-      print(todayEvents.length);
+      else{
+        print('asdfdfsdfdsfdf');
+        var todayEvents = state.eventList
+            .where((element) => element.startDate.month == DateTime.now().month)
+            .toList();
 
-      yield LoadedAllEventsState(
-          allList: state.eventList, dateWiseList: todayEvents);
+        yield LoadedAllEventsState(allList: state.eventList, dateWiseList: todayEvents);
+      }
     }
   }
 }

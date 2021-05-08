@@ -68,6 +68,29 @@ class _EventsShowsState extends State<EventsShows> {
     );
   }
 
+  Widget emptyEvent() {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Image.asset(
+          AppIcons.empty_event,
+          height: 150,
+          width: 200.0,
+        ),
+        TextComponent(
+          title: AppString.no_events_or_shows,
+          textStyle: StyleUtil.titleHeaderTextStyle,
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 30),
+          child: submitButton(
+              title: AppString.Submit_event_or_show, onPress: _submitData),
+        ),
+      ],
+    );
+  }
+
   Widget loadBody({List<EventShowModel> list}) {
     return Scaffold(
       key: _scaffoldKey,
@@ -105,6 +128,9 @@ class _EventsShowsState extends State<EventsShows> {
           ),
           EventCalender(
             calendarController: _calendarController,
+            onAllEventButtonTap: (){
+              eventShowBloc.add(ChangeDateForFilter(newDate: null));
+            },
             odDaySelected: (DateTime date) {
               print(date);
               eventShowBloc.add(
@@ -148,29 +174,6 @@ class _EventsShowsState extends State<EventsShows> {
           ),
         ],
       ),
-    );
-  }
-
-  Widget emptyEvent() {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Image.asset(
-          AppIcons.empty_event,
-          height: 150,
-          width: 200.0,
-        ),
-        TextComponent(
-          title: AppString.no_events_or_shows,
-          textStyle: StyleUtil.titleHeaderTextStyle,
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 30),
-          child: submitButton(
-              title: AppString.Submit_event_or_show, onPress: _submitData),
-        ),
-      ],
     );
   }
 

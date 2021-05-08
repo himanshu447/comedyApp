@@ -12,7 +12,9 @@ class RouteName{
   static const answer_writing_prompt_detail = 'answer_writing_prompt_detail';
 
   static const about_us = 'about_us';
+  static const privacy_policy = 'privacy_policy';
   static const contact_me = 'contact_me';
+  static const web_view = 'web_view';
 
 
 }

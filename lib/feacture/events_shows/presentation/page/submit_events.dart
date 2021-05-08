@@ -283,7 +283,7 @@ class _SubmitEventsState extends State<SubmitEvents> {
                     verticalSpace(20.0),
                     customTextField(
                       controller: eventCostController,
-                      textInputType: TextInputType.numberWithOptions(),
+                      textInputType: TextInputType.text,
                       validator: (value) {
                         if (value.isEmpty) {
                           return "Please Enter a Event Cost";
@@ -328,7 +328,7 @@ class _SubmitEventsState extends State<SubmitEvents> {
               startDate: startDate,
               endDate: endDate,
               updatedAt: DateTime.now(),
-              cost: int.parse(eventCostController.text.trim()),
+              cost: eventCostController.text.trim(),
               endTime: DateFormat.Hms().format(endTime),
               startTime: DateFormat.Hms().format(startTime),
               eventLink: eventLinkController.text.trim(),

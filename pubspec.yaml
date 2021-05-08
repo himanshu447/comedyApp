@@ -50,7 +50,7 @@ dependencies:
 
   admob_flutter: ^1.0.1
 
-  shimmer: ^1.1.2
+  webview_flutter: ^1.0.7
 
 
 dev_dependencies:

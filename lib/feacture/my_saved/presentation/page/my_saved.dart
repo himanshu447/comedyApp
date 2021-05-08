@@ -358,6 +358,7 @@ class _MySavedViewState extends State<MySavedView> {
                     GestureDetector(
                       onTap: _showShortAndFilterSheet,
                       child: Card(
+                        color: AppColor.white,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(15)),
                         elevation: 4,

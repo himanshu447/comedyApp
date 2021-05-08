@@ -1,8 +1,10 @@
 import 'package:comedy/feacture/about/presentation/page/about_us.dart';
 import 'package:comedy/feacture/about/presentation/page/contact_me.dart';
+import 'package:comedy/feacture/about/presentation/page/privacy_policy.dart';
 import 'package:comedy/feacture/answer_writing_prompt/presentation/page/answer_wiriting_prompt.dart';
 import 'package:comedy/feacture/answer_writing_prompt/presentation/page/answer_writing_prompt_detail.dart';
 import 'package:comedy/feacture/events_shows/presentation/page/event_detail.dart';
+import 'package:comedy/feacture/events_shows/presentation/page/event_web.dart';
 import 'package:comedy/feacture/events_shows/presentation/page/events_shows.dart';
 import 'package:comedy/feacture/events_shows/presentation/page/submit_events.dart';
 import 'package:comedy/feacture/landing/presentation/page/landing.dart';
@@ -81,6 +83,16 @@ class RouteGenerator {
 
       case RouteName.contact_me:
         return MaterialPageRoute(builder: (_) => ContactMeView());
+
+      case RouteName.privacy_policy:
+        return MaterialPageRoute(builder: (_) => PrivacyPolicyView());
+
+      case RouteName.web_view:
+        return MaterialPageRoute(
+          builder: (_) => EventWebView(
+            link: routeSettings.arguments,
+          ),
+        );
 
       default:
         return null;

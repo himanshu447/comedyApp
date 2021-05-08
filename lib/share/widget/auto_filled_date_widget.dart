@@ -25,7 +25,7 @@ class AutoFilledDateWidget extends StatelessWidget {
           ),
           Expanded(
             child: TextComponent(
-              title: DateFormat('dd MMM,yyyy').format(DateTime.now()),
+              title: DateFormat('dd MMM, yyyy').format(DateTime.now()),
               textStyle: StyleUtil.formFieldTextStyle,
               textAlign: TextAlign.right,
             ),

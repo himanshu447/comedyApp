@@ -1,11 +1,11 @@
 import 'package:comedy/feacture/my_saved/data/model/add_tag_model.dart';
 import 'package:comedy/utils/color_util.dart';
 import 'package:comedy/utils/component/short_filter_select_radio_list.dart';
-import 'package:comedy/utils/component/tag_select_check_list.dart';
 import 'package:comedy/utils/component/text_component.dart';
 import 'package:comedy/utils/icons_utils.dart';
 import 'package:comedy/utils/string_util.dart';
 import 'package:flutter/material.dart';
+import 'package:comedy/utils/extension.dart';
 
 class AddTagBottomSheetWidget extends StatefulWidget {
   final List<AddTagModel> tagList;
@@ -251,8 +251,9 @@ class _AddTagBottomSheetWidgetState extends State<AddTagBottomSheetWidget> {
   }
 
   _searchTagFromList(String text) {
+    var newText = text.capitalize();
     var tempList = widget.tagList
-        .where((element) => element.label.contains(text))
+        .where((element) => element.label.contains(newText))
         .toList();
 
     setState(() {

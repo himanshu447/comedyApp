@@ -49,11 +49,10 @@ class _AboutViewState extends State<AboutView> {
       AboutTileModel(
         label: AppString.about,
         leadIcon: AppIcons.ic_about,
-        onPress: () =>
-            Navigator.pushNamed(
-              context,
-              RouteName.about_us,
-            ),
+        onPress: () => Navigator.pushNamed(
+          context,
+          RouteName.about_us,
+        ),
       ),
     );
     filterList.add(
@@ -61,6 +60,10 @@ class _AboutViewState extends State<AboutView> {
         label: AppString.privacy_Policy,
         leadIcon: AppIcons.ic_privacy_policy,
         onPress: () {
+          Navigator.pushNamed(
+            context,
+            RouteName.privacy_policy,
+          );
         },
       ),
     );
@@ -73,9 +76,7 @@ class _AboutViewState extends State<AboutView> {
               context,
               RouteName.contact_me,
             );
-
-          }
-      ),
+          }),
     );
 
     super.initState();
