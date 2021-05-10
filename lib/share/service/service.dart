@@ -1,7 +1,7 @@
 import 'package:comedy/utils/enum_util.dart';
 
 class Services {
-  static final baseUrl = 'http://52.66.128.99/comedy_app/';
+  static final baseUrl = 'http://167.99.55.39/';
 
   static String getServices(EndPoint endPoint) {
     switch (endPoint) {

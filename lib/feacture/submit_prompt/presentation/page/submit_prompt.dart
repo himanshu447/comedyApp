@@ -100,6 +100,8 @@ class _SubmitPromptWidgetState extends State<SubmitPromptWidget> {
                     fontWeight: FontWeight.w600,
                     color: AppColor.white,
                     textAlign: TextAlign.center,
+                    maxLine: 4,
+                    textOverflow: TextOverflow.ellipsis,
                     margin: EdgeInsets.only(top: 50, right: 20, left: 20),
                   ),
                 ),

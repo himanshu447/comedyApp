@@ -7,6 +7,7 @@ import 'package:comedy/utils/icons_utils.dart';
 import 'package:comedy/utils/route/route_name.dart';
 import 'package:comedy/utils/string_util.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_native_timezone/flutter_native_timezone.dart';
 import 'package:intl/intl.dart';
 
 class EventDetail extends StatefulWidget {
@@ -22,10 +23,53 @@ class EventDetail extends StatefulWidget {
 }
 
 class _EventDetailState extends State<EventDetail> {
+
+  String currentTimeZone = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _fetchLocalTimeZone();
+  }
+
+  _fetchLocalTimeZone() async {
+    currentTimeZone = await FlutterNativeTimezone.getLocalTimezone();
+    print(currentTimeZone);
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
-    var startDateFromApi = widget.eventShowModel.startTime.split(':');
-    var endDateFromApi = widget.eventShowModel.endTime.split(':');
+    var currentDate = DateTime.now();
+
+    var tempstartDateFromApi = widget.eventShowModel.startTime.split(':');
+    var tempendDateFromApi = widget.eventShowModel.endTime.split(':');
+
+    var tempStart = DateFormat.Hms().format(DateTime(
+      currentDate.year,
+      currentDate.month,
+      currentDate.day,
+      int.parse(tempstartDateFromApi[0]),
+      int.parse(tempstartDateFromApi[1]),
+      int.parse(tempstartDateFromApi[2]),
+    ).toLocal());
+
+    var tempEnd = DateFormat.Hms().format(DateTime(
+      currentDate.year,
+      currentDate.month,
+      currentDate.day,
+      int.parse(tempendDateFromApi[0]),
+      int.parse(tempendDateFromApi[1]),
+      int.parse(tempendDateFromApi[2]),
+    ).toLocal());
+
+
+    print(tempStart);
+    print(tempEnd);
+
+    var startDateFromApi = tempStart.split(':');
+    var endDateFromApi = tempEnd.split(':');
+
 
     var startDate = DateTime(
       widget.eventShowModel.startDate.year,
@@ -45,7 +89,7 @@ class _EventDetailState extends State<EventDetail> {
       int.parse(endDateFromApi[2]),
     );
 
-    String finalStartDate = DateFormat('MMM d H:mm:ss a').format(startDate);
+    String finalStartDate = DateFormat('MMM d AT H:mm a').format(startDate);
     String finalEndDate = DateFormat('MMM d H:mm:ss a').format(endDate);
 
     return Scaffold(
@@ -68,14 +112,14 @@ class _EventDetailState extends State<EventDetail> {
                       iconName: AppIcons.ic_ticket),
                   verticalSpace(20),
                   GestureDetector(
-                    onTap: (){
-                      Navigator.pushNamed(context, RouteName.web_view,arguments: widget.eventShowModel.eventLink);
+                    onTap: () {
+                      Navigator.pushNamed(context, RouteName.web_view,
+                          arguments: widget.eventShowModel.eventLink);
                     },
                     child: descriptionTile(
-                      title: widget.eventShowModel.eventLink,
-                      iconName: AppIcons.ic_web,
-                      textColor: AppColor.primary_blue[500]
-                    ),
+                        title: widget.eventShowModel.eventLink,
+                        iconName: AppIcons.ic_web,
+                        textColor: AppColor.primary_blue[500]),
                   ),
                   verticalSpace(20),
                   Divider(

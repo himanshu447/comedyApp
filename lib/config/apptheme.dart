@@ -12,7 +12,6 @@ class AppTheme extends StatelessWidget {
   static ThemeData themeColors(BuildContext context) => ThemeData(
         platform: Theme.of(context).platform,
         fontFamily: 'Poppins',
-        brightness: Brightness.dark,
         /*  primarySwatch: AppColor.primary_blue[500],
     accentIconTheme: Theme.of(context).accentIconTheme.copyWith(color: accentColor),
     accentColor: accentColor,*/

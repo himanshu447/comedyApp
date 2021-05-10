@@ -320,17 +320,18 @@ class _SubmitEventsState extends State<SubmitEvents> {
       showSnackBar(msg: AppString.image_required);
     } else if (_eventkey.currentState.validate()) {
       try {
+
         eventShowBloc.add(
           SubmitEventAndShowsEvent(
             eventShowModel: EventShowModel(
               name: eventNameController.text.trim(),
               about: aboutEventController.text.trim(),
-              startDate: startDate,
-              endDate: endDate,
+              startDate: startDate.toUtc(),
+              endDate: startDate.toUtc(),
               updatedAt: DateTime.now(),
               cost: eventCostController.text.trim(),
-              endTime: DateFormat.Hms().format(endTime),
-              startTime: DateFormat.Hms().format(startTime),
+              endTime: DateFormat.Hms().format(endTime.toUtc()),
+              startTime: DateFormat.Hms().format(startTime.toUtc()),
               eventLink: eventLinkController.text.trim(),
               image: image,
               timezone: currentTimeZone.isNotEmpty ? currentTimeZone : DateTime.now().timeZoneName,
