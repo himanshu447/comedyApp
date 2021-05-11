@@ -33,6 +33,7 @@ class AppTheme extends StatelessWidget {
             ),
           ),
           border: OutlineInputBorder(
+
             borderRadius: BorderRadius.circular(15),
             borderSide: const BorderSide(
               color: Colors.transparent,

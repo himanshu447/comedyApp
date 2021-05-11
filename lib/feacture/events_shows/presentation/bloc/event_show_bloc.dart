@@ -56,7 +56,8 @@ class EventShowBloc extends Bloc<EventShowEvent, EventShowState> {
               allList: success, dateWiseList: todayEvents);
         },
       );
-    } else if (event is SubmitEventAndShowsEvent) {
+    }
+    else if (event is SubmitEventAndShowsEvent) {
       print('asdsadasd');
       yield SubmittingEventShowState(list: state.eventList);
 
@@ -72,13 +73,15 @@ class EventShowBloc extends Bloc<EventShowEvent, EventShowState> {
               eventShowModel: success, list: state.eventList);
         },
       );
-    } else if (event is AddSubmittedEventInToListEvent) {
+    }
+    else if (event is AddSubmittedEventInToListEvent) {
       var tempList = state.eventList;
 
       tempList.insert(0, event.eventShowModel);
 
       yield LoadedAllEventsState(allList: tempList);
-    } else if (event is ChangeDateForFilter) {
+    }
+    else if (event is ChangeDateForFilter) {
 
       print('-------------------->${event.newDate}');
 
@@ -91,7 +94,6 @@ class EventShowBloc extends Bloc<EventShowEvent, EventShowState> {
       }
 
       else{
-        print('asdfdfsdfdsfdf');
         var todayEvents = state.eventList
             .where((element) => element.startDate.month == DateTime.now().month)
             .toList();

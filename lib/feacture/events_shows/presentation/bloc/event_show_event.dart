@@ -23,7 +23,7 @@ class AddSubmittedEventInToListEvent extends EventShowEvent {
 
 class ChangeDateForFilter extends EventShowEvent {
   final DateTime newDate;
-
-  ChangeDateForFilter({this.newDate,});
+  final int month;
+  ChangeDateForFilter({this.newDate,this.month});
 
 }
