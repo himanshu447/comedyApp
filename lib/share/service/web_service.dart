@@ -104,7 +104,7 @@ class WebService {
       'eventlink':
           eventShowModel.eventLink != null ? eventShowModel.eventLink : null,
       'cost':
-          eventShowModel.cost != null ? eventShowModel.cost : null,
+          eventShowModel.cost != null ? eventShowModel.cost.toString() : null,
     });
 
     request.headers.addAll(headers);

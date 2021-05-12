@@ -130,12 +130,19 @@ class _AddTagBottomSheetWidgetState extends State<AddTagBottomSheetWidget> {
                                 border: InputBorder.none,
                               ),
                               onChanged: (text) {
-                                _searchTagFromList(text);
+                                if(text.isNotEmpty) {
+                                  _searchTagFromList(text);
+                                }else{
+                                  _searchController.clear();
+                                  _changedIsCheckFromSearch();
+                                  searchTagList = null;
+                                }
                               },
                             ),
                           ),
                           _searchController.text.trim().isNotEmpty
                               ? Container(
+
                             child: IconButton(
                               icon: Icon(
                                 Icons.close,
