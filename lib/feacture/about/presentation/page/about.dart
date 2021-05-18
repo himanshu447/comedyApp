@@ -1,12 +1,14 @@
 import 'package:comedy/common/general_widget.dart';
 import 'package:comedy/feacture/about/data/model/about_tile_model.dart';
 import 'package:comedy/share/widget/top_app_bar_widget.dart';
+import 'package:comedy/utils/color_util.dart';
 import 'package:comedy/utils/component/text_component.dart';
 import 'package:comedy/utils/icons_utils.dart';
 import 'package:comedy/utils/route/route_name.dart';
 import 'package:comedy/utils/string_util.dart';
 import 'package:comedy/utils/style_util.dart';
 import 'package:flutter/material.dart';
+import 'package:package_info/package_info.dart';
 
 class AboutView extends StatefulWidget {
   final VoidCallback goToSubmitPromptTab;
@@ -20,10 +22,19 @@ class AboutView extends StatefulWidget {
 class _AboutViewState extends State<AboutView> {
   List<AboutTileModel> filterList = [];
 
+  String buildNumber = '';
+  String version = '';
+
+  _fetchPackageInfo() async {
+    var packageInfo = await PackageInfo.fromPlatform();
+    setState(() {
+      buildNumber = packageInfo.buildNumber;
+      version = packageInfo.version;
+    });
+  }
+
   @override
   void initState() {
-    // TODO: implement initState
-
     filterList.add(
       AboutTileModel(
           label: AppString.submit_prompt,
@@ -80,6 +91,10 @@ class _AboutViewState extends State<AboutView> {
     );
 
     super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _fetchPackageInfo();
+    });
   }
 
   @override
@@ -110,7 +125,16 @@ class _AboutViewState extends State<AboutView> {
                   text: filterList[index].label,
                   onTap: filterList[index].onPress,
                 );
-              })
+              }),
+          TextComponent(
+            alignment: Alignment.centerRight,
+            title: buildNumber.isNotEmpty && version.isNotEmpty
+                ? 'Version : $buildNumber($version)'
+                : '',
+            fontSize: 12,
+            margin: EdgeInsets.symmetric(horizontal: 12, vertical: 20),
+            color: AppColor.gry,
+          ),
         ],
       ),
     );
