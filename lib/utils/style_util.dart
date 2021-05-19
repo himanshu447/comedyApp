@@ -63,6 +63,14 @@ class StyleUtil {
     color: AppColor.gry,
   );
 
+  static TextStyle activeNumberTextStyleForDetail = TextStyle(
+    fontSize: 30,
+    fontWeight: FontWeight.w600,
+    fontFamily: 'SF Pro Display',
+    color: AppColor.primary_orange[500],
+  );
+
+
   static TextStyle levelOfCompletenessTextStyle = const TextStyle(
     fontSize: 22,
     fontWeight: FontWeight.w600,

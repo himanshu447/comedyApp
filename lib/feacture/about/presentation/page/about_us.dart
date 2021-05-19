@@ -22,14 +22,20 @@ class AboutUsView extends StatelessWidget {
               width: 50,
             ),
           ),
-
           SizedBox(
             height: 50,
           ),
           TextComponent(
-            title: "LaughDraft caters to two types of users: those who have an interest in comedy writing, but don't have the confidence or know-how on where to start, and those who are already comedy writers or comedians and who want to keep track of their writing. We provide the ability to write, as well as to discover new comedy events and shows.",
+            title:
+                "Do you have an interest in comedy writing, but have no idea where to get started? Or are you already a comedy writer or comedian who wants to keep track of your writing? No matter who you are in the comedy arena, LaughDraft is for you!",
             textStyle: StyleUtil.calenderHeaderTextStyle,
             margin: EdgeInsets.symmetric(horizontal: 16),
+          ),
+          TextComponent(
+            title:
+                "This app lets you write on your own, or follow carefully-crafted prompts to bring out your funny bone. Bonus – discover (or advertise) new comedy events and shows!",
+            textStyle: StyleUtil.calenderHeaderTextStyle,
+            margin: EdgeInsets.symmetric(horizontal: 16,vertical: 20),
           ),
         ],
       ),

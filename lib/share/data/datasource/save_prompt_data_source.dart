@@ -6,6 +6,7 @@ import 'package:comedy/utils/constant_util.dart';
 import 'package:comedy/utils/enum_util.dart';
 import 'package:device_info/device_info.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_udid/flutter_udid.dart';
 
 abstract class SavePromptDataSource {
   Future<int> savePrompt({int answerPromptId, int withoutPromptId});
@@ -64,8 +65,10 @@ class SavePromptDataSourceImpl extends SavePromptDataSource {
         var build = await deviceInfoPlugin.androidInfo;
         return build.androidId; //UUID for Android
       } else if (Platform.isIOS) {
-        var data = await deviceInfoPlugin.iosInfo;
-        return data.identifierForVendor; //UUID for iOS
+        String udid = await FlutterUdid.udid;
+        return udid;
+        /*var data = await deviceInfoPlugin.iosInfo;
+        return data.identifierForVendor; //UUID for iOS*/
       } else {
         return null;
       }

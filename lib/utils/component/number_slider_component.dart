@@ -9,12 +9,18 @@ class HorizantalPicker extends StatefulWidget {
   final TextStyle activeTextStyle;
   final TextStyle deActiveTextStyle;
   final Color activeItemBgColor;
+  final int currentItem;
+  final double height;
+  final double circleRadius;
 
   HorizantalPicker({
     @required this.minValue,
     @required this.maxValue,
     @required this.onChanged,
     this.initialPosition = InitialPosition.center,
+    this.currentItem = 4,
+    this.height = 100,
+    this.circleRadius = 30,
     this.activeTextStyle = const TextStyle(
       fontSize: 25,
       fontWeight: FontWeight.bold,
@@ -35,38 +41,22 @@ class _HorizantalPickerState extends State<HorizantalPicker> {
   List<int> valueList = [];
 
   FixedExtentScrollController _scrollController;
-  int curItem = 4;
+  int curItem;
 
   @override
   void initState() {
     super.initState();
-    //setScrollController();
+    curItem = widget.currentItem;
     _scrollController = FixedExtentScrollController(initialItem: curItem);
   }
-
-  /*setScrollController() {
-    int initialItem;
-    switch (widget.initialPosition) {
-      case InitialPosition.start:
-        initialItem = 0;
-        break;
-      case InitialPosition.center:
-        initialItem = (valueMap.length ~/ 2);
-        break;
-      case InitialPosition.end:
-        initialItem = valueMap.length - 1;
-        break;
-    }
-
-  }*/
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.all(3),
       margin: EdgeInsets.all(20),
-      height: 100,
       alignment: Alignment.center,
+      height: widget.height,
       child: Scaffold(
         backgroundColor: Colors.white,
         body: Stack(
@@ -91,6 +81,7 @@ class _HorizantalPickerState extends State<HorizantalPicker> {
                     activeTextStyle: widget.activeTextStyle,
                     deActiveTextStyle: widget.deActiveTextStyle,
                     isSelected: curItem == index,
+                    radius: widget.circleRadius,
                   ),
                 ).toList(),
               ),
@@ -108,6 +99,7 @@ class ItemWidget extends StatelessWidget {
   final Color activeBgColor;
   final TextStyle activeTextStyle;
   final TextStyle deActiveTextStyle;
+  final double radius;
 
   const ItemWidget({
     this.isSelected,
@@ -115,6 +107,7 @@ class ItemWidget extends StatelessWidget {
     this.deActiveTextStyle,
     this.activeTextStyle,
     this.activeBgColor,
+    this.radius = 30,
   });
 
   @override
@@ -123,7 +116,7 @@ class ItemWidget extends StatelessWidget {
       quarterTurns: 1,
       child: CircleAvatar(
         backgroundColor: isSelected ? activeBgColor : Colors.white,
-        radius: 30,
+        radius: radius,
         child: Text(
           title,
           style: isSelected ? activeTextStyle : deActiveTextStyle,

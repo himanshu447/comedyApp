@@ -3,6 +3,11 @@ import 'package:comedy/utils/constant_util.dart';
 import 'package:flutter/material.dart';
 
 class ShowAddWidget extends StatelessWidget {
+
+  final double height;
+
+  ShowAddWidget({this.height = 50});
+
   @override
   Widget build(BuildContext context) {
     return Positioned(
@@ -10,7 +15,7 @@ class ShowAddWidget extends StatelessWidget {
       left: 0.0,
       right: 0.0,
       child: Container(
-        height: 50,
+        height: height,
         child: AdmobBanner(
           adUnitId: ConstantUtil.getBannerAdUnitId(),
           adSize: AdmobBannerSize.MEDIUM_RECTANGLE,

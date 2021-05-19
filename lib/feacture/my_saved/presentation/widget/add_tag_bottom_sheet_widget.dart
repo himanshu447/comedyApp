@@ -122,6 +122,7 @@ class _AddTagBottomSheetWidgetState extends State<AddTagBottomSheetWidget> {
                           Expanded(
                             child: TextFormField(
                               controller: _searchController,
+                              textInputAction: TextInputAction.search,
                               decoration: InputDecoration(
                                 contentPadding:
                                     EdgeInsets.symmetric(horizontal: 12),
@@ -142,7 +143,6 @@ class _AddTagBottomSheetWidgetState extends State<AddTagBottomSheetWidget> {
                           ),
                           _searchController.text.trim().isNotEmpty
                               ? Container(
-
                             child: IconButton(
                               icon: Icon(
                                 Icons.close,

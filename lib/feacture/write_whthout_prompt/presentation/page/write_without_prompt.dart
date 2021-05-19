@@ -1,3 +1,4 @@
+import 'package:comedy/common/general_widget.dart';
 import 'package:comedy/feacture/write_whthout_prompt/data/model/write_without_prompt_model.dart';
 import 'package:comedy/feacture/write_whthout_prompt/presentation/bloc/write_without_prompt_bloc.dart';
 import 'package:comedy/injector.dart';
@@ -8,6 +9,7 @@ import 'package:comedy/utils/color_util.dart';
 import 'package:comedy/utils/component/input-chip.component.dart';
 import 'package:comedy/utils/component/number_slider_component.dart';
 import 'package:comedy/utils/component/text_component.dart';
+import 'package:comedy/utils/icons_utils.dart';
 import 'package:comedy/utils/route/route_name.dart';
 import 'package:comedy/utils/route/screen_argument_model/write_without_prompt_detail_arguments.dart';
 import 'package:comedy/utils/string_util.dart';
@@ -44,7 +46,6 @@ class _WriteWithoutPromptViewState extends State<WriteWithoutPromptView> {
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
 
-
   @override
   void initState() {
     withoutPromptBloc = injector<WriteWithoutPromptBloc>();
@@ -62,28 +63,25 @@ class _WriteWithoutPromptViewState extends State<WriteWithoutPromptView> {
               context: context,
               title: AppString.saving_your_writing,
             );
-          }
-          else if (state is WriteWithoutPromptSuccessState) {
-
+          } else if (state is WriteWithoutPromptSuccessState) {
             Navigator.pop(context);
 
             Navigator.popAndPushNamed(
-              context,
-              RouteName.write_without_prompt_detail,
-              arguments: WriteWithoutPromptDetailScreenArguments(
-                writeWithoutPromptModel: WriteWithoutPromptModel(
-                  title: state.writeWithoutPromptModel.title,
-                  description: state.writeWithoutPromptModel.description,
-                  degreeOfSucking: state.writeWithoutPromptModel.degreeOfSucking,
-                  levelOfCompleteness: state.writeWithoutPromptModel.levelOfCompleteness,
-                  tags: state.writeWithoutPromptModel.tags,
-                  id: state.writeWithoutPromptModel.id,
-                ),
-                withoutPromptBloc: withoutPromptBloc,
-              )
-            );
-          }
-          else if(state is WriteWithoutPromptErrorState){
+                context, RouteName.write_without_prompt_detail,
+                arguments: WriteWithoutPromptDetailScreenArguments(
+                  writeWithoutPromptModel: WriteWithoutPromptModel(
+                    title: state.writeWithoutPromptModel.title,
+                    description: state.writeWithoutPromptModel.description,
+                    degreeOfSucking:
+                        state.writeWithoutPromptModel.degreeOfSucking,
+                    levelOfCompleteness:
+                        state.writeWithoutPromptModel.levelOfCompleteness,
+                    tags: state.writeWithoutPromptModel.tags,
+                    id: state.writeWithoutPromptModel.id,
+                  ),
+                  withoutPromptBloc: withoutPromptBloc,
+                ));
+          } else if (state is WriteWithoutPromptErrorState) {
             Navigator.pop(context);
             showSnackBar(msg: state.error);
           }
@@ -113,6 +111,30 @@ class _WriteWithoutPromptViewState extends State<WriteWithoutPromptView> {
                 SubModuleAppBarWidget(
                   color: AppColor.primary_orange[500],
                   title: AppString.free_write,
+                  leadingWidget: IconButton(
+                    icon: imageAsset(
+                      img: AppIcons.ic_back,
+                      width: 25.0,
+                      height: 25.0,
+                      color:AppColor.black,
+                    ),
+                    onPressed: (){
+                      if((_titleController.text.trim().isNotEmpty || _promptController.text.trim().isNotEmpty) &&
+                          !isPromptTitleAndDescSubmitted){
+                        showConfirmDialog();
+                      }else if(isPromptTitleAndDescSubmitted && isTagSubmitted){
+                        setState(() {
+                          isTagSubmitted = false;
+                        });
+                      }else if(isPromptTitleAndDescSubmitted){
+                        setState(() {
+                          isPromptTitleAndDescSubmitted = false;
+                        });
+                      }else{
+                        Navigator.pop(context);
+                      }
+                    },
+                  ),
                   actionWidget:
                       !isPromptTitleAndDescSubmitted || !isTagSubmitted
                           ? FlatButton(
@@ -229,7 +251,6 @@ class _WriteWithoutPromptViewState extends State<WriteWithoutPromptView> {
                           ),
                         ),
                       ),
-
                 isPromptTitleAndDescSubmitted
                     ? InputChipComponent(
                         list: tagList,
@@ -243,7 +264,7 @@ class _WriteWithoutPromptViewState extends State<WriteWithoutPromptView> {
                           vertical: 10,
                         ).copyWith(top: 14, bottom: 14),
                         onAddCallBack: (val) {
-                          if(val.isNotEmpty){
+                          if (val.isNotEmpty) {
                             setState(() {
                               tagList.add('#${val.trim()}');
                             });
@@ -251,7 +272,6 @@ class _WriteWithoutPromptViewState extends State<WriteWithoutPromptView> {
                         },
                       )
                     : Container(),
-
                 isTagSubmitted && !isLevelOfCompletenessSubmitted
                     ? TextComponent(
                         title: AppString.level_of_completeness,
@@ -260,7 +280,6 @@ class _WriteWithoutPromptViewState extends State<WriteWithoutPromptView> {
                         textAlign: TextAlign.center,
                       )
                     : Container(),
-
                 isTagSubmitted && !isLevelOfCompletenessSubmitted
                     ? HorizantalPicker(
                         minValue: 1,
@@ -273,7 +292,6 @@ class _WriteWithoutPromptViewState extends State<WriteWithoutPromptView> {
                         deActiveTextStyle: StyleUtil.inActiveNumberTextStyle,
                       )
                     : Container(),
-
                 isLevelOfCompletenessSubmitted
                     ? TextComponent(
                         title: AppString.degree_of_not_sucking,
@@ -333,12 +351,11 @@ class _WriteWithoutPromptViewState extends State<WriteWithoutPromptView> {
       setState(() {
         isTagSubmitted = true;
       });
-
     } else if (isTagSubmitted && !isLevelOfCompletenessSubmitted) {
       setState(() {
         isLevelOfCompletenessSubmitted = true;
       });
-    } else if(isLevelOfCompletenessSubmitted){
+    } else if (isLevelOfCompletenessSubmitted) {
       withoutPromptBloc.add(
         CreateWriteWithoutPromptEvent(
           writeWithoutPromptModel: WriteWithoutPromptModel(
@@ -365,7 +382,61 @@ class _WriteWithoutPromptViewState extends State<WriteWithoutPromptView> {
     );
   }
 
-
+  showConfirmDialog(){
+    showDialog(
+      context: context,
+      builder: (_) =>  AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        backgroundColor: AppColor.white,
+        contentPadding: EdgeInsets.zero,
+        title: TextComponent(
+          title: AppString.back_confirm_dialog,
+          textStyle: StyleUtil.formFieldTextStyle,
+          textAlign: TextAlign.center,
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SizedBox(
+              height: 20,
+            ),
+            Divider(),
+            IntrinsicHeight(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: FlatButton(
+                      onPressed: () => Navigator.pop(context),
+                      child: TextComponent(
+                        title: AppString.cancel,
+                        textStyle: StyleUtil.calenderHeaderTextStyle,
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                  VerticalDivider(),
+                  Expanded(
+                    child: FlatButton(
+                      onPressed:(){
+                        Navigator.pop(context);
+                        Navigator.pop(context);
+                      },
+                      child: TextComponent(
+                        title: AppString.yes,
+                        textStyle: StyleUtil.calenderHeaderTextStyle,
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }
 
 /*

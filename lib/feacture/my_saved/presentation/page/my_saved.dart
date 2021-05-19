@@ -115,14 +115,10 @@ class _MySavedViewState extends State<MySavedView> {
 
   _saveTagFromData(List<MySavedModel> list) {
     list.forEach((saveItem) {
-
-      if(saveItem.tags.isNotEmpty) {
+      if (saveItem.tags.isNotEmpty) {
         saveItem.tags.forEach((singleTag) {
-
-          if(singleTag.isNotEmpty){
-            if (singleTag
-                .substring(1)
-                .isNotEmpty) {
+          if (singleTag.isNotEmpty) {
+            if (singleTag.substring(1).isNotEmpty) {
               AddTagModel addTagModel = AddTagModel(
                   isChecked: false, label: singleTag.substring(1).capitalize());
 
@@ -170,8 +166,7 @@ class _MySavedViewState extends State<MySavedView> {
                   textStyle: StyleUtil.topAppBarTextStyle,
                 ),
                 Container(
-                  margin:
-                      EdgeInsets.symmetric(horizontal: 20).copyWith(top: 30),
+                  margin: EdgeInsets.symmetric(horizontal: 20).copyWith(top: 30),
                   padding: EdgeInsets.symmetric(horizontal: 12, vertical: 2),
                   decoration: BoxDecoration(
                     color: AppColor.white,
@@ -195,6 +190,7 @@ class _MySavedViewState extends State<MySavedView> {
                         Expanded(
                           child: TextField(
                             controller: _searchController,
+                            textInputAction: TextInputAction.search,
                             decoration: InputDecoration(
                               filled: false,
                               contentPadding:
@@ -203,11 +199,15 @@ class _MySavedViewState extends State<MySavedView> {
                               border: InputBorder.none,
                             ),
                             onChanged: (text) {
-                              mySavedBloc.add(
-                                SearchMySavedEvent(
-                                  text: text,
-                                ),
-                              );
+                              if (text.isNotEmpty) {
+                                mySavedBloc.add(
+                                  SearchMySavedEvent(
+                                    text: text,
+                                  ),
+                                );
+                              } else {
+                                _searchController.clear();
+                              }
                             },
                           ),
                         ),
@@ -220,8 +220,8 @@ class _MySavedViewState extends State<MySavedView> {
                                     size: 25,
                                   ),
                                   onPressed: () {
-                                    //_searchController.clear();
-                                    //mySavedBloc.add(ClearSearchListEvent());
+                                    _searchController.clear();
+                                    mySavedBloc.add(ClearSearchListEvent());
                                   },
                                 ),
                               )
@@ -313,14 +313,11 @@ class _MySavedViewState extends State<MySavedView> {
                   mySavedModel: list[index],
                   withoutPromptBloc: withoutPromptBloc,
                   answerWritingPromptBloc: answerWritingPromptBloc,
-
                   removeDataCallBack: () {
-                    mySavedBloc.add(RemoveDataFromListEvent(id: list[index].id));
+                    mySavedBloc
+                        .add(RemoveDataFromListEvent(id: list[index].id));
                   },
-
                   editAnswerWriteDataCallBack: (val) {
-
-
                     mySavedBloc.add(
                       EditAnswerWriteDataInListEvent(
                         id: list[index].id,
@@ -328,9 +325,7 @@ class _MySavedViewState extends State<MySavedView> {
                       ),
                     );
                   },
-
-                  editFreeWriteDataCallBack: (val){
-
+                  editFreeWriteDataCallBack: (val) {
                     print(mySavedBloc.state);
 
                     mySavedBloc.add(

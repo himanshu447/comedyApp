@@ -128,11 +128,10 @@ class _EventsShowsState extends State<EventsShows> {
           ),
           EventCalender(
             calendarController: _calendarController,
-            onAllEventButtonTap: (){
-              eventShowBloc.add(ChangeDateForFilter(newDate: null));
+            onAllEventButtonTap: (int month){
+              eventShowBloc.add(ChangeDateForFilter(newDate: null ,month: month));
             },
             odDaySelected: (DateTime date) {
-              print(date);
               eventShowBloc.add(
                 ChangeDateForFilter(
                   newDate: DateTime(

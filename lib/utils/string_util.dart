@@ -17,6 +17,8 @@ class AppString {
   static const String share = 'Share';
   static const String cancel = 'Cancel';
   static const String save = 'Save';
+  static const String back_confirm_dialog = 'Are you sure you want to leave without saving your writing?';
+  static const String yes = 'Yes';
 
   ///Landing Screen
   static const String home = 'Home';
@@ -123,7 +125,7 @@ class AppString {
   static const String new_prompt = 'New prompt';
   static const String write_prompt = 'Writing prompt';
   static const String write = 'Write';
-  static const String response_prompt = 'You have 5 minutes to respond :';
+  static const String response_prompt = 'You have 5 minutes to respond:';
   static const String response_prompt_five_minute = ' (you have five minutes)';
   static const String write_prompt_question =
       'Write a joke about a recent news event. Try using something other than coronavirus or other obvious topic.';

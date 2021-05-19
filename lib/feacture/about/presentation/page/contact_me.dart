@@ -1,9 +1,13 @@
 import 'package:comedy/share/widget/sub_module_app_bar_widget.dart';
 import 'package:comedy/utils/color_util.dart';
 import 'package:comedy/utils/component/text_component.dart';
+import 'package:comedy/utils/route/route_name.dart';
 import 'package:comedy/utils/string_util.dart';
 import 'package:comedy/utils/style_util.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 class ContactMeView extends StatelessWidget {
   @override
@@ -37,13 +41,15 @@ class ContactMeView extends StatelessWidget {
             padding: const EdgeInsets.all(16.0),
             child: Text.rich(
               TextSpan(
-                text: 'Check out the website at',
+                text: 'Check out the website at ',
                 style: StyleUtil.calenderHeaderTextStyle,
                 children: [
                   TextSpan(
-                    text: ' '
-                        'www.laughdraft.com',
+                    text: 'www.laughdraft.com',
                     style: StyleUtil.calenderHeaderTextStyle.copyWith(color: Colors.blue),
+                    recognizer: TapGestureRecognizer()..onTap = () {
+                      Navigator.pushNamed(context, RouteName.web_view,arguments: 'www.laughdraft.com');
+                    },
                   ),
 
                   TextSpan(
@@ -53,18 +59,30 @@ class ContactMeView extends StatelessWidget {
                   TextSpan(
                     text: ' julie@laughdraft.com.',
                     style: StyleUtil.calenderHeaderTextStyle.copyWith(color: Colors.blue),
+                    recognizer: TapGestureRecognizer()..onTap = () {
+                      launchURL();
+                    },
                   ),
                 ]
               ),
             ),
           ),
-          /*TextComponent(
-            title: "  ",
-            textStyle: StyleUtil.calenderHeaderTextStyle,
-            margin: EdgeInsets.symmetric(horizontal: 16),
-          ),*/
+          /*Expanded(
+            child: WebView(
+              initialUrl: 'https://www.laughdraft.com/privacy-policy',
+            ),
+          )*/
         ],
       ),
     );
+  }
+
+  launchURL() async {
+    const url = 'mailto:julie@laughdraft.com';
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 }

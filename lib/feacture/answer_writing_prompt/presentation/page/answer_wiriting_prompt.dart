@@ -607,4 +607,61 @@ class _AnswerWritingPromptViewState extends State<AnswerWritingPromptView> {
       ),
     );
   }
+
+  showConfirmDialog(){
+    showDialog(
+      context: context,
+      builder: (_) =>  AlertDialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        backgroundColor: AppColor.white,
+        contentPadding: EdgeInsets.zero,
+        title: TextComponent(
+          title: AppString.back_confirm_dialog,
+          textStyle: StyleUtil.formFieldTextStyle,
+          textAlign: TextAlign.center,
+        ),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            SizedBox(
+              height: 20,
+            ),
+            Divider(),
+            IntrinsicHeight(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Expanded(
+                    child: FlatButton(
+                      onPressed: () => Navigator.pop(context),
+                      child: TextComponent(
+                        title: AppString.cancel,
+                        textStyle: StyleUtil.calenderHeaderTextStyle,
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                  VerticalDivider(),
+                  Expanded(
+                    child: FlatButton(
+                      onPressed:(){
+                        Navigator.pop(context);
+                        Navigator.pop(context);
+                      },
+                      child: TextComponent(
+                        title: AppString.yes,
+                        textStyle: StyleUtil.calenderHeaderTextStyle,
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
 }

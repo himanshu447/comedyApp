@@ -8,6 +8,7 @@ import 'package:comedy/share/widget/more_option_bootm_sheet_widget.dart';
 import 'package:comedy/share/widget/sub_module_app_bar_widget.dart';
 import 'package:comedy/utils/color_util.dart';
 import 'package:comedy/utils/component/input-chip.component.dart';
+import 'package:comedy/utils/component/number_slider_component.dart';
 import 'package:comedy/utils/component/size_config.dart';
 import 'package:comedy/utils/component/text_component.dart';
 import 'package:comedy/utils/icons_utils.dart';
@@ -42,6 +43,8 @@ class _WriteWithoutPromptDetailViewState
   final GlobalKey<FormState> _detailFormKey = GlobalKey<FormState>();
 
   List<String> tagList = [];
+  int degreeOfSucking = 0;
+  int levelOfCompleteness = 0;
 
   bool isEditButtonPress = false;
 
@@ -67,6 +70,10 @@ class _WriteWithoutPromptDetailViewState
 
       //tagList = widget.withoutPromptModel.tags;
     }
+
+     degreeOfSucking =  widget.withoutPromptModel.degreeOfSucking;
+     levelOfCompleteness = widget.withoutPromptModel.levelOfCompleteness;
+
     super.initState();
   }
 
@@ -154,10 +161,8 @@ class _WriteWithoutPromptDetailViewState
                                   description: _promptController.text.trim(),
                                   title: _titleController.text.trim(),
                                   tags: tagList,
-                                  levelOfCompleteness: widget
-                                      .withoutPromptModel.levelOfCompleteness,
-                                  degreeOfSucking:
-                                      widget.withoutPromptModel.degreeOfSucking,
+                                  levelOfCompleteness: levelOfCompleteness,
+                                  degreeOfSucking: degreeOfSucking,
                                 ),
                               ),
                             );
@@ -307,19 +312,64 @@ class _WriteWithoutPromptDetailViewState
                           });
                         },
                       )
-                    : Container()
+                    : Container(),
+
+                if(isEditButtonPress)
+                  TextComponent(
+                    title: AppString.level_of_completeness,
+                    textStyle: StyleUtil.calenderHeaderTextStyle,
+                    margin: EdgeInsets.only(top: 12,left: 16),
+                    textAlign: TextAlign.left,
+                  ),
+
+                if(isEditButtonPress)
+                  HorizantalPicker(
+                    currentItem: levelOfCompleteness -1,
+                    minValue: 1,
+                    maxValue: 10,
+                    height: 65,
+                    circleRadius: 25,
+                    onChanged: (val) {
+                      levelOfCompleteness = val;
+                    },
+                    activeItemBgColor: AppColor.primary_orange[100],
+                    activeTextStyle: StyleUtil.activeNumberTextStyleForDetail,
+                    deActiveTextStyle: StyleUtil.inActiveNumberTextStyle,
+                  ),
+
+                if(isEditButtonPress)
+                  TextComponent(
+                    title: AppString.degree_of_not_sucking,
+                    textStyle: StyleUtil.calenderHeaderTextStyle,
+                    margin: EdgeInsets.only(left: 16),
+                    textAlign: TextAlign.left,
+                  ),
+
+                if(isEditButtonPress)
+                  HorizantalPicker(
+                    currentItem: levelOfCompleteness -1,
+                    minValue: 1,
+                    maxValue: 10,
+                    height: 65,
+                    circleRadius: 25,
+                    onChanged: (val) {
+                      degreeOfSucking = val;
+                    },
+                    activeItemBgColor: AppColor.primary_orange[100],
+                    activeTextStyle: StyleUtil.activeNumberTextStyleForDetail,
+                    deActiveTextStyle: StyleUtil.inActiveNumberTextStyle,
+                  )
               ],
             ),
           ),
         ),
+
         //bottom Level And Degree
-        MediaQuery.of(context).viewInsets.bottom == 0
-            ? LevelAndDegreeDetailWidget(
-                levelOfCompleteness:
-                    widget.withoutPromptModel.levelOfCompleteness,
-                degreeOfSucking: widget.withoutPromptModel.degreeOfSucking,
-              )
-            : Container(),
+        if(!isEditButtonPress)
+          LevelAndDegreeDetailWidget(
+                levelOfCompleteness: levelOfCompleteness,
+                degreeOfSucking: degreeOfSucking,
+              ),
 
         isDataDeleting
             ? Positioned(
