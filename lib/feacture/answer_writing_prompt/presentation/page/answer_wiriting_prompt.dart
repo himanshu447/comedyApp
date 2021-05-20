@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:admob_flutter/admob_flutter.dart';
+import 'package:comedy/common/general_widget.dart';
 import 'package:comedy/feacture/answer_writing_prompt/data/model/answer_write_prompt_model.dart';
 import 'package:comedy/feacture/answer_writing_prompt/data/model/question_answer_model.dart';
 import 'package:comedy/feacture/answer_writing_prompt/presentation/bloc/answer_writing_prompt_bloc.dart';
@@ -173,6 +174,38 @@ class _AnswerWritingPromptViewState extends State<AnswerWritingPromptView> {
                           : '',
                       textStyle: StyleUtil.calenderHeaderTextStyle,
                     ),
+                  ),
+                  leadingWidget: IconButton(
+                    icon: imageAsset(
+                      img: AppIcons.ic_back,
+                      width: 25.0,
+                      height: 25.0,
+                      color:AppColor.black,
+                    ),
+                    onPressed: (){
+                      if(isTagSubmitted && isTitleSubmit){
+                        setState(() {
+                          isTagSubmitted = false;
+                        });
+                      }else if(isTitleSubmit){
+                        setState(() {
+                          isTitleSubmit = false;
+                        });
+                      }else if(isAnswerSavedButtonPress){
+                        setState(() {
+                          isAnswerSavedButtonPress = false;
+                        });
+                      }else if(isAnswerSubmitRequest){
+                        setState(() {
+                          isAnswerSubmitRequest = false;
+                        });
+                      }else if(_answerController.text.trim().isNotEmpty){
+                       showConfirmDialog();
+                      }
+                      else{
+                        Navigator.pop(context);
+                      }
+                    },
                   ),
                 ),
                 AutoFilledDateWidget(),
