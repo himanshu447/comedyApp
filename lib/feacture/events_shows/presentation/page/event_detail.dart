@@ -40,41 +40,14 @@ class _EventDetailState extends State<EventDetail> {
 
   @override
   Widget build(BuildContext context) {
-    var currentDate = DateTime.now();
 
-    var tempstartDateFromApi = widget.eventShowModel.startTime.split(':');
-    var tempendDateFromApi = widget.eventShowModel.endTime.split(':');
-
-    var tempStart = DateFormat.Hms().format(DateTime(
-      currentDate.year,
-      currentDate.month,
-      currentDate.day,
-      int.parse(tempstartDateFromApi[0]),
-      int.parse(tempstartDateFromApi[1]),
-      int.parse(tempstartDateFromApi[2]),
-    ).toLocal());
-
-    var tempEnd = DateFormat.Hms().format(DateTime(
-      currentDate.year,
-      currentDate.month,
-      currentDate.day,
-      int.parse(tempendDateFromApi[0]),
-      int.parse(tempendDateFromApi[1]),
-      int.parse(tempendDateFromApi[2]),
-    ).toLocal());
-
-
-    print(tempStart);
-    print(tempEnd);
-
-    var startDateFromApi = tempStart.split(':');
-    var endDateFromApi = tempEnd.split(':');
-
+    var startDateFromApi = widget.eventShowModel.startTime.split(':');
+    var endDateFromApi = widget.eventShowModel.endTime.split(':');
 
     var startDate = DateTime(
       widget.eventShowModel.startDate.year,
       widget.eventShowModel.startDate.month,
-      widget.eventShowModel.startDate.weekday,
+      widget.eventShowModel.startDate.day,
       int.parse(startDateFromApi[0]),
       int.parse(startDateFromApi[1]),
       int.parse(startDateFromApi[2]),
@@ -83,14 +56,15 @@ class _EventDetailState extends State<EventDetail> {
     var endDate = DateTime(
       widget.eventShowModel.endDate.year,
       widget.eventShowModel.endDate.month,
-      widget.eventShowModel.endDate.weekday,
+      widget.eventShowModel.endDate.day,
       int.parse(endDateFromApi[0]),
       int.parse(endDateFromApi[1]),
       int.parse(endDateFromApi[2]),
     );
 
+
     String finalStartDate = DateFormat('MMM d AT H:mm a').format(startDate);
-    String finalEndDate = DateFormat('MMM d H:mm:ss a').format(endDate);
+    String finalEndDate = DateFormat('MMM d  AT H:mm a').format(endDate);
 
     return Scaffold(
       body: SingleChildScrollView(

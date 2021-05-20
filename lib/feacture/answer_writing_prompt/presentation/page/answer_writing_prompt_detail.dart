@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:comedy/common/general_widget.dart';
 import 'package:comedy/feacture/answer_writing_prompt/data/model/answer_write_prompt_model.dart';
 import 'package:comedy/feacture/answer_writing_prompt/presentation/bloc/answer_writing_prompt_bloc.dart';
@@ -317,7 +319,7 @@ class _AnswerWritingPromptDetailViewState
                   TextComponent(
                     title: AppString.level_of_completeness,
                     textStyle: StyleUtil.calenderHeaderTextStyle,
-                    margin: EdgeInsets.only(top: 12,left: 16),
+                    margin: EdgeInsets.only(top: 25,left: 16),
                     textAlign: TextAlign.left,
                   ),
 
@@ -326,13 +328,18 @@ class _AnswerWritingPromptDetailViewState
                     currentItem: levelOfCompleteness -1,
                     minValue: 1,
                     maxValue: 10,
-                    height: 65,
-                    circleRadius: 25,
+                    height: Platform.isAndroid ? 65 : 85,
+                    circleRadius: Platform.isAndroid ? 25 : 30,
                     onChanged: (val) {
                       levelOfCompleteness = val;
                     },
-                    activeItemBgColor: AppColor.primary_orange[100],
-                    activeTextStyle: StyleUtil.activeNumberTextStyleForDetail,
+                    activeItemBgColor: AppColor.primary_green[100],
+                    activeTextStyle: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.w600,
+                      fontFamily: 'SF Pro Display',
+                      color: AppColor.primary_green[500],
+                    ),
                     deActiveTextStyle: StyleUtil.inActiveNumberTextStyle,
                   ),
 
@@ -349,13 +356,18 @@ class _AnswerWritingPromptDetailViewState
                     currentItem: levelOfCompleteness -1,
                     minValue: 1,
                     maxValue: 10,
-                    height: 65,
-                    circleRadius: 25,
+                    height: Platform.isAndroid ? 65 : 85,
+                    circleRadius: Platform.isAndroid ? 25 : 30,
                     onChanged: (val) {
                       degreeOfSucking = val;
                     },
-                    activeItemBgColor: AppColor.primary_orange[100],
-                    activeTextStyle: StyleUtil.activeNumberTextStyleForDetail,
+                    activeItemBgColor: AppColor.primary_green[100],
+                    activeTextStyle: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.w600,
+                      fontFamily: 'SF Pro Display',
+                      color: AppColor.primary_green[500],
+                    ),
                     deActiveTextStyle: StyleUtil.inActiveNumberTextStyle,
                   )
               ],

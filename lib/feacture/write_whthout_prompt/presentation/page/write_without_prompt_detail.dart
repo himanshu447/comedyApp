@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:comedy/common/general_widget.dart';
 import 'package:comedy/feacture/write_whthout_prompt/data/model/write_without_prompt_model.dart';
 import 'package:comedy/feacture/write_whthout_prompt/presentation/bloc/write_without_prompt_bloc.dart';
@@ -318,7 +320,7 @@ class _WriteWithoutPromptDetailViewState
                   TextComponent(
                     title: AppString.level_of_completeness,
                     textStyle: StyleUtil.calenderHeaderTextStyle,
-                    margin: EdgeInsets.only(top: 12,left: 16),
+                    margin: EdgeInsets.only(top: 25,left: 16),
                     textAlign: TextAlign.left,
                   ),
 
@@ -327,8 +329,8 @@ class _WriteWithoutPromptDetailViewState
                     currentItem: levelOfCompleteness -1,
                     minValue: 1,
                     maxValue: 10,
-                    height: 65,
-                    circleRadius: 25,
+                    height: Platform.isAndroid ? 65 : 85,
+                    circleRadius: Platform.isAndroid ? 25 : 30,
                     onChanged: (val) {
                       levelOfCompleteness = val;
                     },
@@ -350,8 +352,8 @@ class _WriteWithoutPromptDetailViewState
                     currentItem: levelOfCompleteness -1,
                     minValue: 1,
                     maxValue: 10,
-                    height: 65,
-                    circleRadius: 25,
+                    height: Platform.isAndroid ? 65 : 85,
+                    circleRadius: Platform.isAndroid ? 25 : 30,
                     onChanged: (val) {
                       degreeOfSucking = val;
                     },

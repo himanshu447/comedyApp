@@ -37,9 +37,9 @@ class EventShowModel extends Equatable {
   factory EventShowModel.fromMap(Map<String, dynamic> json) => EventShowModel(
     name: json['name'] == null ? null : json["name"],
     about: json['about'] == null ? null : json["about"],
-    startDate: json['start_date'] == null ? null : DateTime.parse(json["start_date"]).toLocal(),
+    startDate: json['start_date'] == null ? null : DateTime.parse(json["start_date"]),
     startTime: json['start_time'] == null ? null : json["start_time"],
-    endDate: json['end_date'] == null ? null : DateTime.parse(json["end_date"]).toLocal(),
+    endDate: json['end_date'] == null ? null : DateTime.parse(json["end_date"]),
     endTime: json['end_time'] == null ? null : json["end_time"],
     timezone: json['timezone'] == null ? null : json["timezone"],
     eventLink: json['eventlink'] == null ? null : json["eventlink"],
