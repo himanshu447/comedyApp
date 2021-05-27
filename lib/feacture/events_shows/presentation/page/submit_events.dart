@@ -320,8 +320,20 @@ class _SubmitEventsState extends State<SubmitEvents> {
 
     if (image == null) {
       showSnackBar(msg: AppString.image_required);
-    } else if (_eventkey.currentState.validate()) {
+    }
+
+    else if (_eventkey.currentState.validate()) {
       try {
+
+        final bytes = File(image).readAsBytesSync().lengthInBytes;
+
+        final kb = bytes / 1024;
+        final mb = kb / 1024;
+
+        if(mb  > 10240){
+          showSnackBar(msg: AppString.image_size);
+          return;
+        }
 
         var tempStartDate = DateTime(
           startDate.year,

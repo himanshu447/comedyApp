@@ -88,6 +88,7 @@ class AppString {
   static const String start_time = 'Start time';
   static const String event_submitting = 'Your event is submitting....';
   static const String image_required = 'At least one Event image required.';
+  static const String image_size = 'Upload image less then 10MB';
 
 
   ///Write without prompt
