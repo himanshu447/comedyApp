@@ -191,6 +191,7 @@ class _MySavedViewState extends State<MySavedView> {
                           child: TextField(
                             controller: _searchController,
                             textInputAction: TextInputAction.search,
+                            autofocus: false,
                             decoration: InputDecoration(
                               filled: false,
                               contentPadding:
@@ -205,6 +206,7 @@ class _MySavedViewState extends State<MySavedView> {
                                     text: text,
                                   ),
                                 );
+                                setState(() {});
                               } else {
                                 _searchController.clear();
                               }
@@ -418,14 +420,24 @@ class _MySavedViewState extends State<MySavedView> {
           tagList: tagList,
           settingSeletedTagList: selectedTagList.isEmpty ? [] : selectedTagList,
           resultCallback: (List<String> list) {
+
+           /* if(list.length == 0) {
+              filterResult = null;
+              mySavedBloc.add(FilterListEvent(filters: Filters.aToz, tags: tags));
+              return;
+            }
+*/
             var filterLabel = list[0];
 
             List<String> tags = list.sublist(1);
             selectedTagList = tags;
-
-            if (filterLabel == AppString.title_a_to_z) {
-              mySavedBloc
-                  .add(FilterListEvent(filters: Filters.aToz, tags: tags));
+             if(filterLabel == 'Reset'){
+               mySavedBloc.add(FilterListEvent(filters: Filters.aToz, tags: tags));
+               filterResult = null;
+               return;
+             }
+            else if (filterLabel == AppString.title_a_to_z) {
+              mySavedBloc.add(FilterListEvent(filters: Filters.aToz, tags: tags));
             } else if (filterLabel == AppString.title_z_to_a) {
               mySavedBloc
                   .add(FilterListEvent(filters: Filters.zToA, tags: tags));
@@ -452,6 +464,7 @@ class _MySavedViewState extends State<MySavedView> {
               mySavedBloc.add(FilterListEvent(
                   filters: Filters.degreeHighestToLowest, tags: tags));
             }
+
             filterResult = list.length;
           },
         );

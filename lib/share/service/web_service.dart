@@ -92,13 +92,9 @@ class WebService {
       'start_date': eventShowModel.startDate != null
           ? eventShowModel.startDate.toString()
           : null,
-      'start_time':
-          eventShowModel.startTime != null ? eventShowModel.startTime : null,
       'end_date': eventShowModel.endDate != null
           ? eventShowModel.endDate.toString()
           : null,
-      'end_time':
-          eventShowModel.endTime != null ? eventShowModel.endTime : null,
       'timezone':
           eventShowModel.timezone != null ? eventShowModel.timezone : null,
       'eventlink':

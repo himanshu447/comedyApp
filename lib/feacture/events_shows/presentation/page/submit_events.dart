@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:comedy/common/general_widget.dart';
@@ -13,9 +14,9 @@ import 'package:comedy/utils/component/text_component.dart';
 import 'package:comedy/utils/string_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_native_image/flutter_native_image.dart';
 import 'package:flutter_native_timezone/flutter_native_timezone.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:intl/intl.dart';
 
 import '../../../../injector.dart';
 
@@ -315,25 +316,44 @@ class _SubmitEventsState extends State<SubmitEvents> {
         onTap: onTap);
   }
 
-  _submitData() {
+  _submitData() async {
+
     if (image == null) {
       showSnackBar(msg: AppString.image_required);
     } else if (_eventkey.currentState.validate()) {
       try {
+
+        var tempStartDate = DateTime(
+          startDate.year,
+          startDate.month,
+          startDate.day,
+          startTime.hour,
+          startTime.minute,
+          startTime.second,
+        ).toUtc();
+
+        var tempEndDate = DateTime(
+          endDate.year,
+          endDate.month,
+          endDate.day,
+          endTime.hour,
+          endTime.minute,
+          endTime.second,
+        ).toUtc();
+
+        var finalImage = await FlutterNativeImage.compressImage(image,percentage: 60);
 
         eventShowBloc.add(
           SubmitEventAndShowsEvent(
             eventShowModel: EventShowModel(
               name: eventNameController.text.trim(),
               about: aboutEventController.text.trim(),
-              startDate: startDate,
-              endDate: startDate,
+              startDate: tempStartDate,
+              endDate: tempEndDate,
               updatedAt: DateTime.now(),
               cost: eventCostController.text.trim(),
-              endTime: DateFormat.Hms().format(endTime),
-              startTime: DateFormat.Hms().format(startTime),
               eventLink: eventLinkController.text.trim(),
-              image: image,
+              image: finalImage.path,
               timezone: currentTimeZone.isNotEmpty ? currentTimeZone : DateTime.now().timeZoneName,
             ),
           ),

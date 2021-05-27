@@ -3,6 +3,7 @@ import 'package:comedy/feacture/events_shows/data/model/event_show_model.dart';
 import 'package:comedy/feacture/events_shows/presentation/widget/event_detail_widget.dart';
 import 'package:comedy/utils/color_util.dart';
 import 'package:comedy/utils/component/text_component.dart';
+import 'package:comedy/utils/helper/timer_helper.dart';
 import 'package:comedy/utils/icons_utils.dart';
 import 'package:comedy/utils/route/route_name.dart';
 import 'package:comedy/utils/string_util.dart';
@@ -41,30 +42,18 @@ class _EventDetailState extends State<EventDetail> {
   @override
   Widget build(BuildContext context) {
 
-    var startDateFromApi = widget.eventShowModel.startTime.split(':');
-    var endDateFromApi = widget.eventShowModel.endTime.split(':');
+    //2021-05-27 03:35:49.000 (9:05)
 
-    var startDate = DateTime(
-      widget.eventShowModel.startDate.year,
-      widget.eventShowModel.startDate.month,
-      widget.eventShowModel.startDate.day,
-      int.parse(startDateFromApi[0]),
-      int.parse(startDateFromApi[1]),
-      int.parse(startDateFromApi[2]),
-    );
+    //2021-05-27 04:35:51.000 (10)
 
-    var endDate = DateTime(
-      widget.eventShowModel.endDate.year,
-      widget.eventShowModel.endDate.month,
-      widget.eventShowModel.endDate.day,
-      int.parse(endDateFromApi[0]),
-      int.parse(endDateFromApi[1]),
-      int.parse(endDateFromApi[2]),
-    );
+    print(widget.eventShowModel.startDate);
+    print(widget.eventShowModel.endDate);
 
 
-    String finalStartDate = DateFormat('MMM d AT H:mm a').format(startDate);
-    String finalEndDate = DateFormat('MMM d  AT H:mm a').format(endDate);
+    var dateFormat = DateFormat("MMM d AT H:mm a");
+    String createdStartDate = dateFormat.format(widget.eventShowModel.startDate);
+    String createdEndDate = dateFormat.format(widget.eventShowModel.endDate);
+
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -78,11 +67,11 @@ class _EventDetailState extends State<EventDetail> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  eventScheduleDate('$finalStartDate - $finalEndDate'),
+                  eventScheduleDate('$createdStartDate - $createdEndDate'),
                   eventTitle(widget.eventShowModel.name),
                   verticalSpace(20),
                   descriptionTile(
-                      title: '\$${widget.eventShowModel.cost}',
+                      title: '${widget.eventShowModel.cost}',
                       iconName: AppIcons.ic_ticket),
                   verticalSpace(20),
                   GestureDetector(

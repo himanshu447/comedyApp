@@ -29,6 +29,8 @@ class ShortAndFilterBottomSheetWidget extends StatefulWidget {
 class _ShortAndFilterBottomSheetWidgetState extends State<ShortAndFilterBottomSheetWidget> {
   List<String> selectedTagList = [];
 
+  bool isReset = false;
+
   @override
   void initState() {
     super.initState();
@@ -84,6 +86,7 @@ class _ShortAndFilterBottomSheetWidgetState extends State<ShortAndFilterBottomSh
                         var temp = widget.tagList.map((e) => e.copyWith(isChecked: false)).toList();
                         widget.tagList.clear();
                         widget.tagList.addAll(temp);
+                        isReset = true;
                       });
                     },
                     child: TextComponent(
@@ -188,12 +191,20 @@ class _ShortAndFilterBottomSheetWidgetState extends State<ShortAndFilterBottomSh
                       padding: const EdgeInsets.symmetric(vertical: 20),
                       child: RawMaterialButton(
                         onPressed: () {
+                          /*if(isReset){
+                            widget.resultCallback([]);
+                            Navigator.pop(context);
+                            return;
+                          }*/
+
                           List<String> resultList = [];
                           var selectedFilter = widget.filterList.firstWhere(
                               (element) => element.isChecked,
                               orElse: () => null);
-                          if (selectedFilter != null) {
-                            resultList.add(selectedFilter.label);
+                          if (selectedFilter != null && !isReset) {
+                                resultList.add(selectedFilter.label);
+                          }else{
+                            resultList.add('Reset');
                           }
                           if (selectedTagList.isNotEmpty) {
                             resultList.addAll(selectedTagList);

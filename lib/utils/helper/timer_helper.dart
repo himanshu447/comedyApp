@@ -1,3 +1,5 @@
+import 'package:intl/intl.dart';
+
 class TimerHelper {
   static String formatHHMMSS(int seconds) {
     int hours = (seconds / 3600).truncate();
@@ -13,5 +15,11 @@ class TimerHelper {
     }
 
     return "$hoursStr:$minutesStr:$secondsStr";
+  }
+
+  static String utcToLocal({DateTime utcDate, DateFormat dateFormat}){
+    var utDate = dateFormat.format(utcDate);
+    var startLocalDate = dateFormat.parse(utDate, true).toLocal().toString();
+    return dateFormat.format(DateTime.parse(startLocalDate));
   }
 }

@@ -10,7 +10,6 @@ import 'package:comedy/utils/error/failure.dart';
 import 'package:comedy/utils/usecase/usecase.dart';
 import 'package:meta/meta.dart';
 import 'package:comedy/utils/extension.dart';
-
 part 'my_saved_event.dart';
 
 part 'my_saved_state.dart';
@@ -44,16 +43,29 @@ class MySavedBloc extends Bloc<MySavedEvent, MySavedState> {
 
       mySavedList.forEach((element) {
         if (element.title != null) {
-          if (element.title.contains(event.text.trim())) {
-            searchList.add(element);
-          }
-        } else if (element.answer != null) {
-          if (element.answer.contains(event.text.trim())) {
+          if (element.title.containsIgnoreCase(event.text.trim())) {
             searchList.add(element);
           }
         }
-      });
+        if (element.answer != null) {
+          if (element.answer.containsIgnoreCase(event.text.trim()) && !searchList.contains(element) ) {
+            searchList.add(element);
+          }
+        }
+        if(element.withoutPromptDescription != null){
+          if (element.withoutPromptDescription.containsIgnoreCase(event.text.trim()) && !searchList.contains(element)) {
+            searchList.add(element);
+          }
+        }
+        if(element.tags != null){
+          element.tags.forEach((singleTag) {
+            if (singleTag.containsIgnoreCase(event.text.trim()) && !searchList.contains(element)) {
+              searchList.add(element);
+            }
+          });
+        }
 
+      });
       print(searchList.length);
 
       yield LoadedMySavedState(

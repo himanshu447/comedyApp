@@ -40,10 +40,23 @@ class EventShowBloc extends Bloc<EventShowEvent, EventShowState> {
         },
         (success) async* {
           var currentDate = DateTime.now();
+          var startDate = DateTime;
+            print('DATA +++++++++++++++++++++++++>$currentDate');
+          success.forEach((element) {
+
+            print(element.startDate.compareTo(
+              DateTime(
+                currentDate.year,
+                currentDate.month,
+                currentDate.day,
+              ),
+            ));
+
+          });
 
           var todayEvents = success
               .where((element) =>
-                  element.startDate.compareTo(
+                  DateTime(element.startDate.year,element.startDate.month,element.startDate.day).compareTo(
                     DateTime(
                       currentDate.year,
                       currentDate.month,
@@ -57,8 +70,9 @@ class EventShowBloc extends Bloc<EventShowEvent, EventShowState> {
         },
       );
     }
+
     else if (event is SubmitEventAndShowsEvent) {
-      print('asdsadasd');
+
       yield SubmittingEventShowState(list: state.eventList);
 
       var result = await createEventUseCase(event.eventShowModel);
@@ -69,11 +83,11 @@ class EventShowBloc extends Bloc<EventShowEvent, EventShowState> {
           yield ErrorState(message: (failure as Error).errMessage);
         },
         (success) async* {
-          yield SubmittedEventShowState(
-              eventShowModel: success, list: state.eventList);
+          yield SubmittedEventShowState(eventShowModel: success, list: state.eventList);
         },
       );
     }
+
     else if (event is AddSubmittedEventInToListEvent) {
       var tempList = state.eventList;
 
@@ -81,13 +95,14 @@ class EventShowBloc extends Bloc<EventShowEvent, EventShowState> {
 
       yield LoadedAllEventsState(allList: tempList);
     }
+
     else if (event is ChangeDateForFilter) {
 
       print('-------------------->${event.newDate}');
 
       if(event.newDate != null){
         var todayEvents = state.eventList
-            .where((element) => element.startDate.compareTo(event.newDate) == 0)
+            .where((element) => DateTime(element.startDate.year,element.startDate.month,element.startDate.day).compareTo(event.newDate) == 0)
             .toList();
 
         yield LoadedAllEventsState(allList: state.eventList, dateWiseList: todayEvents);
