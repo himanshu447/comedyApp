@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:comedy/utils/color_util.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
@@ -11,6 +12,8 @@ class CustomRoundCornerImage extends StatelessWidget {
   final String image;
   final File fileImage;
   final String placeholder;
+  final BoxFit boxFit;
+
   double topRightCorner = 0.0,
       topLeftCorner = 0.0,
       bottomLeftCorner = 0.0,
@@ -25,7 +28,9 @@ class CustomRoundCornerImage extends StatelessWidget {
       this.topRightCorner,
       this.topLeftCorner,
       this.bottomLeftCorner,
-      this.bottomRightCorner});
+      this.bottomRightCorner,
+        this.boxFit = BoxFit.cover,
+      });
 
   @override
   Widget build(BuildContext context) {
@@ -40,10 +45,10 @@ class CustomRoundCornerImage extends StatelessWidget {
           bottomLeft: Radius.circular(bottomLeftCorner),
         ),
         child: CachedNetworkImage(
-          width: width,
+          width: double.infinity,
           height: height,
-          fit: BoxFit.cover,
           imageUrl: image,
+          fit: boxFit,
           placeholder: (context, url) => Container(
             child: Center(
               child: new CircularProgressIndicator(

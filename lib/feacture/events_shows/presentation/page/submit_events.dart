@@ -207,7 +207,7 @@ class _SubmitEventsState extends State<SubmitEvents> {
                             return null;
                           },
                           onTap: () {
-                            selectTime(context).then((date) {
+                            selectTime(context,selectedDateTime: startTime).then((date) {
                               print(date);
                               if (date != null)
                                 setState(() {
@@ -256,7 +256,7 @@ class _SubmitEventsState extends State<SubmitEvents> {
                             return null;
                           },
                           onTap: () {
-                            selectTime(context,startDateTime: startTime).then((date) {
+                            selectTime(context,startDateTime: startTime,selectedDateTime: endTime).then((date) {
                               print(date);
                               if (date != null)
                                 setState(() {
@@ -318,10 +318,32 @@ class _SubmitEventsState extends State<SubmitEvents> {
 
   _submitData() async {
 
+    var tempStartDate = DateTime(
+      startDate.year,
+      startDate.month,
+      startDate.day,
+      startTime.hour,
+      startTime.minute,
+      startTime.second,
+    );
+
+    var tempEndDate = DateTime(
+      endDate.year,
+      endDate.month,
+      endDate.day,
+      endTime.hour,
+      endTime.minute,
+      endTime.second,
+    );
+
+    print(tempStartDate.compareTo(tempEndDate));
+
     if (image == null) {
       showSnackBar(msg: AppString.image_required);
     }
-
+    else if(startTime.compareTo(endTime) >= 0 ){
+      showSnackBar(msg: 'Please Select proper start Date And End Date');
+    }
     else if (_eventkey.currentState.validate()) {
       try {
 
@@ -335,24 +357,6 @@ class _SubmitEventsState extends State<SubmitEvents> {
           return;
         }
 
-        var tempStartDate = DateTime(
-          startDate.year,
-          startDate.month,
-          startDate.day,
-          startTime.hour,
-          startTime.minute,
-          startTime.second,
-        ).toUtc();
-
-        var tempEndDate = DateTime(
-          endDate.year,
-          endDate.month,
-          endDate.day,
-          endTime.hour,
-          endTime.minute,
-          endTime.second,
-        ).toUtc();
-
         var finalImage = await FlutterNativeImage.compressImage(image,percentage: 60);
 
         eventShowBloc.add(
@@ -360,8 +364,8 @@ class _SubmitEventsState extends State<SubmitEvents> {
             eventShowModel: EventShowModel(
               name: eventNameController.text.trim(),
               about: aboutEventController.text.trim(),
-              startDate: tempStartDate,
-              endDate: tempEndDate,
+              startDate: tempStartDate.toUtc(),
+              endDate: tempEndDate.toUtc(),
               updatedAt: DateTime.now(),
               cost: eventCostController.text.trim(),
               eventLink: eventLinkController.text.trim(),

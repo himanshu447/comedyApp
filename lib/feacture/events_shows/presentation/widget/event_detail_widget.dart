@@ -17,6 +17,7 @@ Widget eventTopWidget({BuildContext context, String imageUrl}) {
         image: imageUrl,
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height / 3,
+        boxFit: BoxFit.fill,
       ),
       SafeArea(
         child: InkWell(

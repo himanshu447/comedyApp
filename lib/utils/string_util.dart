@@ -105,8 +105,7 @@ class AppString {
   static const String level_of_completeness = 'Level of completeness';
   static const String degree_of_not_sucking = 'Degree of not sucking';
   static const String saving_your_writing = 'Saving your writing..';
-  static const String delete_prompt_dialog_title =
-      'Are you sure you want to delete prompt?';
+  static const String delete_prompt_dialog_title = 'Are you sure you want to delete this writing?';
 
   ///about
   static const String submit_Prompt = 'Submit Prompt';

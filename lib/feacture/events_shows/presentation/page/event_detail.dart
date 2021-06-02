@@ -42,26 +42,16 @@ class _EventDetailState extends State<EventDetail> {
   @override
   Widget build(BuildContext context) {
 
-    //2021-05-27 03:35:49.000 (9:05)
-
-    //2021-05-27 04:35:51.000 (10)
-
-    print(widget.eventShowModel.startDate);
-    print(widget.eventShowModel.endDate);
-
-
     var dateFormat = DateFormat("MMM d AT H:mm a");
     String createdStartDate = dateFormat.format(widget.eventShowModel.startDate);
     String createdEndDate = dateFormat.format(widget.eventShowModel.endDate);
-
 
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            eventTopWidget(
-                context: context, imageUrl: widget.eventShowModel.image),
+            eventTopWidget(context: context, imageUrl: widget.eventShowModel.image),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 15),
               child: Column(
@@ -97,7 +87,7 @@ class _EventDetailState extends State<EventDetail> {
                   ),
                   verticalSpace(15),
                   TextComponent(
-                    title: widget.eventShowModel.about,
+                    title: widget.eventShowModel.about != null ? widget.eventShowModel.about : '',
                     fontSize: 17,
                     fontWeight: FontWeight.w400,
                   ),

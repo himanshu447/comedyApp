@@ -349,7 +349,7 @@ class _WriteWithoutPromptDetailViewState
 
                 if(isEditButtonPress)
                   HorizantalPicker(
-                    currentItem: levelOfCompleteness -1,
+                    currentItem: degreeOfSucking -1,
                     minValue: 1,
                     maxValue: 10,
                     height: Platform.isAndroid ? 65 : 85,

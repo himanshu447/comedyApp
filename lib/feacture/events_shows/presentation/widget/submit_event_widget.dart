@@ -171,7 +171,7 @@ Future<dynamic> selectDate({BuildContext context, DateTime startDate}) async {
   if (picked != null && picked != selectedDate) return selectedDate;*/
 }
 
-Future<dynamic> selectTime(BuildContext context, {DateTime startDateTime}) async {
+Future<dynamic> selectTime(BuildContext context, {DateTime startDateTime, DateTime selectedDateTime}) async {
   DateTime _selectedDate;
   DateTime selectedDate = DateTime.now();
 
@@ -217,15 +217,10 @@ Future<dynamic> selectTime(BuildContext context, {DateTime startDateTime}) async
                 child: Container(
                   color: AppColor.datePickerBackColor,
                   child: CupertinoDatePicker(
-                    initialDateTime: startDateTime == null ? DateTime.now() : startDateTime.add(Duration(hours: 1)),
+                    initialDateTime: startDateTime == null
+                        ?  selectedDateTime != null ? selectedDateTime : DateTime.now()
+                        : selectedDateTime != null ? selectedDateTime : startDateTime.add(Duration(hours: 1)),
                     maximumDate: DateTime.now().add(Duration(days: 90)),
-
-                    /*         initialDateTime: startDate ?? DateTime.now().add(Duration(hours: 1)),
-                    minimumDate: startDate ?? DateTime.now(),
-                    maximumDate: DateTime.now().add(Duration(days: 90)),
-                    use24hFormat: false,
-                    mode: CupertinoDatePickerMode.date,*/
-
                     onDateTimeChanged: (duration) {
                       tempPickedDate = duration;
                     },
@@ -238,13 +233,13 @@ Future<dynamic> selectTime(BuildContext context, {DateTime startDateTime}) async
             ],
           ),
         );
-      });
+      },
+  );
 
   if (pickedDate != null) {
     _selectedDate = pickedDate;
     print(_selectedDate.toString() + ' selected date');
     String selected = DateFormat.jm().format(_selectedDate);
-    print(selected);
     return [selected, _selectedDate];
   }
 /*  CupertinoDatePicker(

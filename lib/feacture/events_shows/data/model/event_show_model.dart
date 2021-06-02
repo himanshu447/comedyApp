@@ -34,7 +34,7 @@ class EventShowModel extends Equatable {
 
   factory EventShowModel.fromMap(Map<String, dynamic> json){
 
-    DateTime startLocalDate;
+   /* DateTime startLocalDate;
     DateTime endLocalDate;
 
     var dateFormat = DateFormat("dd-MM-yyyy hh:mm aa");
@@ -52,13 +52,13 @@ class EventShowModel extends Equatable {
 
     print('DATA================================>${startLocalDate}');
     print('DATA================================>${endLocalDate}');
-
+*/
 
     return EventShowModel(
       name: json['name'] == null ? null : json["name"],
       about: json['about'] == null ? null : json["about"],
-      startDate: startLocalDate,
-      endDate: endLocalDate,
+      startDate: json['start_date'] != null ? DateTime.parse(json['start_date']) : null,
+      endDate: json['end_date'] != null ? DateTime.parse(json['end_date']) : null ,
       timezone: json['timezone'] == null ? null : json["timezone"],
       eventLink: json['eventlink'] == null ? null : json["eventlink"],
       cost: json['cost'] == null ? null : json["cost"],
