@@ -42,7 +42,7 @@ class _EventDetailState extends State<EventDetail> {
   @override
   Widget build(BuildContext context) {
 
-    var dateFormat = DateFormat("MMM d AT H:mm a");
+    var dateFormat = DateFormat("MMM d AT h:mm a");
     String createdStartDate = dateFormat.format(widget.eventShowModel.startDate);
     String createdEndDate = dateFormat.format(widget.eventShowModel.endDate);
 

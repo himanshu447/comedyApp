@@ -12,25 +12,23 @@ class CustomRoundCornerImage extends StatelessWidget {
   final String image;
   final File fileImage;
   final String placeholder;
-  final BoxFit boxFit;
 
   double topRightCorner = 0.0,
       topLeftCorner = 0.0,
       bottomLeftCorner = 0.0,
       bottomRightCorner = 0.0;
 
-  CustomRoundCornerImage(
-      {this.height,
-      this.width,
-      this.image,
-      this.fileImage,
-      this.placeholder,
-      this.topRightCorner,
-      this.topLeftCorner,
-      this.bottomLeftCorner,
-      this.bottomRightCorner,
-        this.boxFit = BoxFit.cover,
-      });
+  CustomRoundCornerImage({
+    this.height,
+    this.width,
+    this.image,
+    this.fileImage,
+    this.placeholder,
+    this.topRightCorner,
+    this.topLeftCorner,
+    this.bottomLeftCorner,
+    this.bottomRightCorner,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -45,10 +43,8 @@ class CustomRoundCornerImage extends StatelessWidget {
           bottomLeft: Radius.circular(bottomLeftCorner),
         ),
         child: CachedNetworkImage(
-          width: double.infinity,
-          height: height,
           imageUrl: image,
-          fit: boxFit,
+          fit: BoxFit.none,
           placeholder: (context, url) => Container(
             child: Center(
               child: new CircularProgressIndicator(

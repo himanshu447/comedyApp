@@ -16,6 +16,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_image/flutter_native_image.dart';
 import 'package:flutter_native_timezone/flutter_native_timezone.dart';
+import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../../injector.dart';
@@ -124,10 +125,30 @@ class _SubmitEventsState extends State<SubmitEvents> {
                   children: [
                     InkWell(
                       onTap: () async {
-                        final pickedFile =
-                            await picker.getImage(source: ImageSource.gallery);
+                        final pickedFile = await picker.getImage(source: ImageSource.gallery);
+
+                        File croppedFile = await ImageCropper.cropImage(
+                            sourcePath: pickedFile.path,
+                            aspectRatioPresets: [
+                              CropAspectRatioPreset.square,
+                              CropAspectRatioPreset.ratio3x2,
+                              CropAspectRatioPreset.original,
+                              CropAspectRatioPreset.ratio4x3,
+                              CropAspectRatioPreset.ratio16x9
+                            ],
+                            androidUiSettings: AndroidUiSettings(
+                                toolbarTitle: 'Cropper',
+                                toolbarColor: Colors.deepOrange,
+                                toolbarWidgetColor: Colors.white,
+                                initAspectRatio: CropAspectRatioPreset.original,
+                                lockAspectRatio: false),
+                            iosUiSettings: IOSUiSettings(
+                              minimumAspectRatio: 1.0,
+                            )
+                        );
+
                         setState(() {
-                          image = pickedFile.path;
+                          image = croppedFile.path;
                         });
                       },
                       child: Container(
@@ -359,13 +380,15 @@ class _SubmitEventsState extends State<SubmitEvents> {
 
         var finalImage = await FlutterNativeImage.compressImage(image,percentage: 60);
 
+
+
         eventShowBloc.add(
           SubmitEventAndShowsEvent(
             eventShowModel: EventShowModel(
               name: eventNameController.text.trim(),
               about: aboutEventController.text.trim(),
-              startDate: tempStartDate.toUtc(),
-              endDate: tempEndDate.toUtc(),
+              startDate: tempStartDate,
+              endDate: tempEndDate,
               updatedAt: DateTime.now(),
               cost: eventCostController.text.trim(),
               eventLink: eventLinkController.text.trim(),

@@ -109,7 +109,7 @@ class EventShowBloc extends Bloc<EventShowEvent, EventShowState> {
       }
       else{
         var todayEvents = state.eventList
-            .where((element) => element.startDate.month == event.month)
+            .where((element) => element.startDate.month == event.month && element.startDate.isAfter(DateTime.now()))
             .toList();
 
         yield LoadedAllEventsState(allList: state.eventList, dateWiseList: todayEvents);

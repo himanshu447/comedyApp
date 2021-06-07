@@ -18,8 +18,8 @@ class MyEventListTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
-    String date =DateFormat('MMM d H:mm a').format(eventShowModel.startDate);
+    String date = DateFormat('MMM d h:mm a').format(eventShowModel.startDate);
+    //var date = DateFormat.jm().parse(temop).toString();
 
     return InkWell(
       onTap: onTap,
