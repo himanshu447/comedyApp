@@ -40,7 +40,7 @@ class EventShowBloc extends Bloc<EventShowEvent, EventShowState> {
         },
         (success) async* {
           var currentDate = DateTime.now();
-          var startDate = DateTime;
+
             print('DATA +++++++++++++++++++++++++>$currentDate');
           success.forEach((element) {
 
@@ -100,16 +100,19 @@ class EventShowBloc extends Bloc<EventShowEvent, EventShowState> {
 
       print('-------------------->${event.newDate}');
 
-      if(event.newDate != null){
+      if(event.isAllButtonPress){
+
         var todayEvents = state.eventList
-            .where((element) => DateTime(element.startDate.year,element.startDate.month,element.startDate.day).compareTo(event.newDate) == 0)
+                  .where((element) =>  element.startDate.isAfter(DateTime(event.newDate.year,event.newDate.month,event.newDate.day)))
             .toList();
 
+
+        todayEvents.sort((a,b) => a.startDate.compareTo(b.startDate));
+
         yield LoadedAllEventsState(allList: state.eventList, dateWiseList: todayEvents);
-      }
-      else{
+      }else{
         var todayEvents = state.eventList
-            .where((element) => element.startDate.month == event.month && element.startDate.isAfter(DateTime.now()))
+            .where((element) => DateTime(element.startDate.year,element.startDate.month,element.startDate.day).compareTo(event.newDate) == 0)
             .toList();
 
         yield LoadedAllEventsState(allList: state.eventList, dateWiseList: todayEvents);

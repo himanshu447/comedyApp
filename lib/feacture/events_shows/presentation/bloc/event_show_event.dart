@@ -23,10 +23,10 @@ class AddSubmittedEventInToListEvent extends EventShowEvent {
 
 class ChangeDateForFilter extends EventShowEvent {
   final DateTime newDate;
-  final int month;
+  final bool isAllButtonPress;
 
   ChangeDateForFilter({
     this.newDate,
-    this.month,
+    this.isAllButtonPress = false,
   });
 }

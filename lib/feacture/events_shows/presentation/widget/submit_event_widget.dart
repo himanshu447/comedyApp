@@ -171,9 +171,9 @@ Future<dynamic> selectDate({BuildContext context, DateTime startDate}) async {
   if (picked != null && picked != selectedDate) return selectedDate;*/
 }
 
-Future<dynamic> selectTime(BuildContext context, {DateTime startDateTime, DateTime selectedDateTime}) async {
-  DateTime _selectedDate;
-  DateTime selectedDate = DateTime.now();
+Future<dynamic> selectTime(BuildContext context, {DateTime startDateTime, DateTime alreadySelectedDate}) async {
+  DateTime _selectedDate  =  startDateTime == null ?  DateTime.now() : startDateTime.add(Duration(hours: 1));
+  String selected = DateFormat.jm().format(_selectedDate);
 
   var now = DateTime.now();
 
@@ -182,7 +182,6 @@ Future<dynamic> selectTime(BuildContext context, {DateTime startDateTime, DateTi
   DateTime pickedDate = await showModalBottomSheet<DateTime>(
       context: context,
       builder: (context) {
-        DateTime tempPickedDate;
         return Container(
           height: MediaQuery.of(context).size.height * 0.3,
           color: Colors.white,
@@ -194,17 +193,21 @@ Future<dynamic> selectTime(BuildContext context, {DateTime startDateTime, DateTi
                   children: <Widget>[
                     CupertinoButton(
                       child: Text('Done'),
-                      onPressed: () {
+                     onPressed: (){
+                       Navigator.of(context).pop();
+                     },
+                     /* onPressed: () {
+                        print('sdsadsadsadasd => ${tempPickedDate}');
                         if (tempPickedDate == null) {
                           if (startDateTime == null) {
-                            Navigator.of(context).pop(selectedDate);
+                            Navigator.of(context).pop();
                           } else {
-                            Navigator.of(context).pop(selectedDate.add(Duration(hours: 1)));
+                            Navigator.of(context).pop();
                           }
                         } else {
                           Navigator.of(context).pop(tempPickedDate);
                         }
-                      },
+                      },*/
                     ),
                   ],
                 ),
@@ -218,11 +221,13 @@ Future<dynamic> selectTime(BuildContext context, {DateTime startDateTime, DateTi
                   color: AppColor.datePickerBackColor,
                   child: CupertinoDatePicker(
                     initialDateTime: startDateTime == null
-                        ?  selectedDateTime != null ? selectedDateTime : DateTime.now()
-                        : selectedDateTime != null ? selectedDateTime : startDateTime.add(Duration(hours: 1)),
+                        ?  alreadySelectedDate != null ? alreadySelectedDate : DateTime.now()
+                        :  alreadySelectedDate != null ? alreadySelectedDate : startDateTime.add(Duration(hours: 1)),
                     maximumDate: DateTime.now().add(Duration(days: 90)),
                     onDateTimeChanged: (duration) {
-                      tempPickedDate = duration;
+                      _selectedDate = duration;
+                      print(_selectedDate.toString() + ' selected date');
+                      selected = DateFormat.jm().format(_selectedDate);
                     },
                     mode: CupertinoDatePickerMode.time,
                     minimumDate: startDateTime == null ? today : startDateTime.add(Duration(hours: 1)),
@@ -235,28 +240,6 @@ Future<dynamic> selectTime(BuildContext context, {DateTime startDateTime, DateTi
         );
       },
   );
-
-  if (pickedDate != null) {
-    _selectedDate = pickedDate;
-    print(_selectedDate.toString() + ' selected date');
-    String selected = DateFormat.jm().format(_selectedDate);
     return [selected, _selectedDate];
-  }
-/*  CupertinoDatePicker(
-    maximumYear: 2022,
-    use24hFormat: false,
-    minimumYear: DateTime.now().year,
-    mode: CupertinoDatePickerMode.date,
-    initialDateTime: selectedDate,
-    onDateTimeChanged: (datetime) {
-      if (datetime != null) {
-        return datetime;
-      }
-    },
-  );*/
-/*      context: context,
-      initialDate: selectedDate,
-      firstDate: DateTime(2015),
-      lastDate: DateTime(2101));
-  if (picked != null && picked != selectedDate) return selectedDate;*/
+
 }

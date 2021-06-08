@@ -4,8 +4,6 @@ import 'package:comedy/feacture/events_shows/presentation/bloc/event_show_bloc.d
 import 'package:comedy/feacture/events_shows/presentation/page/submit_events.dart';
 import 'package:comedy/feacture/events_shows/presentation/widget/event_list_tile_widget.dart';
 import 'package:comedy/feacture/events_shows/presentation/widget/event_widget.dart';
-import 'package:comedy/feacture/my_saved/presentation/widget/add_tag_bottom_sheet_widget.dart';
-import 'package:comedy/share/widget/add_widget.dart';
 import 'package:comedy/share/widget/sub_module_app_bar_widget.dart';
 import 'package:comedy/utils/calender/table_calendar.dart';
 import 'package:comedy/utils/color_util.dart';
@@ -128,8 +126,8 @@ class _EventsShowsState extends State<EventsShows> {
           ),
           EventCalender(
             calendarController: _calendarController,
-            onAllEventButtonTap: (int month){
-              eventShowBloc.add(ChangeDateForFilter(newDate: null ,month: month));
+            onAllEventButtonTap: (val){
+              eventShowBloc.add(ChangeDateForFilter(newDate: val , isAllButtonPress: true));
             },
             odDaySelected: (DateTime date) {
               eventShowBloc.add(

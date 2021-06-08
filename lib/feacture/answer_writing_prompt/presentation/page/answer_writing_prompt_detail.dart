@@ -378,10 +378,8 @@ class _AnswerWritingPromptDetailViewState
         //bottom Level And Degree
         if(!isEditButtonPress)
          LevelAndDegreeDetailWidget(
-          levelOfCompleteness:
-          widget.answerWritePromptModel.levelOfCompleteness,
-          degreeOfSucking:
-          widget.answerWritePromptModel.degreeOfNotSucking,
+          levelOfCompleteness:levelOfCompleteness,
+          degreeOfSucking: degreeOfSucking,
         ),
 
         isDataDeleting

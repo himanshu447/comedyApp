@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 class EventCalender extends StatefulWidget {
   final CalendarController calendarController;
   final Function odDaySelected;
-  final ValueSetter<int> onAllEventButtonTap;
+  final ValueSetter<DateTime> onAllEventButtonTap;
 
   const EventCalender({Key key, this.calendarController, this.odDaySelected,this.onAllEventButtonTap})
       : super(key: key);
@@ -20,7 +20,7 @@ class EventCalender extends StatefulWidget {
 class _EventCalenderState extends State<EventCalender> {
   bool isSelected;
 
-  int selectedMonth;
+  DateTime selectedDate;
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +60,7 @@ class _EventCalenderState extends State<EventCalender> {
                   titleTextStyle: StyleUtil.calenderHeaderTextStyle),
               builders: CalendarBuilders(
                 dayBuilder: (context, date, _) {
-                  selectedMonth = date.month;
+                  //selectedDate = date;
                   return Container(
                     decoration: BoxDecoration(
                       border: Border.all(color: AppColor.gry),
@@ -79,7 +79,7 @@ class _EventCalenderState extends State<EventCalender> {
                   );
                 },
                 selectedDayBuilder: (context, date, _) {
-                  selectedMonth = date.month;
+                  //selectedDate = date;
                   return Container(
                     decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(12),
@@ -97,7 +97,7 @@ class _EventCalenderState extends State<EventCalender> {
                   );
                 },
                 todayDayBuilder: (context, date, _) {
-                  selectedMonth = date.month;
+                  //selectedDate = date;
                   return isSelected
                       ? Container(
                           decoration: BoxDecoration(
@@ -132,22 +132,21 @@ class _EventCalenderState extends State<EventCalender> {
                         );
                 },
                 markersBuilder: (context, date, events, holidays) {
-                  selectedMonth = date.month;
 
                   final children = <Widget>[];
-
                   return children;
                 },
               ),
               onDaySelected: (date, events, holidays) {
                 _onDaySelected(date, events, holidays);
+                selectedDate = date;
                 widget.odDaySelected(date);
               },
               onVisibleDaysChanged: _onVisibleDaysChanged,
               onCalendarCreated: _onCalendarCreated,
             ),
             TextButton(
-              onPressed:  () => widget.onAllEventButtonTap(selectedMonth),
+              onPressed:  () => widget.onAllEventButtonTap(selectedDate),
               child: TextComponent(
                   title: 'All Events',
                   margin: EdgeInsets.symmetric(horizontal: 12),

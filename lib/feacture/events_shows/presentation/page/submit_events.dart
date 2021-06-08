@@ -1,6 +1,4 @@
 import 'dart:io';
-import 'dart:typed_data';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:comedy/common/general_widget.dart';
 import 'package:comedy/feacture/events_shows/data/model/event_show_model.dart';
@@ -228,7 +226,7 @@ class _SubmitEventsState extends State<SubmitEvents> {
                             return null;
                           },
                           onTap: () {
-                            selectTime(context,selectedDateTime: startTime).then((date) {
+                            selectTime(context,alreadySelectedDate: startTime).then((date) {
                               print(date);
                               if (date != null)
                                 setState(() {
@@ -277,7 +275,7 @@ class _SubmitEventsState extends State<SubmitEvents> {
                             return null;
                           },
                           onTap: () {
-                            selectTime(context,startDateTime: startTime,selectedDateTime: endTime).then((date) {
+                            selectTime(context,startDateTime: startTime,alreadySelectedDate: endTime).then((date) {
                               print(date);
                               if (date != null)
                                 setState(() {

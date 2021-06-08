@@ -3,7 +3,6 @@ import 'package:comedy/feacture/events_shows/data/model/event_show_model.dart';
 import 'package:comedy/feacture/events_shows/presentation/widget/event_detail_widget.dart';
 import 'package:comedy/utils/color_util.dart';
 import 'package:comedy/utils/component/text_component.dart';
-import 'package:comedy/utils/helper/timer_helper.dart';
 import 'package:comedy/utils/icons_utils.dart';
 import 'package:comedy/utils/route/route_name.dart';
 import 'package:comedy/utils/string_util.dart';
@@ -47,55 +46,57 @@ class _EventDetailState extends State<EventDetail> {
     String createdEndDate = dateFormat.format(widget.eventShowModel.endDate);
 
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            eventTopWidget(context: context, imageUrl: widget.eventShowModel.image),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  eventScheduleDate('$createdStartDate - $createdEndDate'),
-                  eventTitle(widget.eventShowModel.name),
-                  verticalSpace(20),
-                  descriptionTile(
-                      title: '${widget.eventShowModel.cost}',
-                      iconName: AppIcons.ic_ticket),
-                  verticalSpace(20),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pushNamed(context, RouteName.web_view,
-                          arguments: widget.eventShowModel.eventLink);
-                    },
-                    child: descriptionTile(
-                        title: widget.eventShowModel.eventLink,
-                        iconName: AppIcons.ic_web,
-                        textColor: AppColor.primary_blue[500]),
-                  ),
-                  verticalSpace(20),
-                  Divider(
-                    color: AppColor.verticalDividerColor,
-                    height: 2,
-                  ),
-                  verticalSpace(20),
-                  TextComponent(
-                    title: AppString.details,
-                    fontSize: 17,
-                    fontWeight: FontWeight.w600,
-                  ),
-                  verticalSpace(15),
-                  TextComponent(
-                    title: widget.eventShowModel.about != null ? widget.eventShowModel.about : '',
-                    fontSize: 17,
-                    fontWeight: FontWeight.w400,
-                  ),
-                  verticalSpace(15),
-                ],
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              eventTopWidget(context: context, imageUrl: widget.eventShowModel.image),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    eventScheduleDate('$createdStartDate - $createdEndDate'),
+                    eventTitle(widget.eventShowModel.name),
+                    verticalSpace(20),
+                    descriptionTile(
+                        title: '${widget.eventShowModel.cost}',
+                        iconName: AppIcons.ic_ticket),
+                    verticalSpace(20),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, RouteName.web_view,
+                            arguments: widget.eventShowModel.eventLink);
+                      },
+                      child: descriptionTile(
+                          title: widget.eventShowModel.eventLink,
+                          iconName: AppIcons.ic_web,
+                          textColor: AppColor.primary_blue[500]),
+                    ),
+                    verticalSpace(20),
+                    Divider(
+                      color: AppColor.verticalDividerColor,
+                      height: 2,
+                    ),
+                    verticalSpace(20),
+                    TextComponent(
+                      title: AppString.details,
+                      fontSize: 17,
+                      fontWeight: FontWeight.w600,
+                    ),
+                    verticalSpace(15),
+                    TextComponent(
+                      title: widget.eventShowModel.about != null ? widget.eventShowModel.about : '',
+                      fontSize: 17,
+                      fontWeight: FontWeight.w400,
+                    ),
+                    verticalSpace(15),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

@@ -44,7 +44,7 @@ class CustomRoundCornerImage extends StatelessWidget {
         ),
         child: CachedNetworkImage(
           imageUrl: image,
-          fit: BoxFit.none,
+
           placeholder: (context, url) => Container(
             child: Center(
               child: new CircularProgressIndicator(
