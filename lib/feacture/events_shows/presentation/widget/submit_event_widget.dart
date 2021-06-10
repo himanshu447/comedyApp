@@ -172,7 +172,10 @@ Future<dynamic> selectDate({BuildContext context, DateTime startDate}) async {
 }
 
 Future<dynamic> selectTime(BuildContext context, {DateTime startDateTime, DateTime alreadySelectedDate}) async {
-  DateTime _selectedDate  =  startDateTime == null ?  DateTime.now() : startDateTime.add(Duration(hours: 1));
+  DateTime _selectedDate  =  startDateTime == null
+      ? alreadySelectedDate != null ? alreadySelectedDate : DateTime.now()
+      : alreadySelectedDate != null ? alreadySelectedDate : startDateTime.add(Duration(hours: 1));
+
   String selected = DateFormat.jm().format(_selectedDate);
 
   var now = DateTime.now();

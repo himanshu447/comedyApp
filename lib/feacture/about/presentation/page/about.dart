@@ -9,6 +9,7 @@ import 'package:comedy/utils/string_util.dart';
 import 'package:comedy/utils/style_util.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info/package_info.dart';
+import 'package:share/share.dart';
 
 class AboutView extends StatefulWidget {
   final VoidCallback goToSubmitPromptTab;
@@ -47,7 +48,9 @@ class _AboutViewState extends State<AboutView> {
       AboutTileModel(
           label: AppString.share_app,
           leadIcon: AppIcons.ic_share,
-          onPress: () {}),
+          onPress: () {
+            Share.share('Live Google Application Link');
+          }),
     );
     filterList.add(
       AboutTileModel(

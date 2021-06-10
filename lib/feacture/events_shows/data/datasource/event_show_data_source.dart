@@ -4,6 +4,7 @@ import 'package:comedy/share/service/web_service.dart';
 import 'package:comedy/utils/constant_util.dart';
 import 'package:comedy/utils/enum_util.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_native_timezone/flutter_native_timezone.dart';
 
 abstract class EventShowDataSource {
   Future<EventShowModel> createEvent(EventShowModel eventShowModel);
@@ -44,13 +45,21 @@ class EventShowDataSourceImpl extends EventShowDataSource {
   @override
   Future<List<EventShowModel>> getEvents() async {
     try {
-      var result = await webService.requestGET(
+      var localTimeZone = await FlutterNativeTimezone.getLocalTimezone();
+
+      print('result========================>$localTimeZone');
+
+
+      var result = await webService.requestPUT(
         url: Services.getServices(
           EndPoint.GetEvents,
         ),
+        body: {
+          'timezone' : localTimeZone,
+        }
       );
 
-      print(result);
+      print('result========================>$result');
 
       if (result[ConstantUtil.result_success]) {
         print(result[ConstantUtil.result_success]);

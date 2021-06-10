@@ -20,7 +20,7 @@ class EventCalender extends StatefulWidget {
 class _EventCalenderState extends State<EventCalender> {
   bool isSelected;
 
-  DateTime selectedDate;
+  DateTime selectedDate = DateTime.now();
 
   @override
   Widget build(BuildContext context) {

@@ -43,7 +43,7 @@ class SplashView extends StatelessWidget {
               children: [
                 Image.asset(
                   AppIcons.ic_splash_icon,
-                  scale: 2.9,
+                  scale: 1.5,
                 ),
                 Container(
                   margin: EdgeInsets.only(top: 40),

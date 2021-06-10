@@ -12,6 +12,7 @@ class CustomRoundCornerImage extends StatelessWidget {
   final String image;
   final File fileImage;
   final String placeholder;
+  final BoxFit boxFit;
 
   double topRightCorner = 0.0,
       topLeftCorner = 0.0,
@@ -28,63 +29,36 @@ class CustomRoundCornerImage extends StatelessWidget {
     this.topLeftCorner,
     this.bottomLeftCorner,
     this.bottomRightCorner,
+    this.boxFit = BoxFit.cover,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: height,
-      width: width,
-      child: ClipRRect(
-        borderRadius: BorderRadius.only(
-          topLeft: Radius.circular(topLeftCorner),
-          topRight: Radius.circular(topRightCorner),
-          bottomRight: Radius.circular(bottomRightCorner),
-          bottomLeft: Radius.circular(bottomLeftCorner),
-        ),
-        child: CachedNetworkImage(
-          imageUrl: image,
-
-          placeholder: (context, url) => Container(
-            child: Center(
-              child: new CircularProgressIndicator(
-                valueColor: new AlwaysStoppedAnimation<Color>(
-                    AppColor.primary_blue[500]),
-              ),
+    return ClipRRect(
+      borderRadius: BorderRadius.only(
+        topLeft: Radius.circular(topLeftCorner),
+        topRight: Radius.circular(topRightCorner),
+        bottomRight: Radius.circular(bottomRightCorner),
+        bottomLeft: Radius.circular(bottomLeftCorner),
+      ),
+      child: CachedNetworkImage(
+        imageUrl: image,
+        fit: boxFit,
+        placeholder: (context, url) => Container(
+          child: Center(
+            child: new CircularProgressIndicator(
+              valueColor: new AlwaysStoppedAnimation<Color>(
+                  AppColor.primary_blue[500]),
             ),
           ),
-          errorWidget: (context, url, error) => Center(
-            child: new CircularProgressIndicator(
-              valueColor:
-                  new AlwaysStoppedAnimation<Color>(AppColor.primary_blue[500]),
-            ),
+        ),
+        errorWidget: (context, url, error) => Center(
+          child: new CircularProgressIndicator(
+            valueColor:
+                new AlwaysStoppedAnimation<Color>(AppColor.primary_blue[500]),
           ),
         ),
       ),
     );
   }
 }
-/*
-Container(
-            height: width,
-            width: height,
-            decoration: BoxDecoration(
-              /*  color: Color(0xFFdbdbdb),*/
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(topLeftCorner),
-                topRight: Radius.circular(topRightCorner),
-                bottomRight: Radius.circular(bottomRightCorner),
-                bottomLeft: Radius.circular(bottomLeftCorner),
-              ),
-              image: DecorationImage(
-                  fit: BoxFit.fill,
-                  image: fileImage == null
-                      ? AssetImage(('assets/$placeholder'))
-                      : FileImage(fileImage)),
-              /* new Image.asset('assets/test.jpg')*/
-            ),
-          ),
-        ),
-      ),
-    )
- */

@@ -14,6 +14,7 @@ class EventShowModel extends Equatable {
   final DateTime createdAt;
   final DateTime updatedAt;
   final int id;
+  final bool isExpire;
 
   EventShowModel({
     this.name,
@@ -27,6 +28,7 @@ class EventShowModel extends Equatable {
     this.updatedAt,
     this.createdAt,
     this.id,
+    this.isExpire,
   });
 
   @override
@@ -34,7 +36,7 @@ class EventShowModel extends Equatable {
 
   factory EventShowModel.fromMap(Map<String, dynamic> json){
 
-   /* DateTime startLocalDate;
+    DateTime startLocalDate;
     DateTime endLocalDate;
 
     var dateFormat = DateFormat("dd-MM-yyyy hh:mm aa");
@@ -52,13 +54,14 @@ class EventShowModel extends Equatable {
 
     print('DATA================================>${startLocalDate}');
     print('DATA================================>${endLocalDate}');
-*/
 
     return EventShowModel(
       name: json['name'] == null ? null : json["name"],
       about: json['about'] == null ? null : json["about"],
-      startDate: json['start_date'] != null ? DateTime.parse(json['start_date']) : null,
-      endDate: json['end_date'] != null ? DateTime.parse(json['end_date']) : null ,
+      startDate: startLocalDate,
+      endDate: endLocalDate,
+      /*startDate: json['start_date'] != null ? DateTime.parse(json['start_date']) : null,
+      endDate: json['end_date'] != null ? DateTime.parse(json['end_date']) : null ,*/
       timezone: json['timezone'] == null ? null : json["timezone"],
       eventLink: json['eventlink'] == null ? null : json["eventlink"],
       cost: json['cost'] == null ? null : json["cost"],
@@ -66,6 +69,7 @@ class EventShowModel extends Equatable {
       updatedAt: json['updatedAt'] == null ? null : DateTime.parse(json["updatedAt"]),
       createdAt: json['created_at'] == null ? null : DateTime.parse(json["created_at"]),
       id: json['id'] == null ? null : json["id"],
+      isExpire: json['is_expire'] == null ? false :  json['is_expire'] == 'true' ? true : false,
     );
   }
 

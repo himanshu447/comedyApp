@@ -8,15 +8,17 @@ import 'package:flutter/material.dart';
 Widget eventTopWidget({BuildContext context, String imageUrl}) {
   return Stack(
     children: [
-      CustomRoundCornerImage(
-        bottomLeftCorner: 0.0,
-        bottomRightCorner: 0.0,
-        topRightCorner: 0.0,
-        topLeftCorner: 0.0,
-        placeholder: 'images/trip.jpeg',
-        image: imageUrl,
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height / 3,
+      AspectRatio(
+        aspectRatio: 1,
+        child: CustomRoundCornerImage(
+          bottomLeftCorner: 0.0,
+          bottomRightCorner: 0.0,
+          topRightCorner: 0.0,
+          topLeftCorner: 0.0,
+          placeholder: 'images/trip.jpeg',
+          image: imageUrl,
+          boxFit: BoxFit.fitWidth,
+        ),
       ),
       SafeArea(
         child: InkWell(
