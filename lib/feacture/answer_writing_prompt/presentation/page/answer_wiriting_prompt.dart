@@ -61,7 +61,7 @@ class _AnswerWritingPromptViewState extends State<AnswerWritingPromptView> {
   void _startTimer() {
     const oneSec = const Duration(seconds: 1);
 
-    _timer = new Timer.periodic(
+    _timer = Timer.periodic(
       oneSec,
       (Timer timer) {
         if (_start == ConstantUtil.END_TIMER_VALUE) {
@@ -198,6 +198,7 @@ class _AnswerWritingPromptViewState extends State<AnswerWritingPromptView> {
                       }else if(isAnswerSubmitRequest){
                         setState(() {
                           isAnswerSubmitRequest = false;
+                          _startTimer();
                         });
                       }else if(_answerController.text.trim().isNotEmpty){
                        showConfirmDialog();
