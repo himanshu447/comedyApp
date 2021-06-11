@@ -16,6 +16,7 @@ import 'package:flutter_native_image/flutter_native_image.dart';
 import 'package:flutter_native_timezone/flutter_native_timezone.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 
 import '../../../../injector.dart';
 
@@ -29,10 +30,10 @@ class _SubmitEventsState extends State<SubmitEvents> {
   TextEditingController aboutEventController = TextEditingController();
   TextEditingController eventLinkController = TextEditingController();
   TextEditingController eventCostController = TextEditingController();
-  TextEditingController startTimeController = TextEditingController();
-  TextEditingController endTimeController = TextEditingController();
-  TextEditingController startDateController = TextEditingController();
-  TextEditingController endDateController = TextEditingController();
+  TextEditingController startTimeController;
+  TextEditingController endTimeController;
+  TextEditingController startDateController;
+  TextEditingController endDateController;
 
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
 
@@ -40,11 +41,11 @@ class _SubmitEventsState extends State<SubmitEvents> {
 
   EventShowBloc eventShowBloc;
 
-  DateTime startDate;
-  DateTime endDate;
-  DateTime startTime;
+  DateTime startDate = DateTime.now();
+  DateTime endDate = DateTime.now();
+  DateTime startTime = DateTime.now();
   DateTime endTime;
-
+  //DateFormat.jm().format(_selectedDate)
   final picker = ImagePicker();
   String image;
 
@@ -53,6 +54,17 @@ class _SubmitEventsState extends State<SubmitEvents> {
   @override
   void initState() {
     eventShowBloc = injector<EventShowBloc>();
+    endTime = startTime.add(Duration(hours: 1));
+    String defaultStart = dateFormat(dateTime: startDate, format: 'dd MMMM, yyyy');
+    String defaultEnd = dateFormat(dateTime: endDate, format: 'dd MMMM, yyyy');
+    String defaultEndTime = DateFormat.jm().format(endTime);
+    String defaultStartTime = DateFormat.jm().format(startTime);
+
+    startDateController = TextEditingController(text: defaultStart);
+    endDateController = TextEditingController(text: defaultEnd);
+    endDateController = TextEditingController(text: defaultEnd);
+    startTimeController = TextEditingController(text: defaultStartTime);
+    endTimeController = TextEditingController(text: defaultEndTime);
     super.initState();
     _fetchLocalTimeZone();
   }
