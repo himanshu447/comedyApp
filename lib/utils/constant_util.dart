@@ -15,9 +15,9 @@ class ConstantUtil {
 
   static String getBannerAdUnitId() {
     if (Platform.isIOS) {
-      return 'ca-app-pub-3940256099942544/2934735716';
+      return "ca-app-pub-8426276217641603/2914809231";
     } else if (Platform.isAndroid) {
-      return 'ca-app-pub-3940256099942544/6300978111';
+      return "ca-app-pub-8426276217641603/2723237547";
     }
     return null;
   }
