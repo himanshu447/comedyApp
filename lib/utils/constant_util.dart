@@ -17,7 +17,7 @@ class ConstantUtil {
     if (Platform.isIOS) {
       return "ca-app-pub-8426276217641603/2914809231";
     } else if (Platform.isAndroid) {
-      return "ca-app-pub-8426276217641603/2723237547";
+      return "ca-app-pub-8426276217641603/6662482552";
     }
     return null;
   }
