@@ -7,7 +7,7 @@ class ConstantUtil {
   static const String SERVER_ERROR = 'Server Error';
   static const String SOMETHING_WRONG = 'Server Error';
 
-  static const String result_success = 'success';
+  static const String result_success = 'success'; 
   static const String result_response = 'response';
 
   static const int START_TIMER_VALUE = 300;
