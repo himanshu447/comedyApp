@@ -1,4 +1,4 @@
-package com.comedy;
+package com.laughterdraft;
 
 import io.flutter.embedding.android.FlutterActivity;
 
