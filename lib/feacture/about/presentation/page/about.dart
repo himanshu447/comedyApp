@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:comedy/common/general_widget.dart';
 import 'package:comedy/feacture/about/data/model/about_tile_model.dart';
 import 'package:comedy/share/widget/top_app_bar_widget.dart';
@@ -10,6 +12,7 @@ import 'package:comedy/utils/style_util.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info/package_info.dart';
 import 'package:share/share.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AboutView extends StatefulWidget {
   final VoidCallback goToSubmitPromptTab;
@@ -49,14 +52,23 @@ class _AboutViewState extends State<AboutView> {
           label: AppString.share_app,
           leadIcon: AppIcons.ic_share,
           onPress: () {
-            Share.share('Live Google Application Link');
+            if(Platform.isIOS) {
+              Share.share('https://apps.apple.com/us/app/laughdraft-com/id1567140402');
+            }else if(Platform.isAndroid){
+              Share.share('https://play.google.com/store/apps/details?id=com.laughterdraft');
+            }
           }),
     );
     filterList.add(
       AboutTileModel(
         label: AppString.rate_us,
         leadIcon: AppIcons.ic_rate,
-        onPress: () {},
+        onPress: () async{
+          var url = 'https://play.google.com/store/apps/details?id=com.laughterdraft';
+
+          await canLaunch(url)
+              ? await launch(url) : throw 'Could not launch URL';
+        },
       ),
     );
     filterList.add(

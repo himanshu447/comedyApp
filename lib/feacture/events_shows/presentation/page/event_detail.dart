@@ -9,6 +9,7 @@ import 'package:comedy/utils/string_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_timezone/flutter_native_timezone.dart';
 import 'package:intl/intl.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class EventDetail extends StatefulWidget {
   final EventShowModel eventShowModel;
@@ -65,9 +66,18 @@ class _EventDetailState extends State<EventDetail> {
                         iconName: AppIcons.ic_ticket),
                     verticalSpace(20),
                     GestureDetector(
-                      onTap: () {
-                        Navigator.pushNamed(context, RouteName.web_view,
-                            arguments: widget.eventShowModel.eventLink);
+                      onTap: () async{
+                        String url;
+                        if(widget.eventShowModel.eventLink.contains('https://')){
+                          url = widget.eventShowModel.eventLink;
+                        }else{
+                          url = 'https://${widget.eventShowModel.eventLink}';
+                        }
+
+                        await canLaunch(url)
+                            ? await launch(url)
+                            : Navigator.pushNamed(context, RouteName.web_view, arguments: widget.eventShowModel.eventLink);
+                        //Navigator.pushNamed(context, RouteName.web_view, arguments: 'www.google.com');
                       },
                       child: descriptionTile(
                           title: widget.eventShowModel.eventLink,
