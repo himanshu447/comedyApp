@@ -10,7 +10,7 @@ import 'feacture/splash/splash.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await injector.init();
-  Admob.initialize();
+  Admob.initialize(testDeviceIds: []);
   runApp(ComedyApp());
 }
 

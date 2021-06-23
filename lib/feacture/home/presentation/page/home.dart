@@ -1,16 +1,14 @@
-import 'dart:math';
-
-import 'package:comedy/feacture/answer_writing_prompt/data/model/question_answer_model.dart';
+import 'package:admob_flutter/admob_flutter.dart';
 import 'package:comedy/feacture/answer_writing_prompt/presentation/bloc/answer_writing_prompt_bloc.dart';
 import 'package:comedy/feacture/home/presentation/widget/home_answer_writing_prompt_card.dart';
 import 'package:comedy/feacture/home/presentation/widget/home_event_card_widget.dart';
 import 'package:comedy/feacture/home/presentation/widget/home_write_without_prompt_card_widget.dart';
 import 'package:comedy/injector.dart';
 import 'package:comedy/share/widget/add_widget.dart';
-import 'package:comedy/share/widget/top_app_bar_widget.dart';
 import 'package:comedy/utils/color_util.dart';
 import 'package:comedy/utils/component/size_config.dart';
 import 'package:comedy/utils/component/text_component.dart';
+import 'package:comedy/utils/constant_util.dart';
 import 'package:comedy/utils/icons_utils.dart';
 import 'package:comedy/utils/route/route_name.dart';
 import 'package:comedy/utils/route/screen_argument_model/answer_writing_prompt_argument.dart';
@@ -30,11 +28,31 @@ class _HomeViewState extends State<HomeView> {
 
   final GlobalKey<ScaffoldState> _scKey = GlobalKey();
 
+  AdmobInterstitial interstitialAd;
+
+  int skipPromptNumber = 1;
+
   @override
   void initState() {
     super.initState();
     answerWritingPromptBloc = injector();
     answerWritingPromptBloc.add(LoadQuestionsEvent());
+
+    interstitialAd = AdmobInterstitial(
+      adUnitId: ConstantUtil.getInterstitialAdUnitId(),
+      listener: (AdmobAdEvent event, Map<String, dynamic> args) {
+        if (event == AdmobAdEvent.closed) interstitialAd.load();
+        //handleEvent(event, args, 'Interstitial');
+      },
+    );
+
+    interstitialAd.load();
+  }
+
+  @override
+  void dispose() {
+    interstitialAd.dispose();
+    super.dispose();
   }
 
   @override
@@ -220,9 +238,20 @@ class _HomeViewState extends State<HomeView> {
                                 ),
                                 Expanded(
                                   child: RawMaterialButton(
-                                    onPressed: () {
-                                      answerWritingPromptBloc
-                                          .add(ChangePromptEvent());
+                                    onPressed: () async {
+
+                                      answerWritingPromptBloc.add(ChangePromptEvent());
+                                      if(skipPromptNumber <= 2) {
+                                        skipPromptNumber = skipPromptNumber + 1;
+                                      }else{
+                                        if (await interstitialAd.isLoaded) {
+                                          print('IF');
+                                          interstitialAd.show();
+                                          skipPromptNumber = 0;
+                                        }else{
+                                          print('ELSE');
+                                        }
+                                      }
                                     },
                                     padding:
                                         EdgeInsets.symmetric(vertical: 16),

@@ -47,8 +47,10 @@ class ContactMeView extends StatelessWidget {
                   TextSpan(
                     text: 'www.laughdraft.com',
                     style: StyleUtil.calenderHeaderTextStyle.copyWith(color: Colors.blue),
-                    recognizer: TapGestureRecognizer()..onTap = () {
-                      Navigator.pushNamed(context, RouteName.web_view,arguments: 'www.laughdraft.com');
+                    recognizer: TapGestureRecognizer()..onTap = () async{
+                      await canLaunch('https://www.laughdraft.com')
+                          ? await launch('https://www.laughdraft.com')
+                          : Navigator.pushNamed(context, RouteName.web_view,arguments: 'www.laughdraft.com');
                     },
                   ),
 
