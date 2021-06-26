@@ -113,7 +113,7 @@ class _HomeViewState extends State<HomeView> {
           ),
           Container(),
           ShowAddWidget(
-            height: 40,
+            height: 0,
           ),
         ],
       ),
