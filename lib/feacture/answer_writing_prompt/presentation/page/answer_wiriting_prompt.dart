@@ -1,4 +1,5 @@
 import 'dart:async';
+
 import 'package:admob_flutter/admob_flutter.dart';
 import 'package:comedy/common/general_widget.dart';
 import 'package:comedy/feacture/answer_writing_prompt/data/model/answer_write_prompt_model.dart';
@@ -180,30 +181,29 @@ class _AnswerWritingPromptViewState extends State<AnswerWritingPromptView> {
                       img: AppIcons.ic_back,
                       width: 25.0,
                       height: 25.0,
-                      color:AppColor.black,
+                      color: AppColor.black,
                     ),
-                    onPressed: (){
-                      if(isTagSubmitted && isTitleSubmit){
+                    onPressed: () {
+                      if (isTagSubmitted && isTitleSubmit) {
                         setState(() {
                           isTagSubmitted = false;
                         });
-                      }else if(isTitleSubmit){
+                      } else if (isTitleSubmit) {
                         setState(() {
                           isTitleSubmit = false;
                         });
-                      }else if(isAnswerSavedButtonPress){
+                      } else if (isAnswerSavedButtonPress) {
                         setState(() {
                           isAnswerSavedButtonPress = false;
                         });
-                      }else if(isAnswerSubmitRequest){
+                      } else if (isAnswerSubmitRequest) {
                         setState(() {
                           isAnswerSubmitRequest = false;
                           _startTimer();
                         });
-                      }else if(_answerController.text.trim().isNotEmpty){
-                       showConfirmDialog();
-                      }
-                      else{
+                      } else if (_answerController.text.trim().isNotEmpty) {
+                        showConfirmDialog();
+                      } else {
                         Navigator.pop(context);
                       }
                     },
@@ -292,7 +292,7 @@ class _AnswerWritingPromptViewState extends State<AnswerWritingPromptView> {
                         textStyle:
                             StyleUtil.levelOfCompletenessTextStyle.copyWith(
                           color: AppColor.primary_green[500],
-                              fontSize: 20,
+                          fontSize: 20,
                         ),
                         margin: EdgeInsets.symmetric(
                           horizontal: 20,
@@ -374,7 +374,8 @@ class _AnswerWritingPromptViewState extends State<AnswerWritingPromptView> {
                           levelOfCompleteness = val;
                         },
                         activeItemBgColor: AppColor.primary_green[100],
-                        activeTextStyle: StyleUtil.activeNumberTextStyle.copyWith(color: AppColor.primary_green[500]),
+                        activeTextStyle: StyleUtil.activeNumberTextStyle
+                            .copyWith(color: AppColor.primary_green[500]),
                         deActiveTextStyle: StyleUtil.inActiveNumberTextStyle,
                       )
                     : Container(),
@@ -578,7 +579,6 @@ class _AnswerWritingPromptViewState extends State<AnswerWritingPromptView> {
         isTitleSubmit = true;
       });
     } else if (!isTagSubmitted && isTitleSubmit) {
-
       setState(() {
         isTagSubmitted = true;
       });
@@ -642,10 +642,10 @@ class _AnswerWritingPromptViewState extends State<AnswerWritingPromptView> {
     );
   }
 
-  showConfirmDialog(){
+  showConfirmDialog() {
     showDialog(
       context: context,
-      builder: (_) =>  AlertDialog(
+      builder: (_) => AlertDialog(
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
         backgroundColor: AppColor.white,
         contentPadding: EdgeInsets.zero,
@@ -678,7 +678,7 @@ class _AnswerWritingPromptViewState extends State<AnswerWritingPromptView> {
                   VerticalDivider(),
                   Expanded(
                     child: FlatButton(
-                      onPressed:(){
+                      onPressed: () {
                         Navigator.pop(context);
                         Navigator.pop(context);
                       },
@@ -697,5 +697,4 @@ class _AnswerWritingPromptViewState extends State<AnswerWritingPromptView> {
       ),
     );
   }
-
 }

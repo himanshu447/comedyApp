@@ -52,10 +52,12 @@ class _AboutViewState extends State<AboutView> {
           label: AppString.share_app,
           leadIcon: AppIcons.ic_share,
           onPress: () {
-            if(Platform.isIOS) {
-              Share.share('https://apps.apple.com/us/app/laughdraft-com/id1567140402');
-            }else if(Platform.isAndroid){
-              Share.share('https://play.google.com/store/apps/details?id=com.laughterdraft');
+            if (Platform.isIOS) {
+              Share.share(
+                  'https://apps.apple.com/us/app/laughdraft-com/id1567140402');
+            } else if (Platform.isAndroid) {
+              Share.share(
+                  'https://play.google.com/store/apps/details?id=com.laughterdraft');
             }
           }),
     );
@@ -63,17 +65,19 @@ class _AboutViewState extends State<AboutView> {
       AboutTileModel(
         label: AppString.rate_us,
         leadIcon: AppIcons.ic_rate,
-        onPress: () async{
+        onPress: () async {
           var url;
 
-          if(Platform.isAndroid){
-            url = 'https://play.google.com/store/apps/details?id=com.laughterdraft';
-          }else if(Platform.isIOS){
+          if (Platform.isAndroid) {
+            url =
+                'https://play.google.com/store/apps/details?id=com.laughterdraft';
+          } else if (Platform.isIOS) {
             url = 'https://apps.apple.com/us/app/laughdraft-com/id1567140402';
           }
 
           await canLaunch(url)
-              ? await launch(url) : throw 'Could not launch URL';
+              ? await launch(url)
+              : throw 'Could not launch URL';
         },
       ),
     );
