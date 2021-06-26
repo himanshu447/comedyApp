@@ -107,7 +107,7 @@ class _EventsShowsState extends State<EventsShows> {
                 //color: AppColor.gry,
                 child: AdmobBanner(
                   adUnitId: ConstantUtil.getBannerAdUnitId(),
-                  adSize: AdmobBannerSize.LARGE_BANNER,
+                  adSize: AdmobBannerSize.BANNER,
                   onBannerCreated:
                       (AdmobBannerController controller) {
                     // Dispose is called automatically for you when Flutter removes the banner from the widget tree.
