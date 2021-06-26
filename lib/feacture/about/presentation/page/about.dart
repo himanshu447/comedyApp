@@ -69,7 +69,7 @@ class _AboutViewState extends State<AboutView> {
           if(Platform.isAndroid){
             url = 'https://play.google.com/store/apps/details?id=com.laughterdraft';
           }else if(Platform.isIOS){
-            url = 'https://play.google.com/store/apps/details?id=com.laughterdraft';
+            url = 'https://apps.apple.com/us/app/laughdraft-com/id1567140402';
           }
 
           await canLaunch(url)
