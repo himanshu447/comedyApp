@@ -64,7 +64,13 @@ class _AboutViewState extends State<AboutView> {
         label: AppString.rate_us,
         leadIcon: AppIcons.ic_rate,
         onPress: () async{
-          var url = 'https://play.google.com/store/apps/details?id=com.laughterdraft';
+          var url;
+
+          if(Platform.isAndroid){
+            url = 'https://play.google.com/store/apps/details?id=com.laughterdraft';
+          }else if(Platform.isIOS){
+            url = 'https://play.google.com/store/apps/details?id=com.laughterdraft';
+          }
 
           await canLaunch(url)
               ? await launch(url) : throw 'Could not launch URL';
