@@ -1,5 +1,6 @@
 import 'package:admob_flutter/admob_flutter.dart';
 import 'package:comedy/feacture/answer_writing_prompt/presentation/bloc/answer_writing_prompt_bloc.dart';
+import 'package:comedy/feacture/home/presentation/widget/card_widget.dart';
 import 'package:comedy/feacture/home/presentation/widget/home_answer_writing_prompt_card.dart';
 import 'package:comedy/feacture/home/presentation/widget/home_event_card_widget.dart';
 import 'package:comedy/feacture/home/presentation/widget/home_write_without_prompt_card_widget.dart';
@@ -90,18 +91,35 @@ class _HomeViewState extends State<HomeView> {
                   SizedBox(
                     height: 40,
                   ),
-                  HomeAnswerWritingPromptCardWidget(
-                    cardClickCallback: () {
+
+                  HomeCardItem(
+                    title: AppString.answer_writing_prompts,
+                    subTitle: AppString.answer_writing_prompts_desc,
+                    icon: AppIcons.ic_home_answer_writing,
+                    cardColor: AppColor.primary_green[500],
+                    bgCardColor: AppColor.primary_green[400],
+                    cardClickCallback: (){
                       showAnswerWritingPromptSheet(this.context);
                     },
                   ),
-                  HomeWriteWithoutPromptCardWidget(
-                    cardClickCallback: () => Navigator.pushNamed(
-                      this.context,
-                      RouteName.write_without_prompt,
-                    ),
+
+                  HomeCardItem(
+                    title: AppString.write_without_prompts,
+                    subTitle: AppString.write_without_prompts_desc,
+                    icon: AppIcons.ic_home_wire_without_prompt,
+                    cardColor: AppColor.primary_orange[500],
+                    bgCardColor: AppColor.primary_orange[400],
+                    cardClickCallback: (){
+                      showAnswerWritingPromptSheet(this.context);
+                    },
                   ),
-                  HomeEventCardWidget(
+
+                  HomeCardItem(
+                    title: AppString.event_and_shows,
+                    subTitle: AppString.event_and_shows_desc,
+                    icon: AppIcons.ic_home_event,
+                    cardColor: AppColor.primary_pink[500],
+                    bgCardColor: AppColor.primary_pink[400],
                     cardClickCallback: () => Navigator.pushNamed(
                       this.context,
                       RouteName.event_show,
