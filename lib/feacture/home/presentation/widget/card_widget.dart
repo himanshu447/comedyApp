@@ -22,6 +22,9 @@ class HomeCardItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
+    print(MediaQuery.of(context).size.width);
+
     return GestureDetector(
       onTap: cardClickCallback,
       child: Container(
@@ -52,8 +55,9 @@ class HomeCardItem extends StatelessWidget {
                 children: [
                   TextComponent(
                     title: title,
-                    textStyle: StyleUtil.levelOfCompletenessTextStyle,
                     margin: EdgeInsets.symmetric(vertical: 10),
+                    textStyle: StyleUtil.levelOfCompletenessTextStyle,
+                    fontSize: 30,
                   ),
                   Expanded(
                     child: TextComponent(
@@ -61,9 +65,10 @@ class HomeCardItem extends StatelessWidget {
                       fontSize: 15,
                       fontWeight: FontWeight.w400,
                       color: Colors.black38,
-                      maxLine: MediaQuery.of(context).devicePixelRatio >= 1.6 ? 3 : 2,
+                      //maxLine: MediaQuery.of(context).devicePixelRatio >= 1.6 ? 3 : 2,
+                      maxLine: MediaQuery.of(context).size.width >= 300 ? 3 : 1,
                       textOverflow: TextOverflow.ellipsis,
-                      margin: EdgeInsets.only(bottom: 8),
+                      //margin: EdgeInsets.only(bottom: 8),
                     ),
                   ),
                 ],
