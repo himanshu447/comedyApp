@@ -1,3 +1,4 @@
+import 'package:comedy/utils/color_util.dart';
 import 'package:comedy/utils/component/text_component.dart';
 import 'package:comedy/utils/style_util.dart';
 import 'package:flutter/material.dart';
@@ -23,7 +24,7 @@ class HomeCardItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
 
-    print(MediaQuery.of(context).size.width);
+    print(MediaQuery.of(context).size.height);
 
     return GestureDetector(
       onTap: cardClickCallback,
@@ -55,20 +56,22 @@ class HomeCardItem extends StatelessWidget {
                 children: [
                   TextComponent(
                     title: title,
-                    margin: EdgeInsets.symmetric(vertical: 10),
-                    textStyle: StyleUtil.levelOfCompletenessTextStyle,
-                    fontSize: 30,
+                    margin: EdgeInsets.only(top: 10, bottom: 4),
+                    fontSize: 22,
+                    fontWeight: FontWeight.w600,
+                    fontFamily: 'SF Pro Display',
+                    color: AppColor.black,
+                    maxLine: 1,
+                    textOverflow: TextOverflow.ellipsis,
                   ),
-                  Expanded(
+                  Flexible(
                     child: TextComponent(
                       title: subTitle,
                       fontSize: 15,
                       fontWeight: FontWeight.w400,
                       color: Colors.black38,
-                      //maxLine: MediaQuery.of(context).devicePixelRatio >= 1.6 ? 3 : 2,
                       maxLine: MediaQuery.of(context).size.width >= 300 ? 3 : 1,
                       textOverflow: TextOverflow.ellipsis,
-                      //margin: EdgeInsets.only(bottom: 8),
                     ),
                   ),
                 ],

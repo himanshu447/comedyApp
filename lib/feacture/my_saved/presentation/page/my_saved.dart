@@ -149,7 +149,7 @@ class _MySavedViewState extends State<MySavedView> {
         children: [
           Container(
             width: double.infinity,
-            height: MediaQuery.of(context).size.width / 1.5,
+            height: MediaQuery.of(context).size.height / 3,
             padding: EdgeInsets.only(top: AppBar().preferredSize.height + 20),
             decoration: BoxDecoration(
               color: AppColor.primary_blue[500],

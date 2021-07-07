@@ -68,7 +68,7 @@ class _EventDetailState extends State<EventDetail> {
                     GestureDetector(
                       onTap: () async{
                         String url;
-                        if(widget.eventShowModel.eventLink.contains('https://')){
+                        if(widget.eventShowModel.eventLink.contains('https://')  || widget.eventShowModel.eventLink.contains('http://')){
                           url = widget.eventShowModel.eventLink;
                         }else{
                           url = 'https://${widget.eventShowModel.eventLink}';

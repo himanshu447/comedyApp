@@ -22,7 +22,7 @@ class TopAppBarWidget extends StatelessWidget {
 
     return Container(
       width: double.infinity,
-      height: MediaQuery.of(context).size.width /1.39,
+      height: MediaQuery.of(context).size.height /3,
       padding: EdgeInsets.only(top: height+20),
       decoration: BoxDecoration(
         color: AppColor.primary_blue[500],

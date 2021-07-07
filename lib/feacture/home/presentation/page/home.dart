@@ -66,7 +66,7 @@ class _HomeViewState extends State<HomeView> {
         children: [
           Container(
             width: double.infinity,
-            height: MediaQuery.of(context).size.width / 1.5,
+            height: MediaQuery.of(context).size.height / 3,
             padding: EdgeInsets.only(top: height + 20),
             decoration: BoxDecoration(
               color: AppColor.primary_blue[500],
@@ -78,10 +78,8 @@ class _HomeViewState extends State<HomeView> {
           ),
           Positioned.fill(
             bottom: 70,
+            top: 70,
             child: SingleChildScrollView(
-              padding: EdgeInsets.only(
-                top: SizeConfig.blockSizeVertical * 8,
-              ),
               child: Column(
                 children: [
                   TextComponent(
@@ -91,29 +89,29 @@ class _HomeViewState extends State<HomeView> {
                   SizedBox(
                     height: 40,
                   ),
-
                   HomeCardItem(
                     title: AppString.answer_writing_prompts,
                     subTitle: AppString.answer_writing_prompts_desc,
                     icon: AppIcons.ic_home_answer_writing,
                     cardColor: AppColor.primary_green[500],
                     bgCardColor: AppColor.primary_green[400],
-                    cardClickCallback: (){
+                    cardClickCallback: () {
                       showAnswerWritingPromptSheet(this.context);
                     },
                   ),
-
                   HomeCardItem(
                     title: AppString.write_without_prompts,
                     subTitle: AppString.write_without_prompts_desc,
                     icon: AppIcons.ic_home_wire_without_prompt,
                     cardColor: AppColor.primary_orange[500],
                     bgCardColor: AppColor.primary_orange[400],
-                    cardClickCallback: (){
-                      showAnswerWritingPromptSheet(this.context);
+                    cardClickCallback: () {
+                      Navigator.pushNamed(
+                        context,
+                        RouteName.write_without_prompt,
+                      );
                     },
                   ),
-
                   HomeCardItem(
                     title: AppString.event_and_shows,
                     subTitle: AppString.event_and_shows_desc,
@@ -194,8 +192,7 @@ class _HomeViewState extends State<HomeView> {
                       return Center(
                         child: CircularProgressIndicator(),
                       );
-                    }
-                    else if (state is LoadedQuestionsState) {
+                    } else if (state is LoadedQuestionsState) {
                       return Column(
                         children: [
                           TextComponent(
@@ -221,13 +218,11 @@ class _HomeViewState extends State<HomeView> {
                           Padding(
                             padding: EdgeInsets.all(17.0),
                             child: Row(
-                              mainAxisAlignment:
-                                  MainAxisAlignment.spaceAround,
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
                               children: [
                                 Expanded(
                                   child: RawMaterialButton(
-                                    onPressed: () =>
-                                        Navigator.popAndPushNamed(
+                                    onPressed: () => Navigator.popAndPushNamed(
                                       context,
                                       RouteName.answer_writing_prompt,
                                       arguments:
@@ -238,16 +233,14 @@ class _HomeViewState extends State<HomeView> {
                                             answerWritingPromptBloc,
                                       ),
                                     ),
-                                    padding:
-                                        EdgeInsets.symmetric(vertical: 16),
+                                    padding: EdgeInsets.symmetric(vertical: 16),
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(15),
                                     ),
                                     fillColor: AppColor.primary_green[500],
                                     child: TextComponent(
                                       title: AppString.start_writing,
-                                      textStyle:
-                                          StyleUtil.nextButtonTextStyle,
+                                      textStyle: StyleUtil.nextButtonTextStyle,
                                     ),
                                   ),
                                 ),
@@ -257,30 +250,28 @@ class _HomeViewState extends State<HomeView> {
                                 Expanded(
                                   child: RawMaterialButton(
                                     onPressed: () async {
-
-                                      answerWritingPromptBloc.add(ChangePromptEvent());
-                                      if(skipPromptNumber <= 2) {
+                                      answerWritingPromptBloc
+                                          .add(ChangePromptEvent());
+                                      if (skipPromptNumber <= 2) {
                                         skipPromptNumber = skipPromptNumber + 1;
-                                      }else{
+                                      } else {
                                         if (await interstitialAd.isLoaded) {
                                           print('IF');
                                           interstitialAd.show();
                                           skipPromptNumber = 0;
-                                        }else{
+                                        } else {
                                           print('ELSE');
                                         }
                                       }
                                     },
-                                    padding:
-                                        EdgeInsets.symmetric(vertical: 16),
+                                    padding: EdgeInsets.symmetric(vertical: 16),
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(15),
                                     ),
                                     fillColor: AppColor.primary_green[500],
                                     child: TextComponent(
                                       title: AppString.new_prompt,
-                                      textStyle:
-                                          StyleUtil.nextButtonTextStyle,
+                                      textStyle: StyleUtil.nextButtonTextStyle,
                                     ),
                                   ),
                                 ),
@@ -289,8 +280,7 @@ class _HomeViewState extends State<HomeView> {
                           ),
                         ],
                       );
-                    }
-                    else {
+                    } else {
                       return Container();
                     }
                   },

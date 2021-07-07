@@ -3,6 +3,7 @@ import 'package:comedy/feacture/submit_prompt/presentation/bloc/submit_prompt_bl
 import 'package:comedy/injector.dart';
 import 'package:comedy/share/widget/top_app_bar_widget.dart';
 import 'package:comedy/utils/color_util.dart';
+import 'package:comedy/utils/component/size_config.dart';
 import 'package:comedy/utils/component/text_component.dart';
 import 'package:comedy/utils/constant_util.dart';
 import 'package:comedy/utils/icons_utils.dart';
@@ -100,9 +101,9 @@ class _SubmitPromptWidgetState extends State<SubmitPromptWidget> {
                     fontWeight: FontWeight.w600,
                     color: AppColor.white,
                     textAlign: TextAlign.center,
-                    maxLine: 4,
+                    maxLine: SizeConfig.screenHeight > 500 ? 4 : 3,
                     textOverflow: TextOverflow.ellipsis,
-                    margin: EdgeInsets.only(top: 50, right: 20, left: 20),
+                    margin: EdgeInsets.only(top: SizeConfig.blockSizeVertical * 4, right: 20, left: 20),
                   ),
                 ),
                 Padding(
