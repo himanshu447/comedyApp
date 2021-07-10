@@ -15,7 +15,18 @@ class ConstantUtil {
 
   static String getBannerAdUnitId() {
     if (Platform.isIOS) {
-      return "ca-app-pub-8426276217641603/2909211435";
+      //return "ca-app-pub-8426276217641603/2909211435";
+      return "ca-app-pub-8426276217641603/2378646243";
+    } else if (Platform.isAndroid) {
+      return "ca-app-pub-8426276217641603/2008442749";
+    }
+    return null;
+  }
+
+  static String getSecondBannerAdUnitId() {
+    if (Platform.isIOS) {
+      //return "ca-app-pub-8426276217641603/2909211435";
+      return "ca-app-pub-8426276217641603/1344766172";
     } else if (Platform.isAndroid) {
       return "ca-app-pub-8426276217641603/2008442749";
     }
@@ -24,7 +35,8 @@ class ConstantUtil {
 
    static String getInterstitialAdUnitId() {
     if (Platform.isIOS) {
-      return 'ca-app-pub-8426276217641603/1404558073';
+      //return 'ca-app-pub-8426276217641603/1404558073';
+      return 'ca-app-pub-8426276217641603/3436221823';
     } else if (Platform.isAndroid) {
       return 'ca-app-pub-8426276217641603/7557041068';
     }

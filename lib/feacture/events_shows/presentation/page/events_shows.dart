@@ -106,7 +106,7 @@ class _EventsShowsState extends State<EventsShows> {
                 height: 50,
                 //color: AppColor.gry,
                 child: AdmobBanner(
-                  adUnitId: ConstantUtil.getBannerAdUnitId(),
+                  adUnitId: ConstantUtil.getSecondBannerAdUnitId(),
                   adSize: AdmobBannerSize.BANNER,
                   onBannerCreated:
                       (AdmobBannerController controller) {
