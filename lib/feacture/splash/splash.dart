@@ -10,7 +10,7 @@ class SplashView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    _navigateToNextScreen(context);
+    //_navigateToNextScreen(context);
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -21,6 +21,7 @@ class SplashView extends StatelessWidget {
       ),
       body: SafeArea(
         child: Stack(
+          overflow: Overflow.visible,
           alignment: Alignment.center,
           fit: StackFit.expand,
           children: [
@@ -55,6 +56,9 @@ class SplashView extends StatelessWidget {
                       // controller.dispose();
                     },
                   ),
+                ),
+                SizedBox(
+                  height: 20,
                 )
               ],
             ),
