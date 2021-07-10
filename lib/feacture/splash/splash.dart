@@ -10,7 +10,7 @@ class SplashView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //_navigateToNextScreen(context);
+    _navigateToNextScreen(context);
 
     return Scaffold(
       backgroundColor: Colors.white,
