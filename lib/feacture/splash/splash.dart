@@ -6,12 +6,11 @@ import 'package:comedy/utils/route/route_name.dart';
 import 'package:flutter/material.dart';
 
 class SplashView extends StatelessWidget {
-
   final AdmobBannerSize bannerSize = AdmobBannerSize.MEDIUM_RECTANGLE;
 
   @override
   Widget build(BuildContext context) {
-   //_navigateToNextScreen(context);
+    _navigateToNextScreen(context);
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -44,8 +43,8 @@ class SplashView extends StatelessWidget {
                   scale: 1.6,
                 ),
                 Container(
-                //  margin: EdgeInsets.only(top: 40),
-                 /* height: 250,
+                  //  margin: EdgeInsets.only(top: 40),
+                  /* height: 250,
                   width: 300,*/
                   //color: AppColor.gry,
                   child: AdmobBanner(
