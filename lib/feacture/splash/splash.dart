@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:admob_flutter/admob_flutter.dart';
 import 'package:comedy/utils/color_util.dart';
 import 'package:comedy/utils/constant_util.dart';
@@ -13,7 +11,7 @@ class SplashView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-   _navigateToNextScreen(context);
+   //_navigateToNextScreen(context);
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -43,7 +41,7 @@ class SplashView extends StatelessWidget {
               children: [
                 Image.asset(
                   AppIcons.ic_splash_icon,
-                  scale: 1.5,
+                  scale: 1.6,
                 ),
                 Container(
                 //  margin: EdgeInsets.only(top: 40),
