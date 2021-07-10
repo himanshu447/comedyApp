@@ -38,15 +38,13 @@ class SplashView extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.asset(
-                  AppIcons.ic_splash_icon,
-                  scale: 1.6,
+                Expanded(
+                  child: Image.asset(
+                    AppIcons.ic_splash_icon,
+                    scale: 1.6,
+                  ),
                 ),
-                Container(
-                  //  margin: EdgeInsets.only(top: 40),
-                  /* height: 250,
-                  width: 300,*/
-                  //color: AppColor.gry,
+                Expanded(
                   child: AdmobBanner(
                     adSize: bannerSize,
                     adUnitId: ConstantUtil.getBannerAdUnitId(),
