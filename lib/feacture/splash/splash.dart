@@ -13,7 +13,7 @@ class SplashView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    _navigateToNextScreen(context);
+   _navigateToNextScreen(context);
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -46,15 +46,14 @@ class SplashView extends StatelessWidget {
                   scale: 1.5,
                 ),
                 Container(
-                  margin: EdgeInsets.only(top: 40),
-                  height: 250,
-                  width: 300,
+                //  margin: EdgeInsets.only(top: 40),
+                 /* height: 250,
+                  width: 300,*/
                   //color: AppColor.gry,
                   child: AdmobBanner(
                     adSize: bannerSize,
                     adUnitId: ConstantUtil.getBannerAdUnitId(),
-                    onBannerCreated:
-                        (AdmobBannerController controller) {
+                    onBannerCreated: (AdmobBannerController controller) {
                       // Dispose is called automatically for you when Flutter removes the banner from the widget tree.
                       // Normally you don't need to worry about disposing this yourself, it's handled.
                       // If you need direct access to dispose, this is your guy!
