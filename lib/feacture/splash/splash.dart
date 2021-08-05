@@ -35,6 +35,7 @@ class SplashView extends StatelessWidget {
               ),
             ),
 
+
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
